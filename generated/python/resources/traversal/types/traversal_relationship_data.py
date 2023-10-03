@@ -6,14 +6,12 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.entity_details import EntityDetails
-from .traversal_relationship_data import TraversalRelationshipData
+from ...shared_types.types.relationship_info import RelationshipInfo
 
 
-class TraversalPath(pydantic.BaseModel):
-    field: str
-    entity: EntityDetails
-    relationships: typing.Dict[str, TraversalRelationshipData]
+class TraversalRelationshipData(pydantic.BaseModel):
+    values: typing.List[RelationshipInfo]
+    last_observed: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

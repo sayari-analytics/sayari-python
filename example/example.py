@@ -17,71 +17,57 @@ client = Connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
 # list sources
 sources = client.source.list_sources()
-print("Found ", len(sources.data), " sources")
+print("Found", len(sources.data), "sources")
 
 # get the first source
 firstSource = client.source.get_source(sources.data[0].id)
-print("First source is: ",firstSource.label)
+print("First source is:", firstSource.label)
 
 # search for an entity
 search_term = "Slickdeals"
 entitySearchResults = client.search.search_entity(q=search_term)
-print("Found ", len(entitySearchResults.data), " entity results for ", search_term)
+print("Found", len(entitySearchResults.data), "entity results for ", search_term)
 
 firstEntityResult = entitySearchResults.data[0].id
 
 # get entity summary
 entitySummary = client.entity.entity_summary(firstEntityResult)
-print("Has address: ", entitySummary.addresses[0])
+print("Has address:", entitySummary.addresses[0])
 
 # get the full entity
 entityDetails = client.entity.get_entity(firstEntityResult)
-print("Is referenced by ", len(entityDetails.referenced_by.data), " sources")
+print("Is referenced by", len(entityDetails.referenced_by.data), "sources")
 
 # resolve
 resolution = client.resolution.resolution(name=search_term)
-print("Resolved to ", len(resolution.data), " entities")
+print("Resolved to", len(resolution.data), "entities")
 
 # search for record
 recordSearch = client.search.search_record(q=search_term)
-print("Found ", len(recordSearch.data), "records.")
+print("Found", len(recordSearch.data), "records.")
 
 # get record
 record = client.record.get_record(urllib.parse.quote(recordSearch.data[0].id, safe=''))
-print("Found record: ", record.label)
+print("Found record:", record.label)
 
 # do traversal
 traversal = client.traversal.traversal(firstEntityResult)
-print(traversal)
+print("Did traversal of entity", firstEntityResult, "Found", len(traversal.data), "related things.")
 
+# do UBO traversal
+ubo = client.traversal.ubo(firstEntityResult)
+print("Found", len(ubo.data), "beneficial owners")
+
+# ownership
+downstream = client.traversal.ownership(ubo.data[0].target.id)
+print("Found ", len(downstream.data), "downstream things owned by the first UBO of", search_term)
+
+# Fetch an entity likely to be associated with watch lists
+putinResult = client.search.search_entity(q="putin")
+# Check watchlist
+watchlist = client.traversal.watchlist(putinResult.data[0].id)
+print(watchlist)
 """
-// Do traversal
-traversal, err := client.Traversal.Traversal(context.Background(), firstEntityResult, &sayari.Traversal{})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(traversal)
-log.Printf("Did traversal of entity %v. Found %v related things.", firstEntityResult, len(traversal.Data))
-
-// Do UBO traversal
-ubo, err := client.Traversal.Ubo(context.Background(), firstEntityResult)
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(ubo)
-log.Printf("Found %v beneficial owners.", len(ubo.Data))
-
-// Ownership
-downstream, err := client.Traversal.Ownership(context.Background(), ubo.Data[0].Target.Id)
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(downstream)
-log.Printf("Found %v downstream things owned by the first UBO of %v.", len(downstream.Data), searchTerm)
-
 // Fetch an entity likely to be associated with watch lists
 putinResult, err := client.Search.SearchEntity(context.Background(), &sayari.SearchEntity{Q: "putin"})
 if err != nil {

@@ -36,7 +36,14 @@ from .shared_types import (
     Status,
 )
 from .source import Source, SourceId, SourceList
-from .traversal import ShortestPathData, ShortestPathResponse, TraversalData, TraversalPath, TraversalResponse
+from .traversal import (
+    ShortestPathData,
+    ShortestPathResponse,
+    TraversalData,
+    TraversalPath,
+    TraversalRelationshipData,
+    TraversalResponse,
+)
 
 __all__ = [
     "AccessToken",
@@ -83,6 +90,7 @@ __all__ = [
     "Status",
     "TraversalData",
     "TraversalPath",
+    "TraversalRelationshipData",
     "TraversalResponse",
     "Unauthorized",
     "auth",
