@@ -14,7 +14,7 @@ class RelationshipInfo(pydantic.BaseModel):
     attributes: typing.Dict[str, typing.List[RelationshipAttributeValue]]
     from_date: typing.Optional[str]
     acquisition_date: str
-    publication_date: str
+    publication_date: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

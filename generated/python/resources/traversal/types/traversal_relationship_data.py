@@ -11,7 +11,7 @@ from ...shared_types.types.relationship_info import RelationshipInfo
 
 class TraversalRelationshipData(pydantic.BaseModel):
     values: typing.List[RelationshipInfo]
-    last_observed: str
+    last_observed: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

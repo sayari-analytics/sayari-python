@@ -60,34 +60,14 @@ print("Found", len(ubo.data), "beneficial owners")
 
 # ownership
 downstream = client.traversal.ownership(ubo.data[0].target.id)
-print("Found ", len(downstream.data), "downstream things owned by the first UBO of", search_term)
+print("Found", len(downstream.data), "downstream things owned by the first UBO of", search_term)
 
 # Fetch an entity likely to be associated with watch lists
 putinResult = client.search.search_entity(q="putin")
 # Check watchlist
 watchlist = client.traversal.watchlist(putinResult.data[0].id)
-print(watchlist)
-"""
-// Fetch an entity likely to be associated with watch lists
-putinResult, err := client.Search.SearchEntity(context.Background(), &sayari.SearchEntity{Q: "putin"})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// Check watchlist
-watchlist, err := client.Traversal.Watchlist(context.Background(), putinResult.Data[0].Id)
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(watchlist)
-log.Printf("Found %v watchlist resulsts for entity %v.", len(watchlist.Data), putinResult.Data[0].Id)
+print("Found", len(watchlist.data), "watchlist results for entity", putinResult.data[0].id)
 
-// Shortest Path
-shortestPath, err := client.Traversal.ShortestPath(context.Background(), &sayari.ShortestPath{Entities: []string{firstEntityResult, ubo.Data[0].Target.Id}})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(shortestPath)
-log.Printf("Found path with %v hops", len(shortestPath.Data[0].Path))
-"""
+# shortest path
+shortestPath = client.traversal.shortest_path(entities=[firstEntityResult, ubo.data[0].target.id])
+print("Found path with", len(shortestPath.data[0].path), "hops")
