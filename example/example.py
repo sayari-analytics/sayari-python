@@ -51,6 +51,8 @@ record = client.record.get_record(urllib.parse.quote(recordSearch.data[0].id, sa
 print("Found record: ", record.label)
 
 # do traversal
+traversal = client.traversal.traversal(firstEntityResult)
+print(traversal)
 
 """
 // Do traversal
