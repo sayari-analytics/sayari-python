@@ -17,7 +17,7 @@ class ResolutionResult(pydantic.BaseModel):
     label: str
     type: EntityType
     identifiers: typing.List[Identifier]
-    psa_id: int
+    psa_id: typing.Optional[int]
     addresses: typing.List[str]
     countries: typing.List[str]
     sources: typing.List[str]

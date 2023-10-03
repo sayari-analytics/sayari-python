@@ -39,18 +39,9 @@ print("Is referenced by ", len(entityDetails.referenced_by.data), " sources")
 
 # resolve
 resolution = client.resolution.resolution(name=search_term)
-print(resolution)
+print("Resolved to ", len(resolution.data), " entities")
 
 """
-// Resolve
-resolution, err := client.Resolution.Resolution(context.Background(), &sayari.Resolution{Name: []*string{&searchTerm}})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(resolution)
-log.Printf("Resolved to %v entities.", len(resolution.Data))
-
 // Search for record
 recordSearch, err := client.Search.SearchRecord(context.Background(), &sayari.SearchRecord{Q: searchTerm})
 if err != nil {
