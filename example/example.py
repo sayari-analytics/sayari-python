@@ -37,6 +37,10 @@ print("Has address: ", entitySummary.addresses[0])
 entityDetails = client.entity.get_entity(firstEntityResult)
 print("Is referenced by ", len(entityDetails.referenced_by.data), " sources")
 
+# resolve
+resolution = client.resolution.resolution(name=search_term)
+print(resolution)
+
 """
 // Resolve
 resolution, err := client.Resolution.Resolution(context.Background(), &sayari.Resolution{Name: []*string{&searchTerm}})

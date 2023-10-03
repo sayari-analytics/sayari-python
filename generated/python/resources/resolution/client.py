@@ -20,13 +20,13 @@ class ResolutionClient:
     def resolution(
         self,
         *,
-        name: typing.Union[typing.Optional[str], typing.List[str]],
-        identifier: typing.Union[typing.Optional[str], typing.List[str]],
-        country: typing.Union[typing.Optional[str], typing.List[str]],
-        address: typing.Union[typing.Optional[str], typing.List[str]],
-        date_of_birth: typing.Union[typing.Optional[str], typing.List[str]],
-        contact: typing.Union[typing.Optional[str], typing.List[str]],
-        type: typing.Union[typing.Optional[str], typing.List[str]],
+        name: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        identifier: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        country: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        address: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        date_of_birth: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        contact: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        type: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
