@@ -12,7 +12,7 @@ class RecordDetails(pydantic.BaseModel):
     id: str
     label: str
     source: str
-    publication_date: str
+    publication_date: typing.Optional[str]
     acquisition_date: str
     references_count: int
     record_url: str

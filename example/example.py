@@ -4,6 +4,7 @@ sys.path.append("..")
 from sdk.main import Connect
 from dotenv import load_dotenv
 import os
+import urllib.parse
 
 # load ENV file
 load_dotenv()
@@ -41,25 +42,17 @@ print("Is referenced by ", len(entityDetails.referenced_by.data), " sources")
 resolution = client.resolution.resolution(name=search_term)
 print("Resolved to ", len(resolution.data), " entities")
 
+# search for record
+recordSearch = client.search.search_record(q=search_term)
+print("Found ", len(recordSearch.data), "records.")
+
+# get record
+record = client.record.get_record(urllib.parse.quote(recordSearch.data[0].id, safe=''))
+print("Found record: ", record.label)
+
+# do traversal
+
 """
-// Search for record
-recordSearch, err := client.Search.SearchRecord(context.Background(), &sayari.SearchRecord{Q: searchTerm})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(recordSearch)
-log.Printf("Found %v records.", len(recordSearch.Data))
-
-// Get record
-record, err := client.Record.GetRecord(context.Background(), url.QueryEscape(recordSearch.Data[0].Id), &sayari.GetRecord{})
-if err != nil {
-    log.Fatalf("Error: %v", err)
-}
-// uncomment to view data
-//spew.Dump(record)
-log.Printf("Found record: %v.", record.Label)
-
 // Do traversal
 traversal, err := client.Traversal.Traversal(context.Background(), firstEntityResult, &sayari.Traversal{})
 if err != nil {
