@@ -4,6 +4,7 @@ from .attribute_data import AttributeData
 from .attribute_details import AttributeDetails
 from .attributes import Attributes
 from .coordinate import Coordinate
+from .embedded_entity import EmbeddedEntity
 from .entity_details import EntityDetails
 from .entity_id import EntityId
 from .entity_type import EntityType
@@ -26,13 +27,13 @@ from .size_info import SizeInfo
 from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
 from .status import Status
-from .target_data import TargetData
 
 __all__ = [
     "AttributeData",
     "AttributeDetails",
     "Attributes",
     "Coordinate",
+    "EmbeddedEntity",
     "EntityDetails",
     "EntityId",
     "EntityType",
@@ -55,5 +56,4 @@ __all__ = [
     "SourceCount",
     "SourceCountInfo",
     "Status",
-    "TargetData",
 ]

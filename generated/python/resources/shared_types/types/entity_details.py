@@ -3,51 +3,29 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .attributes import Attributes
-from .entity_id import EntityId
-from .entity_type import EntityType
-from .identifier import Identifier
+from .embedded_entity import EmbeddedEntity
 from .possibly_same_as import PossiblySameAs
 from .referenced_by import ReferencedBy
-from .relationship_count import RelationshipCount
 from .relationships import Relationships
 from .risk import Risk
-from .source_count import SourceCount
 from .status import Status
 
 
-class EntityDetails(pydantic.BaseModel):
-    id: EntityId
-    label: str
-    degree: int
-    closed: bool
-    entity_url: str
-    pep: bool
-    psa_count: int
-    sanctioned: bool
-    registration_date: str
+class EntityDetails(EmbeddedEntity):
+    registration_date: typing.Optional[str]
     translated_label: typing.Optional[str]
-    psa_sanctioned: typing.Optional[str]
-    date_of_birth: typing.Optional[str]
     hs_code: typing.Optional[str]
     shipment_arrival: typing.Optional[str]
     shipment_departure: typing.Optional[str]
     company_type: typing.Optional[str]
-    latest_status: Status
-    type: EntityType
-    identifiers: typing.List[Identifier]
-    addresses: typing.List[str]
-    countries: typing.List[str]
-    relationship_count: RelationshipCount
-    source_count: SourceCount
+    latest_status: typing.Optional[Status]
     risk: Risk
-    attributes: Attributes
-    relationships: Relationships
-    possibly_same_as: PossiblySameAs
-    referenced_by: ReferencedBy
+    attributes: typing.Optional[Attributes]
+    relationships: typing.Optional[Relationships]
+    possibly_same_as: typing.Optional[PossiblySameAs]
+    referenced_by: typing.Optional[ReferencedBy]
     matches: typing.Optional[typing.Dict[str, typing.List[str]]]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -61,4 +39,5 @@ class EntityDetails(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

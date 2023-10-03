@@ -11,6 +11,7 @@ from .shared_types import (
     AttributeDetails,
     Attributes,
     Coordinate,
+    EmbeddedEntity,
     EntityDetails,
     EntityId,
     EntityType,
@@ -33,7 +34,6 @@ from .shared_types import (
     SourceCount,
     SourceCountInfo,
     Status,
-    TargetData,
 )
 from .source import Source, SourceId, SourceList
 from .traversal import ShortestPathData, ShortestPathResponse, TraversalData, TraversalPath, TraversalResponse
@@ -44,6 +44,7 @@ __all__ = [
     "AttributeDetails",
     "Attributes",
     "Coordinate",
+    "EmbeddedEntity",
     "EntityDetails",
     "EntityId",
     "EntitySearchResults",
@@ -80,7 +81,6 @@ __all__ = [
     "SourceId",
     "SourceList",
     "Status",
-    "TargetData",
     "TraversalData",
     "TraversalPath",
     "TraversalResponse",

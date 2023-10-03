@@ -6,17 +6,17 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .embedded_entity import EmbeddedEntity
 from .relationship_types import RelationshipTypes
-from .target_data import TargetData
 
 
 class RelationshipData(pydantic.BaseModel):
-    target: TargetData
+    target: EmbeddedEntity
     types: RelationshipTypes
     dates: typing.List[str]
     first_observed: str
     last_observed: str
-    start_date: str
+    start_date: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

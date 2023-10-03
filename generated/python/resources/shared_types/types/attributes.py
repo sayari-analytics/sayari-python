@@ -11,7 +11,7 @@ from .attribute_details import AttributeDetails
 
 class Attributes(pydantic.BaseModel):
     address: AttributeDetails
-    business_purpose: AttributeDetails
+    business_purpose: typing.Optional[AttributeDetails]
     country: AttributeDetails
     identifier: AttributeDetails
     name: AttributeDetails

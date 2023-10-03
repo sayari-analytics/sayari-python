@@ -6,34 +6,30 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .entity_id import EntityId
 from .entity_type import EntityType
 from .identifier import Identifier
 from .relationship_count import RelationshipCount
-from .risk import Risk
 from .source_count import SourceCount
 
 
-class TargetData(pydantic.BaseModel):
-    id: str
+class EmbeddedEntity(pydantic.BaseModel):
+    id: EntityId
     label: str
     degree: int
+    closed: bool
     entity_url: str
     pep: bool
     psa_count: int
     sanctioned: bool
-    closed: bool
-    company_type: str
     type: EntityType
     identifiers: typing.List[Identifier]
-    addresses: typing.List[str]
     countries: typing.List[str]
-    relationship_count: RelationshipCount
+    psa_sanctioned: typing.Optional[str]
     source_count: SourceCount
-    risk: Risk
-    types: EntityType
-    dates: typing.List[str]
-    first_observed: str
-    last_observed: str
+    addresses: typing.List[str]
+    date_of_birth: typing.Optional[str]
+    relationship_count: RelationshipCount
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

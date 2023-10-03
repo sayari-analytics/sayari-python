@@ -5,6 +5,7 @@ from .types import (
     AttributeDetails,
     Attributes,
     Coordinate,
+    EmbeddedEntity,
     EntityDetails,
     EntityId,
     EntityType,
@@ -27,7 +28,6 @@ from .types import (
     SourceCount,
     SourceCountInfo,
     Status,
-    TargetData,
 )
 
 __all__ = [
@@ -35,6 +35,7 @@ __all__ = [
     "AttributeDetails",
     "Attributes",
     "Coordinate",
+    "EmbeddedEntity",
     "EntityDetails",
     "EntityId",
     "EntityType",
@@ -57,5 +58,4 @@ __all__ = [
     "SourceCount",
     "SourceCountInfo",
     "Status",
-    "TargetData",
 ]

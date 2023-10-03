@@ -7,18 +7,18 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class EntityType(str, enum.Enum):
-    AIRCRAFT = "Aircraft"
-    COMPANY = "Company"
-    GENERIC = "Generic"
-    INTELLECTUAL_PROPERTY = "Intellectual Property"
-    LEGAL_MATTER = "Legal Matter"
-    PERSON = "Person"
-    PROPERTY = "Property"
-    SECURITY = "Security"
-    SHIPMENT = "Shipment"
-    TRADENAME = "Tradename"
-    UNKNOWN = "Unknown"
-    VESSEL = "Vessel"
+    AIRCRAFT = "aircraft"
+    COMPANY = "company"
+    GENERIC = "generic"
+    INTELLECTUAL_PROPERTY = "intellectual_property"
+    LEGAL_MATTER = "legal_matter"
+    PERSON = "person"
+    PROPERTY = "property"
+    SECURITY = "security"
+    SHIPMENT = "shipment"
+    TRADENAME = "tradename"
+    UNKNOWN = "unknown"
+    VESSEL = "vessel"
 
     def visit(
         self,
