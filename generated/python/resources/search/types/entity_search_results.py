@@ -3,17 +3,13 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from ...shared_types.types.entity_details import EntityDetails
-from ...shared_types.types.size_info import SizeInfo
+from ...shared_types.types.paginated_response import PaginatedResponse
 
 
-class EntitySearchResults(pydantic.BaseModel):
+class EntitySearchResults(PaginatedResponse):
     offset: int
-    limit: int
-    size: SizeInfo
     next: bool
     data: typing.List[EntityDetails]
 
@@ -28,4 +24,5 @@ class EntitySearchResults(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

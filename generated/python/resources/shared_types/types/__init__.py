@@ -9,6 +9,7 @@ from .entity_details import EntityDetails
 from .entity_id import EntityId
 from .entity_type import EntityType
 from .identifier import Identifier
+from .paginated_response import PaginatedResponse
 from .possibly_same_as import PossiblySameAs
 from .possibly_same_as_data import PossiblySameAsData
 from .properties import Properties
@@ -38,6 +39,7 @@ __all__ = [
     "EntityId",
     "EntityType",
     "Identifier",
+    "PaginatedResponse",
     "PossiblySameAs",
     "PossiblySameAsData",
     "Properties",

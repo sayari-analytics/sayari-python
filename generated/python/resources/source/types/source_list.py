@@ -3,17 +3,13 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.size_info import SizeInfo
+from ...shared_types.types.paginated_response import PaginatedResponse
 from .source import Source
 
 
-class SourceList(pydantic.BaseModel):
+class SourceList(PaginatedResponse):
     offset: int
-    limit: int
-    size: SizeInfo
     next: bool
     data: typing.List[Source]
 
@@ -28,4 +24,5 @@ class SourceList(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

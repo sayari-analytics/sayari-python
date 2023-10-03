@@ -3,16 +3,12 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
+from .paginated_response import PaginatedResponse
 from .referenced_by_data import ReferencedByData
-from .size_info import SizeInfo
 
 
-class ReferencedBy(pydantic.BaseModel):
-    limit: int
-    size: SizeInfo
+class ReferencedBy(PaginatedResponse):
     data: typing.List[ReferencedByData]
 
     def json(self, **kwargs: typing.Any) -> str:
@@ -26,4 +22,5 @@ class ReferencedBy(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}
