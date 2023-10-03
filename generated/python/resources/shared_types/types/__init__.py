@@ -20,6 +20,7 @@ from .relationship_attribute_value import RelationshipAttributeValue
 from .relationship_count import RelationshipCount
 from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
+from .relationship_type import RelationshipType
 from .relationship_types import RelationshipTypes
 from .relationships import Relationships
 from .risk import Risk
@@ -50,6 +51,7 @@ __all__ = [
     "RelationshipCount",
     "RelationshipData",
     "RelationshipInfo",
+    "RelationshipType",
     "RelationshipTypes",
     "Relationships",
     "Risk",

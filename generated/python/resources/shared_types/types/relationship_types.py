@@ -3,5 +3,6 @@
 import typing
 
 from .relationship_info import RelationshipInfo
+from .relationship_type import RelationshipType
 
-RelationshipTypes = typing.Dict[str, typing.List[RelationshipInfo]]
+RelationshipTypes = typing.Dict[RelationshipType, typing.List[RelationshipInfo]]
