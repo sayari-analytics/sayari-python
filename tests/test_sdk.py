@@ -147,7 +147,7 @@ def test_records(setup_connection):
 
     # do some checks on the first result
     first_record = record_search_results.data[0]
-    # capture entity id/label for debugging
+    # capture record id/label for debugging
     print(first_record.id)
     print(first_record.label)
 
@@ -164,34 +164,49 @@ def test_records(setup_connection):
     assert record.source_url == first_record.source_url
 
 
-"""
-# search for record
-recordSearch = client.search.search_record(q=search_term)
-print("Found", len(recordSearch.data), "records.")
+def test_ownership_traversal(setup_connection):
+    # get connection
+    client = setup_connection
 
-# get record
-record = client.record.get_record(urllib.parse.quote(recordSearch.data[0].id, safe=''))
-print("Found record:", record.label)
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
 
-# do traversal
-traversal = client.traversal.traversal(firstEntityResult)
-print("Did traversal of entity", firstEntityResult, "Found", len(traversal.data), "related things.")
+    # query until we get results
+    entity_search_results = client.search.search_entity(q=random_string)
+    if len(entity_search_results.data) == 0 and len(entity_search_results.data[0].degree) > 0:
+        return test_ownership_traversal(setup_connection)
 
-# do UBO traversal
-ubo = client.traversal.ubo(firstEntityResult)
-print("Found", len(ubo.data), "beneficial owners")
+    # use first entity
+    entity = entity_search_results.data[0]
+    # capture entity id/label for debugging
+    print(entity.id)
+    print(entity.label)
 
-# ownership
-downstream = client.traversal.ownership(ubo.data[0].target.id)
-print("Found", len(downstream.data), "downstream things owned by the first UBO of", search_term)
+    # do traversal
+    traversal = client.traversal.traversal(entity.id)
+    # We may need to recurse here if it is possible to have no results...
+    assert len(traversal.data) > 0
+    assert traversal.data[0].source == entity.id
 
-# Fetch an entity likely to be associated with watch lists
-putinResult = client.search.search_entity(q="putin")
-# Check watchlist
-watchlist = client.traversal.watchlist(putinResult.data[0].id)
-print("Found", len(watchlist.data), "watchlist results for entity", putinResult.data[0].id)
+    # do UBO traversal
+    ubo = client.traversal.ubo(entity.id)
+    assert len(ubo.data) > 0
+    ubo_id = ubo.data[0].target.id
 
-# shortest path
-shortestPath = client.traversal.shortest_path(entities=[firstEntityResult, ubo.data[0].target.id])
-print("Found path with", len(shortestPath.data[0].path), "hops")
-"""
+    # do ownership traversal from ubo
+    downstream = client.traversal.ownership(ubo_id)
+
+    assert len(downstream.data) > 0
+    # the downstream path should contain the initial entity
+    found = False
+    for path in downstream.data:
+        for step in path.path:
+            if step.entity.id == entity.id:
+                found = True
+    assert found
+
+    # shortest path
+    shortest_path = client.traversal.shortest_path(entities=[entity.id, ubo_id])
+    assert len(shortest_path.data[0].path) > 0
+
+# TODO: figure out good test for watchlist traversal
