@@ -11,6 +11,7 @@ class Attribute(str, enum.Enum):
     ADDRESS = "address"
     BUSINESS_PURPOSE = "business_purpose"
     COMPANY_TYPE = "company_type"
+    CONTACT = "contact"
     COUNTRY = "country"
     DATE_OF_BIRTH = "date_of_birth"
     FINANCIALS = "financials"
@@ -32,6 +33,7 @@ class Attribute(str, enum.Enum):
         address: typing.Callable[[], T_Result],
         business_purpose: typing.Callable[[], T_Result],
         company_type: typing.Callable[[], T_Result],
+        contact: typing.Callable[[], T_Result],
         country: typing.Callable[[], T_Result],
         date_of_birth: typing.Callable[[], T_Result],
         financials: typing.Callable[[], T_Result],
@@ -55,6 +57,8 @@ class Attribute(str, enum.Enum):
             return business_purpose()
         if self is Attribute.COMPANY_TYPE:
             return company_type()
+        if self is Attribute.CONTACT:
+            return contact()
         if self is Attribute.COUNTRY:
             return country()
         if self is Attribute.DATE_OF_BIRTH:

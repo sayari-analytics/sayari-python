@@ -43,26 +43,27 @@ def test_sources(setup_connection):
         idx += 1
     """
 
+
 def test_entities(setup_connection):
     # get connection
     client = setup_connection
 
-    # search for an entity with a random word
+    # search for an entity with a random string
     random_string = ''.join(random.choices(string.ascii_letters, k=3))
 
     # query until we get results
-    entitySearchResults = client.search.search_entity(q=random_string)
-    if len(entitySearchResults.data) == 0:
+    entity_search_results = client.search.search_entity(q=random_string)
+    if len(entity_search_results.data) == 0:
         return test_entities(setup_connection)
 
     # assert that we have results
-    assert len(entitySearchResults.data) > 0
+    assert len(entity_search_results.data) > 0
 
     # do some checks on the first result
-    first_entity = entitySearchResults.data[0]
+    first_entity = entity_search_results.data[0]
     # capture entity id/label for debugging
-    print(entitySearchResults.data[0].id)
-    print(entitySearchResults.data[0].label)
+    print(first_entity.id)
+    print(first_entity.label)
 
     # get entity summary
     first_entity_summary = client.entity.entity_summary(first_entity.id)
@@ -112,7 +113,7 @@ def test_resolution(setup_connection):
     # get connection
     client = setup_connection
 
-    # search for an entity with a random word
+    # resolve an entity with a random string
     random_string = ''.join(random.choices(string.ascii_letters, k=3))
     resolution = client.resolution.resolution(name=random_string)
     if len(resolution.data) == 0:
@@ -128,11 +129,42 @@ def test_resolution(setup_connection):
     assert len(resolution.fields.name) == 1
     assert resolution.fields.name[0] == random_string
 
-"""
-# resolve
-resolution = client.resolution.resolution(name=search_term)
-print("Resolved to", len(resolution.data), "entities")
 
+def test_records(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for a record with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+
+    # query until we get results
+    record_search_results = client.search.search_record(q=random_string)
+    if len(record_search_results.data) == 0:
+        return test_records(setup_connection)
+
+    # assert that we have results
+    assert len(record_search_results.data) > 0
+
+    # do some checks on the first result
+    first_record = record_search_results.data[0]
+    # capture entity id/label for debugging
+    print(first_record.id)
+    print(first_record.label)
+
+    # get this record and compair fields
+    record = client.record.get_record(urllib.parse.quote(first_record.id, safe=''))
+
+    # record should match search results
+    assert record.label == first_record.label
+    assert record.source == first_record.source
+    assert record.publication_date == first_record.publication_date
+    assert record.acquisition_date == first_record.acquisition_date
+    assert record.record_url == first_record.record_url
+    assert record.references_count == first_record.references_count
+    assert record.source_url == first_record.source_url
+
+
+"""
 # search for record
 recordSearch = client.search.search_record(q=search_term)
 print("Found", len(recordSearch.data), "records.")
