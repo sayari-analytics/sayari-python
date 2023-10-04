@@ -9,6 +9,7 @@ import pydantic
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.remove_none_from_dict import remove_none_from_dict
 from .types.entity_search_results import EntitySearchResults
 from .types.filter_key import FilterKey
 from .types.record_search_results import RecordSearchResults
@@ -24,19 +25,23 @@ class SearchClient:
     def search_entity(
         self,
         *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
         q: str,
         filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
         fields: typing.Optional[typing.List[str]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-        limit: typing.Optional[int] = OMIT,
-        offset: typing.Optional[int] = OMIT,
     ) -> EntitySearchResults:
         """
         Search for an entity
 
         Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
             - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
@@ -48,10 +53,6 @@ class SearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
-
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -64,13 +65,10 @@ class SearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        if limit is not OMIT:
-            _request["limit"] = limit
-        if offset is not OMIT:
-            _request["offset"] = offset
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
@@ -153,19 +151,23 @@ class AsyncSearchClient:
     async def search_entity(
         self,
         *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
         q: str,
         filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
         fields: typing.Optional[typing.List[str]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-        limit: typing.Optional[int] = OMIT,
-        offset: typing.Optional[int] = OMIT,
     ) -> EntitySearchResults:
         """
         Search for an entity
 
         Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
             - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
@@ -177,10 +179,6 @@ class AsyncSearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
-
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -193,13 +191,10 @@ class AsyncSearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        if limit is not OMIT:
-            _request["limit"] = limit
-        if offset is not OMIT:
-            _request["offset"] = offset
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
             json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,

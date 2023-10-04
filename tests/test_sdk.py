@@ -5,7 +5,7 @@ import random
 from dotenv import load_dotenv
 import sys
 sys.path.append("..")
-from sdk.main import connect
+from sdk.main import connect, get_all_data
 
 import urllib.parse
 
@@ -222,3 +222,17 @@ def test_ownership_traversal(setup_connection):
     assert len(shortest_path.data[0].path) > 0
 
 # TODO: figure out good test for watchlist traversal
+
+def test_pagination(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # handle pagination of a small number of results ~15
+    query_info = client.search.search_entity(q="David Konigsberg", limit=1)
+    all_entities = get_all_data(client.search.search_entity, q="David Konigsberg", limit=5)
+    assert len(all_entities) == query_info.size.count
+
+    # handle pagination of a larger number of results ~1k
+    query_info = client.search.search_entity(q="David John Smith", limit=1)
+    all_entities = get_all_data(client.search.search_entity, q="David John Smith")
+    assert len(all_entities) == query_info.size.count
