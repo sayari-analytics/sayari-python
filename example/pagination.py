@@ -21,3 +21,6 @@ print("Total: ", len(all_entities))
 
 all_entities = get_all_data(client.search.search_entity, q="David John Smith")
 print("Total: ", len(all_entities))
+
+all_record = get_all_data(client.search.search_record, q="David Konigsberg")
+print("Total: ", len(all_record))
