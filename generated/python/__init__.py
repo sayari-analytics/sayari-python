@@ -2,9 +2,9 @@
 
 from .resources import (
     AccessToken,
+    Attribute,
     AttributeData,
     AttributeDetails,
-    Attributes,
     Coordinate,
     EmbeddedEntity,
     EntityDetails,
@@ -64,9 +64,9 @@ from .environment import SayariAnalyticsApiEnvironment
 
 __all__ = [
     "AccessToken",
+    "Attribute",
     "AttributeData",
     "AttributeDetails",
-    "Attributes",
     "Coordinate",
     "EmbeddedEntity",
     "EntityDetails",

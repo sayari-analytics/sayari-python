@@ -7,9 +7,9 @@ from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponse
 from .search import EntitySearchResults, FilterKey, RecordSearchResults
 from .shared_errors import NotFoundError
 from .shared_types import (
+    Attribute,
     AttributeData,
     AttributeDetails,
-    Attributes,
     Coordinate,
     EmbeddedEntity,
     EntityDetails,
@@ -49,9 +49,9 @@ from .traversal import (
 
 __all__ = [
     "AccessToken",
+    "Attribute",
     "AttributeData",
     "AttributeDetails",
-    "Attributes",
     "Coordinate",
     "EmbeddedEntity",
     "EntityDetails",

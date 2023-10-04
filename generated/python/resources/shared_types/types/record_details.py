@@ -16,7 +16,7 @@ class RecordDetails(pydantic.BaseModel):
     acquisition_date: str
     references_count: int
     record_url: str
-    source_url: str
+    source_url: typing.Optional[str]
     matches: typing.Optional[typing.Dict[str, typing.List[str]]]
 
     def json(self, **kwargs: typing.Any) -> str:
