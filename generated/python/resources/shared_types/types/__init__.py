@@ -17,7 +17,6 @@ from .record_details import RecordDetails
 from .referenced_by import ReferencedBy
 from .referenced_by_data import ReferencedByData
 from .relationship_attribute_value import RelationshipAttributeValue
-from .relationship_count import RelationshipCount
 from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
 from .relationship_type import RelationshipType
@@ -48,7 +47,6 @@ __all__ = [
     "ReferencedBy",
     "ReferencedByData",
     "RelationshipAttributeValue",
-    "RelationshipCount",
     "RelationshipData",
     "RelationshipInfo",
     "RelationshipType",

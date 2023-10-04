@@ -9,7 +9,7 @@ from ....core.datetime_utils import serialize_datetime
 from .entity_id import EntityId
 from .entity_type import EntityType
 from .identifier import Identifier
-from .relationship_count import RelationshipCount
+from .relationship_type import RelationshipType
 from .source_count import SourceCount
 
 
@@ -29,7 +29,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     source_count: SourceCount
     addresses: typing.List[str]
     date_of_birth: typing.Optional[str]
-    relationship_count: RelationshipCount
+    relationship_count: typing.Dict[RelationshipType, int]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

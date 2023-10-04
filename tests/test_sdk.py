@@ -191,6 +191,10 @@ def test_ownership_traversal(setup_connection):
 
     # do UBO traversal
     ubo = client.traversal.ubo(entity.id)
+    # try again if this entity doesn't have a UBO
+    if len(ubo.data) == 0:
+        return test_ownership_traversal(setup_connection)
+
     assert len(ubo.data) > 0
     ubo_id = ubo.data[0].target.id
 
