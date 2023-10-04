@@ -1,10 +1,9 @@
-import sys
-sys.path.append("..")
-
-from sdk.main import Connect
-from dotenv import load_dotenv
 import os
 import urllib.parse
+import sys
+from dotenv import load_dotenv
+sys.path.append("..")
+from sdk.main import connect
 
 # load ENV file
 load_dotenv()
@@ -13,7 +12,7 @@ load_dotenv()
 # it is recommended to use ENV variables
 
 # Create a client that is authed against the API
-client = Connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
 # list sources
 sources = client.source.list_sources()

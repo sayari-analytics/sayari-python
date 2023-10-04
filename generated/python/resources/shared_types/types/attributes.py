@@ -10,12 +10,24 @@ from .attribute_details import AttributeDetails
 
 
 class Attributes(pydantic.BaseModel):
-    address: AttributeDetails
+    additional_information: typing.Optional[AttributeDetails]
+    address: typing.Optional[AttributeDetails]
     business_purpose: typing.Optional[AttributeDetails]
-    country: AttributeDetails
-    identifier: AttributeDetails
-    name: AttributeDetails
-    status: AttributeDetails
+    company_type: typing.Optional[AttributeDetails]
+    country: typing.Optional[AttributeDetails]
+    date_of_birth: typing.Optional[AttributeDetails]
+    financials: typing.Optional[AttributeDetails]
+    gender: typing.Optional[AttributeDetails]
+    identifier: typing.Optional[AttributeDetails]
+    measurement: typing.Optional[AttributeDetails]
+    monetary_value: typing.Optional[AttributeDetails]
+    name: typing.Optional[AttributeDetails]
+    position: typing.Optional[AttributeDetails]
+    risk_intelligence: typing.Optional[AttributeDetails]
+    shares: typing.Optional[AttributeDetails]
+    status: typing.Optional[AttributeDetails]
+    translated_name: typing.Optional[AttributeDetails]
+    weak_identifier: typing.Optional[AttributeDetails]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

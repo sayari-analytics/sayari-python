@@ -9,7 +9,7 @@ from ....core.datetime_utils import serialize_datetime
 
 
 class Properties(pydantic.BaseModel):
-    value: str
+    value: typing.Optional[str]
     house_number: typing.Optional[str]
     road: typing.Optional[str]
     city: typing.Optional[str]
