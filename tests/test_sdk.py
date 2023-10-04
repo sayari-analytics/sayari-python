@@ -223,16 +223,19 @@ def test_ownership_traversal(setup_connection):
 
 # TODO: figure out good test for watchlist traversal
 
+
 def test_pagination(setup_connection):
     # get connection
     client = setup_connection
 
     # handle pagination of a small number of results ~15
-    query_info = client.search.search_entity(q="David Konigsberg", limit=1)
-    all_entities = get_all_data(client.search.search_entity, q="David Konigsberg", limit=5)
+    search_term = "David Konigsberg"
+    query_info = client.search.search_entity(q=search_term, limit=1)
+    all_entities = get_all_data(client.search.search_entity, q=search_term, limit=5)
     assert len(all_entities) == query_info.size.count
 
     # handle pagination of a larger number of results ~1k
-    query_info = client.search.search_entity(q="David John Smith", limit=1)
-    all_entities = get_all_data(client.search.search_entity, q="David John Smith")
+    search_term = "David John Smith"
+    query_info = client.search.search_entity(q=search_term, limit=1)
+    all_entities = get_all_data(client.search.search_entity, q=search_term)
     assert len(all_entities) == query_info.size.count
