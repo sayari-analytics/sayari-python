@@ -3,7 +3,7 @@ import urllib.parse
 import sys
 from dotenv import load_dotenv
 sys.path.append("..")
-from sdk.main import connect
+from sayari.main import connect
 
 # load ENV file
 load_dotenv()

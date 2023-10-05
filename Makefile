@@ -8,7 +8,7 @@ gcp-build-push:
 	python3 -m twine upload --repository-url https://us-east1-python.pkg.dev/sayari-datastore/sayari-python/ dist/* --verbose
 
 install:
-	pip install --upgrade sayari-python --extra-index-url https://us-east1-python.pkg.dev/sayari-datastore/sayari-python/simple/
+	pip install --upgrade sayari --extra-index-url https://us-east1-python.pkg.dev/sayari-datastore/sayari-python/simple/
 
 test:
 	cd tests; pytest -v
