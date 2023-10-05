@@ -11,4 +11,4 @@ install:
 	pip install --upgrade sayari --extra-index-url https://us-east1-python.pkg.dev/sayari-datastore/sayari-python/simple/
 
 test:
-	cd tests; pytest -v
+	cd src/sayariexit; pytest -v

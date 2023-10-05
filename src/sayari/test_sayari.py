@@ -5,7 +5,7 @@ import random
 from dotenv import load_dotenv
 import sys
 sys.path.append("..")
-from sayari.main import connect, get_all_data
+from .main import connect, get_all_data
 
 import urllib.parse
 

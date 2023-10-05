@@ -1,8 +1,6 @@
 import os
 import urllib.parse
-import sys
 from dotenv import load_dotenv
-sys.path.append("..")
 from sayari.main import connect
 
 # load ENV file

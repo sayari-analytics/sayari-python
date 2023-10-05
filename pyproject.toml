@@ -19,6 +19,3 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/sayari-analytics/sayari-python"
-
-[tool.setuptools]
-py-modules = []

@@ -1,9 +1,6 @@
 import os
-import urllib.parse
-import sys
 from dotenv import load_dotenv
-sys.path.append("..")
-from sdk.main import connect, get_all_data
+from sayari.main import connect, get_all_data
 
 # load ENV file
 load_dotenv()

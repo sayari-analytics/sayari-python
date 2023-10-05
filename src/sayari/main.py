@@ -1,5 +1,5 @@
 import sys
-from generated.python.client import SayariAnalyticsApi
+from .python.client import SayariAnalyticsApi
 
 sys.path.append("..")
 
