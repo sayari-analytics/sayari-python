@@ -1,4 +1,7 @@
-from sdk.generated.python.client import SayariAnalyticsApi
+import sys
+from generated.python.client import SayariAnalyticsApi
+
+sys.path.append("..")
 
 
 def connect(client_id, client_secret):
