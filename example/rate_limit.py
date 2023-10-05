@@ -15,6 +15,7 @@ load_dotenv()
 # Create a client that is authed against the API
 client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
+
 # query until we get results
 entity_search_results = client.search.search_entity(q="DAKLabb")
 
