@@ -1,9 +1,10 @@
 import os
 from dotenv import load_dotenv
-from sayari.main import connect, get_all_data
+from sayari import connect, get_all_data
 
-# load ENV file
-load_dotenv()
+# load ENV file if ENV vars are not set
+if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
+    load_dotenv()
 
 # To connect you most provide your client ID and client secret. To avoid accidentally checking these into git,
 # it is recommended to use ENV variables

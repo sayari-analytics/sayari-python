@@ -2,20 +2,19 @@ import os
 import pytest
 import string
 import random
-from dotenv import load_dotenv
-import sys
-sys.path.append("..")
-from .main import connect, get_all_data
-
 import urllib.parse
+from dotenv import load_dotenv
+from . import connect, get_all_data
 
 repeats = 1
+
 
 # This fixture is used to set up the client for each test
 @pytest.fixture(scope="session")
 def setup_connection():
-    # load ENV file
-    load_dotenv()
+    # load ENV file if ENV vars are not set
+    if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
+        load_dotenv()
 
     # Create a client that is authed against the API
     client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
