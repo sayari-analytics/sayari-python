@@ -9,3 +9,6 @@ gcp-build-push:
 
 install:
 	pip install --upgrade sayari-python --extra-index-url https://us-east1-python.pkg.dev/sayari-datastore/sayari-python/simple/
+
+test:
+	cd tests; pytest -v
