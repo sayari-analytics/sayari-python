@@ -6,8 +6,8 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.entities import Entities
 from .entity_id import EntityId
-from .entity_type import EntityType
 from .identifier import Identifier
 from .relationship_type import RelationshipType
 from .source_count import SourceCount
@@ -22,7 +22,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     pep: bool
     psa_count: int
     sanctioned: bool
-    type: EntityType
+    type: Entities
     identifiers: typing.List[Identifier]
     countries: typing.List[str]
     psa_sanctioned: typing.Optional[str]

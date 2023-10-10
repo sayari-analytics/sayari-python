@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .attribute import Attribute
+from ...generated_types.types.attributes import Attributes
 from .attribute_details import AttributeDetails
 from .embedded_entity import EmbeddedEntity
 from .possibly_same_as import PossiblySameAs
@@ -23,7 +23,7 @@ class EntityDetails(EmbeddedEntity):
     company_type: typing.Optional[str]
     latest_status: typing.Optional[Status]
     risk: Risk
-    attributes: typing.Optional[typing.Dict[Attribute, AttributeDetails]]
+    attributes: typing.Optional[typing.Dict[Attributes, AttributeDetails]]
     relationships: typing.Optional[Relationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]

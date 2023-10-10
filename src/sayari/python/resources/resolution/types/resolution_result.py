@@ -6,7 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.entity_type import EntityType
+from ...generated_types.types.entities import Entities
 from ...shared_types.types.identifier import Identifier
 from .match_explanation import MatchExplanation
 
@@ -15,7 +15,7 @@ class ResolutionResult(pydantic.BaseModel):
     score: float
     entity_id: str
     label: str
-    type: EntityType
+    type: Entities
     identifiers: typing.List[Identifier]
     psa_id: typing.Optional[int]
     addresses: typing.List[str]

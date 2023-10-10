@@ -6,13 +6,13 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
-from .attribute import Attribute
+from ...generated_types.types.attributes import Attributes
 from .relationship_attribute_value import RelationshipAttributeValue
 
 
 class RelationshipInfo(pydantic.BaseModel):
     record: str
-    attributes: typing.Dict[Attribute, typing.List[RelationshipAttributeValue]]
+    attributes: typing.Dict[Attributes, typing.List[RelationshipAttributeValue]]
     from_date: typing.Optional[str]
     acquisition_date: str
     publication_date: typing.Optional[str]

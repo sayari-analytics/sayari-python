@@ -56,7 +56,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
 
@@ -283,7 +283,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
 
