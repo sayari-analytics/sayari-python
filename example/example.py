@@ -1,7 +1,7 @@
 import os
 import urllib.parse
 from dotenv import load_dotenv
-from sayari import connect
+from sayari import Connection
 
 # load ENV file if ENV vars are not set
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
@@ -11,7 +11,7 @@ if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
 # it is recommended to use ENV variables
 
 # Create a client that is authed against the API
-client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
 # list sources
 sources = client.source.list_sources()

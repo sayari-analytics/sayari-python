@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sayari import connect, get_all_data
+from sayari import Connection, get_all_data
 
 # load ENV file if ENV vars are not set
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
@@ -11,7 +11,7 @@ if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
 
 
 # Create a client that is authed against the API
-client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
 # Traversal
 entity = client.search.search_entity(q="David Konigsberg", limit=1)

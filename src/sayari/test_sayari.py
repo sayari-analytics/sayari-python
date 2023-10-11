@@ -4,7 +4,7 @@ import string
 import random
 import urllib.parse
 from dotenv import load_dotenv
-from . import connect, get_all_data
+from . import Connection, get_all_data
 
 repeats = 1
 
@@ -17,7 +17,7 @@ def setup_connection():
         load_dotenv()
 
     # Create a client that is authed against the API
-    client = connect(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+    client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
     return client
 
 

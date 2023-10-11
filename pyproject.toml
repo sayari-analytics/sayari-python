@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sayari"
-version = "0.0.4"
+version = "0.0.6"
 authors = [
   { name="David Konigsberg", email="dkonigsberg@sayarianalytics.com" },
 ]
