@@ -6,14 +6,16 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
+from ...shared_types.types.relationship_type import RelationshipType
 from .traversal_data import TraversalData
 
 
 class TraversalResponse(pydantic.BaseModel):
     min_depth: int
     max_depth: int
-    relationships: typing.List[str]
-    countries: typing.List[str]
+    relationships: typing.List[RelationshipType]
+    countries: typing.List[Country]
     types: typing.List[str]
     psa: bool
     offset: int

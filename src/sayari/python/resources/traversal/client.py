@@ -9,12 +9,15 @@ import pydantic
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ..generated_types.types.country import Country
+from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.not_found import NotFound
 from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.error_body import ErrorBody
 from ..shared_errors.types.unauthorized_error import UnauthorizedError
 from ..shared_types.types.entity_id import EntityId
+from ..shared_types.types.relationship_type import RelationshipType
 from .types.shortest_path_response import ShortestPathResponse
 from .types.traversal_response import TraversalResponse
 
@@ -31,10 +34,10 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        relationships: typing.Optional[typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        types: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        countries: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
+        types: typing.Optional[typing.Union[typing.Optional[Entities], typing.List[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -69,13 +72,13 @@ class TraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Union[typing.Optional[str], typing.List[str]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Union[typing.Optional[str], typing.List[str]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Union[typing.Optional[Country], typing.List[Country]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Union[typing.Optional[str], typing.List[str]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -288,10 +291,10 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Union[typing.Optional[str], typing.List[str]],
+        relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]],
         psa: typing.Optional[bool] = None,
-        countries: typing.Union[typing.Optional[str], typing.List[str]],
-        types: typing.Union[typing.Optional[str], typing.List[str]],
+        countries: typing.Union[typing.Optional[Country], typing.List[Country]],
+        types: typing.Union[typing.Optional[Entities], typing.List[Entities]],
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -326,13 +329,13 @@ class AsyncTraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Union[typing.Optional[str], typing.List[str]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Union[typing.Optional[str], typing.List[str]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Union[typing.Optional[Country], typing.List[Country]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Union[typing.Optional[str], typing.List[str]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
