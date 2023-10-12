@@ -21,11 +21,13 @@ class SayariAnalyticsApi:
         *,
         base_url: typing.Optional[str] = None,
         environment: SayariAnalyticsApiEnvironment = SayariAnalyticsApiEnvironment.PRODUCTION,
+        client: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         timeout: typing.Optional[float] = 60
     ):
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
+            client=client,
             token=token,
             httpx_client=httpx.Client(timeout=timeout),
         )
@@ -44,11 +46,13 @@ class AsyncSayariAnalyticsApi:
         *,
         base_url: typing.Optional[str] = None,
         environment: SayariAnalyticsApiEnvironment = SayariAnalyticsApiEnvironment.PRODUCTION,
+        client: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         timeout: typing.Optional[float] = 60
     ):
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
+            client=client,
             token=token,
             httpx_client=httpx.AsyncClient(timeout=timeout),
         )
