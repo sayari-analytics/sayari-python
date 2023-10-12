@@ -6,13 +6,14 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
 
 
 class Source(pydantic.BaseModel):
     id: str
     label: str
     description: str
-    country: str
+    country: Country
     region: str
     date_added: str
     source_type: str

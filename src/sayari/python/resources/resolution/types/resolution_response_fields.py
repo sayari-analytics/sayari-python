@@ -6,16 +6,18 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
+from ...generated_types.types.entities import Entities
 
 
 class ResolutionResponseFields(pydantic.BaseModel):
     name: typing.Optional[typing.List[str]]
     identifier: typing.Optional[typing.List[str]]
-    country: typing.Optional[typing.List[str]]
+    country: typing.Optional[typing.List[Country]]
     address: typing.Optional[typing.List[str]]
     date_of_birth: typing.Optional[typing.List[str]]
     contact: typing.Optional[typing.List[str]]
-    type: typing.Optional[typing.List[str]]
+    type: typing.Optional[typing.List[Entities]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

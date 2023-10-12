@@ -23,6 +23,7 @@ from .relationship_types import RelationshipTypes
 from .relationships import Relationships
 from .risk import Risk
 from .risk_info import RiskInfo
+from .risk_level import RiskLevel
 from .size_info import SizeInfo
 from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
@@ -53,6 +54,7 @@ __all__ = [
     "Relationships",
     "Risk",
     "RiskInfo",
+    "RiskLevel",
     "SizeInfo",
     "SourceCount",
     "SourceCountInfo",

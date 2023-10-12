@@ -6,6 +6,7 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from ...shared_types.types.identifier import Identifier
 from .match_explanation import MatchExplanation
@@ -19,7 +20,7 @@ class ResolutionResult(pydantic.BaseModel):
     identifiers: typing.List[Identifier]
     psa_id: typing.Optional[int]
     addresses: typing.List[str]
-    countries: typing.List[str]
+    countries: typing.List[Country]
     sources: typing.List[str]
     matched_queries: typing.List[str]
     highlight: typing.Dict[str, typing.List[str]]

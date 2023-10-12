@@ -6,12 +6,14 @@ import typing
 import pydantic
 
 from ....core.datetime_utils import serialize_datetime
+from .record_id import RecordId
+from .source_id import SourceId
 
 
 class RecordDetails(pydantic.BaseModel):
-    id: str
+    id: RecordId
     label: str
-    source: str
+    source: SourceId
     publication_date: typing.Optional[str]
     acquisition_date: str
     references_count: int
