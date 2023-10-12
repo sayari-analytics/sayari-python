@@ -15,7 +15,7 @@ from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.error_body import ErrorBody
 from ..shared_errors.types.unauthorized_error import UnauthorizedError
 from ..shared_types.types.record_details import RecordDetails
-from .types.record_id import RecordId
+from ..shared_types.types.record_id import RecordId
 
 
 class RecordClient:

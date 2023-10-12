@@ -14,8 +14,8 @@ from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.error_body import ErrorBody
 from ..shared_errors.types.unauthorized_error import UnauthorizedError
+from ..shared_types.types.source_id import SourceId
 from .types.source import Source
-from .types.source_id import SourceId
 from .types.source_list import SourceList
 
 

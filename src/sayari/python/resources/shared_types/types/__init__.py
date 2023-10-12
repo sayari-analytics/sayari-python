@@ -12,6 +12,7 @@ from .possibly_same_as import PossiblySameAs
 from .possibly_same_as_data import PossiblySameAsData
 from .properties import Properties
 from .record_details import RecordDetails
+from .record_id import RecordId
 from .referenced_by import ReferencedBy
 from .referenced_by_data import ReferencedByData
 from .relationship_attribute_value import RelationshipAttributeValue
@@ -25,6 +26,7 @@ from .risk_info import RiskInfo
 from .size_info import SizeInfo
 from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
+from .source_id import SourceId
 from .status import Status
 
 __all__ = [
@@ -40,6 +42,7 @@ __all__ = [
     "PossiblySameAsData",
     "Properties",
     "RecordDetails",
+    "RecordId",
     "ReferencedBy",
     "ReferencedByData",
     "RelationshipAttributeValue",
@@ -53,5 +56,6 @@ __all__ = [
     "SizeInfo",
     "SourceCount",
     "SourceCountInfo",
+    "SourceId",
     "Status",
 ]

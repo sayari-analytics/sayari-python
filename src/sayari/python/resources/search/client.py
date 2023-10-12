@@ -16,8 +16,9 @@ from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.error_body import ErrorBody
 from ..shared_errors.types.unauthorized_error import UnauthorizedError
 from .types.entity_search_results import EntitySearchResults
-from .types.filter_key import FilterKey
+from .types.filter_map import FilterMap
 from .types.record_search_results import RecordSearchResults
+from .types.search_field import SearchField
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -33,8 +34,8 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
-        fields: typing.Optional[typing.List[str]] = OMIT,
+        filter: typing.Optional[FilterMap] = OMIT,
+        fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -49,9 +50,9 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.List[str]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -98,8 +99,8 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
-        fields: typing.Optional[typing.List[str]] = OMIT,
+        filter: typing.Optional[FilterMap] = OMIT,
+        fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -114,9 +115,9 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.List[str]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -168,8 +169,8 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
-        fields: typing.Optional[typing.List[str]] = OMIT,
+        filter: typing.Optional[FilterMap] = OMIT,
+        fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -184,9 +185,9 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.List[str]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -233,8 +234,8 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]] = OMIT,
-        fields: typing.Optional[typing.List[str]] = OMIT,
+        filter: typing.Optional[FilterMap] = OMIT,
+        fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -249,9 +250,9 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[typing.Dict[FilterKey, typing.List[str]]]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.List[str]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 

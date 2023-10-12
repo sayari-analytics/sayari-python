@@ -10,6 +10,7 @@ import pydantic
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ..generated_types.types.country import Country
 from ..shared_errors.errors.not_found import NotFound
 from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
@@ -44,9 +45,9 @@ class EntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        relationships_arrival_country: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        relationships_departure_country: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        relationships_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
+        relationships_arrival_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
+        relationships_departure_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -95,11 +96,11 @@ class EntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters relationships to a list of countries
+            - relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters relationships to a list of countries
 
-            - relationships_arrival_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of arrival countries
 
-            - relationships_departure_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of departure countries
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -223,9 +224,9 @@ class AsyncEntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Union[typing.Optional[str], typing.List[str]],
-        relationships_arrival_country: typing.Union[typing.Optional[str], typing.List[str]],
-        relationships_departure_country: typing.Union[typing.Optional[str], typing.List[str]],
+        relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]],
+        relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]],
+        relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]],
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -274,11 +275,11 @@ class AsyncEntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters relationships to a list of countries
+            - relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters relationships to a list of countries
 
-            - relationships_arrival_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of arrival countries
 
-            - relationships_departure_country: typing.Union[typing.Optional[str], typing.List[str]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of departure countries
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 

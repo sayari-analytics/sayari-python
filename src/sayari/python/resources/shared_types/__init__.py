@@ -13,6 +13,7 @@ from .types import (
     PossiblySameAsData,
     Properties,
     RecordDetails,
+    RecordId,
     ReferencedBy,
     ReferencedByData,
     RelationshipAttributeValue,
@@ -26,6 +27,7 @@ from .types import (
     SizeInfo,
     SourceCount,
     SourceCountInfo,
+    SourceId,
     Status,
 )
 
@@ -42,6 +44,7 @@ __all__ = [
     "PossiblySameAsData",
     "Properties",
     "RecordDetails",
+    "RecordId",
     "ReferencedBy",
     "ReferencedByData",
     "RelationshipAttributeValue",
@@ -55,5 +58,6 @@ __all__ = [
     "SizeInfo",
     "SourceCount",
     "SourceCountInfo",
+    "SourceId",
     "Status",
 ]

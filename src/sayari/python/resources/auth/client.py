@@ -11,7 +11,11 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.unauthorized_error import UnauthorizedError
-from .types.access_token import AccessToken
+from .types.audience import Audience
+from .types.auth_response import AuthResponse
+from .types.client_id import ClientId
+from .types.client_secret import ClientSecret
+from .types.grant_type import GrantType
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -21,18 +25,20 @@ class AuthClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_token(self, *, client_id: str, client_secret: str, audience: str, grant_type: str) -> AccessToken:
+    def get_token(
+        self, *, client_id: ClientId, client_secret: ClientSecret, audience: Audience, grant_type: GrantType
+    ) -> AuthResponse:
         """
         Hit the auth endpoint to get a bearer token
 
         Parameters:
-            - client_id: str.
+            - client_id: ClientId.
 
-            - client_secret: str.
+            - client_secret: ClientSecret.
 
-            - audience: str.
+            - audience: Audience.
 
-            - grant_type: str.
+            - grant_type: GrantType.
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -44,7 +50,7 @@ class AuthClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(AccessToken, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
@@ -58,18 +64,20 @@ class AsyncAuthClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_token(self, *, client_id: str, client_secret: str, audience: str, grant_type: str) -> AccessToken:
+    async def get_token(
+        self, *, client_id: ClientId, client_secret: ClientSecret, audience: Audience, grant_type: GrantType
+    ) -> AuthResponse:
         """
         Hit the auth endpoint to get a bearer token
 
         Parameters:
-            - client_id: str.
+            - client_id: ClientId.
 
-            - client_secret: str.
+            - client_secret: ClientSecret.
 
-            - audience: str.
+            - audience: Audience.
 
-            - grant_type: str.
+            - grant_type: GrantType.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
@@ -81,7 +89,7 @@ class AsyncAuthClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(AccessToken, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:

@@ -9,6 +9,8 @@ import pydantic
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ..generated_types.types.country import Country
+from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.not_found import NotFound
 from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
@@ -26,11 +28,11 @@ class ResolutionClient:
         *,
         name: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
         identifier: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        country: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
         address: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
         date_of_birth: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
         contact: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        type: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
+        type: typing.Optional[typing.Union[typing.Optional[Entities], typing.List[Entities]]] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
@@ -40,7 +42,7 @@ class ResolutionClient:
 
             - identifier: typing.Union[typing.Optional[str], typing.List[str]]. Entity identifier
 
-            - country: typing.Union[typing.Optional[str], typing.List[str]]. Entity country
+            - country: typing.Union[typing.Optional[Country], typing.List[Country]]. Entity country
 
             - address: typing.Union[typing.Optional[str], typing.List[str]]. Entity address
 
@@ -48,7 +50,7 @@ class ResolutionClient:
 
             - contact: typing.Union[typing.Optional[str], typing.List[str]]. Entity contact
 
-            - type: typing.Union[typing.Optional[str], typing.List[str]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -91,11 +93,11 @@ class AsyncResolutionClient:
         *,
         name: typing.Union[typing.Optional[str], typing.List[str]],
         identifier: typing.Union[typing.Optional[str], typing.List[str]],
-        country: typing.Union[typing.Optional[str], typing.List[str]],
+        country: typing.Union[typing.Optional[Country], typing.List[Country]],
         address: typing.Union[typing.Optional[str], typing.List[str]],
         date_of_birth: typing.Union[typing.Optional[str], typing.List[str]],
         contact: typing.Union[typing.Optional[str], typing.List[str]],
-        type: typing.Union[typing.Optional[str], typing.List[str]],
+        type: typing.Union[typing.Optional[Entities], typing.List[Entities]],
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
@@ -105,7 +107,7 @@ class AsyncResolutionClient:
 
             - identifier: typing.Union[typing.Optional[str], typing.List[str]]. Entity identifier
 
-            - country: typing.Union[typing.Optional[str], typing.List[str]]. Entity country
+            - country: typing.Union[typing.Optional[Country], typing.List[Country]]. Entity country
 
             - address: typing.Union[typing.Optional[str], typing.List[str]]. Entity address
 
@@ -113,7 +115,7 @@ class AsyncResolutionClient:
 
             - contact: typing.Union[typing.Optional[str], typing.List[str]]. Entity contact
 
-            - type: typing.Union[typing.Optional[str], typing.List[str]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
