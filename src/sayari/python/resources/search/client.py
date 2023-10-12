@@ -10,6 +10,11 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ..shared_errors.errors.not_found import NotFound
+from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.unauthorized import Unauthorized
+from ..shared_errors.types.error_body import ErrorBody
+from ..shared_errors.types.unauthorized_error import UnauthorizedError
 from .types.entity_search_results import EntitySearchResults
 from .types.filter_key import FilterKey
 from .types.record_search_results import RecordSearchResults
@@ -75,6 +80,12 @@ class SearchClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -134,6 +145,12 @@ class SearchClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -198,6 +215,12 @@ class AsyncSearchClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -257,6 +280,12 @@ class AsyncSearchClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

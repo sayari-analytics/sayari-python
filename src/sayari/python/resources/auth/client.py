@@ -9,7 +9,8 @@ import pydantic
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
-from .errors.unauthorized import Unauthorized
+from ..shared_errors.errors.unauthorized import Unauthorized
+from ..shared_errors.types.unauthorized_error import UnauthorizedError
 from .types.access_token import AccessToken
 
 # this is used as the default value for optional parameters
@@ -45,7 +46,7 @@ class AuthClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AccessToken, _response.json())  # type: ignore
         if _response.status_code == 401:
-            raise Unauthorized()
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -82,7 +83,7 @@ class AsyncAuthClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AccessToken, _response.json())  # type: ignore
         if _response.status_code == 401:
-            raise Unauthorized()
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
