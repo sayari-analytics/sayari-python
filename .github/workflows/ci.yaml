@@ -23,6 +23,7 @@ jobs:
     steps:
       - name: test code
         run: |
+          ls
           make setup
           pip install pytest
           pytest -v
