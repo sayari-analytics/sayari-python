@@ -21,6 +21,7 @@ jobs:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
     steps:
+      - uses: actions/checkout@v4
       - name: test code
         run: |
           ls
