@@ -40,7 +40,7 @@ class AuthClient:
 
             - grant_type: GrantType.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
             json=jsonable_encoder(
@@ -79,7 +79,7 @@ class AsyncAuthClient:
 
             - grant_type: GrantType.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
             json=jsonable_encoder(

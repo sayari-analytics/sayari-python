@@ -2,6 +2,7 @@ import os
 import urllib.parse
 from dotenv import load_dotenv
 from sayari import Connection
+from sayari import python
 
 # load ENV file if ENV vars are not set
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:

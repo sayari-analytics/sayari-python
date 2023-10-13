@@ -52,7 +52,7 @@ class ResolutionClient:
 
             - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
             params=remove_none_from_dict(
@@ -117,7 +117,7 @@ class AsyncResolutionClient:
 
             - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
             params=remove_none_from_dict(

@@ -118,7 +118,7 @@ class TraversalClient:
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
             params=remove_none_from_dict(
@@ -176,7 +176,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -203,7 +203,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -230,7 +230,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -257,7 +257,7 @@ class TraversalClient:
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
             params=remove_none_from_dict({"entities": entities}),
@@ -375,7 +375,7 @@ class AsyncTraversalClient:
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
             params=remove_none_from_dict(
@@ -433,7 +433,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -460,7 +460,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -487,7 +487,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -514,7 +514,7 @@ class AsyncTraversalClient:
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
             params=remove_none_from_dict({"entities": entities}),

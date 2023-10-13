@@ -39,7 +39,7 @@ class RecordClient:
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
             params=remove_none_from_dict(
@@ -84,7 +84,7 @@ class AsyncRecordClient:
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
             params=remove_none_from_dict(

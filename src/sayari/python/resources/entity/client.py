@@ -116,7 +116,7 @@ class EntityClient:
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
             params=remove_none_from_dict(
@@ -178,7 +178,7 @@ class EntityClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -295,7 +295,7 @@ class AsyncEntityClient:
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
             params=remove_none_from_dict(
@@ -357,7 +357,7 @@ class AsyncEntityClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
             headers=self._client_wrapper.get_headers(),

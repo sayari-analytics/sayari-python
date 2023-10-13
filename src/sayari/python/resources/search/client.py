@@ -71,7 +71,7 @@ class SearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -136,7 +136,7 @@ class SearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -206,7 +206,7 @@ class AsyncSearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -271,7 +271,7 @@ class AsyncSearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),

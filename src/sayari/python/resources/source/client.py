@@ -32,7 +32,7 @@ class SourceClient:
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/sources"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -60,7 +60,7 @@ class SourceClient:
         Parameters:
             - id: SourceId.
         """
-        _response = self._client_wrapper.httpx_client.request(
+        _response = self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/source/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -96,7 +96,7 @@ class AsyncSourceClient:
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/sources"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -124,7 +124,7 @@ class AsyncSourceClient:
         Parameters:
             - id: SourceId.
         """
-        _response = await self._client_wrapper.httpx_client.request(
+        _response = await self._client_wrapper.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/source/{id}"),
             headers=self._client_wrapper.get_headers(),
