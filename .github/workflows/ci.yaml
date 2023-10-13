@@ -1,0 +1,32 @@
+name: Python SDK
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+
+  workflow_dispatch:
+
+jobs:
+  # TODO: add linting?
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+    steps:
+      - name: test code
+        run: |
+          make setup
+          pip install pytest
+          pytest -v
+
+  #FIXME: add integration test to confirm it is working with the most up to date bindings
+
+  #FIXME: add job to release on tag
