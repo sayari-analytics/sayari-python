@@ -9,7 +9,6 @@ if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
 # To connect you most provide your client ID and client secret. To avoid accidentally checking these into git,
 # it is recommended to use ENV variables
 
-
 # Create a client that is authed against the API
 client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 

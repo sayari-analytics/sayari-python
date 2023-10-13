@@ -14,7 +14,8 @@ on:
 
 jobs:
   # TODO: add linting?
-  test:
+
+  pytest:
     name: Test
     runs-on: ubuntu-latest
     env:
@@ -28,6 +29,23 @@ jobs:
           make setup
           pip install pytest
           pytest -v
+
+  run-examples:
+    name: Run examples (to look for regressions)
+    runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: test examples (not rate limiting)
+        run: |
+          echo "Running smoke test"
+          go run examples/smoke-test.py
+          
+          echo "Running pagination test"
+          go run examples/pagination.py  
+  
 
   #FIXME: add integration test to confirm it is working with the most up to date bindings
 
