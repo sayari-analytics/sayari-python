@@ -40,6 +40,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: test examples (not rate limiting)
         run: |
+          make setup
+          
           echo "Running smoke test"
           python examples/smoke-test.py
           
