@@ -28,7 +28,7 @@ from .generated_types import (
 )
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
 from .search import EntitySearchResults, FilterMap, RecordSearchResults, SearchField
-from .shared_errors import ErrorBody, NotFound, RatLimitExceeded, Unauthorized, UnauthorizedError
+from .shared_errors import ErrorResponse, NotFound, RatLimitExceeded, Unauthorized, UnauthorizedResponse
 from .shared_types import (
     AttributeData,
     AttributeDetails,
@@ -92,7 +92,7 @@ __all__ = [
     "EntityDetails",
     "EntityId",
     "EntitySearchResults",
-    "ErrorBody",
+    "ErrorResponse",
     "ExpiresIn",
     "FilterMap",
     "FinanceType",
@@ -148,7 +148,7 @@ __all__ = [
     "TraversalRelationshipData",
     "TraversalResponse",
     "Unauthorized",
-    "UnauthorizedError",
+    "UnauthorizedResponse",
     "Unit",
     "WeakIdentifierType",
     "auth",

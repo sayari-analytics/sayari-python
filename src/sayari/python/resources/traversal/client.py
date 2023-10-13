@@ -14,8 +14,8 @@ from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.not_found import NotFound
 from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_body import ErrorBody
-from ..shared_errors.types.unauthorized_error import UnauthorizedError
+from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.entity_id import EntityId
 from ..shared_types.types.relationship_type import RelationshipType
 from .types.shortest_path_response import ShortestPathResponse
@@ -158,11 +158,11 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -185,11 +185,11 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -212,11 +212,11 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -239,11 +239,11 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -267,11 +267,11 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -415,11 +415,11 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -442,11 +442,11 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -469,11 +469,11 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -496,11 +496,11 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -524,11 +524,11 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded(pydantic.parse_obj_as(ErrorBody, _response.json()))  # type: ignore
+            raise RatLimitExceeded()
         if _response.status_code == 401:
-            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedError, _response.json()))  # type: ignore
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

@@ -8,9 +8,10 @@ import pydantic
 from ....core.datetime_utils import serialize_datetime
 
 
-class UnauthorizedError(pydantic.BaseModel):
-    error: str
-    error_description: str
+class ErrorResponse(pydantic.BaseModel):
+    status: int
+    message: typing.List[str]
+    success: bool
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
