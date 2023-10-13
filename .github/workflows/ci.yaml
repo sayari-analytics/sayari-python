@@ -41,10 +41,10 @@ jobs:
       - name: test examples (not rate limiting)
         run: |
           echo "Running smoke test"
-          go run examples/smoke-test.py
+          python examples/smoke-test.py
           
           echo "Running pagination test"
-          go run examples/pagination.py  
+          python examples/pagination.py  
   
 
   #FIXME: add integration test to confirm it is working with the most up to date bindings
