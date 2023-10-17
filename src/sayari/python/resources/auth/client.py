@@ -4,8 +4,6 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
@@ -16,6 +14,11 @@ from .types.auth_response import AuthResponse
 from .types.client_id import ClientId
 from .types.client_secret import ClientSecret
 from .types.grant_type import GrantType
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,8 +42,13 @@ class AuthClient:
             - audience: Audience.
 
             - grant_type: GrantType.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client="YOUR_CLIENT", token="YOUR_TOKEN", )
+        client.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
             json=jsonable_encoder(
@@ -78,8 +86,13 @@ class AsyncAuthClient:
             - audience: Audience.
 
             - grant_type: GrantType.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client="YOUR_CLIENT", token="YOUR_TOKEN", )
+        await client.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
             json=jsonable_encoder(

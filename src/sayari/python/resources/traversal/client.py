@@ -4,22 +4,25 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.not_found import NotFound
-from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.entity_id import EntityId
 from ..shared_types.types.relationship_type import RelationshipType
 from .types.shortest_path_response import ShortestPathResponse
 from .types.traversal_response import TraversalResponse
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class TraversalClient:
@@ -34,10 +37,10 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]] = None,
+        relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[typing.Optional[Entities], typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -72,13 +75,13 @@ class TraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Union[typing.Optional[Country], typing.List[Country]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -118,7 +121,7 @@ class TraversalClient:
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
             params=remove_none_from_dict(
@@ -158,9 +161,9 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -176,7 +179,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -185,9 +188,9 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -203,7 +206,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -212,9 +215,9 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -230,7 +233,7 @@ class TraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -239,9 +242,9 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -257,7 +260,7 @@ class TraversalClient:
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
             params=remove_none_from_dict({"entities": entities}),
@@ -267,9 +270,9 @@ class TraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -291,10 +294,10 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]],
+        relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Union[typing.Optional[Country], typing.List[Country]],
-        types: typing.Union[typing.Optional[Entities], typing.List[Entities]],
+        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -329,13 +332,13 @@ class AsyncTraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Union[typing.Optional[RelationshipType], typing.List[RelationshipType]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Union[typing.Optional[Country], typing.List[Country]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -375,7 +378,7 @@ class AsyncTraversalClient:
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
             params=remove_none_from_dict(
@@ -415,9 +418,9 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -433,7 +436,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -442,9 +445,9 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -460,7 +463,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -469,9 +472,9 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -487,7 +490,7 @@ class AsyncTraversalClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -496,9 +499,9 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -514,7 +517,7 @@ class AsyncTraversalClient:
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
             params=remove_none_from_dict({"entities": entities}),
@@ -524,9 +527,9 @@ class AsyncTraversalClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:

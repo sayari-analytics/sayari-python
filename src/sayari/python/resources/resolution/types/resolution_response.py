@@ -3,11 +3,14 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .resolution_response_fields import ResolutionResponseFields
 from .resolution_result import ResolutionResult
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ResolutionResponse(pydantic.BaseModel):

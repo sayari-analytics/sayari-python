@@ -4,18 +4,21 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..shared_errors.errors.not_found import NotFound
-from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.record_details import RecordDetails
 from ..shared_types.types.record_id import RecordId
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class RecordClient:
@@ -39,7 +42,7 @@ class RecordClient:
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
             params=remove_none_from_dict(
@@ -51,9 +54,9 @@ class RecordClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -84,7 +87,7 @@ class AsyncRecordClient:
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
             params=remove_none_from_dict(
@@ -96,9 +99,9 @@ class AsyncRecordClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:

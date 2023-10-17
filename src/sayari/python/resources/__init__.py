@@ -27,8 +27,8 @@ from .generated_types import (
     WeakIdentifierType,
 )
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import EntitySearchResults, FilterMap, RecordSearchResults, SearchField
-from .shared_errors import ErrorResponse, NotFound, RatLimitExceeded, Unauthorized, UnauthorizedResponse
+from .search import EntitySearchResults, FilterList, RecordSearchResults, SearchField
+from .shared_errors import NotFound, NotFoundResponse, RateLimitExceeded, Unauthorized, UnauthorizedResponse
 from .shared_types import (
     AttributeData,
     AttributeDetails,
@@ -92,9 +92,8 @@ __all__ = [
     "EntityDetails",
     "EntityId",
     "EntitySearchResults",
-    "ErrorResponse",
     "ExpiresIn",
-    "FilterMap",
+    "FilterList",
     "FinanceType",
     "Gender",
     "GrantType",
@@ -106,12 +105,13 @@ __all__ = [
     "MonetaryValueContext",
     "NameContext",
     "NotFound",
+    "NotFoundResponse",
     "PaginatedResponse",
     "PersonStatus",
     "PossiblySameAs",
     "PossiblySameAsData",
     "Properties",
-    "RatLimitExceeded",
+    "RateLimitExceeded",
     "RecordDetails",
     "RecordId",
     "RecordSearchResults",

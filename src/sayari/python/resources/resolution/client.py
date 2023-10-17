@@ -4,19 +4,22 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.not_found import NotFound
-from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.resolution_response import ResolutionResponse
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class ResolutionClient:
@@ -26,33 +29,33 @@ class ResolutionClient:
     def resolution(
         self,
         *,
-        name: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        identifier: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
-        address: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        date_of_birth: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        contact: typing.Optional[typing.Union[typing.Optional[str], typing.List[str]]] = None,
-        type: typing.Optional[typing.Union[typing.Optional[Entities], typing.List[Entities]]] = None,
+        name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        identifier: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        contact: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        type: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
-            - name: typing.Union[typing.Optional[str], typing.List[str]]. Entity name
+            - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
 
-            - identifier: typing.Union[typing.Optional[str], typing.List[str]]. Entity identifier
+            - identifier: typing.Optional[typing.Union[str, typing.List[str]]]. Entity identifier
 
-            - country: typing.Union[typing.Optional[Country], typing.List[Country]]. Entity country
+            - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`
 
-            - address: typing.Union[typing.Optional[str], typing.List[str]]. Entity address
+            - address: typing.Optional[typing.Union[str, typing.List[str]]]. Entity address
 
-            - date_of_birth: typing.Union[typing.Optional[str], typing.List[str]]. Entity date of birth
+            - date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]]. Entity date of birth
 
-            - contact: typing.Union[typing.Optional[str], typing.List[str]]. Entity contact
+            - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
-            - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
             params=remove_none_from_dict(
@@ -72,9 +75,9 @@ class ResolutionClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -91,33 +94,33 @@ class AsyncResolutionClient:
     async def resolution(
         self,
         *,
-        name: typing.Union[typing.Optional[str], typing.List[str]],
-        identifier: typing.Union[typing.Optional[str], typing.List[str]],
-        country: typing.Union[typing.Optional[Country], typing.List[Country]],
-        address: typing.Union[typing.Optional[str], typing.List[str]],
-        date_of_birth: typing.Union[typing.Optional[str], typing.List[str]],
-        contact: typing.Union[typing.Optional[str], typing.List[str]],
-        type: typing.Union[typing.Optional[Entities], typing.List[Entities]],
+        name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        identifier: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        contact: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        type: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
-            - name: typing.Union[typing.Optional[str], typing.List[str]]. Entity name
+            - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
 
-            - identifier: typing.Union[typing.Optional[str], typing.List[str]]. Entity identifier
+            - identifier: typing.Optional[typing.Union[str, typing.List[str]]]. Entity identifier
 
-            - country: typing.Union[typing.Optional[Country], typing.List[Country]]. Entity country
+            - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`
 
-            - address: typing.Union[typing.Optional[str], typing.List[str]]. Entity address
+            - address: typing.Optional[typing.Union[str, typing.List[str]]]. Entity address
 
-            - date_of_birth: typing.Union[typing.Optional[str], typing.List[str]]. Entity date of birth
+            - date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]]. Entity date of birth
 
-            - contact: typing.Union[typing.Optional[str], typing.List[str]]. Entity contact
+            - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
-            - type: typing.Union[typing.Optional[Entities], typing.List[Entities]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
             params=remove_none_from_dict(
@@ -137,9 +140,9 @@ class AsyncResolutionClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:

@@ -3,12 +3,15 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...shared_types.types.relationship_type import RelationshipType
 from .traversal_data import TraversalData
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class TraversalResponse(pydantic.BaseModel):

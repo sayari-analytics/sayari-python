@@ -4,21 +4,24 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..shared_errors.errors.not_found import NotFound
-from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.entity_search_results import EntitySearchResults
-from .types.filter_map import FilterMap
+from .types.filter_list import FilterList
 from .types.record_search_results import RecordSearchResults
 from .types.search_field import SearchField
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -34,7 +37,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[FilterMap] = OMIT,
+        filter: typing.Optional[FilterList] = OMIT,
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -50,7 +53,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
             - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
@@ -71,7 +74,7 @@ class SearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -82,9 +85,9 @@ class SearchClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -99,7 +102,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[FilterMap] = OMIT,
+        filter: typing.Optional[FilterList] = OMIT,
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -115,7 +118,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
             - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
@@ -136,7 +139,7 @@ class SearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -147,9 +150,9 @@ class SearchClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -169,7 +172,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[FilterMap] = OMIT,
+        filter: typing.Optional[FilterList] = OMIT,
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -185,7 +188,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
             - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
@@ -206,7 +209,7 @@ class AsyncSearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -217,9 +220,9 @@ class AsyncSearchClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -234,7 +237,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[FilterMap] = OMIT,
+        filter: typing.Optional[FilterList] = OMIT,
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -250,7 +253,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[FilterMap]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
             - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
 
@@ -271,7 +274,7 @@ class AsyncSearchClient:
             _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
@@ -282,9 +285,9 @@ class AsyncSearchClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:

@@ -5,19 +5,22 @@ import typing
 import urllib.parse
 from json.decoder import JSONDecodeError
 
-import pydantic
-
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
 from ..shared_errors.errors.not_found import NotFound
-from ..shared_errors.errors.rat_limit_exceeded import RatLimitExceeded
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.error_response import ErrorResponse
+from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.entity_details import EntityDetails
 from ..shared_types.types.entity_id import EntityId
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class EntityClient:
@@ -45,9 +48,9 @@ class EntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
-        relationships_arrival_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
-        relationships_departure_country: typing.Optional[typing.Union[typing.Optional[Country], typing.List[Country]]] = None,
+        relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -96,11 +99,11 @@ class EntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters relationships to a list of countries
+            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of countries
 
-            - relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
 
-            - relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -116,7 +119,7 @@ class EntityClient:
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
             params=remove_none_from_dict(
@@ -160,9 +163,9 @@ class EntityClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -178,7 +181,7 @@ class EntityClient:
         Parameters:
             - id: EntityId.
         """
-        _response = self._client_wrapper.request(
+        _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -187,9 +190,9 @@ class EntityClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -224,9 +227,9 @@ class AsyncEntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]],
-        relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]],
-        relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]],
+        relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -275,11 +278,11 @@ class AsyncEntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters relationships to a list of countries
+            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of countries
 
-            - relationships_arrival_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
 
-            - relationships_departure_country: typing.Union[typing.Optional[Country], typing.List[Country]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -295,7 +298,7 @@ class AsyncEntityClient:
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
             params=remove_none_from_dict(
@@ -339,9 +342,9 @@ class AsyncEntityClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:
@@ -357,7 +360,7 @@ class AsyncEntityClient:
         Parameters:
             - id: EntityId.
         """
-        _response = await self._client_wrapper.request(
+        _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
             headers=self._client_wrapper.get_headers(),
@@ -366,9 +369,9 @@ class AsyncEntityClient:
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
         if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:
-            raise RatLimitExceeded()
+            raise RateLimitExceeded()
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
         try:

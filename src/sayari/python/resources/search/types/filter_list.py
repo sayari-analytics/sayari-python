@@ -3,16 +3,23 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from ...generated_types.types.tag import Tag
 from ...shared_types.types.source_id import SourceId
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
-class FilterMap(pydantic.BaseModel):
+
+class FilterList(pydantic.BaseModel):
+    """
+    Filter your search on the following attributes.
+    """
+
     source: typing.Optional[typing.List[SourceId]]
     country: typing.Optional[typing.List[Country]]
     state: typing.Optional[typing.List[str]]

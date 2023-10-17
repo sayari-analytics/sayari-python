@@ -3,6 +3,6 @@
 from ....core.api_error import ApiError
 
 
-class RatLimitExceeded(ApiError):
+class RateLimitExceeded(ApiError):
     def __init__(self) -> None:
         super().__init__(status_code=429)

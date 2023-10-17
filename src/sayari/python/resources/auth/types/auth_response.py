@@ -3,12 +3,15 @@
 import datetime as dt
 import typing
 
-import pydantic
-
 from ....core.datetime_utils import serialize_datetime
 from .access_token import AccessToken
 from .expires_in import ExpiresIn
 from .token_type import TokenType
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
 class AuthResponse(pydantic.BaseModel):
