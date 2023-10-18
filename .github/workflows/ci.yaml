@@ -55,12 +55,13 @@ jobs:
   publish-test-sdk-readme:
     name: Test publishing SDK readme
     runs-on: ubuntu-latest
-    needs: run-examples
+    #FIXME: update this when we add more jobs before it
+    needs: pytest
     steps:
       - uses: actions/checkout@v4
       - uses: readmeio/rdme@v8
         with:
-          rdme: docs docs/go_sdk.md --key=${{ secrets.README_API_KEY }}
+          rdme: docs docs/python_sdk.md --key=${{ secrets.README_API_KEY }}
 
   #FIXME: add job to release on tag
 
