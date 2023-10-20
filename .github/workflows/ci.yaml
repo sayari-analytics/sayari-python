@@ -30,24 +30,21 @@ jobs:
           pip install pytest
           pytest -v
 
-#  run-examples:
-#    name: Run examples (to look for regressions)
-#    runs-on: ubuntu-latest
-#    env:
-#      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-#      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: test examples (not rate limiting)
-#        run: |
-#          make setup
-#          make local-install
-#
-#          echo "Running smoke test"
-#          python examples/smoke-test.py
-#
-#          echo "Running pagination test"
-#          python examples/pagination.py
+  run-examples:
+    name: Run examples (to look for regressions)
+    runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: test examples (not rate limiting)
+        run: |
+          make setup
+          make local-install
+
+          echo "Running smoke test"
+          python examples/smoke-test.py
 
 
   #FIXME: add integration test to confirm it is working with the most up to date bindings
