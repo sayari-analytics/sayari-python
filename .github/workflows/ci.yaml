@@ -46,12 +46,12 @@ jobs:
         run: |
           make setup
           make local-install
-
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running smoke test"
           python examples/smoke-test.py
-          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running screen test"
-          python examples/screen.py
+          python examples/screening.py
 
   publish-test-sdk-readme:
     name: Test publishing SDK readme
