@@ -41,6 +41,7 @@ jobs:
       - name: test examples (not rate limiting)
         run: |
           make setup
+          pip install setuptools --upgrade
           make local-install
 
           echo "Running smoke test"
