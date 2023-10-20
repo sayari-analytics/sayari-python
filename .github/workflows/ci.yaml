@@ -32,6 +32,7 @@ jobs:
 
   run-examples:
     name: Run examples (to look for regressions)
+    needs: pytest
     runs-on: ubuntu-latest
     env:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -48,20 +49,21 @@ jobs:
 
           echo "Running smoke test"
           python examples/smoke-test.py
-
-
-  #FIXME: add integration test to confirm it is working with the most up to date bindings
+          
+          echo "Running screen test"
+          python examples/smoke-test.py
 
   publish-test-sdk-readme:
     name: Test publishing SDK readme
     runs-on: ubuntu-latest
-    #FIXME: update this when we add more jobs before it
-    needs: pytest
+    needs: run-examples
     steps:
       - uses: actions/checkout@v4
       - uses: readmeio/rdme@v8
         with:
           rdme: docs docs/python_sdk.md --key=${{ secrets.README_API_KEY }}
+
+  #FIXME: add integration test with the most up to date generated code (inverse of what is in the fern repo)
 
   #FIXME: add job to release on tag
 
