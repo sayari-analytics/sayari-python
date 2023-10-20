@@ -51,7 +51,7 @@ jobs:
           python examples/smoke-test.py
           
           echo "Running screen test"
-          python examples/smoke-test.py
+          python examples/screen.py
 
   publish-test-sdk-readme:
     name: Test publishing SDK readme
