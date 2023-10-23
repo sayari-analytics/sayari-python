@@ -2,7 +2,7 @@
 
 import typing
 
+from ...generated_types.types.relationships import Relationships
 from .relationship_info import RelationshipInfo
-from .relationship_type import RelationshipType
 
-RelationshipTypes = typing.Dict[RelationshipType, typing.List[RelationshipInfo]]
+RelationshipTypes = typing.Dict[Relationships, typing.List[RelationshipInfo]]

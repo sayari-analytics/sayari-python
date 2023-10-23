@@ -7,9 +7,9 @@ from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.attributes import Attributes
 from .attribute_details import AttributeDetails
 from .embedded_entity import EmbeddedEntity
+from .entity_relationships import EntityRelationships
 from .possibly_same_as import PossiblySameAs
 from .referenced_by import ReferencedBy
-from .relationships import Relationships
 from .risk import Risk
 from .status import Status
 
@@ -24,7 +24,7 @@ class EntityDetails(EmbeddedEntity):
     latest_status: typing.Optional[Status]
     risk: Risk
     attributes: typing.Optional[typing.Dict[Attributes, AttributeDetails]]
-    relationships: typing.Optional[Relationships]
+    relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
     matches: typing.Optional[typing.Dict[str, typing.List[str]]]

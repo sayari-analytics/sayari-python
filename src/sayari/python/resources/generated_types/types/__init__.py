@@ -17,6 +17,7 @@ from .measurement_type import MeasurementType
 from .monetary_value_context import MonetaryValueContext
 from .name_context import NameContext
 from .person_status import PersonStatus
+from .relationships import Relationships
 from .status_context import StatusContext
 from .tag import Tag
 from .translation_context import TranslationContext
@@ -41,6 +42,7 @@ __all__ = [
     "MonetaryValueContext",
     "NameContext",
     "PersonStatus",
+    "Relationships",
     "StatusContext",
     "Tag",
     "TranslationContext",

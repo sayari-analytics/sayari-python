@@ -9,13 +9,13 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
+from ..generated_types.types.relationships import Relationships
 from ..shared_errors.errors.not_found import NotFound
 from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.entity_id import EntityId
-from ..shared_types.types.relationship_type import RelationshipType
 from .types.shortest_path_response import ShortestPathResponse
 from .types.traversal_response import TraversalResponse
 
@@ -37,7 +37,7 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
@@ -75,7 +75,7 @@ class TraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
@@ -294,7 +294,7 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
@@ -332,7 +332,7 @@ class AsyncTraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[RelationshipType, typing.List[RelationshipType]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 

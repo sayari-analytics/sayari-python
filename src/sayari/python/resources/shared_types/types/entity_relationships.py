@@ -4,28 +4,12 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...generated_types.types.country import Country
-from ...generated_types.types.relationships import Relationships
-from .traversal_data import TraversalData
-
-try:
-    import pydantic.v1 as pydantic  # type: ignore
-except ImportError:
-    import pydantic  # type: ignore
+from .paginated_response import PaginatedResponse
+from .relationship_data import RelationshipData
 
 
-class TraversalResponse(pydantic.BaseModel):
-    min_depth: int
-    max_depth: int
-    relationships: typing.List[Relationships]
-    countries: typing.List[Country]
-    types: typing.List[str]
-    psa: bool
-    offset: int
-    limit: int
-    next: bool
-    data: typing.List[TraversalData]
-    explored_count: int
+class EntityRelationships(PaginatedResponse):
+    data: typing.List[RelationshipData]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -38,4 +22,5 @@ class TraversalResponse(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

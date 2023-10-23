@@ -6,6 +6,7 @@ from .coordinate import Coordinate
 from .embedded_entity import EmbeddedEntity
 from .entity_details import EntityDetails
 from .entity_id import EntityId
+from .entity_relationships import EntityRelationships
 from .identifier import Identifier
 from .paginated_response import PaginatedResponse
 from .possibly_same_as import PossiblySameAs
@@ -18,9 +19,7 @@ from .referenced_by_data import ReferencedByData
 from .relationship_attribute_value import RelationshipAttributeValue
 from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
-from .relationship_type import RelationshipType
 from .relationship_types import RelationshipTypes
-from .relationships import Relationships
 from .risk import Risk
 from .risk_info import RiskInfo
 from .risk_level import RiskLevel
@@ -37,6 +36,7 @@ __all__ = [
     "EmbeddedEntity",
     "EntityDetails",
     "EntityId",
+    "EntityRelationships",
     "Identifier",
     "PaginatedResponse",
     "PossiblySameAs",
@@ -49,9 +49,7 @@ __all__ = [
     "RelationshipAttributeValue",
     "RelationshipData",
     "RelationshipInfo",
-    "RelationshipType",
     "RelationshipTypes",
-    "Relationships",
     "Risk",
     "RiskInfo",
     "RiskLevel",
