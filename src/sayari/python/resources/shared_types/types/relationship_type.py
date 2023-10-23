@@ -60,6 +60,7 @@ class RelationshipType(str, enum.Enum):
     RECEIVES_FROM = "receives_from"
     HAS_SUBSIDIARY = "has_subsidiary"
     HAS_SUPERVISOR = "has_supervisor"
+    NOTIFY_PARTY_OF = "notify_party_of"
 
     def visit(
         self,
@@ -116,6 +117,7 @@ class RelationshipType(str, enum.Enum):
         receives_from: typing.Callable[[], T_Result],
         has_subsidiary: typing.Callable[[], T_Result],
         has_supervisor: typing.Callable[[], T_Result],
+        notify_party_of: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is RelationshipType.AUDITOR_OF:
             return auditor_of()
@@ -223,3 +225,5 @@ class RelationshipType(str, enum.Enum):
             return has_subsidiary()
         if self is RelationshipType.HAS_SUPERVISOR:
             return has_supervisor()
+        if self is RelationshipType.NOTIFY_PARTY_OF:
+            return notify_party_of()
