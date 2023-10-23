@@ -8,6 +8,7 @@ from .address_info import AddressInfo
 from .address_properties import AddressProperties
 from .attribute_data import AttributeData
 from .attribute_details import AttributeDetails
+from .both_identifier_types import BothIdentifierTypes
 from .business_purpose_data import BusinessPurposeData
 from .business_purpose_info import BusinessPurposeInfo
 from .business_purpose_properties import BusinessPurposeProperties
@@ -103,6 +104,7 @@ __all__ = [
     "AddressProperties",
     "AttributeData",
     "AttributeDetails",
+    "BothIdentifierTypes",
     "BusinessPurposeData",
     "BusinessPurposeInfo",
     "BusinessPurposeProperties",

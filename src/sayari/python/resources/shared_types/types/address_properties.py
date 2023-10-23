@@ -14,7 +14,7 @@ except ImportError:
 
 
 class AddressProperties(pydantic.BaseModel):
-    value: str
+    value: typing.Optional[str]
     translated: typing.Optional[str]
     transliterated: typing.Optional[str]
     type: typing.Optional[AddressType]

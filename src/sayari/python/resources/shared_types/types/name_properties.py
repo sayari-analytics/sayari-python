@@ -5,7 +5,6 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.language import Language
-from ...generated_types.types.name_context import NameContext
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -16,7 +15,7 @@ except ImportError:
 class NameProperties(pydantic.BaseModel):
     value: str
     language: typing.Optional[Language]
-    context: typing.Optional[NameContext]
+    context: typing.Optional[str]
     translated: typing.Optional[str]
     transliterated: typing.Optional[str]
 
