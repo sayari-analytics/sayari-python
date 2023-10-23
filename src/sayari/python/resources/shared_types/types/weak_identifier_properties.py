@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.weak_identifier_type import WeakIdentifierType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -11,9 +12,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class AttributeData(pydantic.BaseModel):
-    record: typing.List[str]
-    record_count: int
+class WeakIdentifierProperties(pydantic.BaseModel):
+    value: str
+    type: WeakIdentifierType
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

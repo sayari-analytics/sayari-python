@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.currency import Currency
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -11,9 +12,12 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class AttributeData(pydantic.BaseModel):
-    record: typing.List[str]
-    record_count: int
+class SharesProperties(pydantic.BaseModel):
+    num_shares: typing.Optional[float]
+    monetary_value: typing.Optional[float]
+    currency: typing.Optional[Currency]
+    percentage: typing.Optional[float]
+    type: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

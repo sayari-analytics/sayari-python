@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.translation_context import TranslationContext
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -11,9 +12,10 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class AttributeData(pydantic.BaseModel):
-    record: typing.List[str]
-    record_count: int
+class TranslatedNameProperties(pydantic.BaseModel):
+    value: str
+    origin: typing.Optional[str]
+    context: typing.Optional[TranslationContext]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

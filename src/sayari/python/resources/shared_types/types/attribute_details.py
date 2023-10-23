@@ -4,12 +4,58 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .attribute_data import AttributeData
-from .paginated_response import PaginatedResponse
+from .additional_information_info import AdditionalInformationInfo
+from .address_info import AddressInfo
+from .business_purpose_info import BusinessPurposeInfo
+from .company_type_info import CompanyTypeInfo
+from .contact_info import ContactInfo
+from .country_info import CountryInfo
+from .date_of_birth_info import DateOfBirthInfo
+from .finances_info import FinancesInfo
+from .financials_info import FinancialsInfo
+from .gender_info import GenderInfo
+from .generic_info import GenericInfo
+from .identifier_info import IdentifierInfo
+from .measurement_info import MeasurementInfo
+from .monetary_value_info import MonetaryValueInfo
+from .name_info import NameInfo
+from .person_status_info import PersonStatusInfo
+from .position_info import PositionInfo
+from .risk_intelligence_info import RiskIntelligenceInfo
+from .shares_info import SharesInfo
+from .status_info import StatusInfo
+from .translated_name_info import TranslatedNameInfo
+from .weak_identifier_info import WeakIdentifierInfo
+
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
 
 
-class AttributeDetails(PaginatedResponse):
-    data: typing.List[AttributeData]
+class AttributeDetails(pydantic.BaseModel):
+    risk_intelligence: typing.Optional[RiskIntelligenceInfo]
+    country: typing.Optional[CountryInfo]
+    weak_identifier: typing.Optional[WeakIdentifierInfo]
+    generic: typing.Optional[GenericInfo]
+    status: typing.Optional[StatusInfo]
+    shares: typing.Optional[SharesInfo]
+    name: typing.Optional[NameInfo]
+    contact: typing.Optional[ContactInfo]
+    person_status: typing.Optional[PersonStatusInfo]
+    financials: typing.Optional[FinancialsInfo]
+    additional_information: typing.Optional[AdditionalInformationInfo]
+    finances: typing.Optional[FinancesInfo]
+    address: typing.Optional[AddressInfo]
+    monetary_value: typing.Optional[MonetaryValueInfo]
+    company_type: typing.Optional[CompanyTypeInfo]
+    gender: typing.Optional[GenderInfo]
+    translated_name: typing.Optional[TranslatedNameInfo]
+    date_of_birth: typing.Optional[DateOfBirthInfo]
+    measurement: typing.Optional[MeasurementInfo]
+    identifier: typing.Optional[IdentifierInfo]
+    position: typing.Optional[PositionInfo]
+    business_purpose: typing.Optional[BusinessPurposeInfo]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -22,5 +68,4 @@ class AttributeDetails(PaginatedResponse):
     class Config:
         frozen = True
         smart_union = True
-        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

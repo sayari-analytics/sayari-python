@@ -11,9 +11,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class AttributeData(pydantic.BaseModel):
-    record: typing.List[str]
-    record_count: int
+class GenericProperties(pydantic.BaseModel):
+    name: typing.Optional[str]
+    type: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
