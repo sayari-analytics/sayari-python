@@ -24,6 +24,7 @@ class IdentifierType(str, enum.Enum):
     MALTA_NATIONAL_ID = "malta_national_id"
     MALTA_ACCOUNTANCY_REGISTRATION_ID = "malta_accountancy_registration_id"
     UK_COMPANY_NUMBER = "uk_company_number"
+    UK_FIRM_REFERENCE_NUMBER = "uk_firm_reference_number"
     UK_PERSON_NUMBER = "uk_person_number"
     MX_RFC_PERSON = "mx_rfc_person"
     MX_CURP = "mx_curp"
@@ -222,6 +223,8 @@ class IdentifierType(str, enum.Enum):
     USA_SOCIAL_SECURITY_NUMBER = "usa_social_security_number"
     USA_WY_PARTY_ID = "usa_wy_party_id"
     USA_WY_FILING_ID = "usa_wy_filing_id"
+    USA_WY_INTERNAL_FILING_ID = "usa_wy_internal_filing_id"
+    USA_WY_FILING_NUM = "usa_wy_filing_num"
     USA_OR_REGNO = "usa_or_regno"
     USA_NV_CORPNO = "usa_nv_corpno"
     USA_NV_BIZID = "usa_nv_bizid"
@@ -230,6 +233,7 @@ class IdentifierType(str, enum.Enum):
     UZB_TIN_NUMBER = "uzb_tin_number"
     CA_CORPORATE_ID_NUM = "ca_corporate_id_num"
     GBR_HM_TREASURY_SANCTION_GROUP_ID = "gbr_hm_treasury_sanction_group_id"
+    GBR_IPO_TRADEMARK_REG_NO = "gbr_ipo_trademark_reg_no"
     USA_GA_CONTROL_NO = "usa_ga_control_no"
     HND_COC_COMPANY_REGISTRATION_NUMBER = "hnd_coc_company_registration_number"
     MNE_PROPERTY_UID = "mne_property_uid"
@@ -544,6 +548,12 @@ class IdentifierType(str, enum.Enum):
     ETHEREUM_ADDRESS = "ethereum_address"
     DASH_ADDRESS = "dash_address"
     ZCASH_ADDRESS = "zcash_address"
+    USA_USPTO_SERIAL_NUMBER = "usa_uspto_serial_number"
+    USA_USPTO_REG_NO = "usa_uspto_reg_no"
+    USA_USPTO_FOREIGN_APPLICATION_NO = "usa_uspto_foreign_application_no"
+    USA_USPTO_FOREIGN_REG_NO = "usa_uspto_foreign_reg_no"
+    WIPO_INTL_REG_NO = "wipo_intl_reg_no"
+    WIPO_INTL_REF_NO = "wipo_intl_ref_no"
 
     def visit(
         self,
@@ -564,6 +574,7 @@ class IdentifierType(str, enum.Enum):
         malta_national_id: typing.Callable[[], T_Result],
         malta_accountancy_registration_id: typing.Callable[[], T_Result],
         uk_company_number: typing.Callable[[], T_Result],
+        uk_firm_reference_number: typing.Callable[[], T_Result],
         uk_person_number: typing.Callable[[], T_Result],
         mx_rfc_person: typing.Callable[[], T_Result],
         mx_curp: typing.Callable[[], T_Result],
@@ -762,6 +773,8 @@ class IdentifierType(str, enum.Enum):
         usa_social_security_number: typing.Callable[[], T_Result],
         usa_wy_party_id: typing.Callable[[], T_Result],
         usa_wy_filing_id: typing.Callable[[], T_Result],
+        usa_wy_internal_filing_id: typing.Callable[[], T_Result],
+        usa_wy_filing_num: typing.Callable[[], T_Result],
         usa_or_regno: typing.Callable[[], T_Result],
         usa_nv_corpno: typing.Callable[[], T_Result],
         usa_nv_bizid: typing.Callable[[], T_Result],
@@ -770,6 +783,7 @@ class IdentifierType(str, enum.Enum):
         uzb_tin_number: typing.Callable[[], T_Result],
         ca_corporate_id_num: typing.Callable[[], T_Result],
         gbr_hm_treasury_sanction_group_id: typing.Callable[[], T_Result],
+        gbr_ipo_trademark_reg_no: typing.Callable[[], T_Result],
         usa_ga_control_no: typing.Callable[[], T_Result],
         hnd_coc_company_registration_number: typing.Callable[[], T_Result],
         mne_property_uid: typing.Callable[[], T_Result],
@@ -1084,6 +1098,12 @@ class IdentifierType(str, enum.Enum):
         ethereum_address: typing.Callable[[], T_Result],
         dash_address: typing.Callable[[], T_Result],
         zcash_address: typing.Callable[[], T_Result],
+        usa_uspto_serial_number: typing.Callable[[], T_Result],
+        usa_uspto_reg_no: typing.Callable[[], T_Result],
+        usa_uspto_foreign_application_no: typing.Callable[[], T_Result],
+        usa_uspto_foreign_reg_no: typing.Callable[[], T_Result],
+        wipo_intl_reg_no: typing.Callable[[], T_Result],
+        wipo_intl_ref_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -1119,6 +1139,8 @@ class IdentifierType(str, enum.Enum):
             return malta_accountancy_registration_id()
         if self is IdentifierType.UK_COMPANY_NUMBER:
             return uk_company_number()
+        if self is IdentifierType.UK_FIRM_REFERENCE_NUMBER:
+            return uk_firm_reference_number()
         if self is IdentifierType.UK_PERSON_NUMBER:
             return uk_person_number()
         if self is IdentifierType.MX_RFC_PERSON:
@@ -1515,6 +1537,10 @@ class IdentifierType(str, enum.Enum):
             return usa_wy_party_id()
         if self is IdentifierType.USA_WY_FILING_ID:
             return usa_wy_filing_id()
+        if self is IdentifierType.USA_WY_INTERNAL_FILING_ID:
+            return usa_wy_internal_filing_id()
+        if self is IdentifierType.USA_WY_FILING_NUM:
+            return usa_wy_filing_num()
         if self is IdentifierType.USA_OR_REGNO:
             return usa_or_regno()
         if self is IdentifierType.USA_NV_CORPNO:
@@ -1531,6 +1557,8 @@ class IdentifierType(str, enum.Enum):
             return ca_corporate_id_num()
         if self is IdentifierType.GBR_HM_TREASURY_SANCTION_GROUP_ID:
             return gbr_hm_treasury_sanction_group_id()
+        if self is IdentifierType.GBR_IPO_TRADEMARK_REG_NO:
+            return gbr_ipo_trademark_reg_no()
         if self is IdentifierType.USA_GA_CONTROL_NO:
             return usa_ga_control_no()
         if self is IdentifierType.HND_COC_COMPANY_REGISTRATION_NUMBER:
@@ -2159,3 +2187,15 @@ class IdentifierType(str, enum.Enum):
             return dash_address()
         if self is IdentifierType.ZCASH_ADDRESS:
             return zcash_address()
+        if self is IdentifierType.USA_USPTO_SERIAL_NUMBER:
+            return usa_uspto_serial_number()
+        if self is IdentifierType.USA_USPTO_REG_NO:
+            return usa_uspto_reg_no()
+        if self is IdentifierType.USA_USPTO_FOREIGN_APPLICATION_NO:
+            return usa_uspto_foreign_application_no()
+        if self is IdentifierType.USA_USPTO_FOREIGN_REG_NO:
+            return usa_uspto_foreign_reg_no()
+        if self is IdentifierType.WIPO_INTL_REG_NO:
+            return wipo_intl_reg_no()
+        if self is IdentifierType.WIPO_INTL_REF_NO:
+            return wipo_intl_ref_no()

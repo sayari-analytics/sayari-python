@@ -12,6 +12,7 @@ class AddressType(str, enum.Enum):
     MAILING = "mailing"
     PHYSICAL = "physical"
     REGISTERED = "registered"
+    BUSINESS = "business"
 
     def visit(
         self,
@@ -20,6 +21,7 @@ class AddressType(str, enum.Enum):
         mailing: typing.Callable[[], T_Result],
         physical: typing.Callable[[], T_Result],
         registered: typing.Callable[[], T_Result],
+        business: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is AddressType.ARRIVAL:
             return arrival()
@@ -31,3 +33,5 @@ class AddressType(str, enum.Enum):
             return physical()
         if self is AddressType.REGISTERED:
             return registered()
+        if self is AddressType.BUSINESS:
+            return business()

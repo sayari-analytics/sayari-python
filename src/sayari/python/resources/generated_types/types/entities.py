@@ -7,55 +7,55 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Entities(str, enum.Enum):
-    VESSEL = "vessel"
-    TRADENAME = "tradename"
-    INTELLECTUAL_PROPERTY = "intellectual_property"
-    PERSON = "person"
+    LEGAL_MATTER = "legal_matter"
+    COMPANY = "company"
     SHIPMENT = "shipment"
     GENERIC = "generic"
+    VESSEL = "vessel"
     PROPERTY = "property"
-    COMPANY = "company"
-    AIRCRAFT = "aircraft"
-    LEGAL_MATTER = "legal_matter"
+    INTELLECTUAL_PROPERTY = "intellectual_property"
+    PERSON = "person"
     SECURITY = "security"
+    TRADENAME = "tradename"
     UNKNOWN = "unknown"
+    AIRCRAFT = "aircraft"
 
     def visit(
         self,
-        vessel: typing.Callable[[], T_Result],
-        tradename: typing.Callable[[], T_Result],
-        intellectual_property: typing.Callable[[], T_Result],
-        person: typing.Callable[[], T_Result],
+        legal_matter: typing.Callable[[], T_Result],
+        company: typing.Callable[[], T_Result],
         shipment: typing.Callable[[], T_Result],
         generic: typing.Callable[[], T_Result],
+        vessel: typing.Callable[[], T_Result],
         property: typing.Callable[[], T_Result],
-        company: typing.Callable[[], T_Result],
-        aircraft: typing.Callable[[], T_Result],
-        legal_matter: typing.Callable[[], T_Result],
+        intellectual_property: typing.Callable[[], T_Result],
+        person: typing.Callable[[], T_Result],
         security: typing.Callable[[], T_Result],
+        tradename: typing.Callable[[], T_Result],
         unknown: typing.Callable[[], T_Result],
+        aircraft: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is Entities.VESSEL:
-            return vessel()
-        if self is Entities.TRADENAME:
-            return tradename()
-        if self is Entities.INTELLECTUAL_PROPERTY:
-            return intellectual_property()
-        if self is Entities.PERSON:
-            return person()
+        if self is Entities.LEGAL_MATTER:
+            return legal_matter()
+        if self is Entities.COMPANY:
+            return company()
         if self is Entities.SHIPMENT:
             return shipment()
         if self is Entities.GENERIC:
             return generic()
+        if self is Entities.VESSEL:
+            return vessel()
         if self is Entities.PROPERTY:
             return property()
-        if self is Entities.COMPANY:
-            return company()
-        if self is Entities.AIRCRAFT:
-            return aircraft()
-        if self is Entities.LEGAL_MATTER:
-            return legal_matter()
+        if self is Entities.INTELLECTUAL_PROPERTY:
+            return intellectual_property()
+        if self is Entities.PERSON:
+            return person()
         if self is Entities.SECURITY:
             return security()
+        if self is Entities.TRADENAME:
+            return tradename()
         if self is Entities.UNKNOWN:
             return unknown()
+        if self is Entities.AIRCRAFT:
+            return aircraft()

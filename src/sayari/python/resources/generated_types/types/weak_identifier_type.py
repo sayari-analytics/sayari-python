@@ -100,10 +100,12 @@ class WeakIdentifierType(str, enum.Enum):
     USA_FORMER_FEIN = "usa_former_fein"
     USA_CBP_WRO_ID = "usa_cbp_wro_id"
     CCS_SHIP_CLASS_NUMBER = "ccs_ship_class_number"
+    TUR_PARTIAL_MERSIS_NUMBER = "tur_partial_mersis_number"
     TUR_OFFICE_REGISTRATION_NUMBER = "tur_office_registration_number"
     PARTIAL_VEN_CEDULA = "partial_ven_cedula"
     RUS_CBR_ID = "rus_cbr_id"
     GEO_STATE_REGISTRATION_NUMBER = "geo_state_registration_number"
+    BIH_MBS_NUMBER = "bih_mbs_number"
 
     def visit(
         self,
@@ -200,10 +202,12 @@ class WeakIdentifierType(str, enum.Enum):
         usa_former_fein: typing.Callable[[], T_Result],
         usa_cbp_wro_id: typing.Callable[[], T_Result],
         ccs_ship_class_number: typing.Callable[[], T_Result],
+        tur_partial_mersis_number: typing.Callable[[], T_Result],
         tur_office_registration_number: typing.Callable[[], T_Result],
         partial_ven_cedula: typing.Callable[[], T_Result],
         rus_cbr_id: typing.Callable[[], T_Result],
         geo_state_registration_number: typing.Callable[[], T_Result],
+        bih_mbs_number: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
             return unknown()
@@ -391,6 +395,8 @@ class WeakIdentifierType(str, enum.Enum):
             return usa_cbp_wro_id()
         if self is WeakIdentifierType.CCS_SHIP_CLASS_NUMBER:
             return ccs_ship_class_number()
+        if self is WeakIdentifierType.TUR_PARTIAL_MERSIS_NUMBER:
+            return tur_partial_mersis_number()
         if self is WeakIdentifierType.TUR_OFFICE_REGISTRATION_NUMBER:
             return tur_office_registration_number()
         if self is WeakIdentifierType.PARTIAL_VEN_CEDULA:
@@ -399,3 +405,5 @@ class WeakIdentifierType(str, enum.Enum):
             return rus_cbr_id()
         if self is WeakIdentifierType.GEO_STATE_REGISTRATION_NUMBER:
             return geo_state_registration_number()
+        if self is WeakIdentifierType.BIH_MBS_NUMBER:
+            return bih_mbs_number()
