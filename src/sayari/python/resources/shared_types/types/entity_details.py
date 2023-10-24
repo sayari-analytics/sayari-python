@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .attribute_details import AttributeDetails
+from ...generated_types.types.attribute_details import AttributeDetails
 from .embedded_entity import EmbeddedEntity
 from .entity_relationships import EntityRelationships
 from .possibly_same_as import PossiblySameAs

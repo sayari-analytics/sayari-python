@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...base_types.types.paginated_response import PaginatedResponse
 from ...shared_types.types.entity_details import EntityDetails
-from ...shared_types.types.paginated_response import PaginatedResponse
 
 
 class EntitySearchResults(PaginatedResponse):

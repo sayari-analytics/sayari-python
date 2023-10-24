@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.paginated_response import PaginatedResponse
+from ...base_types.types.paginated_response import PaginatedResponse
 from .source import Source
 
 
