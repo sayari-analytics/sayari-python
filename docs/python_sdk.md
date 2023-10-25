@@ -102,8 +102,29 @@ In addition to the API documentation, the SDK code itself is a great resource fo
 What follows is a list of invocation examples for each of the SDK functions. Again, this is not an exhaustive demonstration if its capabilities, but rather a minimal example to help you get started.
 
 ## Top Level SDK functions
-### Connect
+As mentioned above, this SDK provides some convenience functions beyond those available purely via the Sayari Graph API.
+
+### Connection
+The client connection is an authenticated API client which supplies the methods for the rest of the SDK's functionality. In addition to handling the authentication, this client object will also handle re-authentication in cases where the client is longer-lived then the duration of the initial authentication request.
+
+To create a client connection, simply provide the client ID and secret
+```python
+client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+```
+
 ### Get all data
+Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the the 'get_all_data' decorator to request all pages of data.
+```python
+# Entities
+all_entities = get_all_data(client.search.search_entity, q="Victoria Beckham")
+
+# Records
+all_record = get_all_data(client.search.search_record, q="Victoria Beckham")
+
+# Traversal
+all_traversals = get_all_data(client.traversal.traversal, "my entity ID")
+```
+
 ### Screen CSV
 
 ## Entity
