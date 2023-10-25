@@ -95,7 +95,7 @@ You should now have all the tools you need to start using the Sayari Graph Go SD
 ## Trade Analysis
 
 # Examples
-Please see the API documentation for detailed explanations of all the request and response bodies. Our documentation site (along with valid client ID and secret) can be used to make requests against our API to get a sense for how the API behaves.
+**Please see the API documentation for detailed explanations of all the request and response bodies**. Our documentation site (along with valid client ID and secret) can be used to make requests against our API to get a sense for how the API behaves.
 
 In addition to the API documentation, the SDK code itself is a great resource for understanding the structure of Sayari Graph API requests and responses. Objects in the code should have helpful names and comments detailing their significance.
 
@@ -146,25 +146,66 @@ As you can see from this example, the first object returned is a list of entitie
 
 ## Entity
 ### Get Entity
+```python
+entityDetails = client.entity.get_entity(myEntityID)
+```
+
 ### Entity Summary
+```python
+entitySummary = client.entity.entity_summary(myEntityID)
+```
 
 ## Record
 ### Get Record
+Note: record ID's must be URL escaped
+```python
+record = client.record.get_record(urllib.parse.quote(myRecordID, safe=''))
+```
 
 ## Resolution
 ### Resolution
+```python
+resolution = client.resolution.resolution(name="search term")
+```
 
 ## Search
 ### Search Entity
+```python
+entitySearchResults = client.search.search_entity(q="search term")
+```
 ### Search Record
+```python
+recordSearch = client.search.search_record(q="search term")
+```
 
 ## Source
 ### List Sources
+```python
+sources = client.source.list_sources()
+```
 ### Get Source
+```python
+firstSource = client.source.get_source(mySourceID)
+```
 
 ## Traversal
 ### Traversal
+```python
+traversal = client.traversal.traversal(myEntityID)
+```
 ### UBO
+```python
+ubo = client.traversal.ubo(myEntityID)
+```
 ### Ownership
+```python
+ownership = client.traversal.ownership(myEntityID)
+```
 ### Watchlist
+```python
+watchlist = client.traversal.watchlist(myEntityID)
+```
 ### Shortest Path
+```python
+shortestPath = client.traversal.shortest_path(entities=[myFirstEntityID, mySecondEntityID])
+```

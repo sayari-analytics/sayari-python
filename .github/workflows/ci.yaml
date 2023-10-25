@@ -56,7 +56,7 @@ jobs:
           echo "Running pagination example"
           python examples/pagination.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running screen test"
+          echo "Running screening example"
           python examples/screening.py
 
   publish-test-sdk-readme:
