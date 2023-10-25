@@ -92,14 +92,16 @@ def map_csv(row):
     # for each column of the CSV
     i = 0
     for col in row:
+        # Remove all spaces from the column name and convert to lowercase
+        col_name = col.lower().replace(' ', '')
         # check if it corresponds to one of our resolution fields
-        if col.lower() in csvDict:
+        if col_name in csvDict:
             # if so, check if we have mapped that column yet
-            if col.lower() not in column_map:
+            if col_name not in column_map:
                 # if not, create it in the map
-                column_map[col.lower()] = []
+                column_map[col_name] = []
             # add column index to dict
-            column_map[col.lower()].append(i)
+            column_map[col_name].append(i)
         else:
             raise Exception("One or more of the CSV columns does not map to a resolution field")
         i += 1

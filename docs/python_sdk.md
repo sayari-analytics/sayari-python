@@ -126,6 +126,23 @@ all_traversals = get_all_data(client.traversal.traversal, "my entity ID")
 ```
 
 ### Screen CSV
+One of the most common use cases for the Sayari Graph API is screening entities for potential risks. Because of this, the SDK includes tooling to simplify this process.
+
+The 'screen_csv' function takes in the path for a CSV containing entities to screen, and returns those entities and their associated risks. For this to work properly, the CSV must only contain columns that map to entity attributes. Valid names for those columns are as follows: (column names are case and spacing insensitive)
+- Name
+- Identifier
+- Country
+- Address
+- Date Of Birth
+- Contact
+- Entity Type
+
+Once your CSV is property formatted, using the screen function is as simple as providing the path to the CSV.
+```python
+risky_entities, non_risky_entities, unresolved = client.screen_csv("examples/entities_to_screen.csv")
+```
+
+As you can see from this example, the first object returned is a list of entities that do have risks, the next is a list of entities without risks, and the third is a list of rows from the CSV that were unable to be resolved.
 
 ## Entity
 ### Get Entity
