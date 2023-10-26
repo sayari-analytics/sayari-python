@@ -209,3 +209,17 @@ watchlist = client.traversal.watchlist(myEntityID)
 ```python
 shortestPath = client.traversal.shortest_path(entities=[myFirstEntityID, mySecondEntityID])
 ```
+
+## Trade
+### Shipment Search
+```python
+shipments = client.trade.search_shipments(q="search term")
+```
+### Supplier Search
+```python
+suppliers = client.trade.search_suppliers(q="search term")
+```
+### Buyer Search
+```python
+buyers = client.trade.search_buyers(q="search term")
+```
