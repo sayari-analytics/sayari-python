@@ -6,8 +6,6 @@ import urllib.parse
 from dotenv import load_dotenv
 from . import Connection, get_all_data
 
-repeats = 1
-
 
 # This fixture is used to set up the client for each test
 @pytest.fixture(scope="session")
@@ -21,7 +19,6 @@ def setup_connection():
     return client
 
 
-@pytest.mark.repeat(repeats)
 def test_sources(setup_connection):
     # get connection
     client = setup_connection
@@ -46,7 +43,6 @@ def test_sources(setup_connection):
     """
 
 
-@pytest.mark.repeat(repeats)
 def test_entities(setup_connection):
     # get connection
     client = setup_connection
@@ -112,7 +108,6 @@ def test_entities(setup_connection):
         assert len(first_entity_details.relationships.data) == 200
 
 
-@pytest.mark.repeat(repeats)
 def test_resolution(setup_connection):
     # get connection
     client = setup_connection
@@ -134,7 +129,6 @@ def test_resolution(setup_connection):
     assert resolution.fields.name[0] == random_string
 
 
-@pytest.mark.repeat(repeats)
 def test_records(setup_connection):
     # get connection
     client = setup_connection
@@ -169,7 +163,6 @@ def test_records(setup_connection):
     assert record.source_url == first_record.source_url
 
 
-@pytest.mark.repeat(repeats)
 def test_ownership_traversal(setup_connection):
     # get connection
     client = setup_connection
@@ -229,7 +222,6 @@ def test_ownership_traversal(setup_connection):
 # TODO: figure out good test for watchlist traversal
 
 
-@pytest.mark.repeat(repeats)
 def test_entity_pagination(setup_connection):
     # get connection
     client = setup_connection
@@ -247,7 +239,6 @@ def test_entity_pagination(setup_connection):
     assert len(all_entities) == query_info.size.count
 
 
-@pytest.mark.repeat(repeats)
 def test_record_pagination(setup_connection):
     # get connection
     client = setup_connection
@@ -259,7 +250,6 @@ def test_record_pagination(setup_connection):
     assert len(all_entities) == query_info.size.count
 
 
-@pytest.mark.repeat(repeats)
 def test_traversal_pagination(setup_connection):
     # get connection
     client = setup_connection
