@@ -15,8 +15,9 @@ from .resources.search.client import AsyncSearchClient, SearchClient
 from .resources.source.client import AsyncSourceClient, SourceClient
 from .resources.traversal.client import AsyncTraversalClient, TraversalClient
 
+# Because this rate limiter doesn't block all requests, we need a relatively high limit to cope with racing threads.
+retry_limit = 10
 
-retry_limit = 3
 
 class Retry(httpx.HTTPTransport):
     def handle_request(
@@ -42,6 +43,11 @@ class Retry(httpx.HTTPTransport):
                 print("httpx {} 429 response - retrying after {}s".format(request.url, retry_delay))
                 # Sleep for the requested amount of time
                 time.sleep(int(retry_delay))
+                continue
+            # Retry on 502
+            if resp.status_code == 502:
+                print("httpx {} 502 response - retrying after 30s".format(request.url))
+                time.sleep(30)
                 continue
             content_type = resp.headers.get("Content-Type")
             if content_type is not None:
