@@ -16,3 +16,11 @@ client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 # Search for shipments
 shipments = client.trade.search_shipments(q="microcenter")
 print("Found", len(shipments.data.hits), "shipments.")
+
+# Search for suppliers
+suppliers = client.trade.search_suppliers(q="microcenter")
+print("Found", len(suppliers.data.hits), "suppliers.")
+
+# Search for buyers
+buyers = client.trade.search_buyers(q="microcenter")
+print("Found", len(buyers.data.hits), "buyers.")

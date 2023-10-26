@@ -183,7 +183,10 @@ def test_ownership_traversal(setup_connection):
 
     # do traversal
     traversal = client.traversal.traversal(entity.id)
-    # We may need to recurse here if it is possible to have no results...
+    # recurse
+    if len(traversal.data) == 0:
+        test_ownership_traversal(setup_connection)
+
     assert len(traversal.data) > 0
     assert traversal.data[0].source == entity.id
 
@@ -257,3 +260,54 @@ def test_traversal_pagination(setup_connection):
     entity = client.search.search_entity(q="David Konigsberg", limit=1)
     all_traversals = get_all_data(client.traversal.traversal, entity.data[0].id, limit=1)
     assert len(all_traversals) > 1
+
+@pytest.mark.repeat(10)
+def test_shipment_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for shipment: " + random_string)
+
+    # query until we get results
+    shipments = client.trade.search_shipments(q=random_string)
+    if len(shipments.data.hits) == 0:
+        return test_shipment_search(setup_connection)
+
+    # assert that we have results
+    assert len(shipments.data.hits) > 0
+
+@pytest.mark.repeat(10)
+def test_supplier_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for supplier: " + random_string)
+
+    # query until we get results
+    suppliers = client.trade.search_suppliers(q=random_string)
+    if len(suppliers.data.hits) == 0:
+        return test_supplier_search(setup_connection)
+
+    # assert that we have results
+    assert len(suppliers.data.hits) > 0
+
+@pytest.mark.repeat(10)
+def test_buyer_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for buyer: " + random_string)
+
+    # query until we get results
+    buyers = client.trade.search_buyers(q=random_string)
+    if len(buyers.data.hits) == 0:
+        return test_buyer_search(setup_connection)
+
+    # assert that we have results
+    assert len(buyers.data.hits) > 0

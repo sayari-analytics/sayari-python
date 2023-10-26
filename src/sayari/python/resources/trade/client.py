@@ -13,7 +13,9 @@ from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.search_field import SearchField
+from .types.buyer_search_results import BuyerSearchResults
 from .types.shipment_search_results import ShipmentSearchResults
+from .types.supplier_search_results import SupplierSearchResults
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -89,6 +91,134 @@ class TradeClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def search_suppliers(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        filter: typing.Optional[str] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> SupplierSearchResults:
+        """
+        Search for a supplier
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "filter": filter,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(SupplierSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded()
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def search_buyers(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        filter: typing.Optional[str] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> BuyerSearchResults:
+        """
+        Search for a buyer
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "filter": filter,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(BuyerSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded()
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncTradeClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -146,6 +276,134 @@ class AsyncTradeClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShipmentSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded()
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def search_suppliers(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        filter: typing.Optional[str] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> SupplierSearchResults:
+        """
+        Search for a supplier
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "filter": filter,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(SupplierSearchResults, _response.json())  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded()
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def search_buyers(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        filter: typing.Optional[str] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> BuyerSearchResults:
+        """
+        Search for a buyer
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "filter": filter,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(BuyerSearchResults, _response.json())  # type: ignore
         if _response.status_code == 404:
             raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
         if _response.status_code == 429:

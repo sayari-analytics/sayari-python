@@ -11,9 +11,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class BusinessPurpose(pydantic.BaseModel):
-    value: typing.Optional[str]
-    code: typing.Optional[str]
+class SupplierMetadata(pydantic.BaseModel):
+    latest_shipment_date: typing.Optional[str] = pydantic.Field(alias="latestShipmentDate")
+    shipments: int
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -26,4 +26,5 @@ class BusinessPurpose(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

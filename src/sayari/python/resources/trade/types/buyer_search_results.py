@@ -5,12 +5,13 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...base_types.types.paginated_response import PaginatedResponse
+from .supplier_or_buyer_hits import SupplierOrBuyerHits
 
 
 class BuyerSearchResults(PaginatedResponse):
     offset: int
     next: bool
-    data: typing.Any
+    data: SupplierOrBuyerHits
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
