@@ -13,6 +13,7 @@ from .resources.record.client import AsyncRecordClient, RecordClient
 from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
 from .resources.search.client import AsyncSearchClient, SearchClient
 from .resources.source.client import AsyncSourceClient, SourceClient
+from .resources.trade.client import AsyncTradeClient, TradeClient
 from .resources.traversal.client import AsyncTraversalClient, TraversalClient
 
 # Because this rate limiter doesn't block all requests, we need a relatively high limit to cope with racing threads.
@@ -85,6 +86,7 @@ class SayariAnalyticsApi:
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
         self.source = SourceClient(client_wrapper=self._client_wrapper)
+        self.trade = TradeClient(client_wrapper=self._client_wrapper)
         self.traversal = TraversalClient(client_wrapper=self._client_wrapper)
 
 
@@ -110,6 +112,7 @@ class AsyncSayariAnalyticsApi:
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)
         self.source = AsyncSourceClient(client_wrapper=self._client_wrapper)
+        self.trade = AsyncTradeClient(client_wrapper=self._client_wrapper)
         self.traversal = AsyncTraversalClient(client_wrapper=self._client_wrapper)
 
 

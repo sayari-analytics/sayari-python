@@ -19,6 +19,7 @@ from .relationship_types import RelationshipTypes
 from .risk import Risk
 from .risk_info import RiskInfo
 from .risk_level import RiskLevel
+from .search_field import SearchField
 from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
 from .source_id import SourceId
@@ -44,6 +45,7 @@ __all__ = [
     "Risk",
     "RiskInfo",
     "RiskLevel",
+    "SearchField",
     "SourceCount",
     "SourceCountInfo",
     "SourceId",

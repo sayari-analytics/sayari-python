@@ -11,6 +11,7 @@ from . import (
     shared_errors,
     shared_types,
     source,
+    trade,
     traversal,
 )
 from .auth import AccessToken, Audience, AuthResponse, ClientId, ClientSecret, ExpiresIn, GrantType, TokenType
@@ -110,7 +111,7 @@ from .generated_types import (
     WeakIdentifierType,
 )
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import EntitySearchResults, FilterList, RecordSearchResults, SearchField
+from .search import EntitySearchResults, FilterList, RecordSearchResults
 from .shared_errors import NotFound, NotFoundResponse, RateLimitExceeded, Unauthorized, UnauthorizedResponse
 from .shared_types import (
     Coordinate,
@@ -132,12 +133,25 @@ from .shared_types import (
     Risk,
     RiskInfo,
     RiskLevel,
+    SearchField,
     SourceCount,
     SourceCountInfo,
     SourceId,
     Status,
 )
 from .source import Source, SourceList
+from .trade import (
+    BusinessPurpose,
+    BuyerSearchResults,
+    Shipment,
+    ShipmentCountry,
+    ShipmentHits,
+    ShipmentIdentifier,
+    ShipmentMetadata,
+    ShipmentSearchResults,
+    SourceOrDestinationEntity,
+    SupplierSearchResults,
+)
 from .traversal import (
     ShortestPathData,
     ShortestPathResponse,
@@ -162,10 +176,12 @@ __all__ = [
     "Audience",
     "AuthResponse",
     "BothIdentifierTypes",
+    "BusinessPurpose",
     "BusinessPurposeData",
     "BusinessPurposeInfo",
     "BusinessPurposeProperties",
     "BusinessPurposeStandard",
+    "BuyerSearchResults",
     "ClientId",
     "ClientSecret",
     "CompanyStatus",
@@ -264,6 +280,12 @@ __all__ = [
     "SharesData",
     "SharesInfo",
     "SharesProperties",
+    "Shipment",
+    "ShipmentCountry",
+    "ShipmentHits",
+    "ShipmentIdentifier",
+    "ShipmentMetadata",
+    "ShipmentSearchResults",
     "ShortestPathData",
     "ShortestPathResponse",
     "SizeInfo",
@@ -272,11 +294,13 @@ __all__ = [
     "SourceCountInfo",
     "SourceId",
     "SourceList",
+    "SourceOrDestinationEntity",
     "Status",
     "StatusContext",
     "StatusData",
     "StatusInfo",
     "StatusProperties",
+    "SupplierSearchResults",
     "Tag",
     "TokenType",
     "TranslatedNameData",
@@ -304,5 +328,6 @@ __all__ = [
     "shared_errors",
     "shared_types",
     "source",
+    "trade",
     "traversal",
 ]

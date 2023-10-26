@@ -13,10 +13,10 @@ from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from ..shared_types.types.search_field import SearchField
 from .types.entity_search_results import EntitySearchResults
 from .types.filter_list import FilterList
 from .types.record_search_results import RecordSearchResults
-from .types.search_field import SearchField
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
