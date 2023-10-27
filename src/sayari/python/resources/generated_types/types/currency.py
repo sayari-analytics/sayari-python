@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Currency(str, enum.Enum):
+    """
+    Currency enums are normalized representations of currencies
+    """
+
     AFN = "AFN"
     """
     Afghani/971/2

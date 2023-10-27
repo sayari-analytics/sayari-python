@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class AddressType(str, enum.Enum):
+    """
+    indicates what location an address is referring to
+    """
+
     ARRIVAL = "arrival"
     """
     the port to which a shipment is sent

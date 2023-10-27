@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Tag(str, enum.Enum):
+    """
+    Risk tags
+    """
+
     PEP = "pep"
     STATE_OWNED = "state_owned"
     FORMER_SOE = "former_soe"

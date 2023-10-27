@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class NameContext(str, enum.Enum):
+    """
+    Name context enums describe different ways in which a name can belong to an entity
+    """
+
     PRIMARY = "primary"
     """
     The main name, full name, or "best name" for an entity

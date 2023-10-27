@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class FinanceType(str, enum.Enum):
+    """
+    Finance type enums describe financial information about an entity; typically used to describe the cumulative monetary value of share capital issued by a company or held by an individual shareholder
+    """
+
     SHARE_PERCENTAGE = "share_percentage"
     """
     Percentage ownership of a given company's share capital, represented as a value from 0-100

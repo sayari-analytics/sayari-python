@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class ContactType(str, enum.Enum):
+    """
+    Contact type enums describe different methods of contact reported in a record about a given entity.
+    """
+
     PHONE_NUMBER = "phone_number"
     """
     Any kind of phone number

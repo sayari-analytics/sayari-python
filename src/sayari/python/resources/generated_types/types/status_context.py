@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class StatusContext(str, enum.Enum):
+    """
+    Status context enums describe the different types of statuses that can be represented in a status attribute.
+    """
+
     BROKER_LICENSE = "broker_license"
     """
     e.g. 'Broker,' 'Intermediary.' An individual who acts as an intermediary for trading, lending, and investing purposes.

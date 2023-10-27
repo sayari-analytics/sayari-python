@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class CompanyStatus(str, enum.Enum):
+    """
+    Company status enums describe a normalized set of statuses to which we map specific terms describing a company's status in a source document.
+    """
+
     SEIZED = "seized"
     IN_RECEIVERSHIP = "in_receivership"
     REGISTRATION_REVOKED = "registration_revoked"

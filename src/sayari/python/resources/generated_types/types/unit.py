@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Unit(str, enum.Enum):
+    """
+    Unit of measurement (i.e. SI base units)
+    """
+
     METRE = "metre"
     KILOGRAM = "kilogram"
     UNIT = "unit"

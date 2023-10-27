@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class WeakIdentifierType(str, enum.Enum):
+    """
+    All weak (non-unique) identifiers in Sayari's database
+    """
+
     UNKNOWN = "unknown"
     """
     A string that is thought to be an ID number, but whose type is unknown

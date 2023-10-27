@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class BusinessPurposeStandard(str, enum.Enum):
+    """
+    Business purpose standard enums describe the type of code listed in a business purpose attribute, which may or may not allow for Pyisic conversions/lookups.
+    """
+
     CNAE_2 = "CNAE2"
     """
     Classificação Nacional de Atividades Econômicas - Brazil National Economic Activity Classification, Rev. 2.0

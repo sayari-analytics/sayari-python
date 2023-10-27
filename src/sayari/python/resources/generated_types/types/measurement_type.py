@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class MeasurementType(str, enum.Enum):
+    """
+    The type of measurement, e.g. net weight
+    """
+
     GROSS_WEIGHT = "gross_weight"
     """
     Total weight including the weight of goods, packaging, and any additional accessories used for shipping

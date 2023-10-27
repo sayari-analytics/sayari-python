@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class CountryContext(str, enum.Enum):
+    """
+    Country context enums describe different ways an entity can be connected to a country.
+    """
+
     CITIZENSHIP = "citizenship"
     """
     The reported citizenship of a person

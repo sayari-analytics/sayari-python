@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class IdentifierType(str, enum.Enum):
+    """
+    All strong (unique) identifiers in Sayari's database
+    """
+
     CN_TIANYANCHA_COMPANY_ID = "cn_tianyancha_company_id"
     """
     Internal ID that can be used to link related companies within source
