@@ -24,6 +24,10 @@ csvDict = {
     Type: "Must be from the enum set",
 }
 
+# Too much data requested error
+max_results = 10000
+err_too_much_data_requested = ValueError('this request returns {} or more objects. please request individual pages of results, or narrow your request to return fewer objects'.format(max_results))
+
 
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
@@ -170,6 +174,8 @@ def get_token(client_id, client_secret):
 # takes in a function and its args, will automatically page through the data and return all the results
 def get_all_data(func, *args, **kwargs):
     resp = func(*args, **kwargs)
+    if resp.size.count >= max_results:
+        raise err_too_much_data_requested
     all_data = resp.data
     while resp.next:
         resp = func(*args, **kwargs, offset=resp.offset + resp.limit)

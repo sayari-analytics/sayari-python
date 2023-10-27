@@ -4,7 +4,7 @@ import string
 import random
 import urllib.parse
 from dotenv import load_dotenv
-from . import Connection, get_all_data
+from . import Connection, get_all_data, err_too_much_data_requested
 
 
 # This fixture is used to set up the client for each test
@@ -261,7 +261,7 @@ def test_traversal_pagination(setup_connection):
     all_traversals = get_all_data(client.traversal.traversal, entity.data[0].id, limit=1)
     assert len(all_traversals) > 1
 
-@pytest.mark.repeat(10)
+
 def test_shipment_search(setup_connection):
     # get connection
     client = setup_connection
@@ -278,7 +278,7 @@ def test_shipment_search(setup_connection):
     # assert that we have results
     assert len(shipments.data.hits) > 0
 
-@pytest.mark.repeat(10)
+
 def test_supplier_search(setup_connection):
     # get connection
     client = setup_connection
@@ -295,7 +295,7 @@ def test_supplier_search(setup_connection):
     # assert that we have results
     assert len(suppliers.data.hits) > 0
 
-@pytest.mark.repeat(10)
+
 def test_buyer_search(setup_connection):
     # get connection
     client = setup_connection
@@ -311,3 +311,15 @@ def test_buyer_search(setup_connection):
 
     # assert that we have results
     assert len(buyers.data.hits) > 0
+
+
+def test_too_much_data_requested(setup_connection):
+    # get connection
+    client = setup_connection
+
+    with pytest.raises(ValueError) as e_info:
+        all_entities = get_all_data(client.search.search_entity, q="amazon")
+        assert e_info == err_too_much_data_requested
+        assert len(all_entities) == 0
+
+

@@ -114,6 +114,9 @@ client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 
 ### Get all data
 Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the the 'get_all_data' decorator to request all pages of data.
+
+To prevent issues with memory utilization or overlong requests, these pagination functions will not return all results if there are more than 10k records included in the response.
+
 ```python
 # Entities
 all_entities = get_all_data(client.search.search_entity, q="Victoria Beckham")
