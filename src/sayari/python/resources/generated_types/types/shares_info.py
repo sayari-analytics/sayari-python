@@ -9,6 +9,10 @@ from .shares_data import SharesData
 
 
 class SharesInfo(PaginatedResponse):
+    """
+    Shares associated with an entity (e.g. its number of issued shares, or the number of shares held by a shareholder)
+    """
+
     data: typing.List[SharesData]
 
     def json(self, **kwargs: typing.Any) -> str:

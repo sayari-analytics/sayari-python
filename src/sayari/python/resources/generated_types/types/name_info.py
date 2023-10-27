@@ -9,6 +9,10 @@ from .name_data import NameData
 
 
 class NameInfo(PaginatedResponse):
+    """
+    An entity's name. The value may be straightforward (e.g. 'Acme LLC,' 'John Doe') or context-specific (e.g. 'Jones v. Smith' as a legal matter name).
+    """
+
     data: typing.List[NameData]
 
     def json(self, **kwargs: typing.Any) -> str:

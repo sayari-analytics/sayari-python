@@ -8,17 +8,64 @@ T_Result = typing.TypeVar("T_Result")
 
 class CountryContext(str, enum.Enum):
     CITIZENSHIP = "citizenship"
+    """
+    The reported citizenship of a person
+    """
+
     INCORPORATION = "incorporation"
+    """
+    Rarely used. Converted to 'domicile.'
+    """
+
     RESIDENCE = "residence"
+    """
+    The reported country of residence of a person
+    """
+
     NATIONALITY = "nationality"
+    """
+    The reported nationality of a person
+    """
+
     ADDRESS = "address"
+    """
+    The country of an entity address
+    """
+
     VESSEL_FLAG = "vessel_flag"
+    """
+    The flag state of a vessel. Often changes over time.
+    """
+
     DOMICILE = "domicile"
+    """
+    e.g. 'Country of incorporation,' 'Jurisdiction of formation,' 'Organized under the laws of.' A company can operate in multiple countries, but can only have one domicile at a time.
+    """
+
     SHIPMENT_DEPARTURE = "shipment_departure"
+    """
+    The country a shipment starts in
+    """
+
     SHIPMENT_ARRIVAL = "shipment_arrival"
+    """
+    The country of the consignee/recipient of a shipment
+    """
+
     SHIPMENT_TRANSIT = "shipment_transit"
+    """
+    Any country a shipment moves through between its departure and arrival
+    """
+
     ACTIVITY_IN = "activity_in"
+    """
+    Indicates entity is principal entity in record in source from this country
+    """
+
     MENTIONED_IN = "mentioned_in"
+    """
+    Indicates entity is mentioned in record in source from this country
+    """
 
     def visit(
         self,

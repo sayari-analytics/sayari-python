@@ -9,6 +9,10 @@ from .gender_data import GenderData
 
 
 class GenderInfo(PaginatedResponse):
+    """
+    A person's gender
+    """
+
     data: typing.List[GenderData]
 
     def json(self, **kwargs: typing.Any) -> str:

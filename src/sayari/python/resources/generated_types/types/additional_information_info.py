@@ -9,6 +9,10 @@ from .additional_information_data import AdditionalInformationData
 
 
 class AdditionalInformationInfo(PaginatedResponse):
+    """
+    A generic attribute used to hold miscellaneous information not covered by any other attribute. Includes 'value' (for the attribute itself), 'type' (a name, e.g. 'Real property description,') and 'extra' (a miscellaneous field to hold any other details) fields.
+    """
+
     data: typing.List[AdditionalInformationData]
 
     def json(self, **kwargs: typing.Any) -> str:

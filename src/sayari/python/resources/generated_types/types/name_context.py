@@ -8,11 +8,34 @@ T_Result = typing.TypeVar("T_Result")
 
 class NameContext(str, enum.Enum):
     PRIMARY = "primary"
+    """
+    The main name, full name, or "best name" for an entity
+    """
+
     GIVEN = "given"
+    """
+    A given name (i.e. first name, middle name)
+    """
+
     FAMILY = "family"
+    """
+    A family name (i.e. last name)
+    """
+
     ALIAS = "alias"
+    """
+    An alternative, former, or otherwise non-primary name
+    """
+
     MACHINE_TRANSLATION = "machine_translation"
+    """
+    A machine translation of a name
+    """
+
     TRANSLITERATION = "transliteration"
+    """
+    A machine transliteration of a name using a specific system (e.g. Pinyin, ISO, UNGEGN)
+    """
 
     def visit(
         self,

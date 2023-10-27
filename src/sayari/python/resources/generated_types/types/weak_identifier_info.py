@@ -9,6 +9,10 @@ from .weak_identifier_data import WeakIdentifierData
 
 
 class WeakIdentifierInfo(PaginatedResponse):
+    """
+    A non-unique ID number, like a partially redacted tax ID or a registry identifier whose value and type may be shared by multiple entities
+    """
+
     data: typing.List[WeakIdentifierData]
 
     def json(self, **kwargs: typing.Any) -> str:

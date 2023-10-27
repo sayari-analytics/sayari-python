@@ -8,8 +8,19 @@ T_Result = typing.TypeVar("T_Result")
 
 class TranslationContext(str, enum.Enum):
     SAYARI_MACHINE_TRANSLATION = "sayari_machine_translation"
+    """
+    A translation made using a Sayari machine learning model
+    """
+
     PINYIN = "pinyin"
+    """
+    A Pinyin transliteration
+    """
+
     GOOGLE_TRANSLATE = "google_translate"
+    """
+    A translation made using Google Translate API
+    """
 
     def visit(
         self,

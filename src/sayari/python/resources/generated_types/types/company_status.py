@@ -13,15 +13,54 @@ class CompanyStatus(str, enum.Enum):
     OPENING = "opening"
     DISSOLVED = "dissolved"
     ACTIVE = "active"
+    """
+    e.g. 'Active', 'Operating,' 'In good standing'
+    """
+
     INACTIVE = "inactive"
+    """
+    e.g. 'Inactive,' 'Administratively dissolved.' Used when the company still exists but is not operating normally.
+    """
+
     CLOSED = "closed"
+    """
+    e.g. 'Closed,' 'Struck from the register,' 'Registration canceled.' Used when the company no longer legally exists.
+    """
+
     CLOSING = "closing"
+    """
+    e.g. 'In liquidation', 'Dissolved.' Used when the company is on track to close.
+    """
+
     REGISTERED = "registered"
+    """
+    e.g. 'Registration date'
+    """
+
     INCORPORATED = "incorporated"
+    """
+    e.g. 'Date of incorporation'
+    """
+
     UNDER_EXTERNAL_CONTROL = "under_external_control"
+    """
+    e.g. 'In receivership,' 'Bankruptcy trustee appointed,' 'Seized.' Used when an exernal party is granted legal/operational control over the company, typically to steer it through a bankruptcy or winding-up process.
+    """
+
     EXPIRED = "expired"
+    """
+    e.g. 'Expired,' 'Inactive.' Used when the business license is no longer active and up-to-date.
+    """
+
     EXPANDED = "expanded"
+    """
+    e.g. 'Expanded,' 'Barred.' Used when a broker has been involved in one or more disclosure events involving certain final criminal matters, regulatory actions, civil judgment proceedings, or arbitrations or civil litigations.
+    """
+
     TERMINATED = "terminated"
+    """
+    e.g. 'Terminated', 'Closed.' Used when the licensing organization terminates a business license, barring the individual and/or company from performing business activities with the association of the organization.
+    """
 
     def visit(
         self,

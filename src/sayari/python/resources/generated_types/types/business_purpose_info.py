@@ -9,6 +9,10 @@ from .business_purpose_data import BusinessPurposeData
 
 
 class BusinessPurposeInfo(PaginatedResponse):
+    """
+    Text and/or a code (NAICS, NACE, ISIC, etc.) that describes what a company is legally allowed to do or produce
+    """
+
     data: typing.List[BusinessPurposeData]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -8,6 +8,10 @@ T_Result = typing.TypeVar("T_Result")
 
 class ContactType(str, enum.Enum):
     PHONE_NUMBER = "phone_number"
+    """
+    Any kind of phone number
+    """
+
     FAX = "fax"
     EMAIL = "email"
     URL = "url"

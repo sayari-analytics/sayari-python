@@ -9,6 +9,10 @@ from .date_of_birth_data import DateOfBirthData
 
 
 class DateOfBirthInfo(PaginatedResponse):
+    """
+    Birth date of a person
+    """
+
     data: typing.List[DateOfBirthData]
 
     def json(self, **kwargs: typing.Any) -> str:

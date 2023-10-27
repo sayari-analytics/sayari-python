@@ -8,29 +8,124 @@ T_Result = typing.TypeVar("T_Result")
 
 class BusinessPurposeStandard(str, enum.Enum):
     CNAE_2 = "CNAE2"
+    """
+    Classificação Nacional de Atividades Econômicas - Brazil National Economic Activity Classification, Rev. 2.0
+    """
+
     ISIC_3 = "ISIC3"
+    """
+    International Standard Industrial Classification, Rev. 3
+    """
+
     ISIC_31 = "ISIC31"
+    """
+    International Standard Industrial Classification, Rev. 3.1
+    """
+
     ISIC_4 = "ISIC4"
+    """
+    International Standard Industrial Classification, Rev. 4
+    """
+
     JSIC_13 = "JSIC13"
+    """
+    Japan Standard Industrial Classification, Rev. 13
+    """
+
     KSIC_10 = "KSIC10"
+    """
+    Korean Standard Industry Classification, Rev. 10
+    """
+
     NACE_1 = "NACE1"
+    """
+    Nomenclature of Economic Activities, Rev. 1
+    """
+
     NACE_2 = "NACE2"
+    """
+    Nomenclature of Economic Activities, Rev. 2
+    """
+
     NAICS_2017 = "NAICS2017"
+    """
+    North American Industry Classification System, Rev. 2017
+    """
+
     SKD_2002 = "SKD2002"
+    """
+    Standardna klasifikacija dejavnosti - Slovenia Standard Classification of Activities, Rev. 2002
+    """
+
     SKD_2008 = "SKD2008"
+    """
+    Standardna klasifikacija dejavnosti - Slovenia Standard Classification of Activities, Rev. 2008
+    """
+
     TSIC_2552 = "TSIC2552"
+    """
+    การจัดประเภทมาตรฐานอุตสาหกรรมประเทศไทย ปี 2552 - Thailand Standard Industrial Classification, Rev. 2009
+    """
+
     NACEBEL_2003 = "NACEBEL2003"
+    """
+    Nomenclature des activités économiques - Belgium Nomenclature of Economic Activities, Rev. 2003
+    """
+
     NACEBEL_2008 = "NACEBEL2008"
+    """
+    Nomenclature des activités économiques - Belgium Nomenclature of Economic Activities, Rev. 2008
+    """
+
     NAF_1 = "NAF1"
+    """
+    Nomenclature d'activités française - French Nomenclature of Economic Activities, Rev. 1
+    """
+
     NAF_2 = "NAF2"
+    """
+    Nomenclature d'activités française - French Nomenclature of Economic Activities, Rev. 2
+    """
+
     GCED_2011 = "GCED2011"
+    """
+    Экономикалык Ишмердиктердин Тyрлөрүнүн Мамлекеттик Классификатору - Kyrgyz State Economic Activity Classification, Rev. 2011
+    """
+
     SCIAN_2018 = "SCIAN2018"
+    """
+    Sistema de Clasificación Industrial de América del Norte - Mexico North American Industry Classification System, Rev. 2018
+    """
+
     CCNAE_2021 = "CCNAE2021"
+    """
+    Clasificador Nacional de Actividades Económicas(CNAE) - Cuba National Economic Activity Classifications, Rev. 2021
+    """
+
     CAEM_2005 = "CAEM2005"
+    """
+    Clasificatorul Activităţilor Din Economia Moldovei - Moldova Classification of Economic Activities, Rev. 2005
+    """
+
     SBI_2008 = "SBI2008"
+    """
+    De Standaard Bedrijfsindeling (SBI) - Netherlands Standard Company Classification, Rev. 2008
+    """
+
     HS = "HS"
+    """
+    Harmonized System Codes (standardized numerical method of classifying traded products)
+    """
+
     SIC = "SIC"
+    """
+    Standard Industrial Classification (SIC) Code List (USA)
+    """
+
     SSIC_2020 = "SSIC2020"
+    """
+    Singapore Standard Industrial Classification (national standard for classifying economic activities undertaken by economic units)
+    """
 
     def visit(
         self,
