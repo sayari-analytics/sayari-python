@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class MonetaryValueContext(str, enum.Enum):
+    """
+    Monetary value context enums describe the types of financial values an asset can have
+    """
+
     COST_INSURANCE_AND_FREIGHT = "cost_insurance_and_freight"
     FREE_ON_BOARD = "free_on_board"
 

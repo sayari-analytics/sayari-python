@@ -9,6 +9,10 @@ from .translated_name_data import TranslatedNameData
 
 
 class TranslatedNameInfo(PaginatedResponse):
+    """
+    A name that has been translated to English
+    """
+
     data: typing.List[TranslatedNameData]
 
     def json(self, **kwargs: typing.Any) -> str:

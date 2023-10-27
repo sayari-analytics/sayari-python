@@ -9,6 +9,10 @@ from .identifier_data import IdentifierData
 
 
 class IdentifierInfo(PaginatedResponse):
+    """
+    An ID number that uniquely identifies one entity when value and type are taken into account.
+    """
+
     data: typing.List[IdentifierData]
 
     def json(self, **kwargs: typing.Any) -> str:

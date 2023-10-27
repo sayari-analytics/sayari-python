@@ -9,6 +9,10 @@ from .country_data import CountryData
 
 
 class CountryInfo(PaginatedResponse):
+    """
+    An affiliation of an entity with a given country through residence, nationality, etc.
+    """
+
     data: typing.List[CountryData]
 
     def json(self, **kwargs: typing.Any) -> str:

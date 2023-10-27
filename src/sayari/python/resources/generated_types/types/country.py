@@ -7,258 +7,1269 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Country(str, enum.Enum):
+    """
+    Country enums are normalized representations of country names. Taken from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#ECU
+    """
+
     ABW = "ABW"
+    """
+    Aruba
+    """
+
     AFG = "AFG"
+    """
+    Afghanistan
+    """
+
     AGO = "AGO"
+    """
+    Angola
+    """
+
     AIA = "AIA"
+    """
+    Anguilla
+    """
+
     ALA = "ALA"
+    """
+    Åland Islands
+    """
+
     ALB = "ALB"
+    """
+    Albania
+    """
+
     AND = "AND"
+    """
+    Andorra
+    """
+
     ARE = "ARE"
+    """
+    United Arab Emirates
+    """
+
     ARG = "ARG"
+    """
+    Argentina
+    """
+
     ARM = "ARM"
+    """
+    Armenia
+    """
+
     ASM = "ASM"
+    """
+    American Samoa
+    """
+
     ATA = "ATA"
+    """
+    Antarctica
+    """
+
     ATF = "ATF"
+    """
+    French Southern and Antarctic Lands
+    """
+
     ATG = "ATG"
+    """
+    Antigua and Barbuda
+    """
+
     AUS = "AUS"
+    """
+    Australia
+    """
+
     AUT = "AUT"
+    """
+    Austria
+    """
+
     AZE = "AZE"
+    """
+    Azerbaijan
+    """
+
     BDI = "BDI"
+    """
+    Burundi
+    """
+
     BEL = "BEL"
+    """
+    Belgium
+    """
+
     BEN = "BEN"
+    """
+    Benin
+    """
+
     BFA = "BFA"
+    """
+    Burkina Faso
+    """
+
     BGD = "BGD"
+    """
+    Bangladesh
+    """
+
     BGR = "BGR"
+    """
+    Bulgaria
+    """
+
     BHR = "BHR"
+    """
+    Bahrain
+    """
+
     BHS = "BHS"
+    """
+    Bahamas
+    """
+
     BIH = "BIH"
+    """
+    Bosnia and Herzegovina
+    """
+
     BLM = "BLM"
+    """
+    Saint Barthélemy
+    """
+
     SHN = "SHN"
+    """
+    Saint Helena, Ascension and Tristan da Cunha
+    """
+
     BLR = "BLR"
+    """
+    Belarus
+    """
+
     BLZ = "BLZ"
+    """
+    Belize
+    """
+
     BMU = "BMU"
+    """
+    Bermuda
+    """
+
     BOL = "BOL"
+    """
+    Bolivia
+    """
+
     BES = "BES"
+    """
+    Caribbean Netherlands
+    """
+
     BRA = "BRA"
+    """
+    Brazil
+    """
+
     BRB = "BRB"
+    """
+    Barbados
+    """
+
     BRN = "BRN"
+    """
+    Brunei
+    """
+
     BTN = "BTN"
+    """
+    Bhutan
+    """
+
     BVT = "BVT"
+    """
+    Bouvet Island
+    """
+
     BWA = "BWA"
+    """
+    Botswana
+    """
+
     CAF = "CAF"
+    """
+    Central African Republic
+    """
+
     CAN = "CAN"
+    """
+    Canada
+    """
+
     CCK = "CCK"
+    """
+    Cocos (Keeling) Islands
+    """
+
     CHE = "CHE"
+    """
+    Switzerland
+    """
+
     CHL = "CHL"
+    """
+    Chile
+    """
+
     CHN = "CHN"
+    """
+    China
+    """
+
     CIV = "CIV"
+    """
+    Ivory Coast
+    """
+
     CMR = "CMR"
+    """
+    Cameroon
+    """
+
     COD = "COD"
+    """
+    DR Congo
+    """
+
     COG = "COG"
+    """
+    Republic of the Congo
+    """
+
     COK = "COK"
+    """
+    Cook Islands
+    """
+
     COL = "COL"
+    """
+    Colombia
+    """
+
     COM = "COM"
+    """
+    Comoros
+    """
+
     CPV = "CPV"
+    """
+    Cape Verde
+    """
+
     CRI = "CRI"
+    """
+    Costa Rica
+    """
+
     CUB = "CUB"
+    """
+    Cuba
+    """
+
     CUW = "CUW"
+    """
+    Curaçao
+    """
+
     CXR = "CXR"
+    """
+    Christmas Island
+    """
+
     CYM = "CYM"
+    """
+    Cayman Islands
+    """
+
     CYP = "CYP"
+    """
+    Cyprus
+    """
+
     CZE = "CZE"
+    """
+    Czechia
+    """
+
     DEU = "DEU"
+    """
+    Germany
+    """
+
     DJI = "DJI"
+    """
+    Djibouti
+    """
+
     DMA = "DMA"
+    """
+    Dominica
+    """
+
     DNK = "DNK"
+    """
+    Denmark
+    """
+
     DOM = "DOM"
+    """
+    Dominican Republic
+    """
+
     DZA = "DZA"
+    """
+    Algeria
+    """
+
     ECU = "ECU"
+    """
+    Ecuador
+    """
+
     EGY = "EGY"
+    """
+    Egypt
+    """
+
     ERI = "ERI"
+    """
+    Eritrea
+    """
+
     ESH = "ESH"
+    """
+    Western Sahara
+    """
+
     ESP = "ESP"
+    """
+    Spain
+    """
+
     EST = "EST"
+    """
+    Estonia
+    """
+
     ETH = "ETH"
+    """
+    Ethiopia
+    """
+
     FIN = "FIN"
+    """
+    Finland
+    """
+
     FJI = "FJI"
+    """
+    Fiji
+    """
+
     FLK = "FLK"
+    """
+    Falkland Islands
+    """
+
     FRA = "FRA"
+    """
+    France
+    """
+
     FRO = "FRO"
+    """
+    Faroe Islands
+    """
+
     FSM = "FSM"
+    """
+    Micronesia
+    """
+
     GAB = "GAB"
+    """
+    Gabon
+    """
+
     GBR = "GBR"
+    """
+    United Kingdom
+    """
+
     GEO = "GEO"
+    """
+    Georgia
+    """
+
     GGY = "GGY"
+    """
+    Guernsey
+    """
+
     GHA = "GHA"
+    """
+    Ghana
+    """
+
     GIB = "GIB"
+    """
+    Gibraltar
+    """
+
     GIN = "GIN"
+    """
+    Guinea
+    """
+
     GLP = "GLP"
+    """
+    Guadeloupe
+    """
+
     GMB = "GMB"
+    """
+    Gambia
+    """
+
     GNB = "GNB"
+    """
+    Guinea-Bissau
+    """
+
     GNQ = "GNQ"
+    """
+    Equatorial Guinea
+    """
+
     GRC = "GRC"
+    """
+    Greece
+    """
+
     GRD = "GRD"
+    """
+    Grenada
+    """
+
     GRL = "GRL"
+    """
+    Greenland
+    """
+
     GTM = "GTM"
+    """
+    Guatemala
+    """
+
     GUF = "GUF"
+    """
+    French Guiana
+    """
+
     GUM = "GUM"
+    """
+    Guam
+    """
+
     GUY = "GUY"
+    """
+    Guyana
+    """
+
     HKG = "HKG"
+    """
+    Hong Kong
+    """
+
     HMD = "HMD"
+    """
+    Heard Island and McDonald Islands
+    """
+
     HND = "HND"
+    """
+    Honduras
+    """
+
     HRV = "HRV"
+    """
+    Croatia
+    """
+
     HTI = "HTI"
+    """
+    Haiti
+    """
+
     HUN = "HUN"
+    """
+    Hungary
+    """
+
     IDN = "IDN"
+    """
+    Indonesia
+    """
+
     IMN = "IMN"
+    """
+    Isle of Man
+    """
+
     IND = "IND"
+    """
+    India
+    """
+
     IOT = "IOT"
+    """
+    British Indian Ocean Territory
+    """
+
     IRL = "IRL"
+    """
+    Ireland
+    """
+
     IRN = "IRN"
+    """
+    Iran
+    """
+
     IRQ = "IRQ"
+    """
+    Iraq
+    """
+
     ISL = "ISL"
+    """
+    Iceland
+    """
+
     ISR = "ISR"
+    """
+    Israel
+    """
+
     ITA = "ITA"
+    """
+    Italy
+    """
+
     JAM = "JAM"
+    """
+    Jamaica
+    """
+
     JEY = "JEY"
+    """
+    Jersey
+    """
+
     JOR = "JOR"
+    """
+    Jordan
+    """
+
     JPN = "JPN"
+    """
+    Japan
+    """
+
     KAZ = "KAZ"
+    """
+    Kazakhstan
+    """
+
     KEN = "KEN"
+    """
+    Kenya
+    """
+
     KGZ = "KGZ"
+    """
+    Kyrgyzstan
+    """
+
     KHM = "KHM"
+    """
+    Cambodia
+    """
+
     KIR = "KIR"
+    """
+    Kiribati
+    """
+
     KNA = "KNA"
+    """
+    Saint Kitts and Nevis
+    """
+
     KOR = "KOR"
+    """
+    South Korea
+    """
+
     UNK = "UNK"
+    """
+    Kosovo
+    """
+
     KWT = "KWT"
+    """
+    Kuwait
+    """
+
     LAO = "LAO"
+    """
+    Laos
+    """
+
     LBN = "LBN"
+    """
+    Lebanon
+    """
+
     LBR = "LBR"
+    """
+    Liberia
+    """
+
     LBY = "LBY"
+    """
+    Libya
+    """
+
     LCA = "LCA"
+    """
+    Saint Lucia
+    """
+
     LIE = "LIE"
+    """
+    Liechtenstein
+    """
+
     LKA = "LKA"
+    """
+    Sri Lanka
+    """
+
     LSO = "LSO"
+    """
+    Lesotho
+    """
+
     LTU = "LTU"
+    """
+    Lithuania
+    """
+
     LUX = "LUX"
+    """
+    Luxembourg
+    """
+
     LVA = "LVA"
+    """
+    Latvia
+    """
+
     MAC = "MAC"
+    """
+    Macau
+    """
+
     MAF = "MAF"
+    """
+    Saint Martin
+    """
+
     MAR = "MAR"
+    """
+    Morocco
+    """
+
     MCO = "MCO"
+    """
+    Monaco
+    """
+
     MDA = "MDA"
+    """
+    Moldova
+    """
+
     MDG = "MDG"
+    """
+    Madagascar
+    """
+
     MDV = "MDV"
+    """
+    Maldives
+    """
+
     MEX = "MEX"
+    """
+    Mexico
+    """
+
     MHL = "MHL"
+    """
+    Marshall Islands
+    """
+
     MKD = "MKD"
+    """
+    Macedonia
+    """
+
     MLI = "MLI"
+    """
+    Mali
+    """
+
     MLT = "MLT"
+    """
+    Malta
+    """
+
     MMR = "MMR"
+    """
+    Myanmar
+    """
+
     MNE = "MNE"
+    """
+    Montenegro
+    """
+
     MNG = "MNG"
+    """
+    Mongolia
+    """
+
     MNP = "MNP"
+    """
+    Northern Mariana Islands
+    """
+
     MOZ = "MOZ"
+    """
+    Mozambique
+    """
+
     MRT = "MRT"
+    """
+    Mauritania
+    """
+
     MSR = "MSR"
+    """
+    Montserrat
+    """
+
     MTQ = "MTQ"
+    """
+    Martinique
+    """
+
     MUS = "MUS"
+    """
+    Mauritius
+    """
+
     MWI = "MWI"
+    """
+    Malawi
+    """
+
     MYS = "MYS"
+    """
+    Malaysia
+    """
+
     MYT = "MYT"
+    """
+    Mayotte
+    """
+
     NAM = "NAM"
+    """
+    Namibia
+    """
+
     NCL = "NCL"
+    """
+    New Caledonia
+    """
+
     NER = "NER"
+    """
+    Niger
+    """
+
     NFK = "NFK"
+    """
+    Norfolk Island
+    """
+
     NGA = "NGA"
+    """
+    Nigeria
+    """
+
     NIC = "NIC"
+    """
+    Nicaragua
+    """
+
     NIU = "NIU"
+    """
+    Niue
+    """
+
     NLD = "NLD"
+    """
+    Netherlands
+    """
+
     NOR = "NOR"
+    """
+    Norway
+    """
+
     NPL = "NPL"
+    """
+    Nepal
+    """
+
     NRU = "NRU"
+    """
+    Nauru
+    """
+
     NZL = "NZL"
+    """
+    New Zealand
+    """
+
     OMN = "OMN"
+    """
+    Oman
+    """
+
     PAK = "PAK"
+    """
+    Pakistan
+    """
+
     PAN = "PAN"
+    """
+    Panama
+    """
+
     PCN = "PCN"
+    """
+    Pitcairn Islands
+    """
+
     PER = "PER"
+    """
+    Peru
+    """
+
     PHL = "PHL"
+    """
+    Philippines
+    """
+
     PLW = "PLW"
+    """
+    Palau
+    """
+
     PNG = "PNG"
+    """
+    Papua New Guinea
+    """
+
     POL = "POL"
+    """
+    Poland
+    """
+
     PRI = "PRI"
+    """
+    Puerto Rico
+    """
+
     PRK = "PRK"
+    """
+    North Korea
+    """
+
     PRT = "PRT"
+    """
+    Portugal
+    """
+
     PRY = "PRY"
+    """
+    Paraguay
+    """
+
     PSE = "PSE"
+    """
+    Palestine
+    """
+
     PYF = "PYF"
+    """
+    French Polynesia
+    """
+
     QAT = "QAT"
+    """
+    Qatar
+    """
+
     REU = "REU"
+    """
+    Réunion
+    """
+
     ROU = "ROU"
+    """
+    Romania
+    """
+
     RUS = "RUS"
+    """
+    Russia
+    """
+
     RWA = "RWA"
+    """
+    Rwanda
+    """
+
     SAU = "SAU"
+    """
+    Saudi Arabia
+    """
+
     SDN = "SDN"
+    """
+    Sudan
+    """
+
     SEN = "SEN"
+    """
+    Senegal
+    """
+
     SGP = "SGP"
+    """
+    Singapore
+    """
+
     SGS = "SGS"
+    """
+    South Georgia
+    """
+
     SJM = "SJM"
+    """
+    Svalbard and Jan Mayen
+    """
+
     SLB = "SLB"
+    """
+    Solomon Islands
+    """
+
     SLE = "SLE"
+    """
+    Sierra Leone
+    """
+
     SLV = "SLV"
+    """
+    El Salvador
+    """
+
     SMR = "SMR"
+    """
+    San Marino
+    """
+
     SOM = "SOM"
+    """
+    Somalia
+    """
+
     SPM = "SPM"
+    """
+    Saint Pierre and Miquelon
+    """
+
     SRB = "SRB"
+    """
+    Serbia
+    """
+
     SSD = "SSD"
+    """
+    South Sudan
+    """
+
     STP = "STP"
+    """
+    São Tomé and Príncipe
+    """
+
     SUR = "SUR"
+    """
+    Suriname
+    """
+
     SVK = "SVK"
+    """
+    Slovakia
+    """
+
     SVN = "SVN"
+    """
+    Slovenia
+    """
+
     SWE = "SWE"
+    """
+    Sweden
+    """
+
     SWZ = "SWZ"
+    """
+    Eswatini
+    """
+
     SXM = "SXM"
+    """
+    Sint Maarten
+    """
+
     SYC = "SYC"
+    """
+    Seychelles
+    """
+
     SYR = "SYR"
+    """
+    Syria
+    """
+
     TCA = "TCA"
+    """
+    Turks and Caicos Islands
+    """
+
     TCD = "TCD"
+    """
+    Chad
+    """
+
     TGO = "TGO"
+    """
+    Togo
+    """
+
     THA = "THA"
+    """
+    Thailand
+    """
+
     TJK = "TJK"
+    """
+    Tajikistan
+    """
+
     TKL = "TKL"
+    """
+    Tokelau
+    """
+
     TKM = "TKM"
+    """
+    Turkmenistan
+    """
+
     TLS = "TLS"
+    """
+    Timor-Leste
+    """
+
     TON = "TON"
+    """
+    Tonga
+    """
+
     TTO = "TTO"
+    """
+    Trinidad and Tobago
+    """
+
     TUN = "TUN"
+    """
+    Tunisia
+    """
+
     TUR = "TUR"
+    """
+    Turkey
+    """
+
     TUV = "TUV"
+    """
+    Tuvalu
+    """
+
     TWN = "TWN"
+    """
+    Taiwan
+    """
+
     TZA = "TZA"
+    """
+    Tanzania
+    """
+
     UGA = "UGA"
+    """
+    Uganda
+    """
+
     UKR = "UKR"
+    """
+    Ukraine
+    """
+
     UMI = "UMI"
+    """
+    United States Minor Outlying Islands
+    """
+
     URY = "URY"
+    """
+    Uruguay
+    """
+
     USA = "USA"
+    """
+    United States
+    """
+
     UZB = "UZB"
+    """
+    Uzbekistan
+    """
+
     VAT = "VAT"
+    """
+    Vatican City
+    """
+
     VCT = "VCT"
+    """
+    Saint Vincent and the Grenadines
+    """
+
     VEN = "VEN"
+    """
+    Venezuela
+    """
+
     VGB = "VGB"
+    """
+    British Virgin Islands
+    """
+
     VIR = "VIR"
+    """
+    United States Virgin Islands
+    """
+
     VNM = "VNM"
+    """
+    Vietnam
+    """
+
     VUT = "VUT"
+    """
+    Vanuatu
+    """
+
     WLF = "WLF"
+    """
+    Wallis and Futuna
+    """
+
     WSM = "WSM"
+    """
+    Samoa
+    """
+
     YEM = "YEM"
+    """
+    Yemen
+    """
+
     ZAF = "ZAF"
+    """
+    South Africa
+    """
+
     ZMB = "ZMB"
+    """
+    Zambia
+    """
+
     ZWE = "ZWE"
+    """
+    Zimbabwe
+    """
+
     XXX = "XXX"
+    """
+    International
+    """
+
     RKS = "RKS"
+    """
+    Kosovo
+    """
 
     def visit(
         self,

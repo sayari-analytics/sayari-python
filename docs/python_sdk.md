@@ -95,38 +95,134 @@ You should now have all the tools you need to start using the Sayari Graph Go SD
 ## Trade Analysis
 
 # Examples
-Please see the API documentation for detailed explanations of all the request and response bodies. Our documentation site (along with valid client ID and secret) can be used to make requests against our API to get a sense for how the API behaves.
+**Please see the API documentation for detailed explanations of all the request and response bodies**. Our documentation site (along with valid client ID and secret) can be used to make requests against our API to get a sense for how the API behaves.
 
 In addition to the API documentation, the SDK code itself is a great resource for understanding the structure of Sayari Graph API requests and responses. Objects in the code should have helpful names and comments detailing their significance.
 
 What follows is a list of invocation examples for each of the SDK functions. Again, this is not an exhaustive demonstration if its capabilities, but rather a minimal example to help you get started.
 
 ## Top Level SDK functions
-### Connect
+As mentioned above, this SDK provides some convenience functions beyond those available purely via the Sayari Graph API.
+
+### Connection
+The client connection is an authenticated API client which supplies the methods for the rest of the SDK's functionality. In addition to handling the authentication, this client object will also handle re-authentication in cases where the client is longer-lived then the duration of the initial authentication request.
+
+To create a client connection, simply provide the client ID and secret
+```python
+client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+```
+
 ### Get all data
+Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the the 'get_all_data' decorator to request all pages of data.
+
+To prevent issues with memory utilization or overlong requests, these pagination functions will not return all results if there are more than 10k records included in the response.
+
+```python
+# Entities
+all_entities = get_all_data(client.search.search_entity, q="Victoria Beckham")
+
+# Records
+all_record = get_all_data(client.search.search_record, q="Victoria Beckham")
+
+# Traversal
+all_traversals = get_all_data(client.traversal.traversal, "my entity ID")
+```
+
 ### Screen CSV
+One of the most common use cases for the Sayari Graph API is screening entities for potential risks. Because of this, the SDK includes tooling to simplify this process.
+
+The 'screen_csv' function takes in the path for a CSV containing entities to screen, and returns those entities and their associated risks. For this to work properly, the CSV must only contain columns that map to entity attributes. Valid names for those columns are as follows: (column names are case and spacing insensitive)
+- Name
+- Identifier
+- Country
+- Address
+- Date Of Birth
+- Contact
+- Entity Type
+
+Once your CSV is property formatted, using the screen function is as simple as providing the path to the CSV.
+```python
+risky_entities, non_risky_entities, unresolved = client.screen_csv("examples/entities_to_screen.csv")
+```
+
+As you can see from this example, the first object returned is a list of entities that do have risks, the next is a list of entities without risks, and the third is a list of rows from the CSV that were unable to be resolved.
 
 ## Entity
 ### Get Entity
+```python
+entityDetails = client.entity.get_entity(myEntityID)
+```
+
 ### Entity Summary
+```python
+entitySummary = client.entity.entity_summary(myEntityID)
+```
 
 ## Record
 ### Get Record
+Note: record ID's must be URL escaped
+```python
+record = client.record.get_record(urllib.parse.quote(myRecordID, safe=''))
+```
 
 ## Resolution
 ### Resolution
+```python
+resolution = client.resolution.resolution(name="search term")
+```
 
 ## Search
 ### Search Entity
+```python
+entitySearchResults = client.search.search_entity(q="search term")
+```
 ### Search Record
+```python
+recordSearch = client.search.search_record(q="search term")
+```
 
 ## Source
 ### List Sources
+```python
+sources = client.source.list_sources()
+```
 ### Get Source
+```python
+firstSource = client.source.get_source(mySourceID)
+```
 
 ## Traversal
 ### Traversal
+```python
+traversal = client.traversal.traversal(myEntityID)
+```
 ### UBO
+```python
+ubo = client.traversal.ubo(myEntityID)
+```
 ### Ownership
+```python
+ownership = client.traversal.ownership(myEntityID)
+```
 ### Watchlist
+```python
+watchlist = client.traversal.watchlist(myEntityID)
+```
 ### Shortest Path
+```python
+shortestPath = client.traversal.shortest_path(entities=[myFirstEntityID, mySecondEntityID])
+```
+
+## Trade
+### Shipment Search
+```python
+shipments = client.trade.search_shipments(q="search term")
+```
+### Supplier Search
+```python
+suppliers = client.trade.search_suppliers(q="search term")
+```
+### Buyer Search
+```python
+buyers = client.trade.search_buyers(q="search term")
+```

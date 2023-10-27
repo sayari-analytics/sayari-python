@@ -9,6 +9,10 @@ from .generic_data import GenericData
 
 
 class GenericInfo(PaginatedResponse):
+    """
+    A placeholder attribute. Rarely used.
+    """
+
     data: typing.List[GenericData]
 
     def json(self, **kwargs: typing.Any) -> str:

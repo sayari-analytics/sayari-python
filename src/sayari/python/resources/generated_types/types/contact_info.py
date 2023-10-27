@@ -9,6 +9,10 @@ from .contact_data import ContactData
 
 
 class ContactInfo(PaginatedResponse):
+    """
+    Contact information for an entity
+    """
+
     data: typing.List[ContactData]
 
     def json(self, **kwargs: typing.Any) -> str:

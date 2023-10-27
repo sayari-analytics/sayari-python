@@ -4,9 +4,7 @@ import string
 import random
 import urllib.parse
 from dotenv import load_dotenv
-from . import Connection, get_all_data
-
-repeats = 1
+from . import Connection, get_all_data, err_too_much_data_requested
 
 
 # This fixture is used to set up the client for each test
@@ -21,7 +19,6 @@ def setup_connection():
     return client
 
 
-@pytest.mark.repeat(repeats)
 def test_sources(setup_connection):
     # get connection
     client = setup_connection
@@ -46,7 +43,6 @@ def test_sources(setup_connection):
     """
 
 
-@pytest.mark.repeat(repeats)
 def test_entities(setup_connection):
     # get connection
     client = setup_connection
@@ -112,7 +108,6 @@ def test_entities(setup_connection):
         assert len(first_entity_details.relationships.data) == 200
 
 
-@pytest.mark.repeat(repeats)
 def test_resolution(setup_connection):
     # get connection
     client = setup_connection
@@ -134,7 +129,6 @@ def test_resolution(setup_connection):
     assert resolution.fields.name[0] == random_string
 
 
-@pytest.mark.repeat(repeats)
 def test_records(setup_connection):
     # get connection
     client = setup_connection
@@ -169,7 +163,6 @@ def test_records(setup_connection):
     assert record.source_url == first_record.source_url
 
 
-@pytest.mark.repeat(repeats)
 def test_ownership_traversal(setup_connection):
     # get connection
     client = setup_connection
@@ -190,7 +183,10 @@ def test_ownership_traversal(setup_connection):
 
     # do traversal
     traversal = client.traversal.traversal(entity.id)
-    # We may need to recurse here if it is possible to have no results...
+    # recurse
+    if len(traversal.data) == 0:
+        test_ownership_traversal(setup_connection)
+
     assert len(traversal.data) > 0
     assert traversal.data[0].source == entity.id
 
@@ -229,7 +225,6 @@ def test_ownership_traversal(setup_connection):
 # TODO: figure out good test for watchlist traversal
 
 
-@pytest.mark.repeat(repeats)
 def test_entity_pagination(setup_connection):
     # get connection
     client = setup_connection
@@ -247,7 +242,6 @@ def test_entity_pagination(setup_connection):
     assert len(all_entities) == query_info.size.count
 
 
-@pytest.mark.repeat(repeats)
 def test_record_pagination(setup_connection):
     # get connection
     client = setup_connection
@@ -259,7 +253,6 @@ def test_record_pagination(setup_connection):
     assert len(all_entities) == query_info.size.count
 
 
-@pytest.mark.repeat(repeats)
 def test_traversal_pagination(setup_connection):
     # get connection
     client = setup_connection
@@ -267,3 +260,66 @@ def test_traversal_pagination(setup_connection):
     entity = client.search.search_entity(q="David Konigsberg", limit=1)
     all_traversals = get_all_data(client.traversal.traversal, entity.data[0].id, limit=1)
     assert len(all_traversals) > 1
+
+
+def test_shipment_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for shipment: " + random_string)
+
+    # query until we get results
+    shipments = client.trade.search_shipments(q=random_string)
+    if len(shipments.data.hits) == 0:
+        return test_shipment_search(setup_connection)
+
+    # assert that we have results
+    assert len(shipments.data.hits) > 0
+
+
+def test_supplier_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for supplier: " + random_string)
+
+    # query until we get results
+    suppliers = client.trade.search_suppliers(q=random_string)
+    if len(suppliers.data.hits) == 0:
+        return test_supplier_search(setup_connection)
+
+    # assert that we have results
+    assert len(suppliers.data.hits) > 0
+
+
+def test_buyer_search(setup_connection):
+    # get connection
+    client = setup_connection
+
+    # search for an entity with a random string
+    random_string = ''.join(random.choices(string.ascii_letters, k=3))
+    print("searching for buyer: " + random_string)
+
+    # query until we get results
+    buyers = client.trade.search_buyers(q=random_string)
+    if len(buyers.data.hits) == 0:
+        return test_buyer_search(setup_connection)
+
+    # assert that we have results
+    assert len(buyers.data.hits) > 0
+
+
+def test_too_much_data_requested(setup_connection):
+    # get connection
+    client = setup_connection
+
+    with pytest.raises(ValueError) as e_info:
+        all_entities = get_all_data(client.search.search_entity, q="amazon")
+        assert e_info == err_too_much_data_requested
+        assert len(all_entities) == 0
+
+

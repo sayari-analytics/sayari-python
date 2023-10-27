@@ -9,6 +9,10 @@ from .person_status_data import PersonStatusData
 
 
 class PersonStatusInfo(PaginatedResponse):
+    """
+    A key event in a person's life, usually temporal
+    """
+
     data: typing.List[PersonStatusData]
 
     def json(self, **kwargs: typing.Any) -> str:

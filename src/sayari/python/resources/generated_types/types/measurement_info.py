@@ -9,6 +9,10 @@ from .measurement_data import MeasurementData
 
 
 class MeasurementInfo(PaginatedResponse):
+    """
+    A numerical representation in a standard unit of some dimension of an entity, for example, weight
+    """
+
     data: typing.List[MeasurementData]
 
     def json(self, **kwargs: typing.Any) -> str:

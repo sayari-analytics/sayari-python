@@ -7,553 +7,2592 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class IdentifierType(str, enum.Enum):
+    """
+    All strong (unique) identifiers in Sayari's database
+    """
+
     CN_TIANYANCHA_COMPANY_ID = "cn_tianyancha_company_id"
+    """
+    Internal ID that can be used to link related companies within source
+    """
+
     CN_TIANYANCHA_HUMAN_ID = "cn_tianyancha_human_id"
+    """
+    Internal ID that can be used to link related people within source
+    """
+
     CN_UNIFIED_SOCIAL_CREDIT_CODE = "cn_unified_social_credit_code"
+    """
+    A Chinese Unified Social Credit Code
+    """
+
     CN_REGISTRATION_NUMBER = "cn_registration_number"
+    """
+    A Chinese company registration number
+    """
+
     CN_ORGANIZATION_CODE = "cn_organization_code"
+    """
+    A Chinese company organization code
+    """
+
     CN_QICHACHA_INTERNAL_ID = "cn_qichacha_internal_id"
+    """
+    Part of a qichacha URL, used to uniquely identify people within the site
+    """
+
     CN_HK_CR_NUMBER = "cn_hk_cr_number"
+    """
+    A Hong Kong CR Number
+    """
+
     CN_HK_FILING_NUMBER = "cn_hk_filing_number"
+    """
+    A Hong Kong document filing number used by ICRIS
+    """
+
     BH_CR_NUMBER = "bh_cr_number"
+    """
+    A Bahraini CRNumber
+    """
+
     BH_CR_NUMBER_AND_BRANCH = "bh_cr_number_and_branch"
+    """
+    A Bahraini CRNumber combined with a Bahraini branch number
+    """
+
     JO_INTERNAL_ID = "jo_internal_id"
+    """
+    Deprecated use jo_national_institution_number
+    """
+
     JO_NATIONAL_INSTITUTION_NUMBER = "jo_national_institution_number"
+    """
+    A Jordanian National Institution Number
+    """
+
     JO_INSTITUTION_NUMBER = "jo_institution_number"
+    """
+    Deprecated use weak id jor_sol_prop_institution_number
+    """
+
     MALTA_COMPANY_NUMBER = "malta_company_number"
+    """
+    A Malta company number
+    """
+
     MALTA_NATIONAL_ID = "malta_national_id"
+    """
+    A number linked to a Maltese national ID card
+    """
+
     MALTA_ACCOUNTANCY_REGISTRATION_ID = "malta_accountancy_registration_id"
+    """
+    Seems to be tied to accounting/auditing firms
+    """
+
     UK_COMPANY_NUMBER = "uk_company_number"
+    """
+    The pattern was sourced from the snapshot file documentation provided to us. When the first two characters are not digits, they have a special meaning
+    """
+
     UK_FIRM_REFERENCE_NUMBER = "uk_firm_reference_number"
+    """
+    A six or a seven-digit Firm Reference Number used to uniquely identify firms by the Prudential Regulation Authority (PRA) and Financial Conduct Authority (FCA).
+    """
+
     UK_PERSON_NUMBER = "uk_person_number"
+    """
+    Seems to be internal use, and is not perfectly applied
+    """
+
     MX_RFC_PERSON = "mx_rfc_person"
+    """
+    A tax ID
+    """
+
     MX_CURP = "mx_curp"
     MX_RFC_COMPANY = "mx_rfc_company"
     MX_OFFICE_FME = "mx_office_fme"
     RU_INN = "ru_inn"
+    """
+    A Russian tax ID. Individuals get a 12 digit number, companies get 10 digits
+    """
+
     RU_OGRN = "ru_ogrn"
+    """
+    A Russian company ID. 12 digits
+    """
+
     VEN_SAREN_INTERNAL_EMPLOYER_NUMBER = "ven_saren_internal_employer_number"
+    """
+    internal company ID
+    """
+
     BRA_CNPJ = "bra_cnpj"
+    """
+    Brazilian corporate ID number
+    """
+
     VEN_RIF = "ven_rif"
+    """
+    Venezuelan tax register information number -- for companies, and sometimes people
+    """
+
     VEN_CEDULA_NUMBER = "ven_cedula_number"
     MDV_REGISTRATION_NUMBER = "mdv_registration_number"
+    """
+    Maldivian corporate registration number.
+    """
+
     IND_DIRECTOR_ID_NUMBER = "ind_director_id_number"
+    """
+    DIN Number or Director Identification Number is a unique 8 digit number that is required for any existing or proposed Director of a Company
+    """
+
     IND_PERMANENT_ACCOUNT_NUMBER = "ind_permanent_account_number"
+    """
+    A permanent account number (PAN) is a ten-digit alphanumeric number, issued in the form of a laminated card, by the Indian Income Tax Department, to any "person" who applies for it or to whom the department allots the number without an application.
+    """
+
     IND_CORPORATE_ID_NUMBER = "ind_corporate_id_number"
+    """
+    A unique identification number assigned by Registrar of Companies (ROC) functioning in various states under Ministry of Corporate Affairs (MCA), Govt. of India
+    """
+
     KAZ_TIN = "kaz_tin"
+    """
+    A tax ID number
+    """
+
     KAZ_BIN = "kaz_bin"
+    """
+    A business identification number
+    """
+
     KAZ_STATE_REG_NUM = "kaz_state_reg_num"
     KAZ_OKPO_NUM = "kaz_okpo_num"
     KAZ_IDENTIFIER = "kaz_identifier"
+    """
+    This is a poorly understood identifer that appears to be unique.
+    """
+
     RKS_REGISTRATION_NUMBER = "rks_registration_number"
+    """
+    Kosovo registration number
+    """
+
     GRC_GEMI_NUMBER = "grc_gemi_number"
+    """
+    General Electronic Commercial Registry (G.E.MI.) number for all legal forms of businesses in Greece'
+    """
+
     VEN_RNC_NUMBER = "ven_rnc_number"
+    """
+    A certificate number for the National Registry of Contractors in Venezuela
+    """
+
     USA_VA_REG_ID = "usa_va_reg_id"
     USA_NY_REG_ID = "usa_ny_reg_id"
     USA_FEI_NUMBER = "usa_fei_number"
+    """
+    Number assigned by the IRS to businesses in the US for identification, also known as EIN
+    """
+
     UKR_MOJ_ID = "ukr_moj_id"
     MUS_REG_ID = "mus_reg_id"
+    """
+    Mauritius Business Registration No.
+    """
+
     UK_TITLE_NUMBER = "uk_title_number"
+    """
+    Title number for a property in the UK
+    """
+
     MNG_REG_NUMBER = "mng_reg_number"
+    """
+    Registration number from the Mongolian corporate registry
+    """
+
     MNE_REG_NUMBER = "mne_reg_number"
+    """
+    Registration number from the Montenegro corporate registry
+    """
+
     KGZ_REG_NUMBER = "kgz_reg_number"
+    """
+    Kyrgyzstan registration number
+    """
+
     CN_IMPORTEXPORT_CODE = "cn_importexport_code"
+    """
+    A code required by Chinese customs for imports and exports. It can be many different things, inclduing the USCC or OC for Chinese companies or the SSN or EIN for US companies.
+    """
+
     PRK_ENTITY_ID = "prk_entity_id"
+    """
+    A code used in the North Korea - China trade data.
+    """
+
     PRK_REGISTRATION_ID = "prk_registration_id"
     YUGOSLAV_MASTER_CITIZEN_NUM = "yugoslav_master_citizen_num"
+    """
+    A unique id number assigned to every citizen of former Yugoslav republics.
+    """
+
     BFA_ENTITY_ID = "bfa_entity_id"
+    """
+    Some kind of ID for burkin fasa
+    """
+
     AFGHAN_TIN_NUMBER = "afghan_tin_number"
+    """
+    A unique id number assigned to all individuals, companies and organizations that operate in Afghanistan.
+    """
+
     AFG_BUSINESS_LICENSE = "afg_business_license"
+    """
+    A unique id number assigned to all individuals, companies and organizations that operate in Afghanistan.
+    """
+
     MDG_NIF_NUMBER = "mdg_nif_number"
+    """
+    A tax identifier number in Madagascar.
+    """
+
     MDG_STAT_NUMBER = "mdg_stat_number"
     MDG_RCS_NUMBER = "mdg_rcs_number"
+    """
+    A tax identifier number in Madagascar.
+    """
+
     LVA_PERSONAL_CODE = "lva_personal_code"
+    """
+    See https://en.wikipedia.org/wiki/National_identification_number#Latvia
+    """
+
     IBAN = "iban"
+    """
+    See https://en.wikipedia.org/wiki/International_Bank_Account_Number
+    """
+
     LVA_REG_NUMBER = "lva_reg_number"
+    """
+    Latvian corporate registration number
+    """
+
     TWN_UNIFIED_NUMBER = "twn_unified_number"
+    """
+    A business identifier number in Taiwan
+    """
+
     LUX_RCS_NUMBER = "lux_rcs_number"
+    """
+    An identifier from the Trade and Companies Register (RCS) in Luxembourg
+    """
+
     MKD_EMBS_NUMBER = "mkd_embs_number"
+    """
+    A unique identifier for Macedonian companies called Edinstven maticen broj na subjektot (EMBS)
+    """
+
     MKD_EMBS_BRANCH_NUMBER = "mkd_embs_branch_number"
+    """
+    A unique identifier for branches of Macedonian companies. It begins with the MKD EMBS number, then a '/', then a number for the branch
+    """
+
     MDA_IDNO_NUMBER = "mda_idno_number"
+    """
+    A unique state identifier in Moldova assigned to legal entities that also serves as a fiscal code
+    """
+
     URY_RUC_NUMBER = "ury_ruc_number"
+    """
+    The Single Register of Taxpayers id for customers of the Tax Administration
+    """
+
     CHE_UID_NUMBER = "che_uid_number"
+    """
+    Standardized unique business id number for all companies in Switzerland
+    """
+
     SLV_COMMERCIAL_REG_NUMBER = "slv_commercial_reg_number"
+    """
+    Registration number for people and companies from the El Salvador commercial register
+    """
+
     SLV_UID_NUMBER = "slv_uid_number"
+    """
+    Documento Unico de Identidad number from El Salvador
+    """
+
     MATO_GROSSO_LEGAL_ID = "mato_grosso_legal_id"
     LEI = "lei"
+    """
+    See https://www.leiroc.org/lei.htm
+    """
+
     VAT = "vat"
+    """
+    See https://en.wikipedia.org/wiki/VAT_identification_number
+    """
+
     ITA_FISCAL_CODE = "ita_fiscal_code"
+    """
+    See https://en.wikipedia.org/wiki/Italian_fiscal_code_card
+    """
+
     RIO_DE_JANEIRO_LEGAL_ID = "rio_de_janeiro_legal_id"
     ISL_TIN_NUMBER = "isl_tin_number"
+    """
+    Iceland tax id no. See https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/Iceland-TIN.pdf
+    """
+
     LAO_ENTERPRISE_NUMBER = "lao_enterprise_number"
+    """
+    Laos corporate regisry enterprise number
+    """
+
     SVK_ICO_NUMBER = "svk_ico_number"
+    """
+    Company id number for businesses registered in the Slovak Republic
+    """
+
     KHM_TIN_NUMBER = "khm_tin_number"
+    """
+    Cambodia tax identification number
+    """
+
     CZE_ICO_NUMBER = "cze_ico_number"
+    """
+    Czech Republic id number (business register code) of an economic subject
+    """
+
     IRN_NATIONAL_ID = "irn_national_id"
+    """
+    Iranian national identifier number
+    """
+
     ECU_RUC_NUMBER = "ecu_ruc_number"
+    """
+    Ecuadorian unique taxpayers registry number
+    """
+
     GRC_VAT_NUMBER = "grc_vat_number"
+    """
+    Greek VAT number
+    """
+
     CAN_CORPORATION_NUMBER = "can_corporation_number"
+    """
+    Canada corporation number; See "Business Number" https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/popMsg.html
+    """
+
     CAN_CRA_PROGRAM_ACCOUNT_NUMBER = "can_cra_program_account_number"
+    """
+    Canadian Revenue Agency program account number; See https://www.thebalancesmb.com/what-is-the-canada-revenue-agency-cra-business-number-2947322
+    """
+
     MNE_PIB = "mne_pib"
+    """
+    Tax identification number in Montenegro
+    """
+
     CHL_CEDULA_NUMBER = "chl_cedula_number"
+    """
+    National Identification Number - RUN (Rol Único Nacional) or RUT (Rol Único Tributario) in Chile
+    """
+
     BRA_CASE_NUMBER = "bra_case_number"
+    """
+    Case number for Brazilian legal matters, this is a first pass and is pretty generic. May need modification later.
+    """
+
     IND_LLPIN = "ind_llpin"
+    """
+    Limited Liability Partnership Identification Number. See https://www.corporate-cases.com/2012/01/Corporate-Identity-Number.html
+    """
+
     IND_FCRN = "ind_fcrn"
+    """
+    Foreign Company Registration Number. See https://www.corporate-cases.com/2012/01/Corporate-Identity-Number.html
+    """
+
     BMU_REGISTRATION_NUMBER = "bmu_registration_number"
+    """
+    Bermuda registration number
+    """
+
     BRA_CPF_NUMBER = "bra_cpf_number"
+    """
+    Individual tax number in Brazil
+    """
+
     IRN_NATIONAL_NUMBER = "irn_national_number"
+    """
+    Deprecated use irn_national_id
+    """
+
     CHN_CUSTOMS_REGISTRATION_CODE = "chn_customs_registration_code"
+    """
+    Chinese custums registration code. Downgraded to weak identifier.
+    """
+
     LIE_PUBLIC_REG_NO = "lie_public_reg_no"
+    """
+    Liechtenstein Public Register number
+    """
+
     CN_TAX_IDENTIFICATION_NUMBER = "cn_tax_identification_number"
+    """
+    Chinese tax identification number
+    """
+
     MAC_REGISTRATION_NO = "mac_registration_no"
+    """
+    Macau business registration number
+    """
+
     SIGER_INTERNAL_ID = "siger_internal_id"
+    """
+    Internal Siger id comprised of office id_fme_data-rk
+    """
+
     LBN_NATIONAL_ID = "lbn_national_id"
+    """
+    Lebanese national ID number. Last digit
+    """
+
     INT_MARITIME_ORG_ID = "int_maritime_org_id"
+    """
+    The International Maritime Organization (IMO) number is a unique reference for ships, registered ship owners and management companies
+    """
+
     RU_SHIP_REGISTER_ID = "ru_ship_register_id"
+    """
+    ID number for the Russian Maritime Register of Shipping (RS)
+    """
+
     SAYARI_INTERNAL_IDENTIFIER = "sayari_internal_identifier"
+    """
+    A UUID used to merge entities internally
+    """
+
     ARUBA_CHAMBER_OF_COMMERCE_ID = "aruba_chamber_of_commerce_id"
+    """
+    Also known as KvK number.
+    """
+
     IMO_NO = "imo_no"
+    """
+    International Maritime Organization number
+    """
+
     VGB_COMPANY_NUMBER = "vgb_company_number"
+    """
+    British Virgin Islands company number.
+    """
+
     YEM_COC_REGISTRATION_NUMBER = "yem_coc_registration_number"
+    """
+    Yemeni chamber of commerce registration number
+    """
+
     MYS_ID_CARD_NO = "mys_id_card_no"
+    """
+    National Registration Identification Card Number NRIC for Malaysia
+    """
+
     MYS_COMPANY_REG_NO = "mys_company_reg_no"
+    """
+    Malaysia Business Registration Number
+    """
+
     PRY_RUC_NUMBER = "pry_ruc_number"
+    """
+    Paraguay RUC number for companies and people
+    """
+
     PRY_CEDULA_NUMBER = "pry_cedula_number"
+    """
+    Paraguay cedula number for people
+    """
+
     PRY_OLD_RUC_NUMBER = "pry_old_ruc_number"
+    """
+    Paraguay previous RUC number format
+    """
+
     RCCM_NO = "rccm_no"
+    """
+    Register of Commerce and Personal Propery Transactions Number (West Africa)
+    """
+
     BRA_RG_NUMBER = "bra_rg_number"
+    """
+    National id number for people in Brazil
+    """
+
     NINEA_NO = "ninea_no"
+    """
+    National identification number for enterprises and associations (Senegal)
+    """
+
     ALB_TAX_ID = "alb_tax_id"
     ALB_REGISTRATION_NUMBER = "alb_registration_number"
     ARG_IGJ_NUMBER = "arg_igj_number"
+    """
+    Unique company id from Inspección General de Justicia in Argentina
+    """
+
     ARG_DNI_NUMBER = "arg_dni_number"
+    """
+    A nationally issued identification number for people in Argentina
+    """
+
     ARG_CUIT_NUMBER = "arg_cuit_number"
+    """
+    Single tax identification code in Argentina for any individual that initiates an economic activity
+    """
+
     ARG_CUIL_NUMBER = "arg_cuil_number"
+    """
+    Unified Labor Identification Code in Argentina that is required for Social Security benefits
+    """
+
     ARG_CDI_NUMBER = "arg_cdi_number"
+    """
+    Unique id issued to individuals in Argentina by the AFIP who don't require a CUIT or CUIL
+    """
+
     BIH_MBS_NUMBER = "bih_mbs_number"
+    """
+    Bosnia and Herzegovenia business register registration number
+    """
+
     BIH_JIB_NUMBER = "bih_jib_number"
     BIH_CUSTOMS_NUMBER = "bih_customs_number"
     USA_PUERTO_RICO_REGISTER_NUMBER = "usa_puerto_rico_register_number"
     DJI_RCS_NUMBER = "dji_rcs_number"
     CRI_CEDULA_NUMBER = "cri_cedula_number"
     MOZ_ID_NUMBER = "moz_id_number"
+    """
+    Number of National ID card for Mozambique
+    """
+
     MOZ_NUIT_PERSON = "moz_nuit_person"
+    """
+    Mozambique Taxpayer Single Identification Number for a person
+    """
+
     MOZ_NUIT_CO = "moz_nuit_co"
+    """
+    Mozambique Taxpayer Single Identification Number for a company
+    """
+
     MOZ_PASSPORT = "moz_passport"
+    """
+    Mozambique Passport Number
+    """
+
     MOZ_DIRE_NO = "moz_dire_no"
+    """
+    Mozambique foreign residence permit number
+    """
+
     MOZ_VOTER_NO = "moz_voter_no"
+    """
+    Mozambique voter number
+    """
+
     MOZ_NUEL_NO = "moz_nuel_no"
+    """
+    Mozambique company registration number
+    """
+
     IRQ_VOTER_ID = "irq_voter_id"
     JOR_VOTER_CARD_NO = "jor_voter_card_no"
+    """
+    Jordan voter card number
+    """
+
     JOR_ID_NO = "jor_id_no"
+    """
+    Deprecated use jo_national_institution_number
+    """
+
     PER_RUC_NO = "per_ruc_no"
+    """
+    Peru unique taxpayer registration number
+    """
+
     ECU_COMPANY_ID = "ecu_company_id"
     USA_NY_DOS_ID = "usa_ny_dos_id"
     BFA_RCCM_NUMBER = "bfa_rccm_number"
     FL_PROP_FOLIO = "fl_prop_folio"
+    """
+    Florida broward county property folio number
+    """
+
     QAT_QFC_NUMBER = "qat_qfc_number"
     GRC_AFM_NUMBER = "grc_afm_number"
+    """
+    Greek AFM number
+    """
+
     VNM_ENTERPRISE_CODE = "vnm_enterprise_code"
+    """
+    Vietnam enterprise code
+    """
+
     THA_REGISTRATION_NO = "tha_registration_no"
+    """
+    Thai registration number
+    """
+
     VNM_CITIZENSHIP_NO = "vnm_citizenship_no"
+    """
+    https://vi.wikipedia.org/wiki/C%C4%83n_c%C6%B0%E1%BB%9Bc_c%C3%B4ng_d%C3%A2n_(Vi%E1%BB%87t_Nam)
+    """
+
     VNM_PERSON_ID_NO = "vnm_person_id_no"
+    """
+    https://vi.wikipedia.org/wiki/Ch%E1%BB%A9ng_minh_nh%C3%A2n_d%C3%A2n
+    """
+
     ARG_LIB_CIVICA_NUMBER = "arg_lib_civica_number"
+    """
+    ID number for Argentinian women before the DNI number
+    """
+
     ARG_LIB_ENROLAMIENTO_NUMBER = "arg_lib_enrolamiento_number"
+    """
+    ID number for Argentinian men before the DNI number
+    """
+
     NZL_NZBN = "nzl_nzbn"
+    """
+    New Zealand Business Number
+    """
+
     NZL_CO_NO = "nzl_co_no"
+    """
+    New Zealand company number
+    """
+
     USA_OFAC_SDN_NUMBER = "usa_ofac_sdn_number"
+    """
+    OFAC Unique Identification Number
+    """
+
     SWIFT_BIC_CODE = "swift_bic_code"
+    """
+    International bank code
+    """
+
     DUNS_NUMBER = "duns_number"
+    """
+    DNB unique ID
+    """
+
     BITCOIN_ADDRESS = "bitcoin_address"
+    """
+    Bitcoin bitcoin address
+    """
+
     LITECOIN_ADDRESS = "litecoin_address"
+    """
+    Litecoin address
+    """
+
     RUS_MICEX_CODE = "rus_micex_code"
+    """
+    Russia Moscow Stock exchange code
+    """
+
     TX_PROP_ID = "tx_prop_id"
+    """
+    Texas Property ID
+    """
+
     TX_PACS_ID = "tx_pacs_id"
+    """
+    Texas PACS Internal ID
+    """
+
     TX_LAND_ID = "tx_land_id"
+    """
+    Texas Land Segment ID
+    """
+
     PNG_IPA_REG_ID = "png_ipa_reg_id"
+    """
+    Registration number from Papua New Guinea Investment Promotion Authority
+    """
+
     GTM_NIT_NUMBER = "gtm_nit_number"
+    """
+    Guatemala tax identification number
+    """
+
     GTM_CUI_NUMBER = "gtm_cui_number"
+    """
+    Guatemala unique identification code for people
+    """
+
     DOM_RNC = "dom_rnc"
+    """
+    A Dominican business tax ID. https://www.jpmorgan.com/tss/General/Dominican_Republic/1424621856282
+    """
+
     QAT_CR_NUMBER = "qat_cr_number"
+    """
+    Company register number in Qatar
+    """
+
     ISIN = "isin"
+    """
+    An International Securities Identification Number (ISIN) uniquely identifies a security. First two digits are ISO country code
+    """
+
     USA_FL_DOCUMENT_NO = "usa_fl_document_no"
+    """
+    Unique company identifier for the Florida corporate registry
+    """
+
     USA_FL_FIC_NAME_REG_NO = "usa_fl_fic_name_reg_no"
+    """
+    Unique identifier for fictitious name registrations in Florida
+    """
+
     BRA_SERVIDOR_PORTAL = "bra_servidor_portal"
+    """
+    Brazilian Federal Executive PEP identification number
+    """
+
     BRA_CODIGO_DA_UNIDADE_ORGANIZACIONAL = "bra_codigo_da_unidade_organizacional"
+    """
+    Brazilian Federal Executive PEP organizational unit code
+    """
+
     USA_SEC_CIK_NUMBER = "usa_sec_cik_number"
+    """
+    The Central Index Key (CIK) is used on the SEC's computer systems to identify corporations and individual people who have filed disclosure with the SEC. It's 10 digits with 0 fill in front.
+    """
+
     HR_MBS = "hr_mbs"
+    """
+    Croatian Court Business Register
+    """
+
     HR_OIB = "hr_oib"
+    """
+    Croatian Personal & Company Identification Number
+    """
+
     SLV_NUMERO_IDENTIFICACION_TRIBUTARIA = "slv_numero_identificacion_tributaria"
+    """
+    The Salvadorian Número de Identificación Tributaria, used on SLV commercial register
+    """
+
     SLV_MCAS = "slv_mcas"
+    """
+    The Salvadorian Matrícula Consular (MCAS/CID), used on SLV commercial register
+    """
+
     AUS_COMPANY_NUMBER = "aus_company_number"
+    """
+    Every company in Australia is issued with a unique, nine-digit number when registered. This is an Australian Company Number (ACN) and must be displayed on all company documents.
+    """
+
     AUS_BUSINESS_NUMBER = "aus_business_number"
+    """
+    The Australian business number (ABN) is a unique 11-digit identifier that makes it easier for businesses and all levels of government to interact.
+    """
+
     DEU_REGISTERNUMMER = "deu_registernummer"
+    """
+    A unique ID created from a combination of the Handelsregisternummer, the company number given to each company listed in the Handelsregister, and the district court XJustiz ID. This is done because the Handelsregisternummer is not unique on its own.
+    """
+
     USA_IRS_EIN = "usa_irs_ein"
+    """
+    The Internal Revenue Service Employer Identification Number
+    """
+
     HONG_KONG_CASE_NUMBER = "hong_kong_case_number"
+    """
+    Number used to identify a Hong Kong judicial case
+    """
+
     IRN_COC_INTERNAL_ID = "irn_coc_internal_id"
+    """
+    Internal ID that can be used to link related companies within source
+    """
+
     PAN_FOLIO_FICHA_ID = "pan_folio_ficha_id"
+    """
+    Unique identifier for entities in the Panamanian public registry.
+    """
+
     PAN_CEDULA_NUMBER = "pan_cedula_number"
+    """
+    Panamanian cedula number
+    """
+
     XXX_CEDAR_ROSE_UID = "xxx_cedar_rose_uid"
+    """
+    Cedar Rose UID
+    """
+
     XXX_RCCM = "xxx_rccm"
+    """
+    West African Register of Commerce and Personal Property Transactions, originally found in BEN
+    """
+
     VNM_DICHVUTHONGTIN_INTERNAL_ID = "vnm_dichvuthongtin_internal_id"
+    """
+    Internal identifier to dichvuthongtin corporate register
+    """
+
     XXX_INTEL_INTERNAL_ID = "xxx_intel_internal_id"
+    """
+    Internal identifier for Sayari Intel entities
+    """
+
     USA_WASHINGTON_STATE_UBI = "usa_washington_state_ubi"
+    """
+    The State of Washington Business License Service defines a UBI number as “a 9-digit number that registers you with several state agencies and allows you to do business in Washington State.
+    """
+
     NGA_REGISTRATION_NUMBER = "nga_registration_number"
+    """
+    Nigerian corporate registration number
+    """
+
     NG_CHECK_INTERNAL_ID = "ng_check_internal_id"
+    """
+    ng-check.com internal id
+    """
+
     NYC_BBL = "nyc_bbl"
+    """
+    New York City City Borough Block and Lot or Property ID
+    """
+
     NYC_CRFN = "nyc_crfn"
+    """
+    New York City City Register File Number
+    """
+
     TX_CORP_FILE_NUM = "tx_corp_file_num"
+    """
+    Texas Corporate Registry Filing Number
+    """
+
     TX_TAX_ID = "tx_tax_id"
+    """
+    Texas Comptroller's Taxpayer Number
+    """
+
     USA_GA_BUSINESS_ID = "usa_ga_business_id"
+    """
+    Georgia state business identification number
+    """
+
     PHL_PSE_ID = "phl_pse_id"
+    """
+    Philippines stock exchange company ID
+    """
+
     PHL_SEC_ID = "phl_sec_id"
+    """
+    Philippines Securities and Exchange Commission ID
+    """
+
     PHL_TIN = "phl_tin"
+    """
+    Philippines Tax ID http://www.ntrc.gov.ph/images/journal/j20141112a.pdf Optional last three digits is branch code
+    """
+
     AFG_PASSPORT = "afg_passport"
+    """
+    Afghan passport number
+    """
+
     IRN_PASSPORT = "irn_passport"
+    """
+    Iranian passport number
+    """
+
     KWT_PASSPORT = "kwt_passport"
+    """
+    Kuwaiti passport number
+    """
+
     LBY_PASSPORT = "lby_passport"
+    """
+    Libyan passport number
+    """
+
     PAK_PASSPORT = "pak_passport"
+    """
+    Pakistani passport number
+    """
+
     RUS_PASSPORT = "rus_passport"
+    """
+    Russian passport number
+    """
+
     TUN_PASSPORT = "tun_passport"
+    """
+    Tunisian passport number
+    """
+
     YEM_PASSPORT = "yem_passport"
+    """
+    Yemeni passport number
+    """
+
     UN_SANCTION_PRN = "un_sanction_prn"
+    """
+    UN Security Council sanction list permanent reference number https://www.un.org/securitycouncil/content/un-sc-consolidated-list#identifiers%20and%20acronyms
+    """
+
     EU_SANCTION_RN = "eu_sanction_rn"
+    """
+    EU sanction reference number
+    """
+
     CA_LP_FILE_NUM = "ca_lp_file_num"
+    """
+    California LP/LLC file number
+    """
+
     TX_ENTITY_FILING_NUM = "tx_entity_filing_num"
+    """
+    Texas Corporate Registry entity filing number
+    """
+
     USA_SOCIAL_SECURITY_NUMBER = "usa_social_security_number"
+    """
+    United States of America social security number (SSN)
+    """
+
     USA_WY_PARTY_ID = "usa_wy_party_id"
+    """
+    WY internal party ID
+    """
+
     USA_WY_FILING_ID = "usa_wy_filing_id"
+    """
+    WY internal filing ID (primary key)
+    """
+
     USA_WY_INTERNAL_FILING_ID = "usa_wy_internal_filing_id"
+    """
+    WY internal filing ID (primary key)
+    """
+
     USA_WY_FILING_NUM = "usa_wy_filing_num"
+    """
+    Wyoming Secretary of State Filing Number
+    """
+
     USA_OR_REGNO = "usa_or_regno"
+    """
+    Oregon corporate registry registration number
+    """
+
     USA_NV_CORPNO = "usa_nv_corpno"
+    """
+    Nevada Corporation Number
+    """
+
     USA_NV_BIZID = "usa_nv_bizid"
+    """
+    Nevada Business ID
+    """
+
     PRK_INTERNAL_TRADE_ID = "prk_internal_trade_id"
+    """
+    Internal ID used to link companies between PRK/CN exports and trade dict sources. Downgraded to weak id.
+    """
+
     LSO_CORPREG_ID = "lso_corpreg_id"
+    """
+    Identifier number from the Lesotho corporate registry
+    """
+
     UZB_TIN_NUMBER = "uzb_tin_number"
+    """
+    Tin number used in Uzbekistan for companies and people
+    """
+
     CA_CORPORATE_ID_NUM = "ca_corporate_id_num"
+    """
+    California corporate identification number
+    """
+
     GBR_HM_TREASURY_SANCTION_GROUP_ID = "gbr_hm_treasury_sanction_group_id"
+    """
+    ID for entities in HM Treasury Sanctions list
+    """
+
     GBR_IPO_TRADEMARK_REG_NO = "gbr_ipo_trademark_reg_no"
+    """
+    Unique UK ID number. Assigned to every registered trademark.
+    """
+
     USA_GA_CONTROL_NO = "usa_ga_control_no"
+    """
+    USA state of Georgia control number assigned to companies
+    """
+
     HND_COC_COMPANY_REGISTRATION_NUMBER = "hnd_coc_company_registration_number"
+    """
+    Company registration number for Honduran companies
+    """
+
     MNE_PROPERTY_UID = "mne_property_uid"
+    """
+    UID used for properties in Montenegro land registry
+    """
+
     PHL_BNN = "phl_bnn"
+    """
+    Philippines Certificate No. / Bnn
+    """
+
     ROU_COMPANY_REGISTRATION_CODE = "rou_company_registration_code"
+    """
+    Romanian unique registration code for companies
+    """
+
     ROU_IDENTITY_CARD = "rou_identity_card"
+    """
+    Romanian identity card for citizens
+    """
+
     ROU_PERSONAL_ID_NUMBER = "rou_personal_id_number"
+    """
+    Romanian personal id number
+    """
+
     CUB_COD = "cub_cod"
+    """
+    Cubiaian company id
+    """
+
     FL_PROP_FOLIO_DADE = "fl_prop_folio_dade"
+    """
+    Florida dade county property folio number
+    """
+
     PER_DNI_NO = "per_dni_no"
+    """
+    Peruvian national identity document number
+    """
+
     PER_CARNE_DE_EXTRANJERIA = "per_carne_de_extranjeria"
+    """
+    Peruvian foreign resident ID
+    """
+
     FRA_SIREN = "fra_siren"
+    """
+    Identifier for French companies
+    """
+
     FRA_SIRET = "fra_siret"
+    """
+    Identifier for branches of French companies. The first 9 digits are the Siren of the principal company.
+    """
+
     CZE_FILE_NUMBER = "cze_file_number"
+    """
+    Czechia file number from Moj registry, this has been changed to a weak identifier
+    """
+
     ESP_BORME_REG_ID = "esp_borme_reg_id"
+    """
+    Value taken from Datos registrales section used to identify companies in Borme. Not an official identifier.
+    """
+
     MEX_TM_NO = "mex_tm_no"
+    """
+    Mexican trademark number
+    """
+
     MUS_FILE_NO = "mus_file_no"
+    """
+    Mauritius Company File No.
+    """
+
     COL_NIT_NO = "col_nit_no"
+    """
+    Colombian tax identification number
+    """
+
     JPN_CORPORATE_NO = "jpn_corporate_no"
+    """
+    Japanese corporate number (https://en.wikipedia.org/wiki/Corporate_Number).
+    """
+
     USA_CGAC_AGENCY_CODE = "usa_cgac_agency_code"
+    """
+    Common Government-wide Accounting Classification (CGAC) agency code assigned by the Treasury
+    """
+
     USA_GOVT_AGENCY_ID = "usa_govt_agency_id"
+    """
+    Identifier for a US government agency
+    """
+
     USA_GOVT_OFFICE_ID = "usa_govt_office_id"
+    """
+    Identifier for a US government agency office
+    """
+
     COL_CEDULA_NO = "col_cedula_no"
+    """
+    Colombian cedula number
+    """
+
     COL_SECOP_NO = "col_secop_no"
+    """
+    Colombian SECOP internal ID
+    """
+
     JORDAN_COMPANY_NO = "jordan_company_no"
+    """
+    Deprecated use weak identifier jordan_company_no
+    """
+
     DNK_CVR = "dnk_cvr"
+    """
+    Denmark business registration number https://erhvervsstyrelsen.dk/cvr-numre-p-numre-og-se-numre
+    """
+
     DNK_PRODUCTION_UNIT_NO = "dnk_production_unit_no"
+    """
+    Denmark business branch number https://skat.dk/skat.aspx?oid=2045880
+    """
+
     DNK_ENTITY = "dnk_entity"
+    """
+    Internal ID for Denmark virk
+    """
+
     NOR_ORG_NO = "nor_org_no"
+    """
+    Norway Organisasjonsnummer
+    """
+
     SWE_ORG_NO = "swe_org_no"
+    """
+    Sweden Organisationsnummer, may have - separating last 3 digits
+    """
+
     USA_CO_REG_NO = "usa_co_reg_no"
+    """
+    USA Colorado Secretary of State registration number
+    """
+
     USA_IA_CORP_NO = "usa_ia_corp_no"
+    """
+    USA Iowa Secretary of State corporation number
+    """
+
     SGP_UNQIUE_ENTITY_NUMBER = "sgp_unqiue_entity_number"
+    """
+    UEN is the standard identification number of an entity. UEN shall be for registered entities as NRIC is for Singapore citizens. The UEN uniquely identifies the entity.
+    """
+
     USA_AK_ENTITY_NO = "usa_ak_entity_no"
+    """
+    USA Alaskan Secretary of State entity number
+    """
+
     USA_OH_CHARTER_NUM = "usa_oh_charter_num"
+    """
+    USA Ohio business charter number
+    """
+
     TUR_ISTANBUL_COC_REG_NO = "tur_istanbul_coc_reg_no"
+    """
+    Istanbul chamber of commerce registration number
+    """
+
     TUR_MERSIS_NUMBER = "tur_mersis_number"
+    """
+    Turkish Central Registry Number System MERSIS number
+    """
+
     CHE_CH_ID_NUMBER = "che_ch_id_number"
     ARE_DIFC_REG_NO = "are_difc_reg_no"
+    """
+    ARE Dubai Intl Financial Center registration number
+    """
+
     IDN_TAX_ID = "idn_tax_id"
+    """
+    IDN tax id a.k.a. NPWP Number https://wiki.scn.sap.com/wiki/display/CRM/Indonesia
+    """
+
     USA_VT_BIZ_ID = "usa_vt_biz_id"
+    """
+    USA Vermont Business ID
+    """
+
     USA_WV_REG_ID = "usa_wv_reg_id"
+    """
+    USA WV Corporate Registry ID
+    """
+
     USA_MS_BIZ_ID = "usa_ms_biz_id"
+    """
+    USA MS Business ID
+    """
+
     USA_ID_CONTROL_NO = "usa_id_control_no"
+    """
+    USA id Business Control Number
+    """
+
     USA_ID_PARTY_ID = "usa_id_party_id"
+    """
+    USA id Registered Agent ID
+    """
+
     IRN_COC_INTERNAL_ID_CARDNO = "irn_coc_internal_id_cardno"
     USA_AZ_CORP_REG_ENTITY_NUM = "usa_az_corp_reg_entity_num"
+    """
+    USA Arizona Corporate Registry Entity Number
+    """
+
     USA_OK_FILING_NO = "usa_ok_filing_no"
+    """
+    USA ok Business Filing Number
+    """
+
     USA_TN_CONTROL_NO = "usa_tn_control_no"
+    """
+    USA tn Business Control Number
+    """
+
     USA_TN_PARTY_ID = "usa_tn_party_id"
+    """
+    USA tn Registered Agent ID
+    """
+
     USA_KS_BIZ_ID = "usa_ks_biz_id"
+    """
+    USA tn Business ID
+    """
+
     USA_HI_CORPORATE_REGISTRY_ID = "usa_hi_corporate_registry_id"
+    """
+    Identifier made from File Number and File Suffix in HI corporate registry
+    """
+
     USA_HI_CORPORATE_REGISTRY_PERSON_ID = "usa_hi_corporate_registry_person_id"
+    """
+    Identifier for officers in HI corporate regisry
+    """
+
     POL_KRS_NUMBER = "pol_krs_number"
+    """
+    The National Court Register (KRS standing for Krajowy Rejestr Sądowy) number
+    """
+
     POL_REGON_NUMBER = "pol_regon_number"
+    """
+    The register REGON fulfils the function of the national official Register of National Economy Entities
+    """
+
     POL_NIP_NUMBER = "pol_nip_number"
+    """
+    Tax identification number from Poland
+    """
+
     POL_REJESTR_PERSON_ID = "pol_rejestr_person_id"
+    """
+    Person identifier from Poland Rejestr data
+    """
+
     ARM_VAT_NO = "arm_vat_no"
+    """
+    Armenian VAT id number
+    """
+
     ARM_ENTERPRISE_CODE = "arm_enterprise_code"
+    """
+    Armenian enterprise code
+    """
+
     ARM_REGISTRATION_NO = "arm_registration_no"
+    """
+    Armenian regsitration number
+    """
+
     USA_ME_CORP_ID = "usa_me_corp_id"
+    """
+    Maine corporate ID
+    """
+
     CYP_REG_NO = "cyp_reg_no"
+    """
+    Cypriot corporate registration number. Prefix corresponds to company type code.
+    """
+
     USA_ND_CONTROL_ID = "usa_nd_control_id"
+    """
+    North Dakota Secretary of State control id.
+    """
+
     USA_MI_CORP_ID = "usa_mi_corp_id"
+    """
+    Michigan corporate id.
+    """
+
     USA_MI_CORP_ID_OLD = "usa_mi_corp_id_old"
+    """
+    Michigan corporate id (old format).
+    """
+
     USA_HI_TRADE_NAME_CERT = "usa_hi_trade_name_cert"
+    """
+    Certificate Number
+    """
+
     USA_DC_ENTITY_NO = "usa_dc_entity_no"
+    """
+    DC corponline entity number.
+    """
+
     USA_VA_OLD_REG_ID = "usa_va_old_reg_id"
     USA_CONSOLIDATED_SCREENING_LIST_SYNTHETIC_ID = "usa_consolidated_screening_list_synthetic_id"
     USA_AR_FILING_NO = "usa_ar_filing_no"
+    """
+    Arkansas Secretary of State Filing No.
+    """
+
     USA_NC_INTERNAL_ID = "usa_nc_internal_id"
+    """
+    North Carolina SoS corporations UID
+    """
+
     USA_NE_ACCT_NO = "usa_ne_acct_no"
+    """
+    Nebraska corporate registry account number
+    """
+
     USA_NE_AGENT_ID = "usa_ne_agent_id"
+    """
+    Nebraska registered agent id number
+    """
+
     USA_NM_BUSINESS_NO = "usa_nm_business_no"
+    """
+    New Mexico Secretary of State Business No.
+    """
+
     USA_NM_LICENSE_ID = "usa_nm_license_id"
+    """
+    New Mexico Secretary of State License Id
+    """
+
     USA_DC_FILE_NO = "usa_dc_file_no"
+    """
+    DC corporate registry file number
+    """
+
     USA_RI_FEI_NO = "usa_ri_fei_no"
+    """
+    Rhode Island filing entity identification number
+    """
+
     INTERNAL_MD_5 = "internal_md5"
+    """
+    Hex digest of data that should be used for resolution (e.g., name=Sayari&registration_date=2000-01-01)
+    """
+
     USA_MO_CORP_ID = "usa_mo_corp_id"
+    """
+    Autoincrement corporation ID from the Missouri Corporate Registry
+    """
+
     USA_WI_DFI_ID = "usa_wi_dfi_id"
+    """
+    Wisconsin Department of Financial Institutions ID
+    """
+
     GEO_IDENTIFICATION_CODE = "geo_identification_code"
+    """
+    Identification code from Georgian MyGov companies
+    """
+
     GEO_PERSONAL_NUMBER = "geo_personal_number"
+    """
+    Personal number from Georgian MyGov companies
+    """
+
     GEO_STATE_REGISTRATION_NUMBER = "geo_state_registration_number"
+    """
+    Georgian state registration number
+    """
+
     MAC_RAEM_CASE_URL_ID = "mac_raem_case_url_id"
+    """
+    Identifier taken from document URL to resolve cases. Is slightly different for HTML vs PDF documents.
+    """
+
     ROU_COMPANY_TIN = "rou_company_tin"
+    """
+    Romanian tax identification number for companies
+    """
+
     USA_MD_DPT_TAX = "usa_md_dpt_tax"
+    """
+    Maryland Dpt. of Tax Business ID with prefix
+    """
+
     USA_SD_CORP_ID = "usa_sd_corp_id"
+    """
+    South Dakota Corporate ID
+    """
+
     HND_TEGUCIGALPA_MATRICULA = "hnd_tegucigalpa_matricula"
+    """
+    Honduras Tegucigalpa Matricula
+    """
+
     USA_FL_PROPERTY_ID = "usa_fl_property_id"
+    """
+    Identifier for Florida property parcels. It's a concetenation of county code and parcel id
+    """
+
     USA_FL_PROPERTY_MP_ID = "usa_fl_property_mp_id"
+    """
+    Code unique to every parcel within the real property file
+    """
+
     USA_FL_PROPERTY_STATE_PAR_ID = "usa_fl_property_state_par_id"
+    """
+    Code the Department assigns to each parcel based on a statewide parcel coding system.
+    """
+
     MEX_CLUNI = "mex_cluni"
+    """
+    Unique Registration Code in the Federal Register of Civil Society Organizations
+    """
+
     USA_PA_CORPORATE_REGISTRY_ID = "usa_pa_corporate_registry_id"
+    """
+    Pennsylvania Department of State Business Entity ID Number
+    """
+
     PAK_IND_NTN = "pak_ind_ntn"
+    """
+    Unique Pakistan National Taxpayer Number for Individuals (equivalent to Computerized National Identity Card number)
+    """
+
     PAK_CO_NTN = "pak_co_ntn"
+    """
+    Unique Pakistan National Taxpayer Number for Companies and Associations of Persons
+    """
+
     MEX_RNIE = "mex_rnie"
+    """
+    Simple 1-up identifier from the Registro Nacional de Inversiones Extranjeras.
+    """
+
     PAK_NGO_REG_NO = "pak_ngo_reg_no"
+    """
+    Pakistan NGO Registration Number
+    """
+
     IRAQI_STOCK_EXCHANGE_SYMBOL = "iraqi_stock_exchange_symbol"
+    """
+    Iraqi Stock Exchange Symbol
+    """
+
     BGR_UIC = "bgr_uic"
+    """
+    Unique Identification Code for all legal and other entities engaged in business activities in Bulgaria
+    """
+
     BGR_EGN_HASHED = "bgr_egn_hashed"
+    """
+    A hashed representation of a Bulgarian citizenship number
+    """
+
     SOUTH_AFRICA_ENTERPRISE_NUMBER = "south_africa_enterprise_number"
+    """
+    Enterprise number for South African companies
+    """
+
     SOUTH_AFRICA_PASSPORT_NUMBER = "south_africa_passport_number"
+    """
+    South African passport number
+    """
+
     NLD_KVK_NUMBER = "nld_kvk_number"
+    """
+    Dutch Chamber of Commerce Number
+    """
+
     NLD_KVK_BRANCH_NUMBER = "nld_kvk_branch_number"
+    """
+    Dutch Chamber of Commerce Branch/Location Number
+    """
+
     USA_CENTRAL_REGISTRATION_DEPOSITORY_NUMBER = "usa_central_registration_depository_number"
+    """
+    Company/Person identifier from FINRA data
+    """
+
     USA_SEC_FILE_NUMBER_BD = "usa_sec_file_number_bd"
+    """
+    One format variation of the SEC file number associated with bdSECNumber in USA/finra_barred_relats
+    """
+
     CHN_CNIPA_TM = "chn_cnipa_tm"
+    """
+    China CNIPA Trademark
+    """
+
     CYP_PASSPORT = "cyp_passport"
+    """
+    Cyprus Passport
+    """
+
     CYP_INFOCREDIT_ENTITY_ID = "cyp_infocredit_entity_id"
+    """
+    Entity ID from Cyprus infocredit
+    """
+
     CYP_ID_CARD = "cyp_id_card"
+    """
+    Cyprus ID Card
+    """
+
     CYP_SSN = "cyp_ssn"
+    """
+    Cyprus SSN
+    """
+
     AUT_FIRMENBUCH_NO = "aut_firmenbuch_no"
+    """
+    Austrian Company Register Number
+    """
+
     SWE_PER_ID_NO = "swe_per_id_no"
+    """
+    Swedish personal identity number (Personnummer)
+    """
+
     CHN_SHANGHAI_STOCK_EXCHANGE_COMPANY_CODE = "chn_shanghai_stock_exchange_company_code"
+    """
+    Company code from Shanghai Stock Exchange
+    """
+
     USA_SEC_FILE_NUMBER_IA = "usa_sec_file_number_ia"
+    """
+    One format variation of the SEC file number associated with iaSECNumber in USA/finra_barred_relats
+    """
+
     CHN_SHENZEN_SEC_CODE = "chn_shenzen_sec_code"
+    """
+    Company SEC code from Shenzen stock exchange
+    """
+
     USA_CT_BUSINESS_ID = "usa_ct_business_id"
+    """
+    CT business ID
+    """
+
     ECU_CEDULA_NUMBER = "ecu_cedula_number"
+    """
+    Ecuador cedula https://www.jybaro.com/blog/cedula-de-identidad-ecuatoriana/#:~:text=El%20Estado%20Ecuatoriano%2C%20a%20trav%C3%A9s,d%C3%ADgitos%20con%20la%20siguiente%20estructura%3A&text=En%20caso%20de%20extranjeros%2C%20el%20n%C3%BAmero%20es%2030
+    """
+
     HKG_STOCK_CODE = "hkg_stock_code"
+    """
+    Hong Kong Stock Exchange Code
+    """
+
     CAN_BC_COMPANY_REGISTRATION_ID = "can_bc_company_registration_id"
+    """
+    British Columbia Company Registration ID
+    """
+
     CAN_BC_EXTRAPROVINCIAL_REGISTRATION_ID = "can_bc_extraprovincial_registration_id"
+    """
+    British Columbia Extraprovincial Company Registration ID
+    """
+
     LTU_COMPANY_REGISTRATION_CODE = "ltu_company_registration_code"
+    """
+    Lithuanian Company Registration Code
+    """
+
     USA_SEC_PRIVATE_FUND = "usa_sec_private_fund"
+    """
+    SEC private fund ID
+    """
+
     LVA_INSOLVENCY_PROCEEDING_ID = "lva_insolvency_proceeding_id"
+    """
+    Latvian Insolvency Proceedings ID Number
+    """
+
     CHN_CNINFO_INTERNAL_SHAREHOLDER_ID = "chn_cninfo_internal_shareholder_id"
+    """
+    Internal identifier for shareholders from CHN cninfo data
+    """
+
     EUID = "euid"
     FIN_BUSINESS_ID = "fin_business_id"
+    """
+    Finnish Business ID
+    """
+
     EST_BUSINESS_REG_CODE = "est_business_reg_code"
+    """
+    Estonian Business Registry Code
+    """
+
     USA_CUSIP_NUMBER = "usa_cusip_number"
+    """
+    Committee on Uniform Securities Identification Procedures - identifies a North American financial security
+    """
+
     SVN_CO_REG_NO = "svn_co_reg_no"
+    """
+    Slovenian Company Registry ID Number
+    """
+
     ISR_COMPANY_NUMBER = "isr_company_number"
+    """
+    Israeli Registrar of Companies company number
+    """
+
     RKS_BUSINESS_NUMBER = "rks_business_number"
     RKS_FISCAL_NUMBER = "rks_fiscal_number"
+    """
+    A fiscal number from the Kosovo company registry
+    """
+
     JPN_EDINET_CODE = "jpn_edinet_code"
+    """
+    Company code from EDINET
+    """
+
     BEL_ENTERPRISE_NUMBER = "bel_enterprise_number"
+    """
+    Belgium Enterprise Number
+    """
+
     BEL_ESTABLISHMENT_NUMBER = "bel_establishment_number"
+    """
+    Belgium Establishment Number
+    """
+
     AUS_AFS_LICENCE_NUMBER = "aus_afs_licence_number"
+    """
+    Australian financial services licence number
+    """
+
     AUS_AFS_REP_NUMBER = "aus_afs_rep_number"
+    """
+    Australian financial services authorized representative number
+    """
+
     AUS_ADV_NUMBER = "aus_adv_number"
+    """
+    Australian identifying number allocated to a Financial Adviser.
+    """
+
     AUS_CREDIT_LICENCE_NUMBER = "aus_credit_licence_number"
+    """
+    Australian credit licensee number.
+    """
+
     AUS_CREDIT_REP_NUMBER = "aus_credit_rep_number"
+    """
+    Australian identifying number allocated to a credit representative.
+    """
+
     DART_CIK = "dart_cik"
+    """
+    Korean DART Central Identity Key
+    """
+
     KRX_TICKER_CODE = "krx_ticker_code"
+    """
+    Ticker number for the Korean Stock Exchange
+    """
+
     KOR_CORPORATE_REGISTRATION_NUMBER = "kor_corporate_registration_number"
+    """
+    Korean corporate registration number
+    """
+
     KOR_BUSINESS_TIN = "kor_business_tin"
+    """
+    Korean TIN for businesses
+    """
+
     EST_PERSONAL_ID = "est_personal_id"
+    """
+    Estonian Personal Identification Code
+    """
+
     BZE_BICAR_REG_NO = "bze_bicar_reg_no"
+    """
+    Belize International Corporate Affairs Registry (BICAR) registration number
+    """
+
     USA_IL_CHICAGO_ACCOUNT_NUMBER = "usa_il_chicago_account_number"
+    """
+    Account number for businesses on Chicago, IL business license registry
+    """
+
     CYM_CO_NO = "cym_co_no"
+    """
+    Company number from Cayman Islands Gazette
+    """
+
     GGY_CORPORATE_REG_NUMBER = "ggy_corporate_reg_number"
+    """
+    Guernsey Corporate Registry Number
+    """
+
     JEY_CORPORATE_REG_NUMBER = "jey_corporate_reg_number"
+    """
+    Jersey Corporate Registry Number
+    """
+
     COK_CORP_REG_CORPID = "cok_corp_reg_corpid"
+    """
+    Corp ID used in Cook Islands corporate registry
+    """
+
     COK_CORP_REG_CORPOFFICERID = "cok_corp_reg_corpofficerid"
+    """
+    Corp ID used for officers in Cook Islands corporate registry
+    """
+
     COK_CORP_REG_NUMBER = "cok_corp_reg_number"
+    """
+    Registration number from Cook Islands corporate registry
+    """
+
     MEX_OPEN_CONTRACTS_INTERNAL_ID = "mex_open_contracts_internal_id"
+    """
+    Internal ID from Mexican open contracts data
+    """
+
     GIB_CORP_REG_NUMBER = "gib_corp_reg_number"
+    """
+    Gibraltar Corporate Registration Number
+    """
+
     DOM_ONAPI_NUM = "dom_onapi_num"
+    """
+    Dominican Republic ONAPI registry number
+    """
+
     RUS_TOURIST_OBJ = "rus_tourist_obj"
+    """
+    Russian Tourist Object Serial number in the Federal list
+    """
+
     BILL_OF_LADING = "bill_of_lading"
+    """
+    Bill of lading number for trade data
+    """
+
     TWN_FACTORY_REGISTRATION_NUMBER = "twn_factory_registration_number"
+    """
+    Registration number for Taiwanese factories
+    """
+
     TWN_FACTORY_ESTABLISHMENT_PERMIT_CASE_NUMBER = "twn_factory_establishment_permit_case_number"
+    """
+    Establishment permit case number for Taiwanese factories
+    """
+
     KEN_PERSONAL_ID = "ken_personal_id"
+    """
+    Kenya Person ID Number
+    """
+
     COL_DIAN_NUMERO_FORMULARIO = "col_dian_numero_formulario"
+    """
+    Unique number assigned by the DIAN for each import/export form
+    """
+
     VUT_CORP_REG_NUMBER = "vut_corp_reg_number"
+    """
+    Vanuatu Corporate Registry Number
+    """
+
     GEO_LEGAL_CODE = "geo_legal_code"
+    """
+    Legal code from Georgian MyGov companies
+    """
+
     MMR_CORP_ID = "mmr_corp_id"
+    """
+    Myanmar corporate registry ID for companies
+    """
+
     MMR_REG_NO = "mmr_reg_no"
+    """
+    Myanmar Registration Number
+    """
+
     MMR_PRIOR_REG_NO = "mmr_prior_reg_no"
+    """
+    Myanmar Prior Registration Number
+    """
+
     MMR_OFFICER_ID = "mmr_officer_id"
+    """
+    Myanmar corporate registry ID for officers
+    """
+
     ARM_PASSPORT_NUMBER = "arm_passport_number"
+    """
+    Armernian passport number
+    """
+
     UKR_REG_NUM = "ukr_reg_num"
+    """
+    Ukrainian Registration Number
+    """
+
     VALIDATIS_NUMBER = "validatis_number"
+    """
+    Validatis identification number
+    """
+
     ARE_DUBAI_LAND_CASE_NO = "are_dubai_land_case_no"
+    """
+    Case number for Dubai land cases
+    """
+
     AGO_MATRICULA_NUMBER = "ago_matricula_number"
+    """
+    Angola company registration number
+    """
+
     AGO_NIF_NUMBER = "ago_nif_number"
+    """
+    Angola taxpayer number
+    """
+
     MMR_PERSONAL_ID_NO = "mmr_personal_id_no"
+    """
+    Myanmar Personal Identification Number
+    """
+
     BLR_REGISTRATION_NUMBER = "blr_registration_number"
+    """
+    Belarus Registration Number
+    """
+
     AER_FREE_ZONE_LICENSE = "aer_free_zone_license"
+    """
+    Primary license number of Free Zone establishment in Dubai
+    """
+
     AER_FREE_ZONE_REG_NO = "aer_free_zone_reg_no"
+    """
+    Registration number for Dubai free zone
+    """
+
     CAN_NL_CORPORATE_REGISTRY = "can_nl_corporate_registry"
+    """
+    Company number for Canada NL Corporate Registry
+    """
+
     CAN_DATA_AXLE_HASH = "can_data_axle_hash"
+    """
+    Hex digest of Data Axle Infogroup ID
+    """
+
     SVN_AJPES_ZAPST_NUMBER = "svn_ajpes_zapst_number"
+    """
+    ZAPST number used for shareholders and partners in Slovenia Corporate Registry
+    """
+
     USA_CORPWATCH_ID = "usa_corpwatch_id"
+    """
+    CorpWatch Database ID
+    """
+
     USA_DE_FILE_NUMBER = "usa_de_file_number"
+    """
+    Delaware File Number
+    """
+
     IMN_COMPANY_NUMBER = "imn_company_number"
+    """
+    Isle of Man Company Number
+    """
+
     SVN_VAT_NUMBER = "svn_vat_number"
+    """
+    Slovenian VAT number
+    """
+
     XXX_ACURIS_ID = "xxx_acuris_id"
+    """
+    Acuris Unique ID
+    """
+
     PAK_EGM_ID = "pak_egm_id"
+    """
+    Pakistan EGM ID
+    """
+
     USA_DE_REGISTERED_AGENT_ID = "usa_de_registered_agent_id"
+    """
+    Delaware Registered Agent ID
+    """
+
     ICIJ_OFFSHORE_INTERNAL_ID = "icij_offshore_internal_id"
+    """
+    ICIJ Offshore Database Internal ID
+    """
+
     ICIJ_OFFSHORE_NODE_ID = "icij_offshore_node_id"
+    """
+    ICIJ Offshore Database Node ID
+    """
+
     ECU_BRANCH_ID = "ecu_branch_id"
+    """
+    Ecuador Branch ID
+    """
+
     PSE_REGISTRATION_ID = "pse_registration_id"
+    """
+    Palestine registration ID
+    """
+
     SRB_MB_NUMBER = "srb_mb_number"
+    """
+    Serbia company registration number (matični broj)
+    """
+
     SRB_PIB_NUMBER = "srb_pib_number"
+    """
+    Serbia tax ID number
+    """
+
     SRB_BRANCH_ID = "srb_branch_id"
+    """
+    Serbia branch ID
+    """
+
     RUS_BIK_CODE = "rus_bik_code"
+    """
+    Russia Bank Identification Code
+    """
+
     PANADATA_INTERNAL_ID = "panadata_internal_id"
+    """
+    Panadata Internal ID
+    """
+
     SMR_ECONOMIC_OPERATOR_CODE = "smr_economic_operator_code"
+    """
+    San Marino Economic Operator Code
+    """
+
     USA_CT_INTERNAL_ID = "usa_ct_internal_id"
+    """
+    CT Internal ID
+    """
+
     ALEI = "alei"
+    """
+    https://en.wikipedia.org/wiki/ISO_8000
+    """
+
     CAN_NS_CORPORATE_REGISTRY = "can_ns_corporate_registry"
+    """
+    Company number for Canada NS Corporate Registry
+    """
+
     SOM_UBI = "som_ubi"
+    """
+    Somalian UBI Number
+    """
+
     BHS_TIN = "bhs_tin"
+    """
+    Bahamas Tax Identification Number
+    """
+
     ITA_REA_NUMBER = "ita_rea_number"
+    """
+    Italy Economic and Administrative Repertory Number
+    """
+
     MEX_DENUE_CLEE = "mex_denue_clee"
+    """
+    Mexico DENUE Unique ID
+    """
+
     IHS_OWNER_CODE = "ihs_owner_code"
+    """
+    IHS Owner Code
+    """
+
     AUS_CONSOLIDATED_SANCTIONS_REFERENCE = "aus_consolidated_sanctions_reference"
+    """
+    Australia Consolidated Sanctions Reference ID
+    """
+
     CHE_SECO_SANCTION_NUMBER = "che_seco_sanction_number"
+    """
+    Swiss SECO Sanction Number
+    """
+
     GBR_VAT_NO = "gbr_vat_no"
+    """
+    United Kingdom VAT Number
+    """
+
     GBR_COMPANY_NUMBER = "gbr_company_number"
+    """
+    United Kingdom Confirmation Statement Company Number
+    """
+
     ESP_NIF = "esp_nif"
+    """
+    Spain NIF Number
+    """
+
     USA_SAM_UEI_NUMBER = "usa_sam_uei_number"
+    """
+    Unique Entity Identifier (SAM)
+    """
+
     USA_USVI_CORP_NUMBER = "usa_usvi_corp_number"
+    """
+    Identifier for corporations and trademarks in US Virgin Islands
+    """
+
     NIC_NUMERO_UNICO = "nic_numero_unico"
+    """
+    Nicaragua Numero Unico
+    """
+
     CRI_CEDULA_JURIDICA = "cri_cedula_juridica"
     CRI_CEDULA_CITIZEN_PERSON = "cri_cedula_citizen_person"
     CRI_CEDULA_FOREIGN_PERSON = "cri_cedula_foreign_person"
     BOL_MATRICULA = "bol_matricula"
     BOL_OLD_MATRICULA = "bol_old_matricula"
     NGA_CRP_REG_INTERNAL_ID = "nga_crp_reg_internal_id"
+    """
+    Nigerian Corporate Registry Internal ID
+    """
+
     NGA_REGISTRATION_SN = "nga_registration_sn"
+    """
+    Nigerian Corporate Registry Registration Serial No
+    """
+
     NGA_NIN = "nga_nin"
+    """
+    Nigerian National Identification Number
+    """
+
     NGA_DRIVERS = "nga_drivers"
+    """
+    Nigerian Driver's License No.
+    """
+
     NGA_TAX_ID = "nga_tax_id"
+    """
+    Nigerian Tax ID number
+    """
+
     DMA_BUSINESS_REGISTRY_INTERNAL_ID = "dma_business_registry_internal_id"
+    """
+    Dominica Business Registry Internal ID
+    """
+
     CAGE = "cage"
+    """
+    The Commercial And Government Entity (CAGE) Code is a five-character ID number used extensively within the federal government, assigned by the Department of Defense's Defense Logistics Agency (DLA). The CAGE code provides a standardized method of identifying a given facility at a specific location. CAGE codes for entities located outside the United States are called NATO Commercial and Government Entity (NCAGE) codes. NCAGE codes are assigned internationally as part of the NATO Codification System (NCS). https://fawiki.fws.gov/display/SAM/Commercial+And+Government+Entity+%28CAGE%29+Code+Information
+    """
+
     ATG_BUSINESS_REGISTRY_INTERNAL_ID = "atg_business_registry_internal_id"
+    """
+    Antigua & Barbuda Business Registry Internal ID
+    """
+
     LCA_BUSINESS_REGISTRY_INTERNAL_ID = "lca_business_registry_internal_id"
+    """
+    St. Lucia Business Registry Internal ID
+    """
+
     PRT_TRUST_NUMBER = "prt_trust_number"
+    """
+    Portuguese Trust Number
+    """
+
     PRT_VAT_NUMBER = "prt_vat_number"
+    """
+    Portuguese VAT Number
+    """
+
     MAR_PASSPORT = "mar_passport"
+    """
+    Morocco Passport Number
+    """
+
     COD_PASSPORT = "cod_passport"
+    """
+    Democratic Republic of the Congo Passport Number
+    """
+
     PRK_PASSPORT = "prk_passport"
+    """
+    North Korea Passport Number
+    """
+
     SGP_PASSPORT = "sgp_passport"
+    """
+    Singapore Passport Number
+    """
+
     CHN_PASSPORT = "chn_passport"
+    """
+    China Passport Number
+    """
+
     OMN_PASSPORT = "omn_passport"
+    """
+    Oman Passport Number
+    """
+
     CAF_PASSPORT = "caf_passport"
+    """
+    Central African Republic Passport Number
+    """
+
     SSD_PASSPORT = "ssd_passport"
+    """
+    South Sudan Passport Number
+    """
+
     TTO_BIZ_NUMBER = "tto_biz_number"
+    """
+    Trinbagonian Business Number
+    """
+
     TUR_TAX_ID = "tur_tax_id"
+    """
+    Turkey Tax Identifier
+    """
+
     BMU_REGISTRAR_OF_COMPANIES_NUMBER = "bmu_registrar_of_companies_number"
+    """
+    Bermuda Registrar of Companies Number
+    """
+
     COD_RCCM_NUMBER = "cod_rccm_number"
+    """
+    Democratic Republic of the Congo RCCM Number
+    """
+
     COD_RCCM_OHADA_NUMBER = "cod_rccm_ohada_number"
+    """
+    Democratic Republic of the Congo RCCM OHAD Number
+    """
+
     ARE_REG_AUTH_NUMBER = "are_reg_auth_number"
+    """
+    Abu Dhabi Registration Authority Number
+    """
+
     PRK_SHIPMENT_ID = "prk_shipment_id"
+    """
+    North Korea Shipment ID
+    """
+
     ECU_IMPORTER_ID = "ecu_importer_id"
+    """
+    Ecuador Importer ID
+    """
+
     ECU_EXPORTER_ID = "ecu_exporter_id"
+    """
+    Ecuador Exporter ID
+    """
+
     ECU_SHIPMENT_REF_NO = "ecu_shipment_ref_no"
+    """
+    Ecuador Shipment Reference Number
+    """
+
     XXX_CRB_MONITOR_ENTITY_ID = "xxx_crb_monitor_entity_id"
+    """
+    Unique identifier for entities in CRB Monitor data
+    """
+
     XXX_EDI_GLOBAL_ISSUER_ID = "xxx_edi_global_issuer_id"
+    """
+    Unique identifier for issuers in EDI Global data
+    """
+
     XXX_EDI_GLOBAL_SECURITY_ID = "xxx_edi_global_security_id"
+    """
+    Unique identifier for securities in EDI Global data
+    """
+
     CHL_IMPORT_EXPORT_CONTROL_ID = "chl_import_export_control_id"
+    """
+    Unique identifier for imports and exports in Chile
+    """
+
     CHL_IMPORT_MANIFEST_NUMBER = "chl_import_manifest_number"
+    """
+    Unique identifier Chilean imports
+    """
+
     CHL_IMPORTER_EXPORTER_ID = "chl_importer_exporter_id"
+    """
+    Unique identifier for Chilean importers and exporters
+    """
+
     ARG_IMPORT_EXPORT_ID = "arg_import_export_id"
+    """
+    Unique identifier for Argentinian imports and exports
+    """
+
     ARG_PARTIAL_CUIT = "arg_partial_cuit"
+    """
+    Single tax identification code in Argentina for any individual that initiates an economic activity (missing control digit)
+    """
+
     PAN_IMPORTER_EXPORTER_ID = "pan_importer_exporter_id"
+    """
+    Unique identifier for Panamanian importers and exporters
+    """
+
     PAN_DECLARATION_NUMBER = "pan_declaration_number"
+    """
+    Declaration number for import and export shipments in Panama
+    """
+
     MEX_SHIPMENT_NUMBER = "mex_shipment_number"
+    """
+    Mexico Shipment Number
+    """
+
     CRI_EXP = "cri_exp"
+    """
+    Internal ID for Costa Rica comexport data
+    """
+
     CRI_IMP = "cri_imp"
+    """
+    Internal ID for Costa Rica comexport data
+    """
+
     CRI_OP_NO = "cri_op_no"
+    """
+    Internal ID for Costa Rica comexport data
+    """
+
     COL_NUR = "col_nur"
+    """
+    Colombia Número Único de Registro
+    """
+
     NPL_CO_REG_NO = "npl_co_reg_no"
+    """
+    Nepali Company Registration No. from National Information Technology Center
+    """
+
     USA_SAM_EXCLUSIONS_NUMBER = "usa_sam_exclusions_number"
     USA_NPI_NUMBER = "usa_npi_number"
+    """
+    National Provider Identifier (NPI) is a unique number for health care providers in the United States
+    """
+
     USA_UPIN_NUMBER = "usa_upin_number"
+    """
+    Unique Physician Identification Number (UPIN) is a unique six-character alpha-numeric identifier for health care providers in the United States discontinued in June 2007
+    """
+
     CAN_BC_REGISTRATION_NUMBER = "can_bc_registration_number"
     CAN_BUSINESS_NUMBER = "can_business_number"
+    """
+    See https://www.liveabout.com/what-is-the-canada-revenue-agency-cra-business-number-2947322
+    """
+
     CHN_CSRC_NO = "chn_csrc_no"
+    """
+    China Securities Regulatory Commission Code / 证券代码
+    """
+
     USA_MN_MASTER_ID = "usa_mn_master_id"
+    """
+    Minnesota Secretary of State Unique ID
+    """
+
     USA_MN_FILING_NUMBER = "usa_mn_filing_number"
+    """
+    Minnesota Secretary of State Filing Number
+    """
+
     USA_IN_BIZ_NO = "usa_in_biz_no"
+    """
+    Business ID from Indianan Corporate Registry
+    """
+
     LLOYDS_INTERNAL_VESSEL_ID = "lloyds_internal_vessel_id"
+    """
+    Vessel ID from Lloyd's Maritime Data
+    """
+
     LLOYDS_INTERNAL_ENTITY_ID = "lloyds_internal_entity_id"
+    """
+    Entity ID from Lloyd's Maritime Data
+    """
+
     USA_NH_BUSINESS_ID = "usa_nh_business_id"
+    """
+    USA New Hampshire Business ID
+    """
+
     GBR_UK_SANCTIONS_ID = "gbr_uk_sanctions_id"
+    """
+    UK Sanctions List Unique ID
+    """
+
     MONTANA_SOS_INTERNAL_ENTITY_ID = "montana_sos_internal_entity_id"
+    """
+    Montana Secretary of State Business Entity Number
+    """
+
     USA_MASS_SOS_COMPANY_ID = "usa_mass_sos_company_id"
+    """
+    Massachusetts Secretary of State Company ID
+    """
+
     CHN_RESIDENT_ID_NUMBER = "chn_resident_id_number"
+    """
+    China Resident Identity Number
+    """
+
     USA_NJ_BUSINESS_ID = "usa_nj_business_id"
+    """
+    New Jersey Department of Treasury Business ID
+    """
+
     UTAH_CORPORATE_REGISTRY_INTERNAL_ENTITY_NUMBER = "utah_corporate_registry_internal_entity_number"
+    """
+    Utah Secretary of State Business Entity Number
+    """
+
     USA_LA_SOS_ID = "usa_la_sos_id"
+    """
+    Louisiana Secretary of State Business Entity Number
+    """
+
     USA_AL_SOS_ID = "usa_al_sos_id"
+    """
+    Alabama Secretary of State Business Entity ID
+    """
+
     USA_SC_CORP_ID = "usa_sc_corp_id"
+    """
+    South Carolina Secretary of State Corporation ID
+    """
+
     USA_KY_ORG_NO = "usa_ky_org_no"
+    """
+    USA state of Kentucky organization number assigned to businesses
+    """
+
     USA_IL_FILE_NUMBER = "usa_il_file_number"
+    """
+    Illinois Secretary of State File Number
+    """
+
     IDN_TRANSACTION_NUMBER = "idn_transaction_number"
+    """
+    Unique identifier used for companies in Indonesia UBO data
+    """
+
     IDN_UBO_OWNER_ID = "idn_ubo_owner_id"
+    """
+    Unique identifier used for owners in Indonesia UBO data
+    """
+
     SWE_TAX_NUMBER = "swe_tax_number"
+    """
+    Swedish Organisationnummer with 2 digit prefix
+    """
+
     PANADATA_INTERNAL_SID = "panadata_internal_sid"
+    """
+    Panadata Internal SID
+    """
+
     PRY_TAX_ID = "pry_tax_id"
+    """
+    Paraguay Company Tax ID
+    """
+
     PRY_SHIPMENT_NUMBER = "pry_shipment_number"
+    """
+    Paraguay Shipment Number
+    """
+
     TOKYO_STOCK_EXCHANGE_NO = "tokyo_stock_exchange_no"
+    """
+    Unique identifier for Tokyo Stock Exchange companies
+    """
+
     SWE_FI_ID = "swe_fi_id"
+    """
+    Sweden FI Identification Number
+    """
+
     DEU_BAFIN_ID = "deu_bafin_id"
+    """
+    Germany BaFin-ID
+    """
+
     GLOBAL_TRADE_INTERNAL_SHIPMENT_ID = "global_trade_internal_shipment_id"
+    """
+    Global Trade Internal Shipment ID
+    """
+
     CHINA_VESSEL_INSPECTION_REGISTRATION = "china_vessel_inspection_registration"
+    """
+    China Vessel Inspection Registration Number
+    """
+
     CHINA_VESSEL_REGISTRATION = "china_vessel_registration"
+    """
+    China Vessel Registration Number
+    """
+
     CCS_REGISTRATION = "ccs_registration"
+    """
+    CCS Vessel Registration Number
+    """
+
     USA_OTI_ID = "usa_oti_id"
+    """
+    USA OTI Organization Number
+    """
+
     STOCK_TICKER = "stock_ticker"
+    """
+    Stock Market Ticker
+    """
+
     CAN_MB_REGISTRY = "can_mb_registry"
+    """
+    Canada Manitoba Registry Number
+    """
+
     QUEBEC_ENTERPRISE_NUMBER = "quebec_enterprise_number"
+    """
+    Quebec Enterprise Number
+    """
+
     ONTARIO_CORPORATION_NUMBER = "ontario_corporation_number"
+    """
+    Ontario Corporation Number
+    """
+
     SASKATCHEWAN_REGISTRY_NUMBER = "saskatchewan_registry_number"
+    """
+    Saskatchewan Registry Number
+    """
+
     ALBERTA_CORPORATION_NUMBER = "alberta_corporation_number"
+    """
+    Alberta Corporation Number
+    """
+
     BRA_SHIPMENT_NUMBER = "bra_shipment_number"
+    """
+    Brazil Shipment Number
+    """
+
     UKR_SANCTIONS_NAZK_COMPANY_INTERNAL_ID = "ukr_sanctions_nazk_company_internal_id"
+    """
+    Ukraine NAZK sanctions company Internal ID
+    """
+
     UKR_SANCTIONS_NAZK_PERSON_INTERNAL_ID = "ukr_sanctions_nazk_person_internal_id"
+    """
+    Ukraine NAZK sanctions person Internal ID
+    """
+
     ETHEREUM_ADDRESS = "ethereum_address"
+    """
+    Ethereum address
+    """
+
     DASH_ADDRESS = "dash_address"
+    """
+    Dash address
+    """
+
     ZCASH_ADDRESS = "zcash_address"
+    """
+    Zcash address
+    """
+
     USA_USPTO_SERIAL_NUMBER = "usa_uspto_serial_number"
+    """
+    Serial Number assigned to a Trademark application by USPTO
+    """
+
     USA_USPTO_REG_NO = "usa_uspto_reg_no"
+    """
+    USPTO Registration Number
+    """
+
     USA_USPTO_FOREIGN_APPLICATION_NO = "usa_uspto_foreign_application_no"
+    """
+    USPTO Foreign Application Number
+    """
+
     USA_USPTO_FOREIGN_REG_NO = "usa_uspto_foreign_reg_no"
+    """
+    USPTO Foreign Registration Number
+    """
+
     WIPO_INTL_REG_NO = "wipo_intl_reg_no"
+    """
+    International registration number assigned by the International Bureau of WIPO.
+    """
+
     WIPO_INTL_REF_NO = "wipo_intl_ref_no"
+    """
+    International reference number assigned by the International Bureau of WIPO.
+    """
 
     def visit(
         self,

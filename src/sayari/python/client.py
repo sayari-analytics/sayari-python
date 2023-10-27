@@ -13,10 +13,12 @@ from .resources.record.client import AsyncRecordClient, RecordClient
 from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
 from .resources.search.client import AsyncSearchClient, SearchClient
 from .resources.source.client import AsyncSourceClient, SourceClient
+from .resources.trade.client import AsyncTradeClient, TradeClient
 from .resources.traversal.client import AsyncTraversalClient, TraversalClient
 
+# Because this rate limiter doesn't block all requests, we need a relatively high limit to cope with racing threads.
+retry_limit = 10
 
-retry_limit = 3
 
 class Retry(httpx.HTTPTransport):
     def handle_request(
@@ -42,6 +44,11 @@ class Retry(httpx.HTTPTransport):
                 print("httpx {} 429 response - retrying after {}s".format(request.url, retry_delay))
                 # Sleep for the requested amount of time
                 time.sleep(int(retry_delay))
+                continue
+            # Retry on 502
+            if resp.status_code == 502:
+                print("httpx {} 502 response - retrying after 30s".format(request.url))
+                time.sleep(30)
                 continue
             content_type = resp.headers.get("Content-Type")
             if content_type is not None:
@@ -79,6 +86,7 @@ class SayariAnalyticsApi:
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
         self.source = SourceClient(client_wrapper=self._client_wrapper)
+        self.trade = TradeClient(client_wrapper=self._client_wrapper)
         self.traversal = TraversalClient(client_wrapper=self._client_wrapper)
 
 
@@ -104,6 +112,7 @@ class AsyncSayariAnalyticsApi:
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)
         self.source = AsyncSourceClient(client_wrapper=self._client_wrapper)
+        self.trade = AsyncTradeClient(client_wrapper=self._client_wrapper)
         self.traversal = AsyncTraversalClient(client_wrapper=self._client_wrapper)
 
 

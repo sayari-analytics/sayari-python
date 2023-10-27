@@ -8,17 +8,64 @@ T_Result = typing.TypeVar("T_Result")
 
 class Entities(str, enum.Enum):
     LEGAL_MATTER = "legal_matter"
+    """
+    A civil or criminal legal case or similar type of proceeding
+    """
+
     COMPANY = "company"
+    """
+    A legal entity or organization
+    """
+
     SHIPMENT = "shipment"
+    """
+    A shipment between two entities
+    """
+
     GENERIC = "generic"
+    """
+    A generic placeholder entity. Rarely used.
+    """
+
     VESSEL = "vessel"
+    """
+    A cargo ship, oil tanker, fishing trawler, or other type of watercraft
+    """
+
     PROPERTY = "property"
+    """
+    Land, real estate, real property, or personal property not categorized under another entity type
+    """
+
     INTELLECTUAL_PROPERTY = "intellectual_property"
+    """
+    A trademark, patent, copyright, or similar type of intangible property
+    """
+
     PERSON = "person"
+    """
+    A natural person (human being)
+    """
+
     SECURITY = "security"
+    """
+    A tradable financial asset
+    """
+
     TRADENAME = "tradename"
+    """
+    A discretely registered name used by a person or company not operating under its legal name. This includes doing-business-as names, fictitious names, etc. in jurisdictions that treat them as registered objects distinct from the person/company using them.
+    """
+
     UNKNOWN = "unknown"
+    """
+    An unknown placeholder entity. Rarely used.
+    """
+
     AIRCRAFT = "aircraft"
+    """
+    An airplane, helicopter, etc.
+    """
 
     def visit(
         self,

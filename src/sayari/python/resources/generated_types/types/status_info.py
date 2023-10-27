@@ -9,6 +9,10 @@ from .status_data import StatusData
 
 
 class StatusInfo(PaginatedResponse):
+    """
+    The status of an entity.
+    """
+
     data: typing.List[StatusData]
 
     def json(self, **kwargs: typing.Any) -> str:

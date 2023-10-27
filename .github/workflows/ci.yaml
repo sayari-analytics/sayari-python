@@ -53,9 +53,14 @@ jobs:
           echo "Running smoke test"
           python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running screen test"
+          echo "Running pagination example"
+          python examples/pagination.py
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running screening example"
           python examples/screening.py
-
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running trade search example"
+          python examples/trade-search.py
   publish-test-sdk-readme:
     name: Test publishing SDK readme
     runs-on: ubuntu-latest

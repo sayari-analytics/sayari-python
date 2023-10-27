@@ -7,11 +7,34 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class StatusContext(str, enum.Enum):
+    """
+    Status context enums describe the different types of statuses that can be represented in a status attribute.
+    """
+
     BROKER_LICENSE = "broker_license"
+    """
+    e.g. 'Broker,' 'Intermediary.' An individual who acts as an intermediary for trading, lending, and investing purposes.
+    """
+
     INVESTMENT_ADVISOR_LICENSE = "investment_advisor_license"
+    """
+    e.g. 'Investment Advisor.' An individual who provides investment advice and/or securities analysis services for a fee.
+    """
+
     SOLE_PROPRIETORSHIP_STATUS = "sole_proprietorship_status"
+    """
+    e.g. 'Sole proprietor,' 'Sole proprietorship,' 'Individual entrepreneurship,' 'Sole trader.'
+    """
+
     GENERAL_PARTNERSHIP_STATUS = "general_partnership_status"
+    """
+    e.g. 'Partnership.' A basic form of partnership under common law. A company entity, typically unincorporated, comprised of two or more partners who agree to share in all assets, profits, and liabilities of a business.
+    """
+
     LIMITED_LIABILITY_PARTNERSHIP_STATUS = "limited_liability_partnership_status"
+    """
+    e.g. 'LLP,' 'Limited-Liability Limited Partnership.' A partnership in which some or all partners have limited liabilities. Each partner's liabilities are limited to the amount they contribute to the business.
+    """
 
     def visit(
         self,

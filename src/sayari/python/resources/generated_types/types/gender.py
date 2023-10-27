@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Gender(str, enum.Enum):
+    """
+    Gender enums are normalized ways to refer to different genders
+    """
+
     MALE = "male"
     FEMALE = "female"
     OTHER = "other"

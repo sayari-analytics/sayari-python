@@ -9,6 +9,10 @@ from .finances_data import FinancesData
 
 
 class FinancesInfo(PaginatedResponse):
+    """
+    A financial figure, typically share capital
+    """
+
     data: typing.List[FinancesData]
 
     def json(self, **kwargs: typing.Any) -> str:

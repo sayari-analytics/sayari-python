@@ -9,6 +9,10 @@ from .company_type_data import CompanyTypeData
 
 
 class CompanyTypeInfo(PaginatedResponse):
+    """
+    A type of legal entity in a given jurisdiction (e.g. 'LLC,' 'Sociedad Anonima,' 'Private Company Limited by Shares')
+    """
+
     data: typing.List[CompanyTypeData]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -9,6 +9,10 @@ from .risk_intelligence_data import RiskIntelligenceData
 
 
 class RiskIntelligenceInfo(PaginatedResponse):
+    """
+    Risk intelligence metadata
+    """
+
     data: typing.List[RiskIntelligenceData]
 
     def json(self, **kwargs: typing.Any) -> str:
