@@ -174,7 +174,7 @@ def get_token(client_id, client_secret):
 # takes in a function and its args, will automatically page through the data and return all the results
 def get_all_data(func, *args, **kwargs):
     resp = func(*args, **kwargs)
-    if resp.size.count >= max_results:
+    if hasattr(resp, 'size') and resp.size.count >= max_results:
         raise err_too_much_data_requested
     all_data = resp.data
     while resp.next:
