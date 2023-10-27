@@ -10,6 +10,7 @@ from .entity_relationships import EntityRelationships
 from .possibly_same_as import PossiblySameAs
 from .referenced_by import ReferencedBy
 from .risk import Risk
+from .risk_data import RiskData
 from .status import Status
 
 
@@ -21,7 +22,7 @@ class EntityDetails(EmbeddedEntity):
     shipment_departure: typing.Optional[str]
     company_type: typing.Optional[str]
     latest_status: typing.Optional[Status]
-    risk: Risk
+    risk: typing.Dict[Risk, RiskData]
     attributes: typing.Optional[AttributeDetails]
     relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
