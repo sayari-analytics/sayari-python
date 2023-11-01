@@ -1,7 +1,6 @@
 import os
-import urllib.parse
 from dotenv import load_dotenv
-from sayari import Connection
+from sayari import Connection, encode_record_id
 
 # load ENV file if ENV vars are not set
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
@@ -45,7 +44,7 @@ recordSearch = client.search.search_record(q=search_term)
 print("Found", len(recordSearch.data), "records.")
 
 # get record
-record = client.record.get_record(urllib.parse.quote(recordSearch.data[0].id, safe=''))
+record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
 print("Found record:", record.label)
 
 # do traversal

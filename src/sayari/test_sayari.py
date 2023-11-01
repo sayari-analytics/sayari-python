@@ -2,9 +2,8 @@ import os
 import pytest
 import string
 import random
-import urllib.parse
 from dotenv import load_dotenv
-from . import Connection, get_all_data, err_too_much_data_requested
+from . import Connection, get_all_data, err_too_much_data_requested, encode_record_id
 
 
 # This fixture is used to set up the client for each test
@@ -151,7 +150,7 @@ def test_records(setup_connection):
     print(first_record.label)
 
     # get this record and compair fields
-    record = client.record.get_record(urllib.parse.quote(first_record.id, safe=''))
+    record = client.record.get_record(encode_record_id(first_record.id))
 
     # record should match search results
     assert record.label == first_record.label
