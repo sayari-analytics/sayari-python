@@ -4,13 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .business_purpose import BusinessPurpose
-from .monetary_value import MonetaryValue
-from .shipment_country import ShipmentCountry
-from .shipment_identifier import ShipmentIdentifier
-from .shipment_metadata import ShipmentMetadata
-from .source_or_destination_entity import SourceOrDestinationEntity
-from .weight import Weight
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -18,15 +11,10 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class Shipment(pydantic.BaseModel):
-    monetary_value: typing.List[MonetaryValue]
-    dst: typing.List[SourceOrDestinationEntity]
-    weight: typing.List[Weight]
-    business_purpose: typing.List[BusinessPurpose]
-    identifier: typing.List[ShipmentIdentifier]
-    country: typing.List[ShipmentCountry]
-    src: typing.List[SourceOrDestinationEntity]
-    metadata: ShipmentMetadata
+class Weight(pydantic.BaseModel):
+    value: float
+    unit: str
+    type: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

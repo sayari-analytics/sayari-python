@@ -2,4 +2,4 @@
 
 import typing
 
-UnauthorizedResponse = typing.Any
+RateLimitResponse = typing.Any

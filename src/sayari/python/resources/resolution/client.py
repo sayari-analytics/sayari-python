@@ -9,10 +9,17 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
-from ..shared_errors.errors.not_found import NotFound
+from ..shared_errors.errors.bad_request import BadRequest
+from ..shared_errors.errors.internal_server_error import InternalServerError
+from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
+from ..shared_errors.errors.not_acceptable import NotAcceptable
 from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
-from ..shared_errors.types.not_found_response import NotFoundResponse
+from ..shared_errors.types.bad_request_response import BadRequestResponse
+from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
+from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedResponse
+from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
+from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.resolution_response import ResolutionResponse
 
@@ -74,12 +81,20 @@ class ResolutionClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded()
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -139,12 +154,20 @@ class AsyncResolutionClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded()
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
         try:
             _response_json = _response.json()
         except JSONDecodeError:

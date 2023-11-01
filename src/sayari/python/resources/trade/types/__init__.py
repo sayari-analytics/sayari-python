@@ -5,6 +5,7 @@ from .bucket import Bucket
 from .business_purpose import BusinessPurpose
 from .buyer_search_results import BuyerSearchResults
 from .latest_shipment_date import LatestShipmentDate
+from .monetary_value import MonetaryValue
 from .shipment import Shipment
 from .shipment_country import ShipmentCountry
 from .shipment_hits import ShipmentHits
@@ -17,6 +18,7 @@ from .supplier_metadata import SupplierMetadata
 from .supplier_or_buyer_hits import SupplierOrBuyerHits
 from .supplier_search_results import SupplierSearchResults
 from .volume_aggregates import VolumeAggregates
+from .weight import Weight
 
 __all__ = [
     "Aggregations",
@@ -24,6 +26,7 @@ __all__ = [
     "BusinessPurpose",
     "BuyerSearchResults",
     "LatestShipmentDate",
+    "MonetaryValue",
     "Shipment",
     "ShipmentCountry",
     "ShipmentHits",
@@ -36,4 +39,5 @@ __all__ = [
     "SupplierOrBuyerHits",
     "SupplierSearchResults",
     "VolumeAggregates",
+    "Weight",
 ]

@@ -7,7 +7,11 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
+from ..shared_errors.errors.bad_request import BadRequest
+from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.unauthorized import Unauthorized
+from ..shared_errors.types.bad_request_response import BadRequestResponse
+from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.audience import Audience
 from .types.auth_response import AuthResponse
@@ -59,8 +63,14 @@ class AuthClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -103,8 +113,14 @@ class AsyncAuthClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
             raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
         try:
             _response_json = _response.json()
         except JSONDecodeError:

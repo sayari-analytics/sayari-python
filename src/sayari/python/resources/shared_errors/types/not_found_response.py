@@ -13,7 +13,7 @@ except ImportError:
 
 class NotFoundResponse(pydantic.BaseModel):
     """
-    Not Found Response
+    Request made with an unsupported HTTP method.
     """
 
     status: int
