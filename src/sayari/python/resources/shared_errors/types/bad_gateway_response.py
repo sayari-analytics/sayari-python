@@ -2,4 +2,4 @@
 
 import typing
 
-UnauthorizedResponse = typing.Any
+BadGatewayResponse = typing.Any

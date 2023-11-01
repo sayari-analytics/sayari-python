@@ -1,5 +1,6 @@
 from .python.client import SayariAnalyticsApi
 import threading
+import urllib.parse
 import csv
 
 client_header = "sayari-python"
@@ -182,3 +183,6 @@ def get_all_data(func, *args, **kwargs):
         all_data.extend(resp.data)
 
     return all_data
+
+def encode_record_id(record_id):
+    return urllib.parse.quote(record_id, safe='')

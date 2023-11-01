@@ -6,6 +6,7 @@ from .types import (
     BusinessPurpose,
     BuyerSearchResults,
     LatestShipmentDate,
+    MonetaryValue,
     Shipment,
     ShipmentCountry,
     ShipmentHits,
@@ -18,6 +19,7 @@ from .types import (
     SupplierOrBuyerHits,
     SupplierSearchResults,
     VolumeAggregates,
+    Weight,
 )
 
 __all__ = [
@@ -26,6 +28,7 @@ __all__ = [
     "BusinessPurpose",
     "BuyerSearchResults",
     "LatestShipmentDate",
+    "MonetaryValue",
     "Shipment",
     "ShipmentCountry",
     "ShipmentHits",
@@ -38,4 +41,5 @@ __all__ = [
     "SupplierOrBuyerHits",
     "SupplierSearchResults",
     "VolumeAggregates",
+    "Weight",
 ]

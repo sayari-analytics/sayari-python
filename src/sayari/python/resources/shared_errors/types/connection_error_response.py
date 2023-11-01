@@ -2,4 +2,4 @@
 
 import typing
 
-UnauthorizedResponse = typing.Any
+ConnectionErrorResponse = typing.Any

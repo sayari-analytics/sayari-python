@@ -1,5 +1,4 @@
 import os
-import urllib.parse
 from dotenv import load_dotenv
 from sayari import Connection
 
