@@ -9,6 +9,7 @@ from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import SayariAnalyticsApiEnvironment
 from .resources.auth.client import AsyncAuthClient, AuthClient
 from .resources.entity.client import AsyncEntityClient, EntityClient
+from .resources.info.client import AsyncInfoClient, InfoClient
 from .resources.record.client import AsyncRecordClient, RecordClient
 from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
 from .resources.search.client import AsyncSearchClient, SearchClient
@@ -82,6 +83,7 @@ class SayariAnalyticsApi:
         )
         self.auth = AuthClient(client_wrapper=self._client_wrapper)
         self.entity = EntityClient(client_wrapper=self._client_wrapper)
+        self.info = InfoClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
@@ -108,6 +110,7 @@ class AsyncSayariAnalyticsApi:
         )
         self.auth = AsyncAuthClient(client_wrapper=self._client_wrapper)
         self.entity = AsyncEntityClient(client_wrapper=self._client_wrapper)
+        self.info = AsyncInfoClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)

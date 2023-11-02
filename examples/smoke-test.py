@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from datetime import date, timedelta
 from sayari import Connection, encode_record_id
 
 # load ENV file if ENV vars are not set
@@ -68,3 +69,13 @@ print("Found", len(watchlist.data), "watchlist results for entity", putinResult.
 # shortest path
 shortestPath = client.traversal.shortest_path(entities=[firstEntityResult, ubo.data[0].target.id])
 print("Found path with", len(shortestPath.data[0].path), "hops")
+
+# Usage
+usage = client.info.get_usage()
+print("Entity summary usage: ", usage.usage.entity_summary)
+
+# History
+today = date.today()
+history = client.info.get_history(size=10000, from_=today-timedelta(days=2), to=today-timedelta(days=1))
+print("Found", len(history.events), "events from", today-timedelta(days=2), "to", today-timedelta(days=1))
+
