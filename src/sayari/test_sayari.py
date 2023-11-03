@@ -321,4 +321,23 @@ def test_too_much_data_requested(setup_connection):
         assert e_info == err_too_much_data_requested
         assert len(all_entities) == 0
 
+def test_usage(setup_connection):
+    # get connection
+    client = setup_connection
 
+    usage = client.info.get_usage()
+    assert usage.usage.entity > 0
+    assert usage.usage.entity_summary > 0
+    assert usage.usage.record > 0
+    assert usage.usage.resolve > 0
+    assert usage.usage.search_entities > 0
+    assert usage.usage.search_records > 0
+    assert usage.usage.search_trade > 0
+    assert usage.usage.traversal > 0
+
+def test_history(setup_connection):
+    # get connection
+    client = setup_connection
+
+    history = client.info.get_history(size=10)
+    assert history.size == len(history.events)

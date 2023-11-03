@@ -5,6 +5,7 @@ from . import (
     base_types,
     entity,
     generated_types,
+    info,
     record,
     resolution,
     search,
@@ -110,6 +111,7 @@ from .generated_types import (
     WeakIdentifierProperties,
     WeakIdentifierType,
 )
+from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
 from .search import EntitySearchResults, FilterList, RecordSearchResults
 from .shared_errors import (
@@ -244,6 +246,7 @@ __all__ = [
     "EntityId",
     "EntityRelationships",
     "EntitySearchResults",
+    "EventInfo",
     "ExpiresIn",
     "FilterList",
     "FinanceType",
@@ -261,6 +264,8 @@ __all__ = [
     "GenericInfo",
     "GenericProperties",
     "GrantType",
+    "HistoryInfo",
+    "HistoryResponse",
     "Identifier",
     "IdentifierData",
     "IdentifierInfo",
@@ -362,6 +367,8 @@ __all__ = [
     "Unauthorized",
     "UnauthorizedResponse",
     "Unit",
+    "UsageInfo",
+    "UsageResponse",
     "VolumeAggregates",
     "WeakIdentifierData",
     "WeakIdentifierInfo",
@@ -372,6 +379,7 @@ __all__ = [
     "base_types",
     "entity",
     "generated_types",
+    "info",
     "record",
     "resolution",
     "search",
