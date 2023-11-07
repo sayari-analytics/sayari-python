@@ -13,6 +13,10 @@ except ImportError:
 
 
 class PaginatedResponse(pydantic.BaseModel):
+    """
+    Response fields that represent unbounded collections, such as a search result or an entity's attributes or relationships, or a record's references, can all be paginated in cases where the collection is larger than can be efficiently returned in a single request.
+    """
+
     limit: int
     size: SizeInfo
 

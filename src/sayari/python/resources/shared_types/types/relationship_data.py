@@ -17,8 +17,8 @@ class RelationshipData(pydantic.BaseModel):
     target: EmbeddedEntity
     types: RelationshipTypes
     dates: typing.List[str]
-    first_observed: str
-    last_observed: str
+    first_observed: typing.Optional[str]
+    last_observed: typing.Optional[str]
     start_date: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:

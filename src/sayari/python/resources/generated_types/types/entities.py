@@ -7,6 +7,10 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Entities(str, enum.Enum):
+    """
+    This represents which type of entity is being returned.
+    """
+
     LEGAL_MATTER = "legal_matter"
     """
     A civil or criminal legal case or similar type of proceeding
