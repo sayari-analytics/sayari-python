@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from ...generated_types.types.relationships import Relationships
 from .entity_id import EntityId
@@ -27,8 +28,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     sanctioned: bool
     type: Entities
     identifiers: typing.List[Identifier]
-    countries: typing.List[str]
-    psa_sanctioned: typing.Optional[str]
+    countries: typing.List[Country]
     source_count: SourceCount
     addresses: typing.List[str]
     date_of_birth: typing.Optional[str]
