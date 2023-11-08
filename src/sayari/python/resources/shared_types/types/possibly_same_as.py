@@ -9,6 +9,10 @@ from .possibly_same_as_data import PossiblySameAsData
 
 
 class PossiblySameAs(PaginatedResponse):
+    """
+    List of entities that are Possibly the Same As (PSA) the entity.
+    """
+
     data: typing.List[PossiblySameAsData]
 
     def json(self, **kwargs: typing.Any) -> str:

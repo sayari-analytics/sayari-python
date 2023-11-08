@@ -9,6 +9,10 @@ from .relationship_data import RelationshipData
 
 
 class EntityRelationships(PaginatedResponse):
+    """
+    All relationships the entity is a part of.
+    """
+
     data: typing.List[RelationshipData]
 
     def json(self, **kwargs: typing.Any) -> str:

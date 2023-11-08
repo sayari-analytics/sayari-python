@@ -6,23 +6,27 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.attribute_details import AttributeDetails
 from .embedded_entity import EmbeddedEntity
+from .entity_hs_code import EntityHsCode
+from .entity_registration_date import EntityRegistrationDate
 from .entity_relationships import EntityRelationships
+from .entity_risk import EntityRisk
+from .entity_translated_label import EntityTranslatedLabel
 from .possibly_same_as import PossiblySameAs
 from .referenced_by import ReferencedBy
-from .risk import Risk
-from .risk_data import RiskData
+from .shipment_arrival import ShipmentArrival
+from .shipment_departue import ShipmentDepartue
 from .status import Status
 
 
 class EntityDetails(EmbeddedEntity):
-    registration_date: typing.Optional[str]
-    translated_label: typing.Optional[str]
-    hs_code: typing.Optional[str]
-    shipment_arrival: typing.Optional[str]
-    shipment_departure: typing.Optional[str]
+    registration_date: EntityRegistrationDate
+    translated_label: EntityTranslatedLabel
+    hs_code: EntityHsCode
+    shipment_arrival: ShipmentArrival
+    shipment_departure: ShipmentDepartue
     company_type: typing.Optional[str]
     latest_status: typing.Optional[Status]
-    risk: typing.Dict[Risk, RiskData]
+    risk: EntityRisk
     attributes: typing.Optional[AttributeDetails]
     relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]

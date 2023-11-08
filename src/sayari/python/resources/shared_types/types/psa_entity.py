@@ -4,16 +4,16 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...base_types.types.paginated_response import PaginatedResponse
-from .referenced_by_data import ReferencedByData
+from .embedded_entity import EmbeddedEntity
+from .entity_risk import EntityRisk
 
 
-class ReferencedBy(PaginatedResponse):
+class PsaEntity(EmbeddedEntity):
     """
-    List of records that reference the entity.
+    The entity that is possibly the same as the target entity.
     """
 
-    data: typing.List[ReferencedByData]
+    risk: EntityRisk
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
