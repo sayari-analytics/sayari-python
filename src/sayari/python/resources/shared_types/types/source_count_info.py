@@ -12,6 +12,10 @@ except ImportError:
 
 
 class SourceCountInfo(pydantic.BaseModel):
+    """
+    The number of time the entity is referenced by a source.
+    """
+
     count: int
     label: str
 

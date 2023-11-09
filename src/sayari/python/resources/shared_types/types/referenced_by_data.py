@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .record_details import RecordDetails
+from .referenced_by_data_type import ReferencedByDataType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,7 +15,7 @@ except ImportError:
 
 class ReferencedByData(pydantic.BaseModel):
     record: RecordDetails
-    type: str
+    type: ReferencedByDataType
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -4,9 +4,19 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from ...generated_types.types.relationships import Relationships
+from .entity_addresses import EntityAddresses
+from .entity_closed import EntityClosed
+from .entity_degree import EntityDegree
+from .entity_dob import EntityDob
 from .entity_id import EntityId
+from .entity_label import EntityLabel
+from .entity_pep import EntityPep
+from .entity_psa_count import EntityPsaCount
+from .entity_relationship_count import EntityRelationshipCount
+from .entity_sanctioned import EntitySanctioned
+from .entity_url import EntityUrl
 from .identifier import Identifier
 from .source_count import SourceCount
 
@@ -18,21 +28,20 @@ except ImportError:
 
 class EmbeddedEntity(pydantic.BaseModel):
     id: EntityId
-    label: str
-    degree: int
-    closed: bool
-    entity_url: str
-    pep: bool
-    psa_count: int
-    sanctioned: bool
+    label: EntityLabel
+    degree: EntityDegree
+    closed: EntityClosed
+    entity_url: EntityUrl
+    pep: EntityPep
+    psa_count: EntityPsaCount
+    sanctioned: EntitySanctioned
     type: Entities
     identifiers: typing.List[Identifier]
-    countries: typing.List[str]
-    psa_sanctioned: typing.Optional[str]
+    countries: typing.List[Country]
     source_count: SourceCount
-    addresses: typing.List[str]
-    date_of_birth: typing.Optional[str]
-    relationship_count: typing.Dict[Relationships, int]
+    addresses: EntityAddresses
+    date_of_birth: EntityDob
+    relationship_count: EntityRelationshipCount
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

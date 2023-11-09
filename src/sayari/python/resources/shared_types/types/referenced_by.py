@@ -9,6 +9,10 @@ from .referenced_by_data import ReferencedByData
 
 
 class ReferencedBy(PaginatedResponse):
+    """
+    List of records that reference the entity.
+    """
+
     data: typing.List[ReferencedByData]
 
     def json(self, **kwargs: typing.Any) -> str:

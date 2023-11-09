@@ -4,8 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .embedded_entity import EmbeddedEntity
-from .relationship_types import RelationshipTypes
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,13 +11,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class RelationshipData(pydantic.BaseModel):
-    target: EmbeddedEntity
-    types: RelationshipTypes
-    dates: typing.List[str]
-    first_observed: typing.Optional[str]
-    last_observed: typing.Optional[str]
-    start_date: typing.Optional[str]
+class PossiblySameAsMatch(pydantic.BaseModel):
+    source: str
+    target: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
