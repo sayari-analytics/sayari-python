@@ -5,8 +5,10 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.attribute_details import AttributeDetails
+from .company_type import CompanyType
 from .embedded_entity import EmbeddedEntity
 from .entity_hs_code import EntityHsCode
+from .entity_matches import EntityMatches
 from .entity_registration_date import EntityRegistrationDate
 from .entity_relationships import EntityRelationships
 from .entity_risk import EntityRisk
@@ -19,19 +21,23 @@ from .status import Status
 
 
 class EntityDetails(EmbeddedEntity):
-    registration_date: EntityRegistrationDate
-    translated_label: EntityTranslatedLabel
-    hs_code: EntityHsCode
-    shipment_arrival: ShipmentArrival
-    shipment_departure: ShipmentDepartue
-    company_type: typing.Optional[str]
+    """
+    Additional fields providing more details about an enetity
+    """
+
+    registration_date: typing.Optional[EntityRegistrationDate]
+    translated_label: typing.Optional[EntityTranslatedLabel]
+    hs_code: typing.Optional[EntityHsCode]
+    shipment_arrival: typing.Optional[ShipmentArrival]
+    shipment_departure: typing.Optional[ShipmentDepartue]
+    company_type: typing.Optional[CompanyType]
     latest_status: typing.Optional[Status]
     risk: EntityRisk
     attributes: typing.Optional[AttributeDetails]
     relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
-    matches: typing.Optional[typing.Dict[str, typing.List[str]]]
+    matches: typing.Optional[EntityMatches]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

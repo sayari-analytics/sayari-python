@@ -27,6 +27,10 @@ except ImportError:
 
 
 class EmbeddedEntity(pydantic.BaseModel):
+    """
+    The attributes fields common to most entities.
+    """
+
     id: EntityId
     label: EntityLabel
     degree: EntityDegree
@@ -39,8 +43,8 @@ class EmbeddedEntity(pydantic.BaseModel):
     identifiers: typing.List[Identifier]
     countries: typing.List[Country]
     source_count: SourceCount
-    addresses: EntityAddresses
-    date_of_birth: EntityDob
+    addresses: typing.List[EntityAddresses]
+    date_of_birth: typing.Optional[EntityDob]
     relationship_count: EntityRelationshipCount
 
     def json(self, **kwargs: typing.Any) -> str:

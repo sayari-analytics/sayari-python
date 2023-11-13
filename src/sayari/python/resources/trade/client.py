@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
@@ -17,15 +18,19 @@ from ..shared_errors.types.internal_server_error_response import InternalServerE
 from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.search_field import SearchField
+from ..shared_types.types.shipment_field import ShipmentField
 from .types.buyer_search_results import BuyerSearchResults
 from .types.shipment_search_results import ShipmentSearchResults
 from .types.supplier_search_results import SupplierSearchResults
+from .types.trade_filter_list import TradeFilterList
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
 except ImportError:
     import pydantic  # type: ignore
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class TradeClient:
@@ -38,11 +43,11 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
         Search for a shipment
@@ -54,9 +59,9 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -64,21 +69,22 @@ class TradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -108,11 +114,11 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
         Search for a supplier
@@ -124,9 +130,9 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -134,21 +140,22 @@ class TradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -178,11 +185,11 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
         Search for a buyer
@@ -194,9 +201,9 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -204,21 +211,22 @@ class TradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -253,11 +261,11 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
         Search for a shipment
@@ -269,9 +277,9 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -279,21 +287,22 @@ class AsyncTradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -323,11 +332,11 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
         Search for a supplier
@@ -339,9 +348,9 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -349,21 +358,22 @@ class AsyncTradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -393,11 +403,11 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        filter: typing.Optional[str] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
-        facets: typing.Optional[bool] = None,
-        geo_facets: typing.Optional[bool] = None,
-        advanced: typing.Optional[bool] = None,
+        filter: typing.Optional[TradeFilterList] = OMIT,
+        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
+        facets: typing.Optional[bool] = OMIT,
+        geo_facets: typing.Optional[bool] = OMIT,
+        advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
         Search for a buyer
@@ -409,9 +419,9 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - filter: typing.Optional[str]. Filters to be applied to search query to limit the result-set.
+            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -419,21 +429,22 @@ class AsyncTradeClient:
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
+        _request: typing.Dict[str, typing.Any] = {"q": q}
+        if filter is not OMIT:
+            _request["filter"] = filter
+        if fields is not OMIT:
+            _request["fields"] = fields
+        if facets is not OMIT:
+            _request["facets"] = facets
+        if geo_facets is not OMIT:
+            _request["geo_facets"] = geo_facets
+        if advanced is not OMIT:
+            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
-            "GET",
+            "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "filter": filter,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
-            ),
+            params=remove_none_from_dict({"limit": limit, "offset": offset}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

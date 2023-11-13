@@ -11,6 +11,7 @@ from .entity_dob import EntityDob
 from .entity_hs_code import EntityHsCode
 from .entity_id import EntityId
 from .entity_label import EntityLabel
+from .entity_matches import EntityMatches
 from .entity_pep import EntityPep
 from .entity_psa_count import EntityPsaCount
 from .entity_registration_date import EntityRegistrationDate
@@ -40,6 +41,7 @@ from .risk_level import RiskLevel
 from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
 from .shipment_departue import ShipmentDepartue
+from .shipment_field import ShipmentField
 from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
 from .source_id import SourceId
@@ -57,6 +59,7 @@ __all__ = [
     "EntityHsCode",
     "EntityId",
     "EntityLabel",
+    "EntityMatches",
     "EntityPep",
     "EntityPsaCount",
     "EntityRegistrationDate",
@@ -86,6 +89,7 @@ __all__ = [
     "SearchField",
     "ShipmentArrival",
     "ShipmentDepartue",
+    "ShipmentField",
     "SourceCount",
     "SourceCountInfo",
     "SourceId",

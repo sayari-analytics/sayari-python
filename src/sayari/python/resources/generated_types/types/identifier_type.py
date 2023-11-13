@@ -98,7 +98,7 @@ class IdentifierType(str, enum.Enum):
 
     UK_FIRM_REFERENCE_NUMBER = "uk_firm_reference_number"
     """
-    A six or a seven-digit Firm Reference Number used to uniquely identify firms by the Prudential Regulation Authority (PRA) and Financial Conduct Authority (FCA).
+    Unique UK ID number. Assigned to every firm in the FCA financial services registry.
     """
 
     UK_PERSON_NUMBER = "uk_person_number"
@@ -386,7 +386,7 @@ class IdentifierType(str, enum.Enum):
 
     CAN_CORPORATION_NUMBER = "can_corporation_number"
     """
-    Canada corporation number; See "Business Number" https://www.ic.gc.ca/app/scr/cc/CorporationsCanada/popMsg.html
+    Unique Canada ID number. Assigned to federal legal entities registered with Corporations Canada.
     """
 
     CAN_CRA_PROGRAM_ACCOUNT_NUMBER = "can_cra_program_account_number"
@@ -998,7 +998,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_WY_FILING_NUM = "usa_wy_filing_num"
     """
-    Wyoming Secretary of State Filing Number
+    Unique USA state ID number. Assigned to every legal entity registered with Wyoming Secretary of State.
     """
 
     USA_OR_REGNO = "usa_or_regno"
@@ -1627,7 +1627,7 @@ class IdentifierType(str, enum.Enum):
 
     CAN_BC_COMPANY_REGISTRATION_ID = "can_bc_company_registration_id"
     """
-    British Columbia Company Registration ID
+    Unique Canada province ID number. Assigned to every legal entity in the British Columbia Corporate Registry.
     """
 
     CAN_BC_EXTRAPROVINCIAL_REGISTRATION_ID = "can_bc_extraprovincial_registration_id"
@@ -2029,7 +2029,7 @@ class IdentifierType(str, enum.Enum):
 
     CAN_NS_CORPORATE_REGISTRY = "can_ns_corporate_registry"
     """
-    Company number for Canada NS Corporate Registry
+    Unique Canada province ID number. Assigned to every entity in the Nova Scotia Corporate Registry.
     """
 
     SOM_UBI = "som_ubi"
@@ -2511,27 +2511,27 @@ class IdentifierType(str, enum.Enum):
 
     CAN_MB_REGISTRY = "can_mb_registry"
     """
-    Canada Manitoba Registry Number
+    Unique Canada province ID number. Assigned to every legal entity registered with the Manitoba Companies Office.
     """
 
     QUEBEC_ENTERPRISE_NUMBER = "quebec_enterprise_number"
     """
-    Quebec Enterprise Number
+    Unique Canada province ID number. Assigned to every legal entity in the Quebec Enterprise Register.
     """
 
     ONTARIO_CORPORATION_NUMBER = "ontario_corporation_number"
     """
-    Ontario Corporation Number
+    Unique Canada province ID number. Assigned to every legal entity in the Ontario Business Registry.
     """
 
     SASKATCHEWAN_REGISTRY_NUMBER = "saskatchewan_registry_number"
     """
-    Saskatchewan Registry Number
+    Unique Canada province ID number. Assigned to every legal entity in the Saskatchewan Corporate Registry.
     """
 
     ALBERTA_CORPORATION_NUMBER = "alberta_corporation_number"
     """
-    Alberta Corporation Number
+    Unique Canada province ID number. Assigned to every legal entity in the Alberta Corporate Registry.
     """
 
     BRA_SHIPMENT_NUMBER = "bra_shipment_number"
@@ -2566,32 +2566,32 @@ class IdentifierType(str, enum.Enum):
 
     USA_USPTO_SERIAL_NUMBER = "usa_uspto_serial_number"
     """
-    Serial Number assigned to a Trademark application by USPTO
+    Unique USA ID number. Assigned to every trademark application.
     """
 
     USA_USPTO_REG_NO = "usa_uspto_reg_no"
     """
-    USPTO Registration Number
+    Unique USA ID number. Assigned to every registered trademark.
     """
 
     USA_USPTO_FOREIGN_APPLICATION_NO = "usa_uspto_foreign_application_no"
     """
-    USPTO Foreign Application Number
+    Unique USA ID number. Assigned to every foreign trademark application.
     """
 
     USA_USPTO_FOREIGN_REG_NO = "usa_uspto_foreign_reg_no"
     """
-    USPTO Foreign Registration Number
+    Unique USA ID number. Assigned to every registered foreign trademark.
     """
 
     WIPO_INTL_REG_NO = "wipo_intl_reg_no"
     """
-    International registration number assigned by the International Bureau of WIPO.
+    Unique USA ID number. Assigned to every registered foreign trademark.
     """
 
     WIPO_INTL_REF_NO = "wipo_intl_ref_no"
     """
-    International reference number assigned by the International Bureau of WIPO.
+    Unique USA ID number. Assigned to every foreign trademark application.
     """
 
     def visit(
