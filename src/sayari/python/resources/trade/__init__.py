@@ -18,6 +18,7 @@ from .types import (
     SupplierMetadata,
     SupplierOrBuyerHits,
     SupplierSearchResults,
+    TradeFilterList,
     VolumeAggregates,
     Weight,
 )
@@ -40,6 +41,7 @@ __all__ = [
     "SupplierMetadata",
     "SupplierOrBuyerHits",
     "SupplierSearchResults",
+    "TradeFilterList",
     "VolumeAggregates",
     "Weight",
 ]

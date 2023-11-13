@@ -9,6 +9,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ..generated_types.types.country import Country
+from ..generated_types.types.tag import Tag
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
@@ -57,7 +58,13 @@ class EntityClient:
         relationships_min_shares: typing.Optional[int] = None,
         relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_arrival_state: typing.Optional[str] = None,
+        relationships_arrival_city: typing.Optional[str] = None,
         relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_state: typing.Optional[str] = None,
+        relationships_departure_city: typing.Optional[str] = None,
+        relationships_partner_name: typing.Optional[str] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -110,7 +117,19 @@ class EntityClient:
 
             - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
 
+            - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
+
+            - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
+
             - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
+
+            - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
+
+            - relationships_departure_city: typing.Optional[str]. Filters shipment relationships to a departure city
+
+            - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
+
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner risk
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -154,7 +173,13 @@ class EntityClient:
                     "relationships.minShares": relationships_min_shares,
                     "relationships.country": relationships_country,
                     "relationships.arrivalCountry": relationships_arrival_country,
+                    "relationships.arrivalState": relationships_arrival_state,
+                    "relationships.arrivalCity": relationships_arrival_city,
                     "relationships.departureCountry": relationships_departure_country,
+                    "relationships.departureState": relationships_departure_state,
+                    "relationships.departureCity": relationships_departure_city,
+                    "relationships.partnerName": relationships_partner_name,
+                    "relationships.partnerRisk": relationships_partner_risk,
                     "relationships.hsCode": relationships_hs_code,
                     "possibly_same_as.next": possibly_same_as_next,
                     "possibly_same_as.prev": possibly_same_as_prev,
@@ -252,7 +277,13 @@ class AsyncEntityClient:
         relationships_min_shares: typing.Optional[int] = None,
         relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_arrival_state: typing.Optional[str] = None,
+        relationships_arrival_city: typing.Optional[str] = None,
         relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_state: typing.Optional[str] = None,
+        relationships_departure_city: typing.Optional[str] = None,
+        relationships_partner_name: typing.Optional[str] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -305,7 +336,19 @@ class AsyncEntityClient:
 
             - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
 
+            - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
+
+            - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
+
             - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
+
+            - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
+
+            - relationships_departure_city: typing.Optional[str]. Filters shipment relationships to a departure city
+
+            - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
+
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner risk
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -349,7 +392,13 @@ class AsyncEntityClient:
                     "relationships.minShares": relationships_min_shares,
                     "relationships.country": relationships_country,
                     "relationships.arrivalCountry": relationships_arrival_country,
+                    "relationships.arrivalState": relationships_arrival_state,
+                    "relationships.arrivalCity": relationships_arrival_city,
                     "relationships.departureCountry": relationships_departure_country,
+                    "relationships.departureState": relationships_departure_state,
+                    "relationships.departureCity": relationships_departure_city,
+                    "relationships.partnerName": relationships_partner_name,
+                    "relationships.partnerRisk": relationships_partner_risk,
                     "relationships.hsCode": relationships_hs_code,
                     "possibly_same_as.next": possibly_same_as_next,
                     "possibly_same_as.prev": possibly_same_as_prev,
