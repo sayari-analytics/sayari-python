@@ -466,6 +466,11 @@ class WeakIdentifierType(str, enum.Enum):
     Bosnia and Herzegovenia business register registration number
     """
 
+    MALFORMED_MMR_PRIOR_REG_NO = "malformed mmr_prior_reg_no"
+    """
+    A temporary malformed type
+    """
+
     def visit(
         self,
         unknown: typing.Callable[[], T_Result],
@@ -567,6 +572,7 @@ class WeakIdentifierType(str, enum.Enum):
         rus_cbr_id: typing.Callable[[], T_Result],
         geo_state_registration_number: typing.Callable[[], T_Result],
         bih_mbs_number: typing.Callable[[], T_Result],
+        malformed_mmr_prior_reg_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
             return unknown()
@@ -766,3 +772,5 @@ class WeakIdentifierType(str, enum.Enum):
             return geo_state_registration_number()
         if self is WeakIdentifierType.BIH_MBS_NUMBER:
             return bih_mbs_number()
+        if self is WeakIdentifierType.MALFORMED_MMR_PRIOR_REG_NO:
+            return malformed_mmr_prior_reg_no()
