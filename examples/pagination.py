@@ -15,15 +15,24 @@ client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 # Traversal
 entity = client.search.search_entity(q="David Konigsberg", limit=1)
 all_traversals = get_all_data(client.traversal.traversal, entity.data[0].id, limit=1)
-print("Total:",len(all_traversals))
+print("Total (old):", len(all_traversals))
+
+all_traversals = client.get_all_traversal_results(entity.data[0].id, limit=1)
+print("Total (new):", len(all_traversals.data))
 
 # Entities
-all_entities = get_all_data(client.search.search_entity, q="David Konigsberg", limit=5)
-print("Total:", len(all_entities))
+#all_entities = get_all_data(client.search.search_entity, q="David Konigsberg", limit=5)
+#print("Total:", len(all_entities))
+all_entities = client.get_all_entity_search_results(q="David Konigsberg", limit=5)
+print("Total:", all_entities.size.count)
 
-all_entities = get_all_data(client.search.search_entity, q="David John Smith")
-print("Total:", len(all_entities))
+#all_entities = get_all_data(client.search.search_entity, q="David John Smith")
+#print("Total:", len(all_entities))
+all_entities = client.get_all_entity_search_results(q="David John Smith")
+print("Total:", all_entities.size.count)
 
 # Records
-all_record = get_all_data(client.search.search_record, q="David Konigsberg")
-print("Total:", len(all_record))
+#all_record = get_all_data(client.search.search_record, q="David Konigsberg")
+#print("Total:", len(all_record))
+all_record = client.get_all_record_search_results(q="David Konigsberg")
+print("Total:", all_record.size.count)
