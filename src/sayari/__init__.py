@@ -28,7 +28,7 @@ csvDict = {
 # Too much data requested error
 max_results = 10000
 err_too_much_data_requested = ValueError('this request returns {} or more objects. please request individual pages of results, or narrow your request to return fewer objects'.format(max_results))
-
+err_function_not_paginated = ValueError('this function is not paginated and cannot be used with "get_all_data"')
 
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
@@ -177,12 +177,15 @@ def get_all_data(func, *args, **kwargs):
     resp = func(*args, **kwargs)
     if hasattr(resp, 'size') and resp.size.count >= max_results:
         raise err_too_much_data_requested
+    if not hasattr(resp, 'next'):
+        raise err_function_not_paginated
     all_data = resp.data
     while resp.next:
         resp = func(*args, **kwargs, offset=resp.offset + resp.limit)
         all_data.extend(resp.data)
 
     return all_data
+
 
 def encode_record_id(record_id):
     return urllib.parse.quote(record_id, safe='')
