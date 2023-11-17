@@ -177,7 +177,7 @@ def get_all_data(func, *args, **kwargs):
     resp = func(*args, **kwargs)
     if hasattr(resp, 'size') and resp.size.count >= max_results:
         raise err_too_much_data_requested
-    if not hasattr(resp.next):
+    if not hasattr(resp, 'next'):
         raise err_function_not_paginated
     all_data = resp.data
     while resp.next:
