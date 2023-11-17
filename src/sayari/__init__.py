@@ -105,7 +105,6 @@ class Connection(SayariAnalyticsApi):
         return RecordSearchResults(offset=0, limit=count, size=SizeInfo(count=count, qualifier='eq'), next=False, data=data)
 
     def get_all_traversal_results(self, *args, **kwargs):
-        # FIXME: confirm it is safe to assume all pages have the same min/max depth, relationships, etc
         data, resp = get_all_data(self.traversal.traversal, *args, **kwargs)
         count = len(data)
         return TraversalResponse(min_depth=resp.min_depth, max_depth=resp.max_depth, relationships=resp.relationships,
