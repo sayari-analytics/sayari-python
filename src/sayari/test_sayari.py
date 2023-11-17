@@ -231,14 +231,14 @@ def test_entity_pagination(setup_connection):
     # handle pagination of a small number of results ~15
     search_term = "David Konigsberg"
     query_info = client.search.search_entity(q=search_term, limit=1)
-    all_entities = get_all_data(client.search.search_entity, q=search_term, limit=5)
-    assert len(all_entities) == query_info.size.count
+    all_entities = client.get_all_entity_search_results(q=search_term, limit=5)
+    assert all_entities.limit == query_info.size.count
 
     # handle pagination of a larger number of results ~1k
     search_term = "David John Smith"
     query_info = client.search.search_entity(q=search_term, limit=1)
-    all_entities = get_all_data(client.search.search_entity, q=search_term)
-    assert len(all_entities) == query_info.size.count
+    all_entities = client.get_all_entity_search_results(q=search_term)
+    assert all_entities.limit == query_info.size.count
 
 
 def test_record_pagination(setup_connection):
@@ -248,8 +248,8 @@ def test_record_pagination(setup_connection):
     # handle pagination of a small number of results ~300
     search_term = "David Konigsberg"
     query_info = client.search.search_record(q=search_term, limit=1)
-    all_entities = get_all_data(client.search.search_record, q=search_term)
-    assert len(all_entities) == query_info.size.count
+    all_records = client.get_all_record_search_results(q=search_term)
+    assert all_records.limit == query_info.size.count
 
 
 def test_traversal_pagination(setup_connection):
@@ -257,8 +257,8 @@ def test_traversal_pagination(setup_connection):
     client = setup_connection
 
     entity = client.search.search_entity(q="David Konigsberg", limit=1)
-    all_traversals = get_all_data(client.traversal.traversal, entity.data[0].id, limit=1)
-    assert len(all_traversals) > 1
+    all_traversals = client.get_all_traversal_results(entity.data[0].id, limit=1)
+    assert all_traversals.limit > 1
 
 
 def test_shipment_search(setup_connection):
