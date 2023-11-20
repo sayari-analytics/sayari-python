@@ -71,12 +71,10 @@ Sayari Graph contains a wealth of information. While we always try to prioritize
 
 As described in our API documentation, when this happens we will return pagination information in our response. This information can be used to determine if there are more results than what was returned ('next token' will be true) and how many more results there are ('count' gives the total number of results including what was returned by the initial request). You can then use the 'offset' parameter in your subsequent request to get the next page of data.
 
-While the above process works well, there may be times you simply want to request all the data without thinking about it. The SDK provides a convenience decorator to help with this. Simply call 'get_all_data' with the name of the method and its inputs, and pagination will be handled for you.
-
-For example, if you wanted to get all search results instead of just the first page, you could do this:
-```python
-all_entities = get_all_data(client.search.search_entity, q="John Doe")
-```
+While the above process works well, there may be times you simply want to request all the data without thinking about it. The SDK provides convenience methods to help with this. The methods below take in the same inputs as the standard ones but automatically handle pagination and return all the associated data.
+- get_all_entity_search_results
+- get_all_record_search_results
+- get_all_traversal_results
 
 ## Rate limiting
 Some Sayari Graph endpoints are more compute intensive than others. To adequately allocate resources across customers and prevent service degradation, individual users are rate limited. It is very unlikely that you would ever encounter these limits when making requests manually or even in a single-threaded application. Typically, rate limiting will only come into play when making multiple API requests at the same time.
@@ -112,20 +110,24 @@ To create a client connection, simply provide the client ID and secret
 client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
 ```
 
-### Get all data
-Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the the 'get_all_data' decorator to request all pages of data.
+### Pagination
+Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the following 'GetAll' convenience functions to request all pages of data.
 
 To prevent issues with memory utilization or overlong requests, these pagination functions will not return all results if there are more than 10k records included in the response.
 
+#### get_all_entity_search_results
 ```python
-# Entities
-all_entities = get_all_data(client.search.search_entity, q="Victoria Beckham")
+all_entities = client.get_all_entity_search_results(q="Victoria Beckham")
+```
 
-# Records
-all_record = get_all_data(client.search.search_record, q="Victoria Beckham")
+#### get_all_record_search_results
+```python
+all_records = client.get_all_record_search_results(q="Victoria Beckham")
+```
 
-# Traversal
-all_traversals = get_all_data(client.traversal.traversal, "my entity ID")
+#### get_all_traversal_results
+```python
+all_traversals = client.get_all_traversal_results(my_entity_id)
 ```
 
 ### Screen CSV
