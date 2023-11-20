@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.country import Country
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -16,27 +17,27 @@ class TradeFilterList(pydantic.BaseModel):
     Filter your search on the following attributes.
     """
 
-    buyer_id: typing.Optional[str]
-    supplier_id: typing.Optional[str]
-    buyer_name: typing.Optional[str]
-    supplier_name: typing.Optional[str]
-    buyer_risk: typing.Optional[str]
-    supplier_risk: typing.Optional[str]
-    buyer_country: typing.Optional[str]
-    supplier_country: typing.Optional[str]
-    departure_country: typing.Optional[str]
-    departure_state: typing.Optional[str]
-    departure_city: typing.Optional[str]
-    arrival_country: typing.Optional[str]
-    arrival_state: typing.Optional[str]
-    arrival_city: typing.Optional[str]
-    hs_code: typing.Optional[str]
-    hs_description: typing.Optional[str]
-    supplier_purpose: typing.Optional[str]
-    buyer_purpose: typing.Optional[str]
-    arrival_date: typing.Optional[str]
-    weight: typing.Optional[str]
-    sources: typing.Optional[str]
+    buyer_id: typing.Optional[typing.List[str]]
+    supplier_id: typing.Optional[typing.List[str]]
+    buyer_name: typing.Optional[typing.List[str]]
+    supplier_name: typing.Optional[typing.List[str]]
+    buyer_risk: typing.Optional[typing.List[str]]
+    supplier_risk: typing.Optional[typing.List[str]]
+    buyer_country: typing.Optional[typing.List[Country]]
+    supplier_country: typing.Optional[typing.List[Country]]
+    departure_country: typing.Optional[typing.List[Country]]
+    departure_state: typing.Optional[typing.List[str]]
+    departure_city: typing.Optional[typing.List[str]]
+    arrival_country: typing.Optional[typing.List[Country]]
+    arrival_state: typing.Optional[typing.List[str]]
+    arrival_city: typing.Optional[typing.List[str]]
+    hs_code: typing.Optional[typing.List[str]]
+    hs_description: typing.Optional[typing.List[str]]
+    supplier_purpose: typing.Optional[typing.List[str]]
+    buyer_purpose: typing.Optional[typing.List[str]]
+    arrival_date: typing.Optional[typing.List[str]]
+    weight: typing.Optional[typing.List[str]]
+    sources: typing.Optional[typing.List[str]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
