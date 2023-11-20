@@ -7,15 +7,19 @@ import httpx
 
 class BaseClientWrapper:
     def __init__(
-        self, *, client: str, token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None, base_url: str
+        self,
+        *,
+        client_name: str,
+        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        base_url: str,
     ):
-        self._client = client
+        self._client_name = client_name
         self._token = token
         self._base_url = base_url
 
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {"X-Fern-Language": "Python"}
-        headers["client"] = self._client
+        headers["client-name"] = self._client_name
         token = self._get_token()
         if token is not None:
             headers["Authorization"] = f"Bearer {token}"
@@ -35,12 +39,12 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        client: str,
+        client_name: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         base_url: str,
         httpx_client: httpx.Client,
     ):
-        super().__init__(client=client, token=token, base_url=base_url)
+        super().__init__(client_name=client_name, token=token, base_url=base_url)
         self.httpx_client = httpx_client
 
 
@@ -48,10 +52,10 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        client: str,
+        client_name: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         base_url: str,
         httpx_client: httpx.AsyncClient,
     ):
-        super().__init__(client=client, token=token, base_url=base_url)
+        super().__init__(client_name=client_name, token=token, base_url=base_url)
         self.httpx_client = httpx_client

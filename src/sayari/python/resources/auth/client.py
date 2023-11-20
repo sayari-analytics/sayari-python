@@ -49,8 +49,8 @@ class AuthClient:
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
-        client = SayariAnalyticsApi(client="YOUR_CLIENT", token="YOUR_TOKEN", )
-        client.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -99,8 +99,8 @@ class AsyncAuthClient:
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
-        client = AsyncSayariAnalyticsApi(client="YOUR_CLIENT", token="YOUR_TOKEN", )
-        await client.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
