@@ -66,16 +66,6 @@ As you can see from the API documentation, there is an endpoint provided for aut
 
 In addition to simplifying the connection process, the SDK is also designed to work in long-running application and keep the token up to date by rotating it before it expires. This is all handled behind the scenes by the client object itself and should require no additional action by the user.
 
-## Pagination
-Sayari Graph contains a wealth of information. While we always try to prioritize the information you are looking for and return that first, there are times that you may need more data than can be returned in a single page of results.
-
-As described in our API documentation, when this happens we will return pagination information in our response. This information can be used to determine if there are more results than what was returned ('next token' will be true) and how many more results there are ('count' gives the total number of results including what was returned by the initial request). You can then use the 'offset' parameter in your subsequent request to get the next page of data.
-
-While the above process works well, there may be times you simply want to request all the data without thinking about it. The SDK provides convenience methods to help with this. The methods below take in the same inputs as the standard ones but automatically handle pagination and return all the associated data.
-- get_all_entity_search_results
-- get_all_record_search_results
-- get_all_traversal_results
-
 ## Rate limiting
 Some Sayari Graph endpoints are more compute intensive than others. To adequately allocate resources across customers and prevent service degradation, individual users are rate limited. It is very unlikely that you would ever encounter these limits when making requests manually or even in a single-threaded application. Typically, rate limiting will only come into play when making multiple API requests at the same time.
 
@@ -108,26 +98,6 @@ The client connection is an authenticated API client which supplies the methods 
 To create a client connection, simply provide the client ID and secret
 ```python
 client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
-```
-
-### Pagination
-Some of our endpoints return paginated results. If you know that you are going to want all pages of this data, you can use the following 'GetAll' convenience functions to request all pages of data.
-
-To prevent issues with memory utilization or overlong requests, these pagination functions will not return all results if there are more than 10k records included in the response.
-
-#### get_all_entity_search_results
-```python
-all_entities = client.get_all_entity_search_results(q="Victoria Beckham")
-```
-
-#### get_all_record_search_results
-```python
-all_records = client.get_all_record_search_results(q="Victoria Beckham")
-```
-
-#### get_all_traversal_results
-```python
-all_traversals = client.get_all_traversal_results(my_entity_id)
 ```
 
 ### Screen CSV

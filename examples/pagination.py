@@ -1,4 +1,4 @@
-import os
+"""import os
 from dotenv import load_dotenv
 from sayari import Connection, get_all_data
 
@@ -36,3 +36,4 @@ print("Total:", all_entities.size.count)
 #print("Total:", len(all_record))
 all_record = client.get_all_record_search_results(q="David Konigsberg")
 print("Total:", all_record.size.count)
+"""

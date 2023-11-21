@@ -3,7 +3,7 @@ import pytest
 import string
 import random
 from dotenv import load_dotenv
-from . import Connection, get_all_data, err_too_much_data_requested, encode_record_id
+from . import Connection, encode_record_id
 
 
 # This fixture is used to set up the client for each test
@@ -224,7 +224,7 @@ def test_ownership_traversal(setup_connection):
 # TODO: figure out good test for watchlist traversal
 
 
-def test_entity_pagination(setup_connection):
+"""def test_entity_pagination(setup_connection):
     # get connection
     client = setup_connection
 
@@ -258,7 +258,7 @@ def test_traversal_pagination(setup_connection):
 
     entity = client.search.search_entity(q="David Konigsberg", limit=1)
     all_traversals = client.get_all_traversal_results(entity.data[0].id, limit=1)
-    assert all_traversals.limit > 1
+    assert all_traversals.limit > 1"""
 
 
 def test_shipment_search(setup_connection):
@@ -312,14 +312,15 @@ def test_buyer_search(setup_connection):
     assert len(buyers.data.hits) > 0
 
 
-def test_too_much_data_requested(setup_connection):
+"""def test_too_much_data_requested(setup_connection):
     # get connection
     client = setup_connection
 
     with pytest.raises(ValueError) as e_info:
         all_entities = get_all_data(client.search.search_entity, q="amazon")
         assert e_info == err_too_much_data_requested
-        assert len(all_entities) == 0
+        assert len(all_entities) == 0"""
+
 
 def test_usage(setup_connection):
     # get connection

@@ -94,6 +94,8 @@ class Connection(SayariAnalyticsApi):
 
         return risky_entities, non_risky_entities, unresolved
 
+
+"""
     def get_all_entity_search_results(self, *args, **kwargs):
         data, _ = get_all_data(self.search.search_entity, *args, **kwargs)
         count = len(data)
@@ -110,6 +112,7 @@ class Connection(SayariAnalyticsApi):
         return TraversalResponse(min_depth=resp.min_depth, max_depth=resp.max_depth, relationships=resp.relationships,
                                  countries=resp.countries, types=resp.types, psa=resp.psa, explored_count=resp.explored_count,
                                  offset=0, limit=count, next=False, data=data)
+"""
 
 
 def map_csv(row):
@@ -192,6 +195,7 @@ def get_token(client_id, client_secret):
                                       grant_type="client_credentials")
 
 
+"""
 # takes in a function and its args, will automatically page through the data and return all the results
 def get_all_data(func, *args, **kwargs):
     # intercept requests for too much data
@@ -210,6 +214,7 @@ def get_all_data(func, *args, **kwargs):
         all_data.extend(resp.data)
 
     return all_data, resp # capture the other data in the response
+"""
 
 
 def encode_record_id(record_id):
