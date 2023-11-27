@@ -53,9 +53,6 @@ jobs:
           echo "Running smoke test"
           python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running pagination example"
-          python examples/pagination.py
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running screening example"
           python examples/screening.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

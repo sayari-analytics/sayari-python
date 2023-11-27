@@ -1,4 +1,7 @@
 from .python.client import SayariAnalyticsApi
+from .python.resources.search.client import EntitySearchResults, RecordSearchResults
+from .python.resources.traversal.client import TraversalResponse
+from .python.resources.base_types import SizeInfo
 import threading
 import urllib.parse
 import csv
@@ -92,6 +95,26 @@ class Connection(SayariAnalyticsApi):
         return risky_entities, non_risky_entities, unresolved
 
 
+"""
+    def get_all_entity_search_results(self, *args, **kwargs):
+        data, _ = get_all_data(self.search.search_entity, *args, **kwargs)
+        count = len(data)
+        return EntitySearchResults(offset=0, limit=count, size=SizeInfo(count=count, qualifier='eq'), next=False, data=data)
+
+    def get_all_record_search_results(self, *args, **kwargs):
+        data, _ = get_all_data(self.search.search_record, *args, **kwargs)
+        count = len(data)
+        return RecordSearchResults(offset=0, limit=count, size=SizeInfo(count=count, qualifier='eq'), next=False, data=data)
+
+    def get_all_traversal_results(self, *args, **kwargs):
+        data, resp = get_all_data(self.traversal.traversal, *args, **kwargs)
+        count = len(data)
+        return TraversalResponse(min_depth=resp.min_depth, max_depth=resp.max_depth, relationships=resp.relationships,
+                                 countries=resp.countries, types=resp.types, psa=resp.psa, explored_count=resp.explored_count,
+                                 offset=0, limit=count, next=False, data=data)
+"""
+
+
 def map_csv(row):
     column_map = {}
     # for each column of the CSV
@@ -172,19 +195,26 @@ def get_token(client_id, client_secret):
                                       grant_type="client_credentials")
 
 
+"""
 # takes in a function and its args, will automatically page through the data and return all the results
 def get_all_data(func, *args, **kwargs):
+    # intercept requests for too much data
     resp = func(*args, **kwargs)
     if hasattr(resp, 'size') and resp.size.count >= max_results:
         raise err_too_much_data_requested
+
+    # intercept request from non-paginated functions
     if not hasattr(resp, 'next'):
         raise err_function_not_paginated
+
+    # get all data
     all_data = resp.data
     while resp.next:
         resp = func(*args, **kwargs, offset=resp.offset + resp.limit)
         all_data.extend(resp.data)
 
-    return all_data
+    return all_data, resp # capture the other data in the response
+"""
 
 
 def encode_record_id(record_id):
