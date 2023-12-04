@@ -51,7 +51,7 @@ class SearchClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> EntitySearchResults:
         """
-        Search for an entity
+        Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -124,7 +124,7 @@ class SearchClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> RecordSearchResults:
         """
-        Search for a record
+        Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -202,7 +202,7 @@ class AsyncSearchClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> EntitySearchResults:
         """
-        Search for an entity
+        Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -275,7 +275,7 @@ class AsyncSearchClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> RecordSearchResults:
         """
-        Search for a record
+        Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.

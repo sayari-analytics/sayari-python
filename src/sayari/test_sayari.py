@@ -101,10 +101,10 @@ def test_entities(setup_connection):
     # check some additional fields
     assert first_entity_details.company_type == first_entity.company_type
     assert first_entity_details.relationships.size.count == first_entity.degree
-    if first_entity.degree < 200:
+    if first_entity.degree < 50:
         assert len(first_entity_details.relationships.data) == first_entity.degree
     else:
-        assert len(first_entity_details.relationships.data) == 200
+        assert len(first_entity_details.relationships.data) == 50
 
 
 def test_resolution(setup_connection):
