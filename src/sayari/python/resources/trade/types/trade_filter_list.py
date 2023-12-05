@@ -17,27 +17,67 @@ class TradeFilterList(pydantic.BaseModel):
     Filter your search on the following attributes.
     """
 
-    buyer_id: typing.Optional[typing.List[str]]
-    supplier_id: typing.Optional[typing.List[str]]
-    buyer_name: typing.Optional[typing.List[str]]
-    supplier_name: typing.Optional[typing.List[str]]
-    buyer_risk: typing.Optional[typing.List[str]]
-    supplier_risk: typing.Optional[typing.List[str]]
-    buyer_country: typing.Optional[typing.List[Country]]
-    supplier_country: typing.Optional[typing.List[Country]]
-    departure_country: typing.Optional[typing.List[Country]]
-    departure_state: typing.Optional[typing.List[str]]
-    departure_city: typing.Optional[typing.List[str]]
-    arrival_country: typing.Optional[typing.List[Country]]
-    arrival_state: typing.Optional[typing.List[str]]
-    arrival_city: typing.Optional[typing.List[str]]
-    hs_code: typing.Optional[typing.List[str]]
-    hs_description: typing.Optional[typing.List[str]]
-    supplier_purpose: typing.Optional[typing.List[str]]
-    buyer_purpose: typing.Optional[typing.List[str]]
-    arrival_date: typing.Optional[typing.List[str]]
-    weight: typing.Optional[typing.List[str]]
-    sources: typing.Optional[typing.List[str]]
+    buyer_id: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Exact match against the entity_id of the buyer. The buyer is the receiver_of shipments."
+    )
+    supplier_id: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Exact match against the entity_id of the supplier. The supplier is the shipper_of shipments."
+    )
+    buyer_name: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Buyers whose name contains the provided string."
+    )
+    supplier_name: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipper whose name contains the provided string."
+    )
+    buyer_risk: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Buyer with an exact match for the provided risk factor."
+    )
+    supplier_risk: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipper with an exact match for the provided risk factor."
+    )
+    buyer_country: typing.Optional[typing.List[Country]] = pydantic.Field(
+        description="Buyer with an exact match for the provided country code."
+    )
+    supplier_country: typing.Optional[typing.List[Country]] = pydantic.Field(
+        description="Supplier with an exact match for the provided country code."
+    )
+    departure_country: typing.Optional[typing.List[Country]] = pydantic.Field(
+        description="Shipment departs from a country with an exact match for the provided country code."
+    )
+    departure_state: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipment departs from a state that contains the provided state name."
+    )
+    departure_city: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipment departs from a city that contains the provided city name."
+    )
+    arrival_country: typing.Optional[typing.List[Country]] = pydantic.Field(
+        description="Shipment arrives at a country with an exact match for the provided country code."
+    )
+    arrival_state: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipment arrives at a state that contains the provided state name."
+    )
+    arrival_city: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="Shipment arrives at a city that contains the provided city name."
+    )
+    hs_code: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The shipment HS code starts with the provided HS code."
+    )
+    hs_description: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The HS description contains the provided string."
+    )
+    supplier_purpose: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The supplier purpose contains the provided string."
+    )
+    buyer_purpose: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The buyer purpose contains the provided string."
+    )
+    arrival_date: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The arrival date is within the provided range."
+    )
+    weight: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The shipment weight is within the provided range."
+    )
+    sources: typing.Optional[typing.List[str]] = pydantic.Field(description="An exact match for the provided sources.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

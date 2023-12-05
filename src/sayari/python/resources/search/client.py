@@ -120,7 +120,6 @@ class SearchClient:
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> RecordSearchResults:
         """
@@ -139,8 +138,6 @@ class SearchClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -150,8 +147,6 @@ class SearchClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
@@ -271,7 +266,6 @@ class AsyncSearchClient:
         fields: typing.Optional[typing.List[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> RecordSearchResults:
         """
@@ -290,8 +284,6 @@ class AsyncSearchClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -301,8 +293,6 @@ class AsyncSearchClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
