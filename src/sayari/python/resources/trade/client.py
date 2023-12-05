@@ -46,7 +46,6 @@ class TradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
@@ -65,8 +64,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -76,8 +73,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
@@ -117,7 +112,6 @@ class TradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
@@ -136,8 +130,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -147,8 +139,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
@@ -188,7 +178,6 @@ class TradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
@@ -207,8 +196,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -218,8 +205,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
@@ -264,7 +249,6 @@ class AsyncTradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
@@ -283,8 +267,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -294,8 +276,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
@@ -335,7 +315,6 @@ class AsyncTradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
@@ -354,8 +333,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -365,8 +342,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
@@ -406,7 +381,6 @@ class AsyncTradeClient:
         fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
@@ -425,8 +399,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
-
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
@@ -436,8 +408,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if geo_facets is not OMIT:
-            _request["geo_facets"] = geo_facets
         if advanced is not OMIT:
             _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
