@@ -6,7 +6,7 @@ import threading
 import urllib.parse
 import csv
 
-client_header = "sayari-python"
+client_name = "sayari-python"
 
 # resolution attributes
 Name = "name"
@@ -36,7 +36,7 @@ err_function_not_paginated = ValueError('this function is not paginated and cann
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
         resp = get_token(client_id, client_secret)
-        SayariAnalyticsApi.__init__(self, token=resp.access_token, client=client_header)
+        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=client_name)
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -50,7 +50,7 @@ class Connection(SayariAnalyticsApi):
 
     def update_token(self):
         resp = get_token(self.client_id, self.client_secret)
-        SayariAnalyticsApi.__init__(self, token=resp.access_token, client=client_header)
+        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=client_name)
         refresh_in = resp.expires_in - 3600
         if refresh_in < 0:
             refresh_in = 0
@@ -188,7 +188,7 @@ def resolve_entity(client, column_map, row):
 
 
 def get_token(client_id, client_secret):
-    auth_client = SayariAnalyticsApi(client=client_header)
+    auth_client = SayariAnalyticsApi(client_name=client_name)
     return auth_client.auth.get_token(client_id=client_id,
                                       client_secret=client_secret,
                                       audience="sayari.com",

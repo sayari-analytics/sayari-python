@@ -50,7 +50,7 @@ class TradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
-        Search for a shipment
+        Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -121,7 +121,7 @@ class TradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
-        Search for a supplier
+        Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -192,7 +192,7 @@ class TradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
-        Search for a buyer
+        Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -268,7 +268,7 @@ class AsyncTradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> ShipmentSearchResults:
         """
-        Search for a shipment
+        Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -339,7 +339,7 @@ class AsyncTradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> SupplierSearchResults:
         """
-        Search for a supplier
+        Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -410,7 +410,7 @@ class AsyncTradeClient:
         advanced: typing.Optional[bool] = OMIT,
     ) -> BuyerSearchResults:
         """
-        Search for a buyer
+        Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.

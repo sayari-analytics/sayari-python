@@ -58,18 +58,8 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running trade search example"
           python examples/trade-search.py
-  publish-test-sdk-readme:
-    name: Test publishing SDK readme
-    runs-on: ubuntu-latest
-    needs: run-examples
-    steps:
-      - uses: actions/checkout@v4
-      - uses: readmeio/rdme@v8
-        with:
-          rdme: docs docs/python_sdk.md --key=${{ secrets.README_API_KEY }}
 
   #FIXME: add integration test with the most up to date generated code (inverse of what is in the fern repo)
 
   #FIXME: add job to release on tag
 
-  #FIXME: add job to publish production SDK readme on tag
