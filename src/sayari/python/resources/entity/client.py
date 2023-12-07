@@ -144,6 +144,11 @@ class EntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.entity.get_entity(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -363,6 +368,11 @@ class AsyncEntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.entity.get_entity(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

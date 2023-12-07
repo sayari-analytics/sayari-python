@@ -29,6 +29,11 @@ except ImportError:
 class EmbeddedEntity(pydantic.BaseModel):
     """
     The attributes fields common to most entities.
+    ---
+    from sayari-analytics import (Country, EmbeddedEntity, Entities, Identifier,
+                                  Relationships, SourceCountInfo)
+
+    EmbeddedEntity(id="POdbTK7mXJmILshuA3xc7Q", label="SLICKDEALS HOLDINGS, LLC", degree=4, closed=False, entity_url="/v1/entity/POdbTK7mXJmILshuA3xc7Q", pep=False, psa_count=2, sanctioned=False, type=Entities.COMPANY, identifiers=[Identifier(value="E0661992012-4", type="usa_nv_corpno", label="Usa Nv Corpno", ), Identifier(value="NV20121768456", type="usa_nv_bizid", label="Usa Nv Bizid", )], countries=[Country.USA], source_count={"933e409d7392aff90418a15fd47de72f": SourceCountInfo(count=5, label="USA Nevada Secretary of State", )}, addresses=["DE", "6255 W Sunset Blvd, Suite 1400, Los Angeles, CA, USA"], relationship_count={Relationships.SHAREHOLDER_OF: 1, Relationships.HAS_SHAREHOLDER: 3, Relationships.HAS_REGISTERED_AGENT: 1}, )
     """
 
     id: EntityId
@@ -37,6 +42,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     closed: EntityClosed
     entity_url: EntityUrl
     pep: EntityPep
+    psa_id: typing.Optional[str]
     psa_count: EntityPsaCount
     sanctioned: EntitySanctioned
     type: Entities

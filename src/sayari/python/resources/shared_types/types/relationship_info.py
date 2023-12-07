@@ -14,6 +14,7 @@ except ImportError:
 
 
 class RelationshipInfo(pydantic.BaseModel):
+    editable: bool
     record: str
     attributes: typing.Dict[Attributes, typing.List[RelationshipAttributeValue]]
     from_date: typing.Optional[str]
