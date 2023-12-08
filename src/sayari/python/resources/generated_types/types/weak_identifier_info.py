@@ -14,6 +14,8 @@ class WeakIdentifierInfo(PaginatedResponse):
     """
 
     data: typing.List[WeakIdentifierData]
+    next: typing.Optional[typing.Any]
+    offset: typing.Optional[int]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

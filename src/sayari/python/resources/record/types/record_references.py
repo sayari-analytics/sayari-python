@@ -5,17 +5,12 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...base_types.types.paginated_response import PaginatedResponse
-from .name_data import NameData
 
 
-class NameInfo(PaginatedResponse):
-    """
-    An entity's name. The value may be straightforward (e.g. 'Acme LLC,' 'John Doe') or context-specific (e.g. 'Jones v. Smith' as a legal matter name).
-    """
-
-    data: typing.List[NameData]
-    next: typing.Optional[typing.Any]
-    offset: typing.Optional[int]
+class RecordReferences(PaginatedResponse):
+    next: bool
+    offset: int
+    data: typing.Any
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

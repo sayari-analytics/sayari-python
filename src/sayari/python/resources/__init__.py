@@ -17,6 +17,7 @@ from . import (
 )
 from .auth import AccessToken, Audience, AuthResponse, ClientId, ClientSecret, ExpiresIn, GrantType, TokenType
 from .base_types import PaginatedResponse, SizeInfo
+from .entity import EntitySummaryResponse, GetEntityResponse
 from .generated_types import (
     AdditionalInformationData,
     AdditionalInformationInfo,
@@ -112,6 +113,7 @@ from .generated_types import (
     WeakIdentifierType,
 )
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
+from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
 from .search import EntitySearchResults, FilterList, RecordSearchResults
 from .shared_errors import (
@@ -283,6 +285,7 @@ __all__ = [
     "EntityRisk",
     "EntitySanctioned",
     "EntitySearchResults",
+    "EntitySummaryResponse",
     "EntityTranslatedLabel",
     "EntityUrl",
     "EventInfo",
@@ -302,6 +305,8 @@ __all__ = [
     "GenericData",
     "GenericInfo",
     "GenericProperties",
+    "GetEntityResponse",
+    "GetRecordResponse",
     "GrantType",
     "HistoryInfo",
     "HistoryResponse",
@@ -350,6 +355,7 @@ __all__ = [
     "RateLimitResponse",
     "RecordDetails",
     "RecordId",
+    "RecordReferences",
     "RecordSearchResults",
     "ReferencedBy",
     "ReferencedByData",

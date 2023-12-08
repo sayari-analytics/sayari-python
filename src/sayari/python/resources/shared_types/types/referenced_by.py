@@ -13,6 +13,8 @@ class ReferencedBy(PaginatedResponse):
     List of records that reference the entity.
     """
 
+    offset: typing.Optional[int]
+    next: typing.Optional[bool]
     data: typing.List[ReferencedByData]
 
     def json(self, **kwargs: typing.Any) -> str:
