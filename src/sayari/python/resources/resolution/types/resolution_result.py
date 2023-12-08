@@ -25,6 +25,7 @@ class ResolutionResult(pydantic.BaseModel):
     addresses: typing.List[str]
     countries: typing.List[Country]
     sources: typing.List[str]
+    typed_matched_queries: typing.List[str]
     matched_queries: typing.List[str]
     highlight: typing.Dict[str, typing.List[str]]
     explanation: typing.Dict[str, typing.List[MatchExplanation]]

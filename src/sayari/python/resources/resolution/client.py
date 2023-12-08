@@ -61,6 +61,11 @@ class ResolutionClient:
             - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
             - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.resolution.resolution(name="slickdeals", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -134,6 +139,11 @@ class AsyncResolutionClient:
             - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
             - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.resolution.resolution(name="slickdeals", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
