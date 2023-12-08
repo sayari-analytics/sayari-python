@@ -14,7 +14,7 @@ class ReferencedBy(PaginatedResponse):
     """
 
     offset: typing.Optional[int]
-    next: typing.Optional[bool]
+    next: typing.Optional[typing.Any]
     data: typing.List[ReferencedByData]
 
     def json(self, **kwargs: typing.Any) -> str:
