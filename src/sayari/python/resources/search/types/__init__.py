@@ -3,7 +3,7 @@
 from .coordinates import Coordinates
 from .entity_search_response import EntitySearchResponse
 from .filter_list import FilterList
-from .record_search_results import RecordSearchResults
+from .record_search_response import RecordSearchResponse
 from .search_results import SearchResults
 
-__all__ = ["Coordinates", "EntitySearchResponse", "FilterList", "RecordSearchResults", "SearchResults"]
+__all__ = ["Coordinates", "EntitySearchResponse", "FilterList", "RecordSearchResponse", "SearchResults"]

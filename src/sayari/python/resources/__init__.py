@@ -115,7 +115,7 @@ from .generated_types import (
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResults, SearchResults
+from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -357,7 +357,7 @@ __all__ = [
     "RecordDetails",
     "RecordId",
     "RecordReferences",
-    "RecordSearchResults",
+    "RecordSearchResponse",
     "ReferencedBy",
     "ReferencedByData",
     "ReferencedByDataType",
