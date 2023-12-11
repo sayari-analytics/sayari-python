@@ -3,7 +3,7 @@
 from .aggregations import Aggregations
 from .bucket import Bucket
 from .business_purpose import BusinessPurpose
-from .buyer_search_results import BuyerSearchResults
+from .buyer_search_response import BuyerSearchResponse
 from .latest_shipment_date import LatestShipmentDate
 from .monetary_value import MonetaryValue
 from .shipment import Shipment
@@ -25,7 +25,7 @@ __all__ = [
     "Aggregations",
     "Bucket",
     "BusinessPurpose",
-    "BuyerSearchResults",
+    "BuyerSearchResponse",
     "LatestShipmentDate",
     "MonetaryValue",
     "Shipment",
