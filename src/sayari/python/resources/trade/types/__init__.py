@@ -11,7 +11,7 @@ from .shipment_country import ShipmentCountry
 from .shipment_hits import ShipmentHits
 from .shipment_identifier import ShipmentIdentifier
 from .shipment_metadata import ShipmentMetadata
-from .shipment_search_results import ShipmentSearchResults
+from .shipment_search_response import ShipmentSearchResponse
 from .source_or_destination_entity import SourceOrDestinationEntity
 from .supplier import Supplier
 from .supplier_metadata import SupplierMetadata
@@ -33,7 +33,7 @@ __all__ = [
     "ShipmentHits",
     "ShipmentIdentifier",
     "ShipmentMetadata",
-    "ShipmentSearchResults",
+    "ShipmentSearchResponse",
     "SourceOrDestinationEntity",
     "Supplier",
     "SupplierMetadata",

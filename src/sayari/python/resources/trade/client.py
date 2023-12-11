@@ -20,7 +20,7 @@ from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.shipment_field import ShipmentField
 from .types.buyer_search_results import BuyerSearchResults
-from .types.shipment_search_results import ShipmentSearchResults
+from .types.shipment_search_response import ShipmentSearchResponse
 from .types.supplier_search_results import SupplierSearchResults
 from .types.trade_filter_list import TradeFilterList
 
@@ -47,7 +47,7 @@ class TradeClient:
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> ShipmentSearchResults:
+    ) -> ShipmentSearchResponse:
         """
         Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -65,6 +65,11 @@ class TradeClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.trade.search_shipments(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -84,7 +89,7 @@ class TradeClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ShipmentSearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(ShipmentSearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -250,7 +255,7 @@ class AsyncTradeClient:
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> ShipmentSearchResults:
+    ) -> ShipmentSearchResponse:
         """
         Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -268,6 +273,11 @@ class AsyncTradeClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.trade.search_shipments(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -287,7 +297,7 @@ class AsyncTradeClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(ShipmentSearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(ShipmentSearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

@@ -21,6 +21,7 @@ class SourceOrDestinationEntity(pydantic.BaseModel):
     name: typing.List[str]
     business_purpose: typing.List[BusinessPurpose]
     country: typing.List[Country]
+    date: typing.Optional[str]
     entity_id: EntityId
     type: Relationships
 
