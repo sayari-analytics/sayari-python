@@ -16,7 +16,7 @@ from .source_or_destination_entity import SourceOrDestinationEntity
 from .supplier import Supplier
 from .supplier_metadata import SupplierMetadata
 from .supplier_or_buyer_hits import SupplierOrBuyerHits
-from .supplier_search_results import SupplierSearchResults
+from .supplier_search_response import SupplierSearchResponse
 from .trade_filter_list import TradeFilterList
 from .volume_aggregates import VolumeAggregates
 from .weight import Weight
@@ -38,7 +38,7 @@ __all__ = [
     "Supplier",
     "SupplierMetadata",
     "SupplierOrBuyerHits",
-    "SupplierSearchResults",
+    "SupplierSearchResponse",
     "TradeFilterList",
     "VolumeAggregates",
     "Weight",
