@@ -10,7 +10,6 @@ from ...generated_types.types.attribute_details import AttributeDetails
 from .company_type import CompanyType
 from .embedded_entity import EmbeddedEntity
 from .entity_hs_code import EntityHsCode
-from .entity_matches import EntityMatches
 from .entity_registration_date import EntityRegistrationDate
 from .entity_risk import EntityRisk
 from .entity_translated_label import EntityTranslatedLabel
@@ -38,7 +37,6 @@ class EntityDetails(EmbeddedEntity):
     relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
-    matches: typing.Optional[EntityMatches]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

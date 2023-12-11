@@ -115,7 +115,7 @@ from .generated_types import (
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import EntitySearchResults, FilterList, RecordSearchResults
+from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResults, SearchResults
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -257,6 +257,7 @@ __all__ = [
     "ContactProperties",
     "ContactType",
     "Coordinate",
+    "Coordinates",
     "Country",
     "CountryContext",
     "CountryData",
@@ -284,7 +285,7 @@ __all__ = [
     "EntityRelationships",
     "EntityRisk",
     "EntitySanctioned",
-    "EntitySearchResults",
+    "EntitySearchResponse",
     "EntitySummaryResponse",
     "EntityTranslatedLabel",
     "EntityUrl",
@@ -375,6 +376,7 @@ __all__ = [
     "RiskIntelligenceProperties",
     "RiskLevel",
     "SearchField",
+    "SearchResults",
     "SharesData",
     "SharesInfo",
     "SharesProperties",

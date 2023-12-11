@@ -1,5 +1,4 @@
 from .python.client import SayariAnalyticsApi
-from .python.resources.search.client import EntitySearchResults, RecordSearchResults
 from .python.resources.traversal.client import TraversalResponse
 from .python.resources.base_types import SizeInfo
 import threading
@@ -93,26 +92,6 @@ class Connection(SayariAnalyticsApi):
                     non_risky_entities.append(entity_summary)
 
         return risky_entities, non_risky_entities, unresolved
-
-
-"""
-    def get_all_entity_search_results(self, *args, **kwargs):
-        data, _ = get_all_data(self.search.search_entity, *args, **kwargs)
-        count = len(data)
-        return EntitySearchResults(offset=0, limit=count, size=SizeInfo(count=count, qualifier='eq'), next=False, data=data)
-
-    def get_all_record_search_results(self, *args, **kwargs):
-        data, _ = get_all_data(self.search.search_record, *args, **kwargs)
-        count = len(data)
-        return RecordSearchResults(offset=0, limit=count, size=SizeInfo(count=count, qualifier='eq'), next=False, data=data)
-
-    def get_all_traversal_results(self, *args, **kwargs):
-        data, resp = get_all_data(self.traversal.traversal, *args, **kwargs)
-        count = len(data)
-        return TraversalResponse(min_depth=resp.min_depth, max_depth=resp.max_depth, relationships=resp.relationships,
-                                 countries=resp.countries, types=resp.types, psa=resp.psa, explored_count=resp.explored_count,
-                                 offset=0, limit=count, next=False, data=data)
-"""
 
 
 def map_csv(row):

@@ -21,7 +21,7 @@ from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.search_field import SearchField
-from .types.entity_search_results import EntitySearchResults
+from .types.entity_search_response import EntitySearchResponse
 from .types.filter_list import FilterList
 from .types.record_search_results import RecordSearchResults
 
@@ -49,7 +49,7 @@ class SearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> EntitySearchResults:
+    ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -90,7 +90,7 @@ class SearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -195,7 +195,7 @@ class AsyncSearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> EntitySearchResults:
+    ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -236,7 +236,7 @@ class AsyncSearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
