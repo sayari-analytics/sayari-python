@@ -13,6 +13,19 @@ except ImportError:
 
 
 class ShortestPathResponse(pydantic.BaseModel):
+    """
+    OK
+    ---
+    from sayari-analytics import (Attributes, Country, Entities, EntityDetails,
+                                  RelationshipAttributeValue, RelationshipInfo,
+                                  Relationships, Risk, RiskData, RiskLevel,
+                                  ShortestPathData, ShortestPathResponse,
+                                  SourceCountInfo, TraversalPath,
+                                  TraversalRelationshipData)
+
+    ShortestPathResponse(entities=["POdbTK7mXJmILshuA3xc7Q", "E1d0DbflsC0xrRRp753bJQ"], data=[ShortestPathData(source="POdbTK7mXJmILshuA3xc7Q", target=EntityDetails(id="E1d0DbflsC0xrRRp753bJQ", label="SD Engage Parent LLC", degree=1, entity_url="/v1/entity/E1d0DbflsC0xrRRp753bJQ", pep=False, psa_id="24240795543836", psa_count=3, sanctioned=False, closed=False, type=Entities.COMPANY, identifiers=[], addresses=["6255 W Sunset Blvd, Suite 1110, Los Angeles, CA, USA"], countries=[Country.USA], relationship_count={Relationships.SHAREHOLDER_OF: 1}, source_count={"933e409d7392aff90418a15fd47de72f": SourceCountInfo(count=1, label="USA Nevada Secretary of State", )}, risk={Risk.BASEL_AML: RiskData(value=4.63, metadata={"country": ["USA"]}, level=RiskLevel.RELEVANT, ), Risk.CPI_SCORE: RiskData(value=67, metadata={"country": ["USA"]}, level=RiskLevel.RELEVANT, )}, ), path=[TraversalPath(field="has_shareholder", entity=EntityDetails(id="E1d0DbflsC0xrRRp753bJQ", label="SD Engage Parent LLC", degree=1, entity_url="/v1/entity/E1d0DbflsC0xrRRp753bJQ", pep=False, psa_id="24240795543836", psa_count=3, sanctioned=False, closed=False, type=Entities.COMPANY, identifiers=[], addresses=["6255 W Sunset Blvd, Suite 1110, Los Angeles, CA, USA"], countries=[Country.USA], relationship_count={Relationships.SHAREHOLDER_OF: 1}, source_count={"933e409d7392aff90418a15fd47de72f": SourceCountInfo(count=1, label="USA Nevada Secretary of State", )}, risk={Risk.BASEL_AML: RiskData(value=4.63, metadata={"country": ["USA"]}, level=RiskLevel.RELEVANT, ), Risk.CPI_SCORE: RiskData(value=67, metadata={"country": ["USA"]}, level=RiskLevel.RELEVANT, )}, ), relationships={"has_shareholder": TraversalRelationshipData(values=[RelationshipInfo(record="933e409d7392aff90418a15fd47de72f/1153258/1678406400000", date="2023-03-10", acquisition_date="2023-03-10", publication_date="2023-03-10", attributes={Attributes.POSITION: [RelationshipAttributeValue(value="Managing Member", )]}, )], )}, )], )], )
+    """
+
     entities: typing.List[str]
     data: typing.List[ShortestPathData]
 

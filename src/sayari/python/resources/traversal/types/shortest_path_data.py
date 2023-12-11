@@ -14,6 +14,7 @@ except ImportError:
 
 
 class ShortestPathData(pydantic.BaseModel):
+    source: str
     target: EntityDetails
     path: typing.List[TraversalPath]
 

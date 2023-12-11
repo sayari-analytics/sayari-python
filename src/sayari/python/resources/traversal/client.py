@@ -131,6 +131,11 @@ class TraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.traversal.traversal(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -201,6 +206,11 @@ class TraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.traversal.ubo(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -240,6 +250,11 @@ class TraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.traversal.ownership(id="E1d0DbflsC0xrRRp753bJQ", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -279,6 +294,11 @@ class TraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.traversal.watchlist(id="E1d0DbflsC0xrRRp753bJQ", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -448,6 +468,11 @@ class AsyncTraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.traversal.traversal(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -518,6 +543,11 @@ class AsyncTraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.traversal.ubo(id="POdbTK7mXJmILshuA3xc7Q", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -557,6 +587,11 @@ class AsyncTraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.traversal.ownership(id="E1d0DbflsC0xrRRp753bJQ", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -596,6 +631,11 @@ class AsyncTraversalClient:
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.traversal.watchlist(id="E1d0DbflsC0xrRRp753bJQ", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
