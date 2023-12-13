@@ -135,7 +135,7 @@ class TraversalClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.traversal.traversal(id="POdbTK7mXJmILshuA3xc7Q", )
+        client.traversal.traversal(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -292,7 +292,7 @@ class TraversalClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.traversal.ubo(id="POdbTK7mXJmILshuA3xc7Q", )
+        client.traversal.ubo(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -448,7 +448,7 @@ class TraversalClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.traversal.ownership(id="E1d0DbflsC0xrRRp753bJQ", )
+        client.traversal.ownership(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -607,7 +607,7 @@ class TraversalClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.traversal.watchlist(id="E1d0DbflsC0xrRRp753bJQ", )
+        client.traversal.watchlist(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -812,7 +812,7 @@ class AsyncTraversalClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.traversal.traversal(id="POdbTK7mXJmILshuA3xc7Q", )
+        await client.traversal.traversal(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -969,7 +969,7 @@ class AsyncTraversalClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.traversal.ubo(id="POdbTK7mXJmILshuA3xc7Q", )
+        await client.traversal.ubo(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1125,7 +1125,7 @@ class AsyncTraversalClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.traversal.ownership(id="E1d0DbflsC0xrRRp753bJQ", )
+        await client.traversal.ownership(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -1284,7 +1284,7 @@ class AsyncTraversalClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.traversal.watchlist(id="E1d0DbflsC0xrRRp753bJQ", )
+        await client.traversal.watchlist(id="mGq1lpuqKssNWTjIokuPeA", limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
