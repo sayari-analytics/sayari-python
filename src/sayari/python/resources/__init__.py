@@ -184,7 +184,7 @@ from .shared_types import (
     SourceId,
     Status,
 )
-from .source import Source, SourceList
+from .source import GetSourceResponse, ListSourcesResponse, Source
 from .trade import (
     Aggregations,
     Bucket,
@@ -308,6 +308,7 @@ __all__ = [
     "GenericProperties",
     "GetEntityResponse",
     "GetRecordResponse",
+    "GetSourceResponse",
     "GrantType",
     "HistoryInfo",
     "HistoryResponse",
@@ -320,6 +321,7 @@ __all__ = [
     "InternalServerErrorResponse",
     "Language",
     "LatestShipmentDate",
+    "ListSourcesResponse",
     "MatchExplanation",
     "MeasurementData",
     "MeasurementInfo",
@@ -396,7 +398,6 @@ __all__ = [
     "SourceCount",
     "SourceCountInfo",
     "SourceId",
-    "SourceList",
     "SourceOrDestinationEntity",
     "Status",
     "StatusContext",
