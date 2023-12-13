@@ -19,8 +19,10 @@ class RelationshipData(pydantic.BaseModel):
     types: RelationshipTypes
     dates: typing.List[str]
     first_observed: typing.Optional[str]
+    former: typing.Optional[bool]
     last_observed: typing.Optional[str]
     start_date: typing.Optional[str]
+    end_date: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

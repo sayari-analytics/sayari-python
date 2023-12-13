@@ -19,6 +19,7 @@ class RelationshipInfo(pydantic.BaseModel):
     attributes: typing.Dict[Attributes, typing.List[RelationshipAttributeValue]]
     date: typing.Optional[str]
     from_date: typing.Optional[str]
+    to_date: typing.Optional[str]
     acquisition_date: str
     former: typing.Optional[bool]
     publication_date: typing.Optional[str]
