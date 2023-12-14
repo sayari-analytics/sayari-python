@@ -37,6 +37,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     closed: EntityClosed
     entity_url: EntityUrl
     pep: EntityPep
+    psa_id: typing.Optional[str]
     psa_count: EntityPsaCount
     sanctioned: EntitySanctioned
     type: Entities

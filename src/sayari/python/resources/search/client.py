@@ -21,9 +21,9 @@ from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.search_field import SearchField
-from .types.entity_search_results import EntitySearchResults
+from .types.entity_search_response import EntitySearchResponse
 from .types.filter_list import FilterList
-from .types.record_search_results import RecordSearchResults
+from .types.record_search_response import RecordSearchResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -49,7 +49,7 @@ class SearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> EntitySearchResults:
+    ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -69,6 +69,11 @@ class SearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.search.search_entity(q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -90,7 +95,7 @@ class SearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -121,7 +126,7 @@ class SearchClient:
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> RecordSearchResults:
+    ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -139,6 +144,11 @@ class SearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.search.search_record(limit=2, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -158,7 +168,7 @@ class SearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -195,7 +205,7 @@ class AsyncSearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> EntitySearchResults:
+    ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -215,6 +225,11 @@ class AsyncSearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.search.search_entity(q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -236,7 +251,7 @@ class AsyncSearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntitySearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -267,7 +282,7 @@ class AsyncSearchClient:
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
-    ) -> RecordSearchResults:
+    ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
@@ -285,6 +300,11 @@ class AsyncSearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.search.search_record(limit=2, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -304,7 +324,7 @@ class AsyncSearchClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(RecordSearchResults, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

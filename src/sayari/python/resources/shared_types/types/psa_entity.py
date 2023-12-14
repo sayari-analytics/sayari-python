@@ -4,8 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from .company_type import CompanyType
 from .embedded_entity import EmbeddedEntity
+from .entity_registration_date import EntityRegistrationDate
 from .entity_risk import EntityRisk
+from .status import Status
 
 
 class PsaEntity(EmbeddedEntity):
@@ -14,6 +17,9 @@ class PsaEntity(EmbeddedEntity):
     """
 
     risk: EntityRisk
+    registration_date: typing.Optional[EntityRegistrationDate]
+    company_type: typing.Optional[CompanyType]
+    latest_status: typing.Optional[Status]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

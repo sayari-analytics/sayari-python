@@ -22,8 +22,9 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.entity_details import EntityDetails
 from ..shared_types.types.entity_id import EntityId
+from .types.entity_summary_response import EntitySummaryResponse
+from .types.get_entity_response import GetEntityResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -72,7 +73,7 @@ class EntityClient:
         referenced_by_next: typing.Optional[str] = None,
         referenced_by_prev: typing.Optional[str] = None,
         referenced_by_limit: typing.Optional[int] = None,
-    ) -> EntityDetails:
+    ) -> GetEntityResponse:
         """
         Retrieve an entity from the database based on the ID
 
@@ -144,6 +145,11 @@ class EntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -193,7 +199,7 @@ class EntityClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -214,12 +220,17 @@ class EntityClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def entity_summary(self, id: EntityId) -> EntityDetails:
+    def entity_summary(self, id: EntityId) -> EntitySummaryResponse:
         """
         The Entity Summary endpoint returns a smaller entity payload
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.entity.entity_summary(id="mGq1lpuqKssNWTjIokuPeA", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -228,7 +239,7 @@ class EntityClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -291,7 +302,7 @@ class AsyncEntityClient:
         referenced_by_next: typing.Optional[str] = None,
         referenced_by_prev: typing.Optional[str] = None,
         referenced_by_limit: typing.Optional[int] = None,
-    ) -> EntityDetails:
+    ) -> GetEntityResponse:
         """
         Retrieve an entity from the database based on the ID
 
@@ -363,6 +374,11 @@ class AsyncEntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -412,7 +428,7 @@ class AsyncEntityClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -433,12 +449,17 @@ class AsyncEntityClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def entity_summary(self, id: EntityId) -> EntityDetails:
+    async def entity_summary(self, id: EntityId) -> EntitySummaryResponse:
         """
         The Entity Summary endpoint returns a smaller entity payload
 
         Parameters:
             - id: EntityId.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.entity.entity_summary(id="mGq1lpuqKssNWTjIokuPeA", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -447,7 +468,7 @@ class AsyncEntityClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(EntityDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

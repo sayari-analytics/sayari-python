@@ -136,6 +136,7 @@ def test_records(setup_connection):
     random_string = ''.join(random.choices(string.ascii_letters, k=3))
 
     # query until we get results
+    print(random_string)
     record_search_results = client.search.search_record(q=random_string)
     if len(record_search_results.data) == 0:
         return test_records(setup_connection)

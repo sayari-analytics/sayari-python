@@ -20,8 +20,8 @@ from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from ..shared_types.types.source_id import SourceId
-from .types.source import Source
-from .types.source_list import SourceList
+from .types.get_source_response import GetSourceResponse
+from .types.list_sources_response import ListSourcesResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -33,7 +33,9 @@ class SourceClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def list_sources(self, *, limit: typing.Optional[int] = None, offset: typing.Optional[int] = None) -> SourceList:
+    def list_sources(
+        self, *, limit: typing.Optional[int] = None, offset: typing.Optional[int] = None
+    ) -> ListSourcesResponse:
         """
         Returns metadata for all sources that Sayari collects data from
 
@@ -41,6 +43,11 @@ class SourceClient:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.source.list_sources(limit=2, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -50,7 +57,7 @@ class SourceClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(SourceList, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(ListSourcesResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -69,12 +76,17 @@ class SourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_source(self, id: SourceId) -> Source:
+    def get_source(self, id: SourceId) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
             - id: SourceId.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.source.get_source(id="f4396e4b8a41d1fd9f09ea94d2ebedb9", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -83,7 +95,7 @@ class SourceClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Source, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetSourceResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -111,7 +123,7 @@ class AsyncSourceClient:
 
     async def list_sources(
         self, *, limit: typing.Optional[int] = None, offset: typing.Optional[int] = None
-    ) -> SourceList:
+    ) -> ListSourcesResponse:
         """
         Returns metadata for all sources that Sayari collects data from
 
@@ -119,6 +131,11 @@ class AsyncSourceClient:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.source.list_sources(limit=2, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -128,7 +145,7 @@ class AsyncSourceClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(SourceList, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(ListSourcesResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -147,12 +164,17 @@ class AsyncSourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_source(self, id: SourceId) -> Source:
+    async def get_source(self, id: SourceId) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
             - id: SourceId.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.source.get_source(id="f4396e4b8a41d1fd9f09ea94d2ebedb9", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -161,7 +183,7 @@ class AsyncSourceClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(Source, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetSourceResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

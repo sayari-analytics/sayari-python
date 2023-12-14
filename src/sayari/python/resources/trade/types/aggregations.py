@@ -14,6 +14,7 @@ except ImportError:
 
 class Aggregations(pydantic.BaseModel):
     by_volume: typing.List[VolumeAggregates] = pydantic.Field(alias="byVolume")
+    entity_count: typing.List[typing.Any] = pydantic.Field(alias="entityCount")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

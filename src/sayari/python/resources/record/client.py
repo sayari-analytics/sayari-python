@@ -19,8 +19,8 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.record_details import RecordDetails
 from ..shared_types.types.record_id import RecordId
+from .types.get_record_response import GetRecordResponse
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -38,7 +38,7 @@ class RecordClient:
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
-    ) -> RecordDetails:
+    ) -> GetRecordResponse:
         """
         Retrieve a record from the database based on the ID
 
@@ -48,6 +48,11 @@ class RecordClient:
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.record.get_record(id="74cf0fc2a62f9c8f4e88f8a0b3ffcca4%2FF0000110%2F1682970471254", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -59,7 +64,7 @@ class RecordClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(RecordDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:
@@ -91,7 +96,7 @@ class AsyncRecordClient:
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
-    ) -> RecordDetails:
+    ) -> GetRecordResponse:
         """
         Retrieve a record from the database based on the ID
 
@@ -101,6 +106,11 @@ class AsyncRecordClient:
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.record.get_record(id="74cf0fc2a62f9c8f4e88f8a0b3ffcca4%2FF0000110%2F1682970471254", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -112,7 +122,7 @@ class AsyncRecordClient:
             timeout=60,
         )
         if 200 <= _response.status_code < 300:
-            return pydantic.parse_obj_as(RecordDetails, _response.json())  # type: ignore
+            return pydantic.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

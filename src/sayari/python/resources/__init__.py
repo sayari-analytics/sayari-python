@@ -17,6 +17,7 @@ from . import (
 )
 from .auth import AccessToken, Audience, AuthResponse, ClientId, ClientSecret, ExpiresIn, GrantType, TokenType
 from .base_types import PaginatedResponse, SizeInfo
+from .entity import EntitySummaryResponse, GetEntityResponse
 from .generated_types import (
     AdditionalInformationData,
     AdditionalInformationInfo,
@@ -112,8 +113,9 @@ from .generated_types import (
     WeakIdentifierType,
 )
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
+from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import EntitySearchResults, FilterList, RecordSearchResults
+from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -182,12 +184,12 @@ from .shared_types import (
     SourceId,
     Status,
 )
-from .source import Source, SourceList
+from .source import GetSourceResponse, ListSourcesResponse, Source
 from .trade import (
     Aggregations,
     Bucket,
     BusinessPurpose,
-    BuyerSearchResults,
+    BuyerSearchResponse,
     LatestShipmentDate,
     MonetaryValue,
     Shipment,
@@ -195,12 +197,12 @@ from .trade import (
     ShipmentHits,
     ShipmentIdentifier,
     ShipmentMetadata,
-    ShipmentSearchResults,
+    ShipmentSearchResponse,
     SourceOrDestinationEntity,
     Supplier,
     SupplierMetadata,
     SupplierOrBuyerHits,
-    SupplierSearchResults,
+    SupplierSearchResponse,
     TradeFilterList,
     VolumeAggregates,
     Weight,
@@ -240,7 +242,7 @@ __all__ = [
     "BusinessPurposeInfo",
     "BusinessPurposeProperties",
     "BusinessPurposeStandard",
-    "BuyerSearchResults",
+    "BuyerSearchResponse",
     "ClientId",
     "ClientSecret",
     "CompanyStatus",
@@ -255,6 +257,7 @@ __all__ = [
     "ContactProperties",
     "ContactType",
     "Coordinate",
+    "Coordinates",
     "Country",
     "CountryContext",
     "CountryData",
@@ -282,7 +285,8 @@ __all__ = [
     "EntityRelationships",
     "EntityRisk",
     "EntitySanctioned",
-    "EntitySearchResults",
+    "EntitySearchResponse",
+    "EntitySummaryResponse",
     "EntityTranslatedLabel",
     "EntityUrl",
     "EventInfo",
@@ -302,6 +306,9 @@ __all__ = [
     "GenericData",
     "GenericInfo",
     "GenericProperties",
+    "GetEntityResponse",
+    "GetRecordResponse",
+    "GetSourceResponse",
     "GrantType",
     "HistoryInfo",
     "HistoryResponse",
@@ -314,6 +321,7 @@ __all__ = [
     "InternalServerErrorResponse",
     "Language",
     "LatestShipmentDate",
+    "ListSourcesResponse",
     "MatchExplanation",
     "MeasurementData",
     "MeasurementInfo",
@@ -350,7 +358,8 @@ __all__ = [
     "RateLimitResponse",
     "RecordDetails",
     "RecordId",
-    "RecordSearchResults",
+    "RecordReferences",
+    "RecordSearchResponse",
     "ReferencedBy",
     "ReferencedByData",
     "ReferencedByDataType",
@@ -369,6 +378,7 @@ __all__ = [
     "RiskIntelligenceProperties",
     "RiskLevel",
     "SearchField",
+    "SearchResults",
     "SharesData",
     "SharesInfo",
     "SharesProperties",
@@ -380,7 +390,7 @@ __all__ = [
     "ShipmentHits",
     "ShipmentIdentifier",
     "ShipmentMetadata",
-    "ShipmentSearchResults",
+    "ShipmentSearchResponse",
     "ShortestPathData",
     "ShortestPathResponse",
     "SizeInfo",
@@ -388,7 +398,6 @@ __all__ = [
     "SourceCount",
     "SourceCountInfo",
     "SourceId",
-    "SourceList",
     "SourceOrDestinationEntity",
     "Status",
     "StatusContext",
@@ -398,7 +407,7 @@ __all__ = [
     "Supplier",
     "SupplierMetadata",
     "SupplierOrBuyerHits",
-    "SupplierSearchResults",
+    "SupplierSearchResponse",
     "Tag",
     "TokenType",
     "TradeFilterList",
