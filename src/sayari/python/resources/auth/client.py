@@ -47,10 +47,11 @@ class AuthClient:
 
             - grant_type: GrantType.
         ---
+        from sayari-analytics import Audience, GrantType
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
+        client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience=Audience.SAYARI_COM, grant_type=GrantType.CLIENT_CREDENTIALS, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -97,10 +98,11 @@ class AsyncAuthClient:
 
             - grant_type: GrantType.
         ---
+        from sayari-analytics import Audience, GrantType
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience="sayari.com", grant_type="client_credentials", )
+        await client.auth.get_token(client_id="your client_id here", client_secret="your client_secret here", audience=Audience.SAYARI_COM, grant_type=GrantType.CLIENT_CREDENTIALS, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

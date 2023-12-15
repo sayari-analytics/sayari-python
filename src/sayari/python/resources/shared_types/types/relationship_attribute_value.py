@@ -13,7 +13,10 @@ except ImportError:
 
 class RelationshipAttributeValue(pydantic.BaseModel):
     value: typing.Optional[str]
-    num_shares: typing.Optional[int]
+    num_shares: typing.Optional[float]
+    date: typing.Optional[str]
+    from_date: typing.Optional[str]
+    type: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

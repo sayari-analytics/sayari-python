@@ -137,6 +137,7 @@ from .shared_errors import (
     UnauthorizedResponse,
 )
 from .shared_types import (
+    ClientName,
     CompanyType,
     Coordinate,
     EmbeddedEntity,
@@ -244,6 +245,7 @@ __all__ = [
     "BusinessPurposeStandard",
     "BuyerSearchResponse",
     "ClientId",
+    "ClientName",
     "ClientSecret",
     "CompanyStatus",
     "CompanyType",

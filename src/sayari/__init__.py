@@ -1,11 +1,12 @@
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
 from .python.resources.base_types import SizeInfo
+from .python.resources.auth.types.audience import Audience
+from .python.resources.auth.types.grant_type import GrantType
+from .python.resources.shared_types.types.client_name import ClientName
 import threading
 import urllib.parse
 import csv
-
-client_name = "sayari-python"
 
 # resolution attributes
 Name = "name"
@@ -35,7 +36,7 @@ err_function_not_paginated = ValueError('this function is not paginated and cann
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
         resp = get_token(client_id, client_secret)
-        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=client_name)
+        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=ClientName.PYTHON)
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -49,7 +50,7 @@ class Connection(SayariAnalyticsApi):
 
     def update_token(self):
         resp = get_token(self.client_id, self.client_secret)
-        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=client_name)
+        SayariAnalyticsApi.__init__(self, token=resp.access_token, client_name=ClientName.PYTHON)
         refresh_in = resp.expires_in - 3600
         if refresh_in < 0:
             refresh_in = 0
@@ -167,11 +168,11 @@ def resolve_entity(client, column_map, row):
 
 
 def get_token(client_id, client_secret):
-    auth_client = SayariAnalyticsApi(client_name=client_name)
+    auth_client = SayariAnalyticsApi(client_name=ClientName.PYTHON)
     return auth_client.auth.get_token(client_id=client_id,
                                       client_secret=client_secret,
-                                      audience="sayari.com",
-                                      grant_type="client_credentials")
+                                      audience=Audience.SAYARI,
+                                      grant_type=GrantType.CLIENT_CREDENTIALS)
 
 
 """
