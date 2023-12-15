@@ -1,6 +1,8 @@
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
 from .python.resources.base_types import SizeInfo
+from .python.resources.auth.types.audience import Audience
+from .python.resources.auth.types.grant_type import GrantType
 import threading
 import urllib.parse
 import csv
@@ -170,8 +172,8 @@ def get_token(client_id, client_secret):
     auth_client = SayariAnalyticsApi(client_name=client_name)
     return auth_client.auth.get_token(client_id=client_id,
                                       client_secret=client_secret,
-                                      audience="sayari.com",
-                                      grant_type="client_credentials")
+                                      audience=Audience.SAYARI,
+                                      grant_type=GrantType.CLIENT_CREDENTIALS)
 
 
 """
