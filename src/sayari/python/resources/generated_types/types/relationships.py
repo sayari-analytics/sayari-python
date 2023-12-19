@@ -8,76 +8,359 @@ T_Result = typing.TypeVar("T_Result")
 
 class Relationships(str, enum.Enum):
     JUDIDICAL_REPRESENTATIVE_OF = "judidical_representative_of"
+    """
+    Deprecated and converted to legal_representative_of
+    """
+
     HAS_JUDICIAL_REPRESENTATIVE = "has_judicial_representative"
+    """
+    Deprecated and converted to legal_representative_of
+    """
+
     LEGAL_SUCCESSOR_OF = "legal_successor_of"
+    """
+    Entities from which this entity inherited legal personality
+    """
+
     HAS_LEGAL_SUCCESSOR = "has_legal_successor"
+    """
+    Successor entities to which this entity granted legal personality
+    """
+
     FAMILY_OF = "family_of"
+    """
+    Family members of this entity
+    """
+
     CARRIER_OF = "carrier_of"
+    """
+    The entity in charge of the transportation of goods
+    """
+
     HAS_CARRIER = "has_carrier"
+    """
+    The shipment carrying the goods
+    """
+
     PARTY_TO = "party_to"
+    """
+    Legal Matters in which this entity is a litigant
+    """
+
     HAS_PARTY = "has_party"
+    """
+    Litigants in this Legal Matter
+    """
+
     LAWYER_OF = "lawyer_of"
+    """
+    Entities for which this entity works as a lawyer in a professional capacity
+    """
+
     HAS_LAWYER = "has_lawyer"
+    """
+    Lawyers reported to work for this entity in a professional capacity
+    """
+
     LEGAL_REPRESENTATIVE_OF = "legal_representative_of"
+    """
+    Entities of which this entity is reported to be (or have acted as) a legal representative
+    """
+
     HAS_LEGAL_REPRESENTATIVE = "has_legal_representative"
+    """
+    Entities reported to be (or have acted as) legal representatives of this entity
+    """
+
     DIRECTOR_OF = "director_of"
+    """
+    Companies of which this entity is a Director
+    """
+
     HAS_DIRECTOR = "has_director"
+    """
+    Directors of this company
+    """
+
     EMPLOYEE_OF = "employee_of"
+    """
+    Companies of which this entity is an employee
+    """
+
     HAS_EMPLOYEE = "has_employee"
+    """
+    Employees of this company
+    """
+
     OWNER_OF = "owner_of"
+    """
+    Non-corporate entities (trade name, security, intellectual property, etc.) directly owned by this entity
+    """
+
     HAS_OWNER = "has_owner"
+    """
+    Direct owners of this entity
+    """
+
     BRANCH_OF = "branch_of"
+    """
+    Parent companies of which this company is a branch
+    """
+
     HAS_BRANCH = "has_branch"
+    """
+    Branches of this company
+    """
+
     CLIENT_OF = "client_of"
+    """
+    Deprecated and converted to linked_to
+    """
+
     HAS_CLIENT = "has_client"
+    """
+    Deprecated and converted to linked_to
+    """
+
     FOUNDER_OF = "founder_of"
+    """
+    Entities that legally founded this company
+    """
+
     HAS_FOUNDER = "has_founder"
+    """
+    The source entity is reported to be the founder of a company
+    """
+
     JUDICIAL_REPRESENTATIVE_OF = "judicial_representative_of"
+    """
+    Deprecated and converted to legal_representative_of
+    """
+
     MANAGER_OF = "manager_of"
+    """
+    Companies of which this entity is a Manager
+    """
+
     HAS_MANAGER = "has_manager"
+    """
+    Managers of this company
+    """
+
     OFFICER_OF = "officer_of"
+    """
+    Companies of which this entity is a CEO, Treasurer, etc.
+    """
+
     HAS_OFFICER = "has_officer"
+    """
+    CEOs, Treasurers, etc. of this company
+    """
+
     REGISTERED_AGENT_OF = "registered_agent_of"
+    """
+    Entities of which this entity is reported to be a Registered Agent, corporate secretary, or similar
+    """
+
     HAS_REGISTERED_AGENT = "has_registered_agent"
+    """
+    Entities acting in a Registered Agent, corporate secretary, or similar role for this entity
+    """
+
     LINKED_TO = "linked_to"
+    """
+    Entities connected to this entity via a type of relationship that does not exist in the Graph ontology
+    """
+
     BENEFICIAL_OWNER_OF = "beneficial_owner_of"
+    """
+    Entities reported to be beneficially or indirectly owned by this entity
+    """
+
     HAS_BENEFICIAL_OWNER = "has_beneficial_owner"
+    """
+    Entities reported to beneficially or indirectly own this entity
+    """
+
     GENERIC = "generic"
+    """
+    A placeholder relationship. Rarely used.
+    """
+
     LAWYER_IN = "lawyer_in"
+    """
+    Legal Matters to which this entity is tied in a professional capacity
+    """
+
     ISSUER_OF = "issuer_of"
+    """
+    Securities this entity has issued
+    """
+
     HAS_ISSUER = "has_issuer"
+    """
+    Companies that issued this security
+    """
+
     EXECUTIVE_OF = "executive_of"
+    """
+    Deprecated and converted to officer_of
+    """
+
     HAS_EXECUTIVE = "has_executive"
+    """
+    Deprecated and converted to officer_of
+    """
+
     NOTIFY_PARTY_OF = "notify_party_of"
+    """
+    Shipments that this entity were notified of upon their arrival at their destinations
+    """
+
     HAS_NOTIFY_PARTY = "has_notify_party"
+    """
+    Entity to be notified when this shipment arrives
+    """
+
     LEGAL_PREDECESSOR_OF = "legal_predecessor_of"
+    """
+    Entities created by or legally derived from this entity
+    """
+
     HAS_LEGAL_PREDECESSOR = "has_legal_predecessor"
+    """
+    Entities from which this entity was created or legally derived
+    """
+
     SUBSIDIARY_OF = "subsidiary_of"
+    """
+    Companies that indirectly own this company and/or report it as a subsidiary
+    """
+
     HAS_SUBSIDIARY = "has_subsidiary"
+    """
+    Companies reported to be subsidiaries or indirectly owned by this company
+    """
+
     PARTNER_OF = "partner_of"
+    """
+    Partnerships or similar types of companies of which this entity is a business partner with an ownership stake
+    """
+
     HAS_PARTNER = "has_partner"
+    """
+    Business partners with an ownership stake in this company
+    """
+
     SOLE_PROPRIETOR_OF = "sole_proprietor_of"
+    """
+    Deprecated and converted to shareholder_of
+    """
+
     HAS_SOLE_PROPRIETOR = "has_sole_proprietor"
+    """
+    Deprecated and converted to shareholder_of
+    """
+
     SHIPPER_OF = "shipper_of"
+    """
+    Shipments this entity sent
+    """
+
     SHIPPED_BY = "shipped_by"
+    """
+    The entity that sent this shipment
+    """
+
     SHIPS_TO = "ships_to"
+    """
+    The entity who has sent a shipment
+    """
+
     RECEIVES_FROM = "receives_from"
+    """
+    The entity that has received a shipment
+    """
+
     SUPERVISOR_OF = "supervisor_of"
+    """
+    Entities of which this entity is reported to be a supervisor, typically in East Asia
+    """
+
     HAS_SUPERVISOR = "has_supervisor"
+    """
+    Supervisors of this company, typically in East Asia
+    """
+
     MEMBER_OF_THE_BOARD_OF = "member_of_the_board_of"
+    """
+    Entities with a corporate or statutory body of oversight/control of which this entity is a member
+    """
+
     HAS_MEMBER_OF_THE_BOARD = "has_member_of_the_board"
+    """
+    Entities that are members of this entity's corporate or statutory body of oversight/control
+    """
+
     ASSOCIATE_OF = "associate_of"
+    """
+    Deprecated and converted to linked_to
+    """
+
     HAS_ASSOCIATE = "has_associate"
+    """
+    Deprecated and converted to linked_to
+    """
+
     LIQUIDATOR_OF = "liquidator_of"
+    """
+    Companies of which this entity is a liquidator
+    """
+
     HAS_LIQUIDATOR = "has_liquidator"
+    """
+    Liquidators of this company
+    """
+
     SHAREHOLDER_OF = "shareholder_of"
+    """
+    Companies of which this entity is a direct owner
+    """
+
     HAS_SHAREHOLDER = "has_shareholder"
+    """
+    Direct owners of this company
+    """
+
     RECEIVER_OF = "receiver_of"
+    """
+    Shipments this entity received
+    """
+
     RECEIVED_BY = "received_by"
+    """
+    The entity that received this shipment
+    """
+
     SECRETARY_OF = "secretary_of"
+    """
+    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
+    """
+
     HAS_SECRETARY = "has_secretary"
+    """
+    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
+    """
+
     AUDITOR_OF = "auditor_of"
+    """
+    Companies audited by this entity
+    """
+
     HAS_AUDITOR = "has_auditor"
+    """
+    Auditors of this company
+    """
 
     def visit(
         self,
