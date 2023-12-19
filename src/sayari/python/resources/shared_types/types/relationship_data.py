@@ -6,7 +6,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .relationship_types import RelationshipTypes
+from ...generated_types.types.relationships import Relationships
+from .relationship_info import RelationshipInfo
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -16,7 +17,7 @@ except ImportError:
 
 class RelationshipData(pydantic.BaseModel):
     target: EntityDetails
-    types: RelationshipTypes
+    types: typing.Dict[Relationships, typing.List[RelationshipInfo]]
     dates: typing.List[str]
     first_observed: typing.Optional[str]
     former: typing.Optional[bool]
