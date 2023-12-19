@@ -15,35 +15,67 @@ except ImportError:
 
 class AddressProperties(pydantic.BaseModel):
     building: typing.Optional[str]
-    category: typing.Optional[str]
-    city: typing.Optional[str]
-    city_district: typing.Optional[str]
-    country: typing.Optional[str]
-    country_region: typing.Optional[str]
-    entrance: typing.Optional[str]
-    house: typing.Optional[str]
-    house_number: typing.Optional[str]
-    island: typing.Optional[str]
-    language: typing.Optional[Language]
-    level: typing.Optional[str]
+    category: typing.Optional[str] = pydantic.Field(description='For category queries like "restaurants", etc.')
+    city: typing.Optional[str] = pydantic.Field(
+        description="Any human settlement, including cities, towns, villages, hamlets, localities, etc."
+    )
+    city_district: typing.Optional[str] = pydantic.Field(
+        description='Boroughs or districts within a city that serve some official purpose e.g. "Brooklyn" or "Hackney" or "Bratislava IV"'
+    )
+    country: typing.Optional[str] = pydantic.Field(
+        description="Sovereign nations and their dependent territories; anything with an ISO-3166 code"
+    )
+    country_region: typing.Optional[str] = pydantic.Field(
+        description="Informal subdivision of a country without any political status"
+    )
+    entrance: typing.Optional[str] = pydantic.Field(description="Numbered/lettered entrance")
+    house: typing.Optional[str] = pydantic.Field(
+        description="Building/site name (e.g. 'Brooklyn Academy of Music', 'Empire State Building')"
+    )
+    house_number: typing.Optional[str] = pydantic.Field(
+        description="Usually refers to the external (street-facing) building number. In some jurisdictions, this may be a compound number that also includes an apartment/block number."
+    )
+    island: typing.Optional[str] = pydantic.Field(description="Named islands, e.g. 'Maui'")
+    language: typing.Optional[Language] = pydantic.Field(
+        description="The language in which the address was provided in the record"
+    )
+    level: typing.Optional[str] = pydantic.Field(
+        description='Expressions indicating a floor number (e.g. "3rd Floor", "Ground Floor")'
+    )
     metro_station: typing.Optional[str]
-    near: typing.Optional[str]
+    near: typing.Optional[str] = pydantic.Field(
+        description='Phrases like "in", "near", etc. used after a category phrase, to help with parsing queries like "restaurants in Brooklyn"'
+    )
     po_box: typing.Optional[str]
     postcode: typing.Optional[str]
-    precision_code: typing.Optional[str]
-    road: typing.Optional[str]
-    staircase: typing.Optional[str]
-    state: typing.Optional[str]
-    state_district: typing.Optional[str]
-    suburb: typing.Optional[str]
-    translated: typing.Optional[str]
-    transliterated: typing.Optional[str]
-    type: typing.Optional[AddressType]
-    unit: typing.Optional[str]
+    precision_code: typing.Optional[str] = pydantic.Field(
+        description="A code describing the precision of the X and Y coordinates"
+    )
+    road: typing.Optional[str] = pydantic.Field(description="Street name(s)")
+    staircase: typing.Optional[str] = pydantic.Field(description="Numbered/lettered staircase")
+    state: typing.Optional[str] = pydantic.Field(
+        description='A first-level administrative division, including provinces and departments. Scotland, Northern Ireland, Wales, and England in the UK are mapped to "state" as well (convention used in OSM, GeoPlanet, etc.)'
+    )
+    state_district: typing.Optional[str] = pydantic.Field(
+        description="A second-level administrative division or county"
+    )
+    suburb: typing.Optional[str] = pydantic.Field(
+        description='Usually an unofficial neighborhood name, like "Harlem", "South Bronx", or "Crown Heights"'
+    )
+    translated: typing.Optional[str] = pydantic.Field(description="The address value translated to English")
+    transliterated: typing.Optional[str] = pydantic.Field(description="The address value transliterated to English")
+    type: typing.Optional[AddressType] = pydantic.Field(
+        description="Indicates what the address is referring to. For example, a physical versus a mailing address."
+    )
+    unit: typing.Optional[str] = pydantic.Field(
+        description="An apartment, unit, office, lot, or other secondary unit designator"
+    )
     value: typing.Optional[str]
-    world_region: typing.Optional[str]
-    x: typing.Optional[float]
-    y: typing.Optional[float]
+    world_region: typing.Optional[str] = pydantic.Field(
+        description="Currently only used for appending “West Indies” after the country name, a pattern frequently used in the English-speaking Caribbean (e.g. “Jamaica, West Indies”)"
+    )
+    x: typing.Optional[float] = pydantic.Field(description="The X coordinate (longitude) of the address")
+    y: typing.Optional[float] = pydantic.Field(description="The Y coordinate (latitude) of the address")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

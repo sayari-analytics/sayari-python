@@ -14,8 +14,8 @@ except ImportError:
 
 class TranslatedNameProperties(pydantic.BaseModel):
     context: typing.Optional[TranslationContext]
-    original: typing.Optional[str]
-    value: str
+    original: typing.Optional[str] = pydantic.Field(description="The original name")
+    value: str = pydantic.Field(description="the name, as text")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

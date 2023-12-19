@@ -12,7 +12,7 @@ except ImportError:
 
 
 class GenericProperties(pydantic.BaseModel):
-    type: typing.Optional[str]
+    type: typing.Optional[str] = pydantic.Field(description="We would probably group by type in a GUI")
     value: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:

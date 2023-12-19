@@ -14,7 +14,7 @@ except ImportError:
 
 class ContactProperties(pydantic.BaseModel):
     type: typing.Optional[ContactType]
-    value: str
+    value: str = pydantic.Field(description="The contact detail itself (e.g. 'jdoe@sayari.com,' '202-555-5555')")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -13,11 +13,13 @@ except ImportError:
 
 
 class SharesProperties(pydantic.BaseModel):
-    currency: typing.Optional[Currency]
-    monetary_value: typing.Optional[float]
-    num_shares: typing.Optional[float]
-    percentage: typing.Optional[float]
-    type: typing.Optional[str]
+    currency: typing.Optional[Currency] = pydantic.Field(description="The currency of the monetary_value")
+    monetary_value: typing.Optional[float] = pydantic.Field(description="The total monetary value of the shares")
+    num_shares: typing.Optional[float] = pydantic.Field(description="The number of shares held, issued, etc.")
+    percentage: typing.Optional[float] = pydantic.Field(description="The percentage of shares owned")
+    type: typing.Optional[str] = pydantic.Field(
+        description="A string describing the type of shares (e.g. 'Class B,' 'Protected cell shares')"
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

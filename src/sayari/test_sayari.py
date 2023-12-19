@@ -25,8 +25,8 @@ def test_sources(setup_connection):
     # list sources
     sources = client.source.list_sources()
 
-    # We should have 249 sources as of 10/4/2023
-    assert len(sources.data) == 249
+    # We should have 250 sources as of 12/19/2023
+    assert len(sources.data) == 250
 
     # The first of these should be "Abu Dhabi Registration Authority Online Registry" as of 10/4/2023
     assert sources.data[0].label == "Abu Dhabi Registration Authority Online Registry"

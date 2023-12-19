@@ -7,18 +7,11 @@ from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from .entity_addresses import EntityAddresses
-from .entity_closed import EntityClosed
-from .entity_degree import EntityDegree
 from .entity_dob import EntityDob
 from .entity_id import EntityId
-from .entity_label import EntityLabel
-from .entity_pep import EntityPep
-from .entity_psa_count import EntityPsaCount
 from .entity_relationship_count import EntityRelationshipCount
-from .entity_sanctioned import EntitySanctioned
-from .entity_url import EntityUrl
 from .identifier import Identifier
-from .source_count import SourceCount
+from .source_count_info import SourceCountInfo
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -32,18 +25,26 @@ class EmbeddedEntity(pydantic.BaseModel):
     """
 
     id: EntityId
-    label: EntityLabel
-    degree: EntityDegree
-    closed: EntityClosed
-    entity_url: EntityUrl
-    pep: EntityPep
+    label: str = pydantic.Field(description="Display name of the entity")
+    degree: int = pydantic.Field(description="Number of outgoing relationships")
+    closed: bool = pydantic.Field(
+        description="True if the entity existed in the past but not at the present time, otherwise false. Always false for data curation."
+    )
+    entity_url: str = pydantic.Field(description="Convenience URL to the entity in the API.")
+    pep: bool = pydantic.Field(
+        description='True if the entity has the "Politically Exposed Person (PEP)" risk factor, otherwise false. See https://docs.sayari.com/risk/#politically-exposed-person-pep'
+    )
     psa_id: typing.Optional[str]
-    psa_count: EntityPsaCount
-    sanctioned: EntitySanctioned
+    psa_count: int = pydantic.Field(description="Number of entities that are Possibly the Same As (PSA) the entity.")
+    sanctioned: bool = pydantic.Field(
+        description='True if the entity has the "Sanctioned" risk factor, otherwise false. See https://docs.sayari.com/risk/#sanctioned'
+    )
     type: Entities
     identifiers: typing.List[Identifier]
     countries: typing.List[Country]
-    source_count: SourceCount
+    source_count: typing.Dict[str, SourceCountInfo] = pydantic.Field(
+        description="Number of records associated with the entity, grouped by source."
+    )
     addresses: typing.List[EntityAddresses]
     date_of_birth: typing.Optional[EntityDob]
     relationship_count: EntityRelationshipCount

@@ -14,10 +14,10 @@ except ImportError:
 
 class NameProperties(pydantic.BaseModel):
     context: typing.Optional[str]
-    language: typing.Optional[Language]
-    translated: typing.Optional[str]
-    transliterated: typing.Optional[str]
-    value: str
+    language: typing.Optional[Language] = pydantic.Field(description="The language that the name is in")
+    translated: typing.Optional[str] = pydantic.Field(description="The name value translated to English")
+    transliterated: typing.Optional[str] = pydantic.Field(description="The name value transliterated to English")
+    value: str = pydantic.Field(description="The name, as text")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

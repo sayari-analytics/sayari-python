@@ -14,9 +14,11 @@ except ImportError:
 
 
 class StatusProperties(pydantic.BaseModel):
-    context: typing.Optional[StatusContext]
-    text: typing.Optional[str]
-    value: typing.Optional[CompanyStatus]
+    context: typing.Optional[StatusContext] = pydantic.Field(description="The type of status")
+    text: typing.Optional[str] = pydantic.Field(description="The raw status text")
+    value: typing.Optional[CompanyStatus] = pydantic.Field(
+        description="The status, normalized to one of the status enums"
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

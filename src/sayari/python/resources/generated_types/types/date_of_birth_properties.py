@@ -12,7 +12,7 @@ except ImportError:
 
 
 class DateOfBirthProperties(pydantic.BaseModel):
-    value: str
+    value: str = pydantic.Field(description="The date of birth in YYYY-MM-DD, YYYY-MM, or YYYY format")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

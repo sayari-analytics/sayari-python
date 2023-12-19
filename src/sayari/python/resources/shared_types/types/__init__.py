@@ -5,23 +5,16 @@ from .company_type import CompanyType
 from .coordinate import Coordinate
 from .embedded_entity import EmbeddedEntity
 from .entity_addresses import EntityAddresses
-from .entity_closed import EntityClosed
-from .entity_degree import EntityDegree
 from .entity_details import EntityDetails
 from .entity_dob import EntityDob
 from .entity_hs_code import EntityHsCode
 from .entity_id import EntityId
-from .entity_label import EntityLabel
 from .entity_matches import EntityMatches
-from .entity_pep import EntityPep
-from .entity_psa_count import EntityPsaCount
 from .entity_registration_date import EntityRegistrationDate
 from .entity_relationship_count import EntityRelationshipCount
 from .entity_relationships import EntityRelationships
 from .entity_risk import EntityRisk
-from .entity_sanctioned import EntitySanctioned
 from .entity_translated_label import EntityTranslatedLabel
-from .entity_url import EntityUrl
 from .identifier import Identifier
 from .possibly_same_as import PossiblySameAs
 from .possibly_same_as_data import PossiblySameAsData
@@ -35,7 +28,6 @@ from .referenced_by_data_type import ReferencedByDataType
 from .relationship_attribute_value import RelationshipAttributeValue
 from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
-from .relationship_types import RelationshipTypes
 from .risk import Risk
 from .risk_data import RiskData
 from .risk_level import RiskLevel
@@ -43,7 +35,6 @@ from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
 from .shipment_departue import ShipmentDepartue
 from .shipment_field import ShipmentField
-from .source_count import SourceCount
 from .source_count_info import SourceCountInfo
 from .source_id import SourceId
 from .status import Status
@@ -54,23 +45,16 @@ __all__ = [
     "Coordinate",
     "EmbeddedEntity",
     "EntityAddresses",
-    "EntityClosed",
-    "EntityDegree",
     "EntityDetails",
     "EntityDob",
     "EntityHsCode",
     "EntityId",
-    "EntityLabel",
     "EntityMatches",
-    "EntityPep",
-    "EntityPsaCount",
     "EntityRegistrationDate",
     "EntityRelationshipCount",
     "EntityRelationships",
     "EntityRisk",
-    "EntitySanctioned",
     "EntityTranslatedLabel",
-    "EntityUrl",
     "Identifier",
     "PossiblySameAs",
     "PossiblySameAsData",
@@ -84,7 +68,6 @@ __all__ = [
     "RelationshipAttributeValue",
     "RelationshipData",
     "RelationshipInfo",
-    "RelationshipTypes",
     "Risk",
     "RiskData",
     "RiskLevel",
@@ -92,7 +75,6 @@ __all__ = [
     "ShipmentArrival",
     "ShipmentDepartue",
     "ShipmentField",
-    "SourceCount",
     "SourceCountInfo",
     "SourceId",
     "Status",
