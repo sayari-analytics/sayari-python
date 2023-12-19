@@ -13,8 +13,10 @@ except ImportError:
 
 
 class WeakIdentifierProperties(pydantic.BaseModel):
-    type: WeakIdentifierType
-    value: str
+    type: WeakIdentifierType = pydantic.Field(
+        description="The type of the identifier, including the country/jurisdiction that issued it"
+    )
+    value: str = pydantic.Field(description="The text value of the identifier")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -13,9 +13,9 @@ except ImportError:
 
 
 class MonetaryValueProperties(pydantic.BaseModel):
-    context: typing.Optional[str]
-    currency: typing.Optional[Currency]
-    value: float
+    context: typing.Optional[str] = pydantic.Field(description="The type of value")
+    currency: typing.Optional[Currency] = pydantic.Field(description="The ISO 4217 currency code")
+    value: float = pydantic.Field(description="The financial value of the asset")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

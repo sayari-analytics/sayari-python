@@ -14,10 +14,10 @@ except ImportError:
 
 
 class FinancesProperties(pydantic.BaseModel):
-    context: typing.Optional[FinanceType]
-    currency: typing.Optional[Currency]
-    type: typing.Optional[str]
-    value: float
+    context: typing.Optional[FinanceType] = pydantic.Field(description="The type of figure")
+    currency: typing.Optional[Currency] = pydantic.Field(description="The currency, if applicable")
+    type: typing.Optional[str] = pydantic.Field(description="A free-text definition of the type")
+    value: float = pydantic.Field(description="The numerical amount")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

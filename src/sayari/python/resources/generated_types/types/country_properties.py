@@ -14,9 +14,9 @@ except ImportError:
 
 
 class CountryProperties(pydantic.BaseModel):
-    context: typing.Optional[CountryContext]
-    state: typing.Optional[str]
-    value: Country
+    context: typing.Optional[CountryContext] = pydantic.Field(description="The type of affiliation")
+    state: typing.Optional[str] = pydantic.Field(description="Subnational state, province, region, etc.")
+    value: Country = pydantic.Field(description="The country, ideally normalized to an ISO trigram")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

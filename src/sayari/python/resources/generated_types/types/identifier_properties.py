@@ -14,7 +14,7 @@ except ImportError:
 
 class IdentifierProperties(pydantic.BaseModel):
     type: BothIdentifierTypes
-    value: str
+    value: str = pydantic.Field(description="The text/number value of the identifier")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

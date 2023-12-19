@@ -13,9 +13,9 @@ except ImportError:
 
 
 class BusinessPurposeProperties(pydantic.BaseModel):
-    code: typing.Optional[str]
+    code: typing.Optional[str] = pydantic.Field(description="A code")
     standard: typing.Optional[BusinessPurposeStandard]
-    value: typing.Optional[str]
+    value: typing.Optional[str] = pydantic.Field(description="A text description")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
