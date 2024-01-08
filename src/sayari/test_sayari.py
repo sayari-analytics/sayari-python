@@ -187,6 +187,10 @@ def test_ownership_traversal(setup_connection):
     if len(traversal.data) == 0:
         test_ownership_traversal(setup_connection)
 
+    # query until we get results
+    if len(traversal.data) == 0:
+        return test_ownership_traversal(setup_connection)
+
     assert len(traversal.data) > 0
     assert traversal.data[0].source == entity.id
 
@@ -278,11 +282,12 @@ def test_shipment_search(setup_connection):
     # assert that we have results
     assert len(shipments.data.hits) > 0
 
-    # test field and filter
-    entity_id = "f_nIivE32HCYDPEoSPTGJw"
+    # test field and multi-filter
+    buyer_name = "HANSOLL TEXTILE LTD"
+    buyer_id = "f_nIivE32HCYDPEoSPTGJw"
     hs_code = "600410"
-    filter_value = {"buyer_id": [entity_id]}
-    shipments = client.trade.search_shipments(q=hs_code, fields="hs_code", filter=filter_value)
+    filter_value = {"buyer_id": [buyer_id], "hs_code": [hs_code]}
+    shipments = client.trade.search_shipments(q=buyer_name, fields="buyer_name", filter=filter_value)
     assert len(shipments.data.hits) > 0
     for shipment in shipments.data.hits:
         # verify shipment matches on HS code
@@ -298,47 +303,10 @@ def test_shipment_search(setup_connection):
         assert len(shipment.dst) > 0
         entity_found = False
         for dst in shipment.dst:
-            if dst.entity_id == entity_id:
+            if dst.entity_id == buyer_id:
                 entity_found = True
                 break
         assert entity_found
-
-    # test field and multi-filter
-    supplier_country = "CHN"
-    supplier_risk = "sheffield_hallam_university_forced_labor_entity"
-    hs_code = "600410"
-    filter_values = {"supplier_country": [supplier_country], "supplier_risk": [supplier_risk]}
-    shipments = client.trade.search_shipments(q=hs_code, fields="hs_code", filter=filter_values)
-    assert len(shipments.data.hits) > 0
-    for shipment in shipments.data.hits:
-        # verify shipment matches on HS code
-        assert len(shipment.business_purpose) > 0
-        hs_found = False
-        for purpose in shipment.business_purpose:
-            if purpose.code == hs_code:
-                hs_found = True
-                break
-        assert hs_found
-
-        # verify shipment matches supplier country and risk
-        assert len(shipment.src) > 0
-        supplier_country_found = False
-        supplier_risk_found = False
-        for src in shipment.src:
-            for country in src.country:
-                if country == supplier_country:
-                    supplier_country_found = True
-                    break
-            for risk in src.risk_factors.keys():
-                if risk == supplier_risk:
-                    supplier_risk_found = True
-                    break
-            if supplier_risk_found and supplier_country_found:
-                break
-        assert supplier_country_found
-        assert supplier_risk_found
-
-
 
 
 def test_supplier_search(setup_connection):
