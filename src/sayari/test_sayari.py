@@ -187,6 +187,10 @@ def test_ownership_traversal(setup_connection):
     if len(traversal.data) == 0:
         test_ownership_traversal(setup_connection)
 
+    # query until we get results
+    if len(traversal.data) == 0:
+        return test_ownership_traversal(setup_connection)
+
     assert len(traversal.data) > 0
     assert traversal.data[0].source == entity.id
 
