@@ -1,3 +1,5 @@
+import queue
+
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
 from .python.resources.base_types import SizeInfo
@@ -7,6 +9,7 @@ from .python.resources.shared_types.types.client_name import ClientName
 import threading
 import urllib.parse
 import csv
+from multiprocessing import Lock, Process, Queue, current_process
 
 # resolution attributes
 Name = "name"
@@ -65,34 +68,80 @@ class Connection(SayariAnalyticsApi):
         non_risky_entities = []
         unresolved = []
 
+        # setup multiprocessing
+        rows_to_process = Queue()
+        results = Queue()
+        num_processes = 2
+        processes = []
+
         # Open csv
         with open(path_to_csv) as csv_file:
             csv_reader = csv.reader(csv_file)
-            i = 0
+            csv_mapped = False
             for row in csv_reader:
-                i += 1
                 # map the headers
-                if i == 1:
+                if not csv_mapped:
                     column_map = map_csv(row)
+                    csv_mapped = True
                     continue
 
-                # attempt to resolve entity
-                entity_id = resolve_entity(self, column_map, row)
+                # queue up row to process
+                rows_to_process.put(row)
 
-                # track unresolved rows
-                if entity_id is None:
-                    unresolved.append(row)
-                    continue
+        # start processing rows
+        for i in range(num_processes):
+            p = Process(target=process_row, args=(self, column_map, rows_to_process, results))
+            processes.append(p)
+            p.start()
 
-                # Get entity summary
-                entity_summary = self.entity.entity_summary(entity_id)
+        # complete processes
+        for p in processes:
+            p.join()
 
-                if len(entity_summary.risk) > 0:
-                    risky_entities.append(entity_summary)
-                else:
-                    non_risky_entities.append(entity_summary)
+        # parse results
+        while True:
+            try:
+                result = results.get_nowait()
+            except queue.Empty:
+                break
+            else:
+                # check results
+                if "risky" in result:
+                    risky_entities.append(result["risky"])
+                elif "non_risky" in result:
+                    non_risky_entities.append(result["non_risky"])
+                elif "unresolved" in result:
+                    unresolved.append(result["unresolved"])
 
         return risky_entities, non_risky_entities, unresolved
+
+
+def process_row(client, column_map, rows_to_process, results):
+    while True:
+        try:
+            row = rows_to_process.get_nowait()
+        except queue.Empty:
+            break
+        else:
+            # attempt to resolve entity
+            entity_id = resolve_entity(client, column_map, row)
+
+            # track unresolved rows
+            if entity_id is None:
+                # unresolved.append(row)
+                results.put({"unresolved": row})
+                continue
+
+            # Get entity summary
+            entity_summary = client.entity.entity_summary(entity_id)
+
+            if len(entity_summary.risk) > 0:
+                # risky_entities.append(entity_summary)
+                results.put({"risky": entity_summary})
+            else:
+                # non_risky_entities.append(entity_summary)
+                results.put({"non_risky": entity_summary})
+    return True
 
 
 def map_csv(row):
