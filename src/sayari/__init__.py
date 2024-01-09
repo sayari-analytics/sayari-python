@@ -1,4 +1,5 @@
 import queue
+import time
 
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
@@ -9,7 +10,7 @@ from .python.resources.shared_types.types.client_name import ClientName
 import threading
 import urllib.parse
 import csv
-from multiprocessing import Lock, Process, Queue, current_process
+from multiprocessing import Process, Queue, set_start_method
 
 # resolution attributes
 Name = "name"
@@ -35,6 +36,7 @@ csvDict = {
 max_results = 10000
 err_too_much_data_requested = ValueError('this request returns {} or more objects. please request individual pages of results, or narrow your request to return fewer objects'.format(max_results))
 err_function_not_paginated = ValueError('this function is not paginated and cannot be used with "get_all_data"')
+
 
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
@@ -69,9 +71,10 @@ class Connection(SayariAnalyticsApi):
         unresolved = []
 
         # setup multiprocessing
+        set_start_method('fork')
         rows_to_process = Queue()
         results = Queue()
-        num_processes = 2
+        num_processes = 3
         processes = []
 
         # Open csv
@@ -94,16 +97,12 @@ class Connection(SayariAnalyticsApi):
             processes.append(p)
             p.start()
 
-        # complete processes
-        for p in processes:
-            p.join()
-
-        # parse results
-        while True:
+        # read results
+        while any_alive(processes):
             try:
                 result = results.get_nowait()
             except queue.Empty:
-                break
+                time.sleep(1)
             else:
                 # check results
                 if "risky" in result:
@@ -113,7 +112,18 @@ class Connection(SayariAnalyticsApi):
                 elif "unresolved" in result:
                     unresolved.append(result["unresolved"])
 
+        # complete processes
+        for p in processes:
+            p.join()
+
         return risky_entities, non_risky_entities, unresolved
+
+
+def any_alive(processes):
+    for p in processes:
+        if p.is_alive():
+            return True
+    return False
 
 
 def process_row(client, column_map, rows_to_process, results):
@@ -134,7 +144,6 @@ def process_row(client, column_map, rows_to_process, results):
 
             # Get entity summary
             entity_summary = client.entity.entity_summary(entity_id)
-
             if len(entity_summary.risk) > 0:
                 # risky_entities.append(entity_summary)
                 results.put({"risky": entity_summary})
