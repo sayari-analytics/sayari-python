@@ -1,3 +1,6 @@
+import queue
+import time
+
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
 from .python.resources.base_types import SizeInfo
@@ -7,6 +10,7 @@ from .python.resources.shared_types.types.client_name import ClientName
 import threading
 import urllib.parse
 import csv
+from multiprocessing import Process, Queue, set_start_method
 
 # resolution attributes
 Name = "name"
@@ -32,6 +36,7 @@ csvDict = {
 max_results = 10000
 err_too_much_data_requested = ValueError('this request returns {} or more objects. please request individual pages of results, or narrow your request to return fewer objects'.format(max_results))
 err_function_not_paginated = ValueError('this function is not paginated and cannot be used with "get_all_data"')
+
 
 class Connection(SayariAnalyticsApi):
     def __init__(self, client_id, client_secret):
@@ -65,34 +70,74 @@ class Connection(SayariAnalyticsApi):
         non_risky_entities = []
         unresolved = []
 
+        # setup multiprocessing
+        set_start_method('fork')
+        rows_to_process = Queue()
+        results = Queue()
+        num_processes = 3
+        processes = []
+
         # Open csv
         with open(path_to_csv) as csv_file:
             csv_reader = csv.reader(csv_file)
-            i = 0
+            column_map = map_csv(next(csv_reader))
             for row in csv_reader:
-                i += 1
-                # map the headers
-                if i == 1:
-                    column_map = map_csv(row)
-                    continue
+                # queue up row to process
+                rows_to_process.put(row)
 
-                # attempt to resolve entity
-                entity_id = resolve_entity(self, column_map, row)
+        # start processing rows
+        for i in range(num_processes):
+            p = Process(target=process_row, args=(self, column_map, rows_to_process, results))
+            processes.append(p)
+            p.start()
 
-                # track unresolved rows
-                if entity_id is None:
-                    unresolved.append(row)
-                    continue
+        # read results
+        while any(p.is_alive() for p in processes):
+            try:
+                result = results.get_nowait()
+            except queue.Empty:
+                time.sleep(1)
+            else:
+                # check results
+                if "risky" in result:
+                    risky_entities.append(result["risky"])
+                elif "non_risky" in result:
+                    non_risky_entities.append(result["non_risky"])
+                elif "unresolved" in result:
+                    unresolved.append(result["unresolved"])
 
-                # Get entity summary
-                entity_summary = self.entity.entity_summary(entity_id)
-
-                if len(entity_summary.risk) > 0:
-                    risky_entities.append(entity_summary)
-                else:
-                    non_risky_entities.append(entity_summary)
+        # complete processes
+        for p in processes:
+            p.join()
 
         return risky_entities, non_risky_entities, unresolved
+
+
+def process_row(client, column_map, rows_to_process, results):
+    while True:
+        try:
+            row = rows_to_process.get_nowait()
+        except queue.Empty:
+            break
+        else:
+            # attempt to resolve entity
+            entity_id = resolve_entity(client, column_map, row)
+
+            # track unresolved rows
+            if entity_id is None:
+                # unresolved.append(row)
+                results.put({"unresolved": row})
+                continue
+
+            # Get entity summary
+            entity_summary = client.entity.entity_summary(entity_id)
+            if len(entity_summary.risk) > 0:
+                # risky_entities.append(entity_summary)
+                results.put({"risky": entity_summary})
+            else:
+                # non_risky_entities.append(entity_summary)
+                results.put({"non_risky": entity_summary})
+    return True
 
 
 def map_csv(row):
