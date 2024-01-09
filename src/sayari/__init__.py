@@ -80,14 +80,8 @@ class Connection(SayariAnalyticsApi):
         # Open csv
         with open(path_to_csv) as csv_file:
             csv_reader = csv.reader(csv_file)
-            csv_mapped = False
+            column_map = map_csv(next(csv_reader))
             for row in csv_reader:
-                # map the headers
-                if not csv_mapped:
-                    column_map = map_csv(row)
-                    csv_mapped = True
-                    continue
-
                 # queue up row to process
                 rows_to_process.put(row)
 
@@ -98,7 +92,7 @@ class Connection(SayariAnalyticsApi):
             p.start()
 
         # read results
-        while any_alive(processes):
+        while any(p.is_alive() for p in processes):
             try:
                 result = results.get_nowait()
             except queue.Empty:
@@ -117,13 +111,6 @@ class Connection(SayariAnalyticsApi):
             p.join()
 
         return risky_entities, non_risky_entities, unresolved
-
-
-def any_alive(processes):
-    for p in processes:
-        if p.is_alive():
-            return True
-    return False
 
 
 def process_row(client, column_map, rows_to_process, results):
