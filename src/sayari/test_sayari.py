@@ -276,34 +276,34 @@ def test_shipment_search(setup_connection):
 
     # query until we get results
     shipments = client.trade.search_shipments(q=random_string)
-    if len(shipments.data.hits) == 0:
+    if len(shipments.data) == 0:
         return test_shipment_search(setup_connection)
 
     # assert that we have results
-    assert len(shipments.data.hits) > 0
+    assert len(shipments.data) > 0
 
     # test field and multi-filter
     buyer_name = "HANSOLL TEXTILE LTD"
     buyer_id = "f_nIivE32HCYDPEoSPTGJw"
     hs_code = "600410"
     filter_value = {"buyer_id": [buyer_id], "hs_code": [hs_code]}
-    shipments = client.trade.search_shipments(q=buyer_name, fields="buyer_name", filter=filter_value)
-    assert len(shipments.data.hits) > 0
-    for shipment in shipments.data.hits:
+    shipments = client.trade.search_shipments(q=buyer_name, filter=filter_value)
+    assert len(shipments.data) > 0
+    for shipment in shipments.data:
         # verify shipment matches on HS code
-        assert len(shipment.business_purpose) > 0
+        assert len(shipment.product_descriptions) > 0
         hs_found = False
-        for purpose in shipment.business_purpose:
-            if purpose.code == hs_code:
+        for shipment_hs_code in shipment.hs_codes:
+            if shipment_hs_code.code.startswith(hs_code):
                 hs_found = True
                 break
         assert hs_found
 
         # verify entity matches
-        assert len(shipment.dst) > 0
+        assert len(shipment.buyer) > 0
         entity_found = False
-        for dst in shipment.dst:
-            if dst.entity_id == buyer_id:
+        for buyer in shipment.buyer:
+            if buyer.id == buyer_id:
                 entity_found = True
                 break
         assert entity_found
@@ -319,11 +319,11 @@ def test_supplier_search(setup_connection):
 
     # query until we get results
     suppliers = client.trade.search_suppliers(q=random_string)
-    if len(suppliers.data.hits) == 0:
+    if len(suppliers.data) == 0:
         return test_supplier_search(setup_connection)
 
     # assert that we have results
-    assert len(suppliers.data.hits) > 0
+    assert len(suppliers.data) > 0
 
 
 def test_buyer_search(setup_connection):
@@ -336,11 +336,11 @@ def test_buyer_search(setup_connection):
 
     # query until we get results
     buyers = client.trade.search_buyers(q=random_string)
-    if len(buyers.data.hits) == 0:
+    if len(buyers.data) == 0:
         return test_buyer_search(setup_connection)
 
     # assert that we have results
-    assert len(buyers.data.hits) > 0
+    assert len(buyers.data) > 0
 
 
 """def test_too_much_data_requested(setup_connection):
