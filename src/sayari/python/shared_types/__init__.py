@@ -34,7 +34,6 @@ from .risk_level import RiskLevel
 from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
 from .shipment_departue import ShipmentDepartue
-from .shipment_field import ShipmentField
 from .source_count_info import SourceCountInfo
 from .source_id import SourceId
 from .status import Status
@@ -74,7 +73,6 @@ __all__ = [
     "SearchField",
     "ShipmentArrival",
     "ShipmentDepartue",
-    "ShipmentField",
     "SourceCountInfo",
     "SourceId",
     "Status",

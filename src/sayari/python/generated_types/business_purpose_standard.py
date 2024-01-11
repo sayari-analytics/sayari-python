@@ -131,6 +131,11 @@ class BusinessPurposeStandard(str, enum.Enum):
     Singapore Standard Industrial Classification (national standard for classifying economic activities undertaken by economic units)
     """
 
+    PKD_2007 = "PKD2007"
+    """
+    Polska Klasyfikacja Działalności (PKD) - Polish Classification of Activities, Rev. 2007
+    """
+
     def visit(
         self,
         cnae_2: typing.Callable[[], T_Result],
@@ -157,6 +162,7 @@ class BusinessPurposeStandard(str, enum.Enum):
         hs: typing.Callable[[], T_Result],
         sic: typing.Callable[[], T_Result],
         ssic_2020: typing.Callable[[], T_Result],
+        pkd_2007: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is BusinessPurposeStandard.CNAE_2:
             return cnae_2()
@@ -206,3 +212,5 @@ class BusinessPurposeStandard(str, enum.Enum):
             return sic()
         if self is BusinessPurposeStandard.SSIC_2020:
             return ssic_2020()
+        if self is BusinessPurposeStandard.PKD_2007:
+            return pkd_2007()

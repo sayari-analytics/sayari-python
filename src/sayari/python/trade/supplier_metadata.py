@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
+from .hs_code import HsCode
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,6 +15,7 @@ except ImportError:
 class SupplierMetadata(pydantic.BaseModel):
     latest_shipment_date: typing.Optional[str] = pydantic.Field(alias="latestShipmentDate")
     shipments: int
+    hs_codes: typing.List[HsCode] = pydantic.Field(alias="hsCodes")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -4,10 +4,6 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from ..generated_types.country import Country
-from ..shared_types.entity_id import EntityId
-from ..shared_types.risk import Risk
-from .business_purpose import BusinessPurpose
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -15,12 +11,11 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class SourceOrDestinationEntity(pydantic.BaseModel):
-    id: EntityId
-    names: typing.List[str]
-    risks: typing.Dict[Risk, typing.Any]
-    business_purpose: typing.List[BusinessPurpose]
-    countries: typing.List[Country]
+class HsCode(pydantic.BaseModel):
+    key: str
+    doc_count: int
+    value: str
+    value_simple: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

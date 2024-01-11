@@ -46,6 +46,7 @@ class AddressProperties(pydantic.BaseModel):
     near: typing.Optional[str] = pydantic.Field(
         description='Phrases like "in", "near", etc. used after a category phrase, to help with parsing queries like "restaurants in Brooklyn"'
     )
+    normalized: str
     po_box: typing.Optional[str]
     postcode: typing.Optional[str]
     precision_code: typing.Optional[str] = pydantic.Field(

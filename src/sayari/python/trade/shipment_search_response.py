@@ -5,25 +5,24 @@ import typing
 
 from ..base_types.paginated_response import PaginatedResponse
 from ..core.datetime_utils import serialize_datetime
-from .shipment_hits import ShipmentHits
+from .shipment import Shipment
 
 
 class ShipmentSearchResponse(PaginatedResponse):
     """
     OK
     ---
-    from sayari-analytics import (AddressProperties, BusinessPurpose, Country,
-                                  Relationships, Risk, Shipment, ShipmentCountry,
-                                  ShipmentHits, ShipmentIdentifier,
-                                  ShipmentMetadata, ShipmentSearchResponse,
-                                  SizeInfo, SourceOrDestinationEntity, Weight)
+    from sayari-analytics import (Country, DataSource, Risk, Shipment,
+                                  ShipmentAddress, ShipmentIdentifier,
+                                  ShipmentSearchResponse, SizeInfo,
+                                  SourceOrDestinationEntity, Weight)
 
-    ShipmentSearchResponse(offset=0, limit=2, size=SizeInfo(count=10000, qualifier="gte", ), next=True, data=ShipmentHits(hits=[Shipment(monetary_value=[], dst=[SourceOrDestinationEntity(risk_factors={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, name=["HEMINGWAY RUM COMPANY LLC"], business_purpose=[], country=[Country.USA], date="2022-05-25", entity_id="M_vGQfA6PWYdNkj5a_XMNQ", type=Relationships.RECEIVER_OF, )], weight=[Weight(value=5388.0, unit="kilogram", type="gross_weight", )], business_purpose=[BusinessPurpose(value="0000000006FOURSQUARE 5YR OLD RUM", )], identifier=[ShipmentIdentifier(value="TSCW15541208", )], country=[ShipmentCountry(value=Country.USA, )], src=[SourceOrDestinationEntity(risk_factors={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, name=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], business_purpose=[], country=[Country.BRB], date="2022-05", entity_id="9NQnfZhEFrRnp4YWk5yAVQ", type=Relationships.SHIPPER_OF, )], metadata=ShipmentMetadata(arrival_country=[Country.USA], jurisdiction=[Country.USA], reference_id="USA/shipments_cbp/TSCW15541208/1653523200000/0", entity_id="KIB4wNCMtzLhG-onltADgQ", departure_address=AddressProperties(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), type="SHIPMENT", sources=["16a4cc2d0f467fa993b28587d542a25d"], departure_country=[], ), ), Shipment(monetary_value=[], dst=[SourceOrDestinationEntity(risk_factors={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, name=["HEMINGWAY RUM COMPANY LLC"], business_purpose=[], country=[Country.USA], date="2023-02-15", entity_id="M_vGQfA6PWYdNkj5a_XMNQ", type=Relationships.RECEIVER_OF, )], weight=[Weight(value=7184.0, unit="kilogram", type="gross_weight", )], business_purpose=[BusinessPurpose(value="0000000008TOTES- FOURSQUARE 5 YR OLD RUM", )], identifier=[ShipmentIdentifier(value="TSCW16081626", )], country=[ShipmentCountry(value=Country.USA, )], src=[SourceOrDestinationEntity(risk_factors={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, name=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], business_purpose=[], country=[Country.BRB], date="2023-02", entity_id="9NQnfZhEFrRnp4YWk5yAVQ", type=Relationships.SHIPPER_OF, )], metadata=ShipmentMetadata(arrival_country=[Country.USA], jurisdiction=[Country.USA], reference_id="USA/shipments_cbp/TSCW16081626/1676419200000/0", entity_id="q7JJ6fldDvBVdt5tokLIaw", departure_address=AddressProperties(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), type="SHIPMENT", sources=["16a4cc2d0f467fa993b28587d542a25d"], departure_country=[], ), )], ), )
+    ShipmentSearchResponse(offset=0, limit=2, size=SizeInfo(count=10000, qualifier="gte", ), next=True, data=[Shipment(id="KIB4wNCMtzLhG-onltADgQ", type="shipment", buyer=[SourceOrDestinationEntity(id="M_vGQfA6PWYdNkj5a_XMNQ", names=["HEMINGWAY RUM COMPANY LLC"], risks={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, countries=[Country.USA], business_purpose=[], )], supplier=[SourceOrDestinationEntity(id="9NQnfZhEFrRnp4YWk5yAVQ", names=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], risks={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, countries=[Country.BRB], business_purpose=[], )], arrival_date="2022-05-25", departure_date="2022-05", departure_address=ShipmentAddress(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), monetary_value=[], weight=[Weight(value=5388.0, unit="kilogram", type="gross_weight", )], identifier=[ShipmentIdentifier(value="TSCW15541208", )], sources=[DataSource(id="16a4cc2d0f467fa993b28587d542a25d", label="USA Imports (2021 - Present)", )], hs_codes=[], product_descriptions=["0000000006FOURSQUARE 5YR OLD RUM"], record="16a4cc2d0f467fa993b28587d542a25d/TSCW15541208/1653523200000/0", ), Shipment(id="q7JJ6fldDvBVdt5tokLIaw", type="shipment", buyer=[SourceOrDestinationEntity(id="M_vGQfA6PWYdNkj5a_XMNQ", names=["HEMINGWAY RUM COMPANY LLC"], risks={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, countries=[Country.USA], business_purpose=[], )], supplier=[SourceOrDestinationEntity(id="9NQnfZhEFrRnp4YWk5yAVQ", names=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], risks={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, countries=[Country.BRB], business_purpose=[], )], arrival_date="2023-02-15", departure_date="2023-02", departure_address=ShipmentAddress(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), monetary_value=[], weight=[Weight(value=7184.0, unit="kilogram", type="gross_weight", )], identifier=[ShipmentIdentifier(value="TSCW16081626", )], sources=[DataSource(id="16a4cc2d0f467fa993b28587d542a25d", label="USA Imports (2021 - Present)", )], hs_codes=[], product_descriptions=["0000000008TOTES- FOURSQUARE 5 YR OLD RUM"], record="16a4cc2d0f467fa993b28587d542a25d/TSCW16081626/1676419200000/0", )], )
     """
 
     offset: int
     next: bool
-    data: ShipmentHits
+    data: typing.List[Shipment]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

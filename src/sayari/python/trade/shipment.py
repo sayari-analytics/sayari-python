@@ -4,11 +4,12 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .business_purpose import BusinessPurpose
+from ..shared_types.record_id import RecordId
+from .data_source import DataSource
+from .hs_code_info import HsCodeInfo
 from .monetary_value import MonetaryValue
-from .shipment_country import ShipmentCountry
+from .shipment_address import ShipmentAddress
 from .shipment_identifier import ShipmentIdentifier
-from .shipment_metadata import ShipmentMetadata
 from .source_or_destination_entity import SourceOrDestinationEntity
 from .weight import Weight
 
@@ -19,14 +20,21 @@ except ImportError:
 
 
 class Shipment(pydantic.BaseModel):
+    id: str
+    type: str
+    buyer: typing.List[SourceOrDestinationEntity]
+    supplier: typing.List[SourceOrDestinationEntity]
+    arrival_date: typing.Optional[str]
+    departure_date: typing.Optional[str]
+    departure_address: typing.Optional[ShipmentAddress]
+    arrival_address: typing.Optional[ShipmentAddress]
     monetary_value: typing.List[MonetaryValue]
-    dst: typing.List[SourceOrDestinationEntity]
     weight: typing.List[Weight]
-    business_purpose: typing.List[BusinessPurpose]
     identifier: typing.List[ShipmentIdentifier]
-    country: typing.List[ShipmentCountry]
-    src: typing.List[SourceOrDestinationEntity]
-    metadata: ShipmentMetadata
+    sources: typing.List[DataSource]
+    hs_codes: typing.List[HsCodeInfo]
+    product_descriptions: typing.List[str]
+    record: RecordId
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

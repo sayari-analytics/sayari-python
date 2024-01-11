@@ -48,6 +48,12 @@ class EmbeddedEntity(pydantic.BaseModel):
     addresses: typing.List[EntityAddresses]
     date_of_birth: typing.Optional[EntityDob]
     relationship_count: EntityRelationshipCount
+    user_relationship_count: EntityRelationshipCount
+    attribute_counts: typing.Any
+    user_attribute_counts: typing.Any
+    related_entities_count: int
+    user_related_entities_count: int
+    user_record_count: int
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
