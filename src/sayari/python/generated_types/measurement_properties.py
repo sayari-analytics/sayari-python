@@ -14,6 +14,9 @@ except ImportError:
 
 
 class MeasurementProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: MeasurementType = pydantic.Field(description="Type of the measurement")
     unit: Unit = pydantic.Field(description="The unit of the measurement")
     value: float = pydantic.Field(description="The value of the measurement")

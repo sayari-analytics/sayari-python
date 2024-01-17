@@ -28,7 +28,9 @@ class AddressProperties(pydantic.BaseModel):
     country_region: typing.Optional[str] = pydantic.Field(
         description="Informal subdivision of a country without any political status"
     )
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
     entrance: typing.Optional[str] = pydantic.Field(description="Numbered/lettered entrance")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
     house: typing.Optional[str] = pydantic.Field(
         description="Building/site name (e.g. 'Brooklyn Academy of Music', 'Empire State Building')"
     )
@@ -63,6 +65,7 @@ class AddressProperties(pydantic.BaseModel):
     suburb: typing.Optional[str] = pydantic.Field(
         description='Usually an unofficial neighborhood name, like "Harlem", "South Bronx", or "Crown Heights"'
     )
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     translated: typing.Optional[str] = pydantic.Field(description="The address value translated to English")
     transliterated: typing.Optional[str] = pydantic.Field(description="The address value transliterated to English")
     type: typing.Optional[AddressType] = pydantic.Field(

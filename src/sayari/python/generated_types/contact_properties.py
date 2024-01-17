@@ -13,6 +13,9 @@ except ImportError:
 
 
 class ContactProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: typing.Optional[ContactType]
     value: str = pydantic.Field(description="The contact detail itself (e.g. 'jdoe@sayari.com,' '202-555-5555')")
 

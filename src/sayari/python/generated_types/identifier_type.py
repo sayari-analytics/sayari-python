@@ -2594,6 +2594,16 @@ class IdentifierType(str, enum.Enum):
     Unique USA ID number. Assigned to every foreign trademark application.
     """
 
+    GBR_CHARITY_NO = "gbr_charity_no"
+    """
+    Unique UK charity ID number. Assigned to every charity registered with the Charity Commission for England and Wales.
+    """
+
+    GBR_GO_NO = "gbr_go_no"
+    """
+    Unique UK government organization ID number. Assigned to government organizations in the UK.
+    """
+
     def visit(
         self,
         cn_tianyancha_company_id: typing.Callable[[], T_Result],
@@ -3143,6 +3153,8 @@ class IdentifierType(str, enum.Enum):
         usa_uspto_foreign_reg_no: typing.Callable[[], T_Result],
         wipo_intl_reg_no: typing.Callable[[], T_Result],
         wipo_intl_ref_no: typing.Callable[[], T_Result],
+        gbr_charity_no: typing.Callable[[], T_Result],
+        gbr_go_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4238,3 +4250,7 @@ class IdentifierType(str, enum.Enum):
             return wipo_intl_reg_no()
         if self is IdentifierType.WIPO_INTL_REF_NO:
             return wipo_intl_ref_no()
+        if self is IdentifierType.GBR_CHARITY_NO:
+            return gbr_charity_no()
+        if self is IdentifierType.GBR_GO_NO:
+            return gbr_go_no()
