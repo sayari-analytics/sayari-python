@@ -12,6 +12,9 @@ except ImportError:
 
 
 class CompanyTypeProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     value: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -13,6 +13,9 @@ except ImportError:
 
 
 class GenderProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     value: Gender
 
     def json(self, **kwargs: typing.Any) -> str:

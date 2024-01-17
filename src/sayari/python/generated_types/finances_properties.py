@@ -16,6 +16,9 @@ except ImportError:
 class FinancesProperties(pydantic.BaseModel):
     context: typing.Optional[FinanceType] = pydantic.Field(description="The type of figure")
     currency: typing.Optional[Currency] = pydantic.Field(description="The currency, if applicable")
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: typing.Optional[str] = pydantic.Field(description="A free-text definition of the type")
     value: float = pydantic.Field(description="The numerical amount")
 

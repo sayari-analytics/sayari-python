@@ -16,6 +16,8 @@ class RiskIntelligenceProperties(pydantic.BaseModel):
     authority: typing.Optional[str] = pydantic.Field(
         description="Government authority issuing the enforcement or risk intelligence action"
     )
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
     list: typing.Optional[str] = pydantic.Field(
         description="Official list where the entity's risk information or enforcement action is recorded"
     )
@@ -23,6 +25,7 @@ class RiskIntelligenceProperties(pydantic.BaseModel):
         description="Specific to sanctions risk. Sanctions program under which the entity is designated."
     )
     reason: typing.Optional[str] = pydantic.Field(description="Explanation or legal basis for the risk intelligence")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: Tag = pydantic.Field(description="Type of risk intelligence")
 
     def json(self, **kwargs: typing.Any) -> str:
