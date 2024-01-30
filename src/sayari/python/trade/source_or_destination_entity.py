@@ -5,8 +5,8 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..generated_types.country import Country
+from ..generated_types.risk import Risk
 from ..shared_types.entity_id import EntityId
-from ..shared_types.risk import Risk
 from .business_purpose import BusinessPurpose
 
 try:
