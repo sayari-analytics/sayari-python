@@ -2604,6 +2604,11 @@ class IdentifierType(str, enum.Enum):
     Unique UK government organization ID number. Assigned to government organizations in the UK.
     """
 
+    IRL_REGISTRATION_NO = "irl_registration_no"
+    """
+    Unique Ireland ID number. Assigned to every legal entity registered with Ireland Companies Registration Office.
+    """
+
     def visit(
         self,
         cn_tianyancha_company_id: typing.Callable[[], T_Result],
@@ -3155,6 +3160,7 @@ class IdentifierType(str, enum.Enum):
         wipo_intl_ref_no: typing.Callable[[], T_Result],
         gbr_charity_no: typing.Callable[[], T_Result],
         gbr_go_no: typing.Callable[[], T_Result],
+        irl_registration_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4254,3 +4260,5 @@ class IdentifierType(str, enum.Enum):
             return gbr_charity_no()
         if self is IdentifierType.GBR_GO_NO:
             return gbr_go_no()
+        if self is IdentifierType.IRL_REGISTRATION_NO:
+            return irl_registration_no()
