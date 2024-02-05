@@ -18,7 +18,6 @@ from ..shared_errors.types.internal_server_error_response import InternalServerE
 from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.shipment_field import ShipmentField
 from .types.buyer_search_response import BuyerSearchResponse
 from .types.shipment_search_response import ShipmentSearchResponse
 from .types.supplier_search_response import SupplierSearchResponse
@@ -43,7 +42,6 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -58,8 +56,6 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -72,8 +68,6 @@ class TradeClient:
         client.trade.search_shipments(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:
@@ -114,7 +108,6 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -129,8 +122,6 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -143,8 +134,6 @@ class TradeClient:
         client.trade.search_suppliers(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:
@@ -185,7 +174,6 @@ class TradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -200,8 +188,6 @@ class TradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -214,8 +200,6 @@ class TradeClient:
         client.trade.search_buyers(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:
@@ -261,7 +245,6 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -276,8 +259,6 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -290,8 +271,6 @@ class AsyncTradeClient:
         await client.trade.search_shipments(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:
@@ -332,7 +311,6 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -347,8 +325,6 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -361,8 +337,6 @@ class AsyncTradeClient:
         await client.trade.search_suppliers(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:
@@ -403,7 +377,6 @@ class AsyncTradeClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[ShipmentField]] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -418,8 +391,6 @@ class AsyncTradeClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[ShipmentField]]. Shipment fields to search against.
-
             - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -432,8 +403,6 @@ class AsyncTradeClient:
         await client.trade.search_buyers(limit=2, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
-        if fields is not OMIT:
-            _request["fields"] = fields
         if filter is not OMIT:
             _request["filter"] = filter
         if facets is not OMIT:

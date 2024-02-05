@@ -15,6 +15,9 @@ except ImportError:
 class MonetaryValueProperties(pydantic.BaseModel):
     context: typing.Optional[str] = pydantic.Field(description="The type of value")
     currency: typing.Optional[Currency] = pydantic.Field(description="The ISO 4217 currency code")
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     value: float = pydantic.Field(description="The financial value of the asset")
 
     def json(self, **kwargs: typing.Any) -> str:

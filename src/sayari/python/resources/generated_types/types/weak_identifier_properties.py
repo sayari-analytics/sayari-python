@@ -13,6 +13,9 @@ except ImportError:
 
 
 class WeakIdentifierProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: WeakIdentifierType = pydantic.Field(
         description="The type of the identifier, including the country/jurisdiction that issued it"
     )

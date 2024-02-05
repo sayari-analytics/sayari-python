@@ -14,7 +14,7 @@ class PossiblySameAs(PaginatedResponse):
     """
 
     offset: typing.Optional[int]
-    next: typing.Optional[bool]
+    next: typing.Optional[typing.Any]
     data: typing.List[PossiblySameAsData]
 
     def json(self, **kwargs: typing.Any) -> str:

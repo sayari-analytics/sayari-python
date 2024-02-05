@@ -12,6 +12,9 @@ except ImportError:
 
 
 class AdditionalInformationProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: typing.Optional[str] = pydantic.Field(description="We would probably group by type in a GUI")
     value: typing.Optional[str]
 

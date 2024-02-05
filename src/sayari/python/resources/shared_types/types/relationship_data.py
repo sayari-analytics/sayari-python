@@ -16,7 +16,7 @@ except ImportError:
 
 
 class RelationshipData(pydantic.BaseModel):
-    target: EntityDetails
+    target: "EntityDetails"
     types: typing.Dict[Relationships, typing.List[RelationshipInfo]]
     dates: typing.List[str]
     first_observed: typing.Optional[str]
@@ -40,5 +40,6 @@ class RelationshipData(pydantic.BaseModel):
 
 
 from .entity_details import EntityDetails  # noqa: E402
+from .entity_relationships import EntityRelationships  # noqa: E402
 
-RelationshipData.update_forward_refs()
+RelationshipData.update_forward_refs(EntityDetails=EntityDetails)

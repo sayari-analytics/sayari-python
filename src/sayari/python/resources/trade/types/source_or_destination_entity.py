@@ -5,9 +5,8 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
-from ...generated_types.types.relationships import Relationships
+from ...generated_types.types.risk import Risk
 from ...shared_types.types.entity_id import EntityId
-from ...shared_types.types.risk import Risk
 from .business_purpose import BusinessPurpose
 
 try:
@@ -17,13 +16,11 @@ except ImportError:
 
 
 class SourceOrDestinationEntity(pydantic.BaseModel):
-    risk_factors: typing.Dict[Risk, typing.Any]
-    name: typing.List[str]
+    id: EntityId
+    names: typing.List[str]
+    risks: typing.Dict[Risk, typing.Any]
     business_purpose: typing.List[BusinessPurpose]
-    country: typing.List[Country]
-    date: typing.Optional[str]
-    entity_id: EntityId
-    type: Relationships
+    countries: typing.List[Country]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

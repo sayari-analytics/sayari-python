@@ -28,13 +28,11 @@ from .referenced_by_data_type import ReferencedByDataType
 from .relationship_attribute_value import RelationshipAttributeValue
 from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
-from .risk import Risk
 from .risk_data import RiskData
 from .risk_level import RiskLevel
 from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
 from .shipment_departue import ShipmentDepartue
-from .shipment_field import ShipmentField
 from .source_count_info import SourceCountInfo
 from .source_id import SourceId
 from .status import Status
@@ -68,13 +66,11 @@ __all__ = [
     "RelationshipAttributeValue",
     "RelationshipData",
     "RelationshipInfo",
-    "Risk",
     "RiskData",
     "RiskLevel",
     "SearchField",
     "ShipmentArrival",
     "ShipmentDepartue",
-    "ShipmentField",
     "SourceCountInfo",
     "SourceId",
     "Status",
