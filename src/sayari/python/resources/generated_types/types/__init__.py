@@ -72,6 +72,7 @@ from .position_data import PositionData
 from .position_info import PositionInfo
 from .position_properties import PositionProperties
 from .relationships import Relationships
+from .risk import Risk
 from .risk_intelligence_data import RiskIntelligenceData
 from .risk_intelligence_info import RiskIntelligenceInfo
 from .risk_intelligence_properties import RiskIntelligenceProperties
@@ -166,6 +167,7 @@ __all__ = [
     "PositionInfo",
     "PositionProperties",
     "Relationships",
+    "Risk",
     "RiskIntelligenceData",
     "RiskIntelligenceInfo",
     "RiskIntelligenceProperties",

@@ -11,11 +11,13 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PositionProperties(pydantic.BaseModel):
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    value: str = pydantic.Field(description="The position as text")
+class ShipmentAddress(pydantic.BaseModel):
+    x: typing.Optional[float]
+    y: typing.Optional[float]
+    city: typing.Optional[str]
+    state: typing.Optional[str]
+    country: typing.Optional[str]
+    value: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -22,7 +22,7 @@ from .status import Status
 
 class EntityDetails(EmbeddedEntity):
     """
-    Additional fields providing more details about an enetity
+    Additional fields providing more details about an entity
     """
 
     registration_date: typing.Optional[EntityRegistrationDate]
@@ -34,7 +34,7 @@ class EntityDetails(EmbeddedEntity):
     latest_status: typing.Optional[Status]
     risk: EntityRisk
     attributes: typing.Optional[AttributeDetails]
-    relationships: typing.Optional[EntityRelationships]
+    relationships: typing.Optional["EntityRelationships"]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
 
@@ -54,5 +54,6 @@ class EntityDetails(EmbeddedEntity):
 
 
 from .entity_relationships import EntityRelationships  # noqa: E402
+from .relationship_data import RelationshipData  # noqa: E402
 
-EntityDetails.update_forward_refs()
+EntityDetails.update_forward_refs(EntityRelationships=EntityRelationships)

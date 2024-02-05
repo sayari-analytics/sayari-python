@@ -13,6 +13,9 @@ except ImportError:
 
 
 class IdentifierProperties(pydantic.BaseModel):
+    date: typing.Optional[str] = pydantic.Field(description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: BothIdentifierTypes
     value: str = pydantic.Field(description="The text/number value of the identifier")
 

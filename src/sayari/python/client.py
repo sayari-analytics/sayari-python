@@ -5,17 +5,17 @@ import typing
 
 import httpx
 
-from .auth._client import AsyncAuthClient, AuthClient
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from .entity._client import AsyncEntityClient, EntityClient
 from .environment import SayariAnalyticsApiEnvironment
-from .info._client import AsyncInfoClient, InfoClient
-from .record._client import AsyncRecordClient, RecordClient
-from .resolution._client import AsyncResolutionClient, ResolutionClient
-from .search._client import AsyncSearchClient, SearchClient
-from .source._client import AsyncSourceClient, SourceClient
-from .trade._client import AsyncTradeClient, TradeClient
-from .traversal._client import AsyncTraversalClient, TraversalClient
+from .resources.auth.client import AsyncAuthClient, AuthClient
+from .resources.entity.client import AsyncEntityClient, EntityClient
+from .resources.info.client import AsyncInfoClient, InfoClient
+from .resources.record.client import AsyncRecordClient, RecordClient
+from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
+from .resources.search.client import AsyncSearchClient, SearchClient
+from .resources.source.client import AsyncSourceClient, SourceClient
+from .resources.trade.client import AsyncTradeClient, TradeClient
+from .resources.traversal.client import AsyncTraversalClient, TraversalClient
 
 # Because this rate limiter doesn't block all requests, we need a relatively high limit to cope with racing threads.
 retry_limit = 10

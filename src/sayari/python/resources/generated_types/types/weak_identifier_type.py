@@ -466,6 +466,11 @@ class WeakIdentifierType(str, enum.Enum):
     Bosnia and Herzegovenia business register registration number
     """
 
+    GBR_GRANT_INFO_NUMBER = "gbr_grant_info_number"
+    """
+    UK entity ID number assigned to entities registered in the UK Government Grants Information System.
+    """
+
     MALFORMED_MMR_PRIOR_REG_NO = "malformed mmr_prior_reg_no"
     """
     A temporary malformed type
@@ -572,6 +577,7 @@ class WeakIdentifierType(str, enum.Enum):
         rus_cbr_id: typing.Callable[[], T_Result],
         geo_state_registration_number: typing.Callable[[], T_Result],
         bih_mbs_number: typing.Callable[[], T_Result],
+        gbr_grant_info_number: typing.Callable[[], T_Result],
         malformed_mmr_prior_reg_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
@@ -772,5 +778,7 @@ class WeakIdentifierType(str, enum.Enum):
             return geo_state_registration_number()
         if self is WeakIdentifierType.BIH_MBS_NUMBER:
             return bih_mbs_number()
+        if self is WeakIdentifierType.GBR_GRANT_INFO_NUMBER:
+            return gbr_grant_info_number()
         if self is WeakIdentifierType.MALFORMED_MMR_PRIOR_REG_NO:
             return malformed_mmr_prior_reg_no()
