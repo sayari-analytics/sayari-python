@@ -57,6 +57,10 @@ def test_entities(setup_connection):
     # assert that we have results
     assert len(entity_search_results.data) > 0
 
+    # test the GET variant of the search endpoint
+    entity_search_get_results = client.search.search_entity_get(q=random_string)
+    assert entity_search_results == entity_search_get_results
+
     # do some checks on the first result
     first_entity = entity_search_results.data[0]
     # capture entity id/label for debugging
