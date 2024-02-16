@@ -59,9 +59,9 @@ def test_entities(setup_connection):
 
     # test the GET variant of the search endpoint
     entity_search_get_results = client.search.search_entity_get(q=random_string)
-    assert len(entity_search_results.data) == len(entity_search_get_results.data)
-    assert len(entity_search_results.size.count) == len(entity_search_get_results.size.count)
-    assert len(entity_search_results.size.qualifier) == len(entity_search_get_results.size.qualifier)
+    assert entity_search_results.data == entity_search_get_results.data
+    assert entity_search_results.size.count == entity_search_get_results.size.count
+    assert entity_search_results.size.qualifier == entity_search_get_results.size.qualifier
 
     # do some checks on the first result
     first_entity = entity_search_results.data[0]
@@ -152,9 +152,9 @@ def test_records(setup_connection):
 
     # verify that get results match
     record_search_get_results = client.search.search_record_get(q=random_string)
-    assert len(record_search_results.data) == len(record_search_get_results.data)
-    assert len(record_search_results.size.count) == len(record_search_get_results.size.count)
-    assert len(record_search_results.size.qualifier) == len(record_search_get_results.size.qualifier)
+    assert record_search_results.data == record_search_get_results.data
+    assert record_search_results.size.count == record_search_get_results.size.count
+    assert record_search_results.size.qualifier == record_search_get_results.size.qualifier
 
     # do some checks on the first result
     first_record = record_search_results.data[0]
