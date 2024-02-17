@@ -57,6 +57,12 @@ def test_entities(setup_connection):
     # assert that we have results
     assert len(entity_search_results.data) > 0
 
+    # test the GET variant of the search endpoint
+    entity_search_get_results = client.search.search_entity_get(q=random_string)
+    assert entity_search_results.data == entity_search_get_results.data
+    assert entity_search_results.size.count == entity_search_get_results.size.count
+    assert entity_search_results.size.qualifier == entity_search_get_results.size.qualifier
+
     # do some checks on the first result
     first_entity = entity_search_results.data[0]
     # capture entity id/label for debugging
@@ -143,6 +149,12 @@ def test_records(setup_connection):
 
     # assert that we have results
     assert len(record_search_results.data) > 0
+
+    # verify that get results match
+    record_search_get_results = client.search.search_record_get(q=random_string)
+    assert record_search_results.data == record_search_get_results.data
+    assert record_search_results.size.count == record_search_get_results.size.count
+    assert record_search_results.size.qualifier == record_search_get_results.size.qualifier
 
     # do some checks on the first result
     first_record = record_search_results.data[0]

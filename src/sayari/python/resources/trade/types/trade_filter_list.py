@@ -74,6 +74,12 @@ class TradeFilterList(pydantic.BaseModel):
     arrival_date: typing.Optional[typing.List[str]] = pydantic.Field(
         description="The arrival date is within the provided range."
     )
+    departure_date: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The departure date is within the provided range."
+    )
+    shipment_identifier: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="The shipment identifier starts with the provided string."
+    )
     weight: typing.Optional[typing.List[str]] = pydantic.Field(
         description="The shipment weight is within the provided range."
     )

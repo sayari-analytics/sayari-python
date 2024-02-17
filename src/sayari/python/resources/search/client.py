@@ -116,6 +116,79 @@ class SearchClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def search_entity_get(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> EntitySearchResponse:
+        """
+        Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.search.search_entity_get(limit=2, q="victoria beckham limited", )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def search_record(
         self,
         *,
@@ -164,6 +237,68 @@ class SearchClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
             json=jsonable_encoder(_request),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def search_record_get(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> RecordSearchResponse:
+        """
+        Search for a record. Please note, searches are limited to a maximum of 10,000 results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.search.search_record_get(q="victoria beckham limited", limit=2, )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
+            params=remove_none_from_dict(
+                {"limit": limit, "offset": offset, "q": q, "fields": fields, "facets": facets, "advanced": advanced}
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -272,6 +407,79 @@ class AsyncSearchClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    async def search_entity_get(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        geo_facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> EntitySearchResponse:
+        """
+        Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.search.search_entity_get(limit=2, q="victoria beckham limited", )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
+            params=remove_none_from_dict(
+                {
+                    "limit": limit,
+                    "offset": offset,
+                    "q": q,
+                    "fields": fields,
+                    "facets": facets,
+                    "geo_facets": geo_facets,
+                    "advanced": advanced,
+                }
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     async def search_record(
         self,
         *,
@@ -320,6 +528,68 @@ class AsyncSearchClient:
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
             params=remove_none_from_dict({"limit": limit, "offset": offset}),
             json=jsonable_encoder(_request),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def search_record_get(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        q: str,
+        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        facets: typing.Optional[bool] = None,
+        advanced: typing.Optional[bool] = None,
+    ) -> RecordSearchResponse:
+        """
+        Search for a record. Please note, searches are limited to a maximum of 10,000 results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+
+            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+
+            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+
+            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.search.search_record_get(q="victoria beckham limited", limit=2, )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
+            params=remove_none_from_dict(
+                {"limit": limit, "offset": offset, "q": q, "fields": fields, "facets": facets, "advanced": advanced}
+            ),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
