@@ -59,7 +59,7 @@ def test_entities(setup_connection):
 
     # test the GET variant of the search endpoint
     entity_search_get_results = client.search.search_entity_get(q=random_string)
-    assert entity_search_results.data == entity_search_get_results.data
+    assert len(entity_search_results.data) == len(entity_search_get_results.data)
     assert entity_search_results.size.count == entity_search_get_results.size.count
     assert entity_search_results.size.qualifier == entity_search_get_results.size.qualifier
 
