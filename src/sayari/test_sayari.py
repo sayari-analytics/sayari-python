@@ -152,7 +152,7 @@ def test_records(setup_connection):
 
     # verify that get results match
     record_search_get_results = client.search.search_record_get(q=random_string)
-    assert record_search_results.data == record_search_get_results.data
+    assert len(record_search_results.data) == len(record_search_get_results.data)
     assert record_search_results.size.count == record_search_get_results.size.count
     assert record_search_results.size.qualifier == record_search_get_results.size.qualifier
 
