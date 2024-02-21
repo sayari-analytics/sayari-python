@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
+from ...generated_types.types.risk import Risk
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -29,20 +30,20 @@ class TradeFilterList(pydantic.BaseModel):
     supplier_name: typing.Optional[typing.List[str]] = pydantic.Field(
         description="Shipper whose name contains the provided string."
     )
-    buyer_risk: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Buyer with an exact match for the provided risk factor."
+    buyer_risk: typing.Optional[typing.List[Risk]] = pydantic.Field(
+        description="Buyer with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors)."
     )
-    supplier_risk: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipper with an exact match for the provided risk factor."
+    supplier_risk: typing.Optional[typing.List[Risk]] = pydantic.Field(
+        description="Shipper with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors)."
     )
     buyer_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Buyer with an exact match for the provided country code."
+        description="Buyer with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
     )
     supplier_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Supplier with an exact match for the provided country code."
+        description="Supplier with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
     )
     departure_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Shipment departs from a country with an exact match for the provided country code."
+        description="Shipment departs from a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
     )
     departure_state: typing.Optional[typing.List[str]] = pydantic.Field(
         description="Shipment departs from a state that contains the provided state name."
@@ -51,7 +52,7 @@ class TradeFilterList(pydantic.BaseModel):
         description="Shipment departs from a city that contains the provided city name."
     )
     arrival_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Shipment arrives at a country with an exact match for the provided country code."
+        description="Shipment arrives at a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
     )
     arrival_state: typing.Optional[typing.List[str]] = pydantic.Field(
         description="Shipment arrives at a state that contains the provided state name."

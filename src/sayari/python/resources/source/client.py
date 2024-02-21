@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
@@ -19,7 +21,6 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.source_id import SourceId
 from .types.get_source_response import GetSourceResponse
 from .types.list_sources_response import ListSourcesResponse
 
@@ -34,7 +35,11 @@ class SourceClient:
         self._client_wrapper = client_wrapper
 
     def list_sources(
-        self, *, limit: typing.Optional[int] = None, offset: typing.Optional[int] = None
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSourcesResponse:
         """
         Returns metadata for all sources that Sayari collects data from
@@ -43,6 +48,8 @@ class SourceClient:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -52,9 +59,30 @@ class SourceClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/sources"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ListSourcesResponse, _response.json())  # type: ignore
@@ -76,12 +104,14 @@ class SourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_source(self, id: SourceId) -> GetSourceResponse:
+    def get_source(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
-            - id: SourceId.
+            - id: str. The unique identifier for a source in the database
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -91,8 +121,20 @@ class SourceClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/source/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetSourceResponse, _response.json())  # type: ignore
@@ -122,7 +164,11 @@ class AsyncSourceClient:
         self._client_wrapper = client_wrapper
 
     async def list_sources(
-        self, *, limit: typing.Optional[int] = None, offset: typing.Optional[int] = None
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSourcesResponse:
         """
         Returns metadata for all sources that Sayari collects data from
@@ -131,6 +177,8 @@ class AsyncSourceClient:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
             - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -140,9 +188,30 @@ class AsyncSourceClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/sources"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ListSourcesResponse, _response.json())  # type: ignore
@@ -164,12 +233,16 @@ class AsyncSourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_source(self, id: SourceId) -> GetSourceResponse:
+    async def get_source(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
-            - id: SourceId.
+            - id: str. The unique identifier for a source in the database
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -179,8 +252,20 @@ class AsyncSourceClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/source/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetSourceResponse, _response.json())  # type: ignore

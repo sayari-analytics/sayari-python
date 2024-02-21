@@ -6,10 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from .entity_addresses import EntityAddresses
-from .entity_dob import EntityDob
-from .entity_id import EntityId
-from .entity_relationship_count import EntityRelationshipCount
+from ...generated_types.types.relationships import Relationships
 from .identifier import Identifier
 from .source_count_info import SourceCountInfo
 
@@ -24,7 +21,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     The attributes fields common to most entities.
     """
 
-    id: EntityId
+    id: str = pydantic.Field(description="Unique identifier of the entity")
     label: str = pydantic.Field(description="Display name of the entity")
     degree: int = pydantic.Field(description="Number of outgoing relationships")
     closed: bool = pydantic.Field(
@@ -32,23 +29,33 @@ class EmbeddedEntity(pydantic.BaseModel):
     )
     entity_url: str = pydantic.Field(description="Convenience URL to the entity in the API.")
     pep: bool = pydantic.Field(
-        description='True if the entity has the "Politically Exposed Person (PEP)" risk factor, otherwise false. See https://docs.sayari.com/risk/#politically-exposed-person-pep'
+        description='True if the entity has the ["Politically Exposed Person (PEP)" risk factor](/sayari-library/ontology/risk-factors#politically-exposed-person-pep-), otherwise false.'
     )
     psa_id: typing.Optional[str]
     psa_count: int = pydantic.Field(description="Number of entities that are Possibly the Same As (PSA) the entity.")
     sanctioned: bool = pydantic.Field(
-        description='True if the entity has the "Sanctioned" risk factor, otherwise false. See https://docs.sayari.com/risk/#sanctioned'
+        description='True if the entity has the ["Sanctioned" risk factor](/sayari-library/ontology/risk-factors#sanctioned), otherwise false.'
     )
-    type: Entities
+    type: Entities = pydantic.Field(description="The [entity type](/sayari-library/ontology/entities).")
     identifiers: typing.List[Identifier]
-    countries: typing.List[Country]
+    countries: typing.List[Country] = pydantic.Field(
+        description="Entity [country](/sayari-library/ontology/enumerated-types#country)"
+    )
     source_count: typing.Dict[str, SourceCountInfo] = pydantic.Field(
         description="Number of records associated with the entity, grouped by source."
     )
-    addresses: typing.List[EntityAddresses]
-    date_of_birth: typing.Optional[EntityDob]
-    relationship_count: EntityRelationshipCount
-    user_relationship_count: EntityRelationshipCount
+    addresses: typing.List[str] = pydantic.Field(
+        description="List of physical addresses associated with the entity. See more [here](/sayari-library/ontology/attributes#address)"
+    )
+    date_of_birth: typing.Optional[str] = pydantic.Field(
+        description="Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)"
+    )
+    relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
+        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
+    )
+    user_relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
+        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
+    )
     attribute_counts: typing.Any
     user_attribute_counts: typing.Any
     related_entities_count: int

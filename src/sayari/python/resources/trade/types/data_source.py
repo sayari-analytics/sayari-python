@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.source_id import SourceId
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,7 +12,7 @@ except ImportError:
 
 
 class DataSource(pydantic.BaseModel):
-    id: SourceId
+    id: str = pydantic.Field(description="The unique identifier for a source in the database")
     label: str
 
     def json(self, **kwargs: typing.Any) -> str:

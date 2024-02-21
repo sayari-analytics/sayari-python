@@ -7,7 +7,7 @@ from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from ...generated_types.types.tag import Tag
-from ...shared_types.types.source_id import SourceId
+from .source_id import SourceId
 
 try:
     import pydantic.v1 as pydantic  # type: ignore

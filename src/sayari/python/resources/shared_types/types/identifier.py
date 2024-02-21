@@ -4,6 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.both_identifier_types import BothIdentifierTypes
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -17,7 +18,9 @@ class Identifier(pydantic.BaseModel):
     """
 
     value: str
-    type: str
+    type: BothIdentifierTypes = pydantic.Field(
+        description="[Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type)"
+    )
     label: str
 
     def json(self, **kwargs: typing.Any) -> str:

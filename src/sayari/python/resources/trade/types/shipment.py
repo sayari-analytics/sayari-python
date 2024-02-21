@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...shared_types.types.record_id import RecordId
 from .data_source import DataSource
 from .hs_code_info import HsCodeInfo
 from .monetary_value import MonetaryValue
@@ -34,7 +33,7 @@ class Shipment(pydantic.BaseModel):
     sources: typing.List[DataSource]
     hs_codes: typing.List[HsCodeInfo]
     product_descriptions: typing.List[str]
-    record: RecordId
+    record: str = pydantic.Field(description="The unique identifier for a record in the database")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

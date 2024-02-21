@@ -15,7 +15,7 @@ from . import (
     trade,
     traversal,
 )
-from .auth import AccessToken, Audience, AuthResponse, ClientId, ClientSecret, ExpiresIn, GrantType, TokenType
+from .auth import Audience, AuthResponse, ClientId, ClientSecret, GrantType
 from .base_types import PaginatedResponse, SizeInfo
 from .entity import EntitySummaryResponse, GetEntityResponse
 from .generated_types import (
@@ -116,7 +116,7 @@ from .generated_types import (
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults
+from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -142,14 +142,10 @@ from .shared_types import (
     CompanyType,
     Coordinate,
     EmbeddedEntity,
-    EntityAddresses,
     EntityDetails,
-    EntityDob,
     EntityHsCode,
-    EntityId,
     EntityMatches,
     EntityRegistrationDate,
-    EntityRelationshipCount,
     EntityRelationships,
     EntityRisk,
     EntityTranslatedLabel,
@@ -159,7 +155,6 @@ from .shared_types import (
     PossiblySameAsMatch,
     PsaEntity,
     RecordDetails,
-    RecordId,
     ReferencedBy,
     ReferencedByData,
     ReferencedByDataType,
@@ -172,7 +167,6 @@ from .shared_types import (
     ShipmentArrival,
     ShipmentDepartue,
     SourceCountInfo,
-    SourceId,
     Status,
 )
 from .source import GetSourceResponse, ListSourcesResponse, Source
@@ -206,7 +200,6 @@ from .traversal import (
 )
 
 __all__ = [
-    "AccessToken",
     "AdditionalInformationData",
     "AdditionalInformationInfo",
     "AdditionalInformationProperties",
@@ -258,21 +251,16 @@ __all__ = [
     "DateOfBirthProperties",
     "EmbeddedEntity",
     "Entities",
-    "EntityAddresses",
     "EntityDetails",
-    "EntityDob",
     "EntityHsCode",
-    "EntityId",
     "EntityMatches",
     "EntityRegistrationDate",
-    "EntityRelationshipCount",
     "EntityRelationships",
     "EntityRisk",
     "EntitySearchResponse",
     "EntitySummaryResponse",
     "EntityTranslatedLabel",
     "EventInfo",
-    "ExpiresIn",
     "FilterList",
     "FinanceType",
     "FinancesData",
@@ -340,7 +328,6 @@ __all__ = [
     "RateLimitExceeded",
     "RateLimitResponse",
     "RecordDetails",
-    "RecordId",
     "RecordReferences",
     "RecordSearchResponse",
     "ReferencedBy",
@@ -388,7 +375,6 @@ __all__ = [
     "SupplierOrBuyer",
     "SupplierSearchResponse",
     "Tag",
-    "TokenType",
     "TradeFilterList",
     "TranslatedNameData",
     "TranslatedNameInfo",

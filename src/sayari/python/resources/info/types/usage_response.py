@@ -13,9 +13,9 @@ except ImportError:
 
 
 class UsageResponse(pydantic.BaseModel):
-    usage: UsageInfo
-    from_: str = pydantic.Field(alias="from")
-    to: str
+    usage: UsageInfo = pydantic.Field(description="Usage information for each endpoint")
+    from_: str = pydantic.Field(alias="from", description="The start date of the returned usage information.")
+    to: str = pydantic.Field(description="The end date of the returned usage information.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

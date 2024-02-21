@@ -6,7 +6,6 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.address_properties import AddressProperties
 from ...generated_types.types.country import Country
-from ...shared_types.types.entity_id import EntityId
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -18,7 +17,7 @@ class ShipmentMetadata(pydantic.BaseModel):
     arrival_country: typing.List[Country]
     jurisdiction: typing.List[Country]
     reference_id: str
-    entity_id: EntityId
+    entity_id: str = pydantic.Field(description="Unique identifier of the entity")
     departure_address: typing.Optional[AddressProperties]
     type: str
     sources: typing.List[str]

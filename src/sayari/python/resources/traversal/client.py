@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
 from ..generated_types.types.relationships import Relationships
@@ -26,7 +28,6 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.entity_id import EntityId
 from .types.shortest_path_response import ShortestPathResponse
 from .types.traversal_response import TraversalResponse
 
@@ -42,7 +43,7 @@ class TraversalClient:
 
     def traversal(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -71,12 +72,13 @@ class TraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Traversal endpoint returns paths from a single target entity to up to 50 directly or indirectly-related entities. Each path includes information on the 0 to 10 intermediary entities, as well as their connecting relationships. The response's explored_count field indicates the size of the graph subset the application searched. Running a traversal on a highly connected entity with a restrictive set of argument filters and a high max depth will require the application to explore a higher number of traversal paths, which may affect performance.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -90,7 +92,7 @@ class TraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
             - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
@@ -131,6 +133,8 @@ class TraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -140,39 +144,55 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "relationships": relationships,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "relationships": relationships.value if relationships is not None else None,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -202,7 +222,7 @@ class TraversalClient:
 
     def ubo(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -230,12 +250,13 @@ class TraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The UBO endpoint returns paths from a single target entity to up to 50 beneficial owners. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -247,7 +268,7 @@ class TraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
             - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
@@ -288,6 +309,8 @@ class TraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -297,38 +320,54 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -358,7 +397,7 @@ class TraversalClient:
 
     def ownership(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -386,12 +425,13 @@ class TraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Ownership endpoint returns paths from a single target entity to up to 50 entities directly or indirectly owned by that entity. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -444,6 +484,8 @@ class TraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -453,38 +495,54 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -514,7 +572,7 @@ class TraversalClient:
 
     def watchlist(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -543,12 +601,13 @@ class TraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist or are peps. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -603,6 +662,8 @@ class TraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -612,39 +673,55 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "relationships": relationships,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "relationships": relationships.value if relationships is not None else None,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -672,19 +749,43 @@ class TraversalClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def shortest_path(self, *, entities: typing.Union[str, typing.List[str]]) -> ShortestPathResponse:
+    def shortest_path(
+        self, *, entities: typing.Union[str, typing.List[str]], request_options: typing.Optional[RequestOptions] = None
+    ) -> ShortestPathResponse:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
-            params=remove_none_from_dict({"entities": entities}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "entities": entities,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
@@ -719,7 +820,7 @@ class AsyncTraversalClient:
 
     async def traversal(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -748,12 +849,13 @@ class AsyncTraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Traversal endpoint returns paths from a single target entity to up to 50 directly or indirectly-related entities. Each path includes information on the 0 to 10 intermediary entities, as well as their connecting relationships. The response's explored_count field indicates the size of the graph subset the application searched. Running a traversal on a highly connected entity with a restrictive set of argument filters and a high max depth will require the application to explore a higher number of traversal paths, which may affect performance.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -767,7 +869,7 @@ class AsyncTraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
             - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
@@ -808,6 +910,8 @@ class AsyncTraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -817,39 +921,55 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "relationships": relationships,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "relationships": relationships.value if relationships is not None else None,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -879,7 +999,7 @@ class AsyncTraversalClient:
 
     async def ubo(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -907,12 +1027,13 @@ class AsyncTraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The UBO endpoint returns paths from a single target entity to up to 50 beneficial owners. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -924,7 +1045,7 @@ class AsyncTraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
             - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
@@ -965,6 +1086,8 @@ class AsyncTraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -974,38 +1097,54 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -1035,7 +1174,7 @@ class AsyncTraversalClient:
 
     async def ownership(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -1063,12 +1202,13 @@ class AsyncTraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Ownership endpoint returns paths from a single target entity to up to 50 entities directly or indirectly owned by that entity. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -1121,6 +1261,8 @@ class AsyncTraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -1130,38 +1272,54 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -1191,7 +1349,7 @@ class AsyncTraversalClient:
 
     async def watchlist(
         self,
-        id: EntityId,
+        id: str,
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
@@ -1220,12 +1378,13 @@ class AsyncTraversalClient:
         regulatory_action: typing.Optional[bool] = None,
         law_enforcement_action: typing.Optional[bool] = None,
         xinjiang_geospatial: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
         The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist or are peps. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
@@ -1280,6 +1439,8 @@ class AsyncTraversalClient:
             - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
             - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -1289,39 +1450,55 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "min_depth": min_depth,
-                    "max_depth": max_depth,
-                    "relationships": relationships,
-                    "psa": psa,
-                    "countries": countries,
-                    "types": types,
-                    "sanctioned": sanctioned,
-                    "pep": pep,
-                    "min_shares": min_shares,
-                    "include_unknown_shares": include_unknown_shares,
-                    "exclude_former_relationships": exclude_former_relationships,
-                    "exclude_closed_entities": exclude_closed_entities,
-                    "eu_high_risk_third": eu_high_risk_third,
-                    "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                    "state_owned": state_owned,
-                    "formerly_sanctioned": formerly_sanctioned,
-                    "reputational_risk_terrorism": reputational_risk_terrorism,
-                    "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                    "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                    "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                    "reputational_risk_other": reputational_risk_other,
-                    "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                    "regulatory_action": regulatory_action,
-                    "law_enforcement_action": law_enforcement_action,
-                    "xinjiang_geospatial": xinjiang_geospatial,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "min_depth": min_depth,
+                        "max_depth": max_depth,
+                        "relationships": relationships.value if relationships is not None else None,
+                        "psa": psa,
+                        "countries": countries.value if countries is not None else None,
+                        "types": types.value if types is not None else None,
+                        "sanctioned": sanctioned,
+                        "pep": pep,
+                        "min_shares": min_shares,
+                        "include_unknown_shares": include_unknown_shares,
+                        "exclude_former_relationships": exclude_former_relationships,
+                        "exclude_closed_entities": exclude_closed_entities,
+                        "eu_high_risk_third": eu_high_risk_third,
+                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                        "state_owned": state_owned,
+                        "formerly_sanctioned": formerly_sanctioned,
+                        "reputational_risk_terrorism": reputational_risk_terrorism,
+                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                        "reputational_risk_other": reputational_risk_other,
+                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                        "regulatory_action": regulatory_action,
+                        "law_enforcement_action": law_enforcement_action,
+                        "xinjiang_geospatial": xinjiang_geospatial,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
@@ -1349,19 +1526,43 @@ class AsyncTraversalClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def shortest_path(self, *, entities: typing.Union[str, typing.List[str]]) -> ShortestPathResponse:
+    async def shortest_path(
+        self, *, entities: typing.Union[str, typing.List[str]], request_options: typing.Optional[RequestOptions] = None
+    ) -> ShortestPathResponse:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
         Parameters:
             - entities: typing.Union[str, typing.List[str]].
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
-            params=remove_none_from_dict({"entities": entities}),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "entities": entities,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore

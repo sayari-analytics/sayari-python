@@ -16,8 +16,10 @@ except ImportError:
 
 
 class RelationshipData(pydantic.BaseModel):
-    target: "EntityDetails"
-    types: typing.Dict[Relationships, typing.List[RelationshipInfo]]
+    target: EntityDetails
+    types: typing.Dict[Relationships, typing.List[RelationshipInfo]] = pydantic.Field(
+        description="Additional information for each [relationship type](/sayari-library/ontology/relationships)."
+    )
     dates: typing.List[str]
     first_observed: typing.Optional[str]
     former: typing.Optional[bool]
@@ -40,6 +42,5 @@ class RelationshipData(pydantic.BaseModel):
 
 
 from .entity_details import EntityDetails  # noqa: E402
-from .entity_relationships import EntityRelationships  # noqa: E402
 
-RelationshipData.update_forward_refs(EntityDetails=EntityDetails)
+RelationshipData.update_forward_refs()

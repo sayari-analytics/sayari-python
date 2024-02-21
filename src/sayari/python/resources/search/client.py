@@ -8,6 +8,7 @@ from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
@@ -49,6 +50,7 @@ class SearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
@@ -69,6 +71,8 @@ class SearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -89,10 +93,36 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
@@ -126,6 +156,7 @@ class SearchClient:
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
@@ -144,6 +175,8 @@ class SearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -153,19 +186,35 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "q": q,
+                        "fields": fields.value if fields is not None else None,
+                        "facets": facets,
+                        "geo_facets": geo_facets,
+                        "advanced": advanced,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
@@ -199,6 +248,7 @@ class SearchClient:
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
@@ -217,6 +267,8 @@ class SearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -235,10 +287,36 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
@@ -271,6 +349,7 @@ class SearchClient:
         fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
@@ -287,6 +366,8 @@ class SearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -296,11 +377,34 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=remove_none_from_dict(
-                {"limit": limit, "offset": offset, "q": q, "fields": fields, "facets": facets, "advanced": advanced}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "q": q,
+                        "fields": fields.value if fields is not None else None,
+                        "facets": facets,
+                        "advanced": advanced,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
@@ -340,6 +444,7 @@ class AsyncSearchClient:
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
@@ -360,6 +465,8 @@ class AsyncSearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -380,10 +487,36 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
@@ -417,6 +550,7 @@ class AsyncSearchClient:
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> EntitySearchResponse:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
@@ -435,6 +569,8 @@ class AsyncSearchClient:
             - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -444,19 +580,35 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=remove_none_from_dict(
-                {
-                    "limit": limit,
-                    "offset": offset,
-                    "q": q,
-                    "fields": fields,
-                    "facets": facets,
-                    "geo_facets": geo_facets,
-                    "advanced": advanced,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "q": q,
+                        "fields": fields.value if fields is not None else None,
+                        "facets": facets,
+                        "geo_facets": geo_facets,
+                        "advanced": advanced,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySearchResponse, _response.json())  # type: ignore
@@ -490,6 +642,7 @@ class AsyncSearchClient:
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
@@ -508,6 +661,8 @@ class AsyncSearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -526,10 +681,36 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=remove_none_from_dict({"limit": limit, "offset": offset}),
-            json=jsonable_encoder(_request),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore
@@ -562,6 +743,7 @@ class AsyncSearchClient:
         fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> RecordSearchResponse:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
@@ -578,6 +760,8 @@ class AsyncSearchClient:
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
             - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -587,11 +771,34 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=remove_none_from_dict(
-                {"limit": limit, "offset": offset, "q": q, "fields": fields, "facets": facets, "advanced": advanced}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        "q": q,
+                        "fields": fields.value if fields is not None else None,
+                        "facets": facets,
+                        "advanced": advanced,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(RecordSearchResponse, _response.json())  # type: ignore

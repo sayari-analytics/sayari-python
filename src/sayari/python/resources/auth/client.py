@@ -7,6 +7,8 @@ from json.decoder import JSONDecodeError
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
+from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.unauthorized import Unauthorized
@@ -33,7 +35,13 @@ class AuthClient:
         self._client_wrapper = client_wrapper
 
     def get_token(
-        self, *, client_id: ClientId, client_secret: ClientSecret, audience: Audience, grant_type: GrantType
+        self,
+        *,
+        client_id: ClientId,
+        client_secret: ClientSecret,
+        audience: Audience,
+        grant_type: GrantType,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResponse:
         """
         Hit the auth endpoint to get a bearer token
@@ -46,6 +54,8 @@ class AuthClient:
             - audience: Audience.
 
             - grant_type: GrantType.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics import Audience, GrantType
         from sayari-analytics.client import SayariAnalyticsApi
@@ -56,11 +66,35 @@ class AuthClient:
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
             json=jsonable_encoder(
                 {"client_id": client_id, "client_secret": client_secret, "audience": audience, "grant_type": grant_type}
+            )
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(
+                    {
+                        "client_id": client_id,
+                        "client_secret": client_secret,
+                        "audience": audience,
+                        "grant_type": grant_type,
+                    }
+                ),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
@@ -84,7 +118,13 @@ class AsyncAuthClient:
         self._client_wrapper = client_wrapper
 
     async def get_token(
-        self, *, client_id: ClientId, client_secret: ClientSecret, audience: Audience, grant_type: GrantType
+        self,
+        *,
+        client_id: ClientId,
+        client_secret: ClientSecret,
+        audience: Audience,
+        grant_type: GrantType,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthResponse:
         """
         Hit the auth endpoint to get a bearer token
@@ -97,6 +137,8 @@ class AsyncAuthClient:
             - audience: Audience.
 
             - grant_type: GrantType.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics import Audience, GrantType
         from sayari-analytics.client import AsyncSayariAnalyticsApi
@@ -107,11 +149,35 @@ class AsyncAuthClient:
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "oauth/token"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
             json=jsonable_encoder(
                 {"client_id": client_id, "client_secret": client_secret, "audience": audience, "grant_type": grant_type}
+            )
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(
+                    {
+                        "client_id": client_id,
+                        "client_secret": client_secret,
+                        "audience": audience,
+                        "grant_type": grant_type,
+                    }
+                ),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(AuthResponse, _response.json())  # type: ignore
