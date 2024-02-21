@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...generated_types.types.country import Country
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -17,7 +16,7 @@ class ShipmentAddress(pydantic.BaseModel):
     y: typing.Optional[float]
     city: typing.Optional[str]
     state: typing.Optional[str]
-    country: typing.Optional[Country]
+    country: typing.Optional[str]
     value: typing.Optional[str]
 
     def json(self, **kwargs: typing.Any) -> str:
