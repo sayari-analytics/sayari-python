@@ -17,8 +17,19 @@ class ContactType(str, enum.Enum):
     """
 
     FAX = "fax"
+    """
+    A fax number
+    """
+
     EMAIL = "email"
+    """
+    An email address
+    """
+
     URL = "url"
+    """
+    A URL
+    """
 
     def visit(
         self,

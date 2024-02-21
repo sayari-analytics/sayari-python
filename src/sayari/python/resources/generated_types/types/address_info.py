@@ -10,7 +10,7 @@ from .address_data import AddressData
 
 class AddressInfo(PaginatedResponse):
     """
-    A physical location description. Addresses may exist as a simple string ('123 South Main St., South Bend, IN 46556'), or may be in smaller chunks with separate fields ('Number: 123,' 'Street name: South Main...'). Where possible, these fields will be parsed using the Libpostal ontology (https://github.com/openvenues/libpostal#parser-labels), which facilitates more robust address analysis and comparison.
+    A physical location description. Addresses may exist as a simple string ("123 South Main St., South Bend, IN 46556"), or may be in smaller chunks with separate fields ("Number: 123", "Street name: South Main ..."). Where possible, these fields will be parsed using the Libpostal ontology (https://github.com/openvenues/libpostal#parser-labels), which facilitates more robust address analysis and comparison.
     """
 
     data: typing.List[AddressData]

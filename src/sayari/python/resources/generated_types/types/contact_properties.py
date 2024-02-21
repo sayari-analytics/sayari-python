@@ -16,8 +16,8 @@ class ContactProperties(pydantic.BaseModel):
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
     to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    type: typing.Optional[ContactType]
-    value: str = pydantic.Field(description="The contact detail itself (e.g. 'jdoe@sayari.com,' '202-555-5555')")
+    type: typing.Optional[ContactType] = pydantic.Field(description="Email, fax, phone number, or URL")
+    value: str = pydantic.Field(description='The contact detail itself (e.g., "jdoe@sayari.com", "202-555-5555")')
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

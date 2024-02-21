@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class MeasurementType(str, enum.Enum):
     """
-    The type of measurement, e.g. net weight
+    Measurement type enums refer to the type of measurement applied to the entity, e.g., net weight.
     """
 
     GROSS_WEIGHT = "gross_weight"

@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class IdentifierType(str, enum.Enum):
     """
-    All strong (unique) identifiers in Sayari's database
+    Describes the real-world type of an identifier value that uniquely (strongly) identifies an entity. These are often associated with a governmental organization within a certain jurisdiction. Some of these types are deprecated, meaning they are no longer used.
     """
 
     CN_TIANYANCHA_COMPANY_ID = "cn_tianyancha_company_id"
@@ -38,7 +38,7 @@ class IdentifierType(str, enum.Enum):
 
     CN_QICHACHA_INTERNAL_ID = "cn_qichacha_internal_id"
     """
-    Part of a qichacha URL, used to uniquely identify people within the site
+    Part of a Qichacha URL, used to uniquely identify people within the site
     """
 
     CN_HK_CR_NUMBER = "cn_hk_cr_number"
@@ -53,17 +53,17 @@ class IdentifierType(str, enum.Enum):
 
     BH_CR_NUMBER = "bh_cr_number"
     """
-    A Bahraini CRNumber
+    A Bahraini CR Number
     """
 
     BH_CR_NUMBER_AND_BRANCH = "bh_cr_number_and_branch"
     """
-    A Bahraini CRNumber combined with a Bahraini branch number
+    A Bahraini CR Number combined with a Bahraini branch number
     """
 
     JO_INTERNAL_ID = "jo_internal_id"
     """
-    Deprecated use jo_national_institution_number
+    Deprecated; use jo_national_institution_number
     """
 
     JO_NATIONAL_INSTITUTION_NUMBER = "jo_national_institution_number"
@@ -73,7 +73,7 @@ class IdentifierType(str, enum.Enum):
 
     JO_INSTITUTION_NUMBER = "jo_institution_number"
     """
-    Deprecated use weak id jor_sol_prop_institution_number
+    Deprecated; use weak ID jor_sol_prop_institution_number
     """
 
     MALTA_COMPANY_NUMBER = "malta_company_number"
@@ -93,7 +93,7 @@ class IdentifierType(str, enum.Enum):
 
     UK_COMPANY_NUMBER = "uk_company_number"
     """
-    The pattern was sourced from the snapshot file documentation provided to us. When the first two characters are not digits, they have a special meaning
+    A UK company registration number. The pattern was sourced from the snapshot file documentation provided to us. When the first two characters are not digits, they have a special meaning.
     """
 
     UK_FIRM_REFERENCE_NUMBER = "uk_firm_reference_number"
@@ -108,25 +108,29 @@ class IdentifierType(str, enum.Enum):
 
     MX_RFC_PERSON = "mx_rfc_person"
     """
-    A tax ID
+    A tax ID issued by the Mexican Tax Administration Service
     """
 
     MX_CURP = "mx_curp"
+    """
+    A unique identity code for citizens and residents of Mexico
+    """
+
     MX_RFC_COMPANY = "mx_rfc_company"
     MX_OFFICE_FME = "mx_office_fme"
     RU_INN = "ru_inn"
     """
-    A Russian tax ID. Individuals get a 12 digit number, companies get 10 digits
+    A Russian tax ID. Individuals get a 12-digit number; companies get 10 digits.
     """
 
     RU_OGRN = "ru_ogrn"
     """
-    A Russian company ID. 12 digits
+    A Russian company registration number with 12 digits
     """
 
     VEN_SAREN_INTERNAL_EMPLOYER_NUMBER = "ven_saren_internal_employer_number"
     """
-    internal company ID
+    Internal company ID
     """
 
     BRA_CNPJ = "bra_cnpj"
@@ -136,45 +140,49 @@ class IdentifierType(str, enum.Enum):
 
     VEN_RIF = "ven_rif"
     """
-    Venezuelan tax register information number -- for companies, and sometimes people
+    Venezuelan tax ID for companies and individuals
     """
 
     VEN_CEDULA_NUMBER = "ven_cedula_number"
+    """
+    A Venezuelan national ID number for individuals
+    """
+
     MDV_REGISTRATION_NUMBER = "mdv_registration_number"
     """
-    Maldivian corporate registration number.
+    Maldives corporate registration number
     """
 
     IND_DIRECTOR_ID_NUMBER = "ind_director_id_number"
     """
-    DIN Number or Director Identification Number is a unique 8 digit number that is required for any existing or proposed Director of a Company
+    A unique eight-digit identification number that is required for any existing or proposed director of a company in India
     """
 
     IND_PERMANENT_ACCOUNT_NUMBER = "ind_permanent_account_number"
     """
-    A permanent account number (PAN) is a ten-digit alphanumeric number, issued in the form of a laminated card, by the Indian Income Tax Department, to any "person" who applies for it or to whom the department allots the number without an application.
+    A permanent account number (PAN) is a 10-digit alphanumeric tax ID issued by the Indian Income Tax Department.
     """
 
     IND_CORPORATE_ID_NUMBER = "ind_corporate_id_number"
     """
-    A unique identification number assigned by Registrar of Companies (ROC) functioning in various states under Ministry of Corporate Affairs (MCA), Govt. of India
+    A unique identification number assigned by the Registrar of Companies (ROC) in various states under the Indian Ministry of Corporate Affairs (MCA)
     """
 
     KAZ_TIN = "kaz_tin"
     """
-    A tax ID number
+    A Kazakh tax ID number
     """
 
     KAZ_BIN = "kaz_bin"
     """
-    A business identification number
+    A 12-digit Kazakh business identification number
     """
 
     KAZ_STATE_REG_NUM = "kaz_state_reg_num"
     KAZ_OKPO_NUM = "kaz_okpo_num"
     KAZ_IDENTIFIER = "kaz_identifier"
     """
-    This is a poorly understood identifer that appears to be unique.
+    A nine-digit Kazakh identifier
     """
 
     RKS_REGISTRATION_NUMBER = "rks_registration_number"
@@ -184,7 +192,7 @@ class IdentifierType(str, enum.Enum):
 
     GRC_GEMI_NUMBER = "grc_gemi_number"
     """
-    General Electronic Commercial Registry (G.E.MI.) number for all legal forms of businesses in Greece'
+    General Electronic Commercial Registry (G.E.MI.) number for all legal forms of businesses in Greece
     """
 
     VEN_RNC_NUMBER = "ven_rnc_number"
@@ -193,16 +201,20 @@ class IdentifierType(str, enum.Enum):
     """
 
     USA_VA_REG_ID = "usa_va_reg_id"
+    """
+    A Virginia State Corporation Commission entity number
+    """
+
     USA_NY_REG_ID = "usa_ny_reg_id"
     USA_FEI_NUMBER = "usa_fei_number"
     """
-    Number assigned by the IRS to businesses in the US for identification, also known as EIN
+    USA IRS employer ID number
     """
 
     UKR_MOJ_ID = "ukr_moj_id"
     MUS_REG_ID = "mus_reg_id"
     """
-    Mauritius Business Registration No.
+    Mauritius business registration number
     """
 
     UK_TITLE_NUMBER = "uk_title_number"
@@ -222,773 +234,813 @@ class IdentifierType(str, enum.Enum):
 
     KGZ_REG_NUMBER = "kgz_reg_number"
     """
-    Kyrgyzstan registration number
+    Kyrgyzstan company registration number
     """
 
     CN_IMPORTEXPORT_CODE = "cn_importexport_code"
     """
-    A code required by Chinese customs for imports and exports. It can be many different things, inclduing the USCC or OC for Chinese companies or the SSN or EIN for US companies.
+    China customs code for import and export. May include China USCC; China OC; U.S. SSN; or U.S. EIN.
     """
 
     PRK_ENTITY_ID = "prk_entity_id"
     """
-    A code used in the North Korea - China trade data.
+    North Korea-China trade data ID code
     """
 
     PRK_REGISTRATION_ID = "prk_registration_id"
     YUGOSLAV_MASTER_CITIZEN_NUM = "yugoslav_master_citizen_num"
     """
-    A unique id number assigned to every citizen of former Yugoslav republics.
+    Former Yugoslav republic natural person ID number
     """
 
     BFA_ENTITY_ID = "bfa_entity_id"
     """
-    Some kind of ID for burkin fasa
+    Burkina Faso tax ID number
     """
 
     AFGHAN_TIN_NUMBER = "afghan_tin_number"
     """
-    A unique id number assigned to all individuals, companies and organizations that operate in Afghanistan.
+    Afghanistan tax ID number
     """
 
     AFG_BUSINESS_LICENSE = "afg_business_license"
     """
-    A unique id number assigned to all individuals, companies and organizations that operate in Afghanistan.
+    Afghanistan natural and legal person business license ID code
     """
 
     MDG_NIF_NUMBER = "mdg_nif_number"
     """
-    A tax identifier number in Madagascar.
+    Madagascar tax ID number
     """
 
     MDG_STAT_NUMBER = "mdg_stat_number"
     MDG_RCS_NUMBER = "mdg_rcs_number"
     """
-    A tax identifier number in Madagascar.
+    Madagascar corporate registry ID number
     """
 
     LVA_PERSONAL_CODE = "lva_personal_code"
     """
-    See https://en.wikipedia.org/wiki/National_identification_number#Latvia
+    Latvia natural person ID number
     """
 
     IBAN = "iban"
     """
-    See https://en.wikipedia.org/wiki/International_Bank_Account_Number
+    Unique ID number. Assigned to individual bank accounts for use in cross-border financial transactions.
     """
 
     LVA_REG_NUMBER = "lva_reg_number"
     """
-    Latvian corporate registration number
+    Latvia corporate registry ID number
     """
 
     TWN_UNIFIED_NUMBER = "twn_unified_number"
     """
-    A business identifier number in Taiwan
+    Taiwan tax ID number
     """
 
     LUX_RCS_NUMBER = "lux_rcs_number"
     """
-    An identifier from the Trade and Companies Register (RCS) in Luxembourg
+    Luxembourg corporate registry ID number
     """
 
     MKD_EMBS_NUMBER = "mkd_embs_number"
     """
-    A unique identifier for Macedonian companies called Edinstven maticen broj na subjektot (EMBS)
+    North Macedonia corporate registry ID number
     """
 
     MKD_EMBS_BRANCH_NUMBER = "mkd_embs_branch_number"
     """
-    A unique identifier for branches of Macedonian companies. It begins with the MKD EMBS number, then a '/', then a number for the branch
+    North Macedonia corporate registry ID number
     """
 
     MDA_IDNO_NUMBER = "mda_idno_number"
     """
-    A unique state identifier in Moldova assigned to legal entities that also serves as a fiscal code
+    Moldova legal person ID number
     """
 
     URY_RUC_NUMBER = "ury_ruc_number"
     """
-    The Single Register of Taxpayers id for customers of the Tax Administration
+    Uruguay tax ID number
     """
 
     CHE_UID_NUMBER = "che_uid_number"
     """
-    Standardized unique business id number for all companies in Switzerland
+    Switzerland business registry ID number
     """
 
     SLV_COMMERCIAL_REG_NUMBER = "slv_commercial_reg_number"
     """
-    Registration number for people and companies from the El Salvador commercial register
+    El Salvador commercial registry ID number
     """
 
     SLV_UID_NUMBER = "slv_uid_number"
     """
-    Documento Unico de Identidad number from El Salvador
+    El Salvador natural person ID number
     """
 
     MATO_GROSSO_LEGAL_ID = "mato_grosso_legal_id"
     LEI = "lei"
     """
-    See https://www.leiroc.org/lei.htm
+    Unique global ID code. Assigned to legal entities participating in financial transactions.
     """
 
     VAT = "vat"
     """
-    See https://en.wikipedia.org/wiki/VAT_identification_number
+    Value-added tax ID number
     """
 
     ITA_FISCAL_CODE = "ita_fiscal_code"
     """
-    See https://en.wikipedia.org/wiki/Italian_fiscal_code_card
+    Italy tax ID code
     """
 
     RIO_DE_JANEIRO_LEGAL_ID = "rio_de_janeiro_legal_id"
     ISL_TIN_NUMBER = "isl_tin_number"
     """
-    Iceland tax id no. See https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/Iceland-TIN.pdf
+    Iceland natural and legal person ID number
     """
 
     LAO_ENTERPRISE_NUMBER = "lao_enterprise_number"
     """
-    Laos corporate regisry enterprise number
+    Laos corporate registry ID number
     """
 
     SVK_ICO_NUMBER = "svk_ico_number"
     """
-    Company id number for businesses registered in the Slovak Republic
+    Slovakia legal person ID number
     """
 
     KHM_TIN_NUMBER = "khm_tin_number"
     """
-    Cambodia tax identification number
+    Cambodia tax ID number
     """
 
     CZE_ICO_NUMBER = "cze_ico_number"
     """
-    Czech Republic id number (business register code) of an economic subject
+    Czechia legal person ID number
     """
 
     IRN_NATIONAL_ID = "irn_national_id"
     """
-    Iranian national identifier number
+    Iran natural and legal person ID number
     """
 
     ECU_RUC_NUMBER = "ecu_ruc_number"
     """
-    Ecuadorian unique taxpayers registry number
+    Ecuador tax ID number
     """
 
     GRC_VAT_NUMBER = "grc_vat_number"
     """
-    Greek VAT number
+    Greece tax ID number
     """
 
     CAN_CORPORATION_NUMBER = "can_corporation_number"
     """
-    Unique Canada ID number. Assigned to federal legal entities registered with Corporations Canada.
+    Canada federal corporate registry ID number
     """
 
     CAN_CRA_PROGRAM_ACCOUNT_NUMBER = "can_cra_program_account_number"
     """
-    Canadian Revenue Agency program account number; See https://www.thebalancesmb.com/what-is-the-canada-revenue-agency-cra-business-number-2947322
+    Canada tax reporting ID code
     """
 
     MNE_PIB = "mne_pib"
     """
-    Tax identification number in Montenegro
+    Montenegro tax ID number
     """
 
     CHL_CEDULA_NUMBER = "chl_cedula_number"
     """
-    National Identification Number - RUN (Rol Único Nacional) or RUT (Rol Único Tributario) in Chile
+    Chile tax ID Number
     """
 
     BRA_CASE_NUMBER = "bra_case_number"
     """
-    Case number for Brazilian legal matters, this is a first pass and is pretty generic. May need modification later.
+    Brazil litigation case ID number
     """
 
     IND_LLPIN = "ind_llpin"
     """
-    Limited Liability Partnership Identification Number. See https://www.corporate-cases.com/2012/01/Corporate-Identity-Number.html
+    India limited liability partnership ID number
     """
 
     IND_FCRN = "ind_fcrn"
     """
-    Foreign Company Registration Number. See https://www.corporate-cases.com/2012/01/Corporate-Identity-Number.html
+    India foreign company registration number
     """
 
     BMU_REGISTRATION_NUMBER = "bmu_registration_number"
     """
-    Bermuda registration number
+    Bermuda corporate registry ID number
     """
 
     BRA_CPF_NUMBER = "bra_cpf_number"
     """
-    Individual tax number in Brazil
+    Brazil natural person tax ID number
     """
 
     IRN_NATIONAL_NUMBER = "irn_national_number"
     """
-    Deprecated use irn_national_id
+    Iran natural person ID number
     """
 
     CHN_CUSTOMS_REGISTRATION_CODE = "chn_customs_registration_code"
     """
-    Chinese custums registration code. Downgraded to weak identifier.
+    China customs import and export registration code
     """
 
     LIE_PUBLIC_REG_NO = "lie_public_reg_no"
     """
-    Liechtenstein Public Register number
+    Liechtenstein corporate registry ID number
     """
 
     CN_TAX_IDENTIFICATION_NUMBER = "cn_tax_identification_number"
     """
-    Chinese tax identification number
+    China tax ID number
     """
 
     MAC_REGISTRATION_NO = "mac_registration_no"
     """
-    Macau business registration number
+    Macao corporate registry ID number
     """
 
     SIGER_INTERNAL_ID = "siger_internal_id"
     """
-    Internal Siger id comprised of office id_fme_data-rk
+    Mexico corporate registry internal ID number
     """
 
     LBN_NATIONAL_ID = "lbn_national_id"
     """
-    Lebanese national ID number. Last digit
+    Lebanon natural person ID number
     """
 
     INT_MARITIME_ORG_ID = "int_maritime_org_id"
     """
-    The International Maritime Organization (IMO) number is a unique reference for ships, registered ship owners and management companies
+    Unique global ID number. Assigned to ships, registered ship owners, and management companies.
     """
 
     RU_SHIP_REGISTER_ID = "ru_ship_register_id"
     """
-    ID number for the Russian Maritime Register of Shipping (RS)
+    Russia vessel registry ID number
     """
 
     SAYARI_INTERNAL_IDENTIFIER = "sayari_internal_identifier"
     """
-    A UUID used to merge entities internally
+    UID used to merge entities internally
     """
 
     ARUBA_CHAMBER_OF_COMMERCE_ID = "aruba_chamber_of_commerce_id"
     """
-    Also known as KvK number.
+    Aruba chamber of commerce ID code
     """
 
     IMO_NO = "imo_no"
     """
-    International Maritime Organization number
+    Unique global ID number. Assigned to ships, registered ship owners, and management companies.
     """
 
     VGB_COMPANY_NUMBER = "vgb_company_number"
     """
-    British Virgin Islands company number.
+    British Virgin Islands corporate registry ID number
     """
 
     YEM_COC_REGISTRATION_NUMBER = "yem_coc_registration_number"
     """
-    Yemeni chamber of commerce registration number
+    Yemen chamber of commerce ID number
     """
 
     MYS_ID_CARD_NO = "mys_id_card_no"
     """
-    National Registration Identification Card Number NRIC for Malaysia
+    Malaysia natural person ID number
     """
 
     MYS_COMPANY_REG_NO = "mys_company_reg_no"
     """
-    Malaysia Business Registration Number
+    Malaysia corporate registry ID number
     """
 
     PRY_RUC_NUMBER = "pry_ruc_number"
     """
-    Paraguay RUC number for companies and people
+    Paraguay tax ID number
     """
 
     PRY_CEDULA_NUMBER = "pry_cedula_number"
     """
-    Paraguay cedula number for people
+    Paraguay natural person ID number
     """
 
     PRY_OLD_RUC_NUMBER = "pry_old_ruc_number"
     """
-    Paraguay previous RUC number format
+    Paraguay tax ID number
     """
 
     RCCM_NO = "rccm_no"
     """
-    Register of Commerce and Personal Propery Transactions Number (West Africa)
+    OHADA corporate registry ID number
     """
 
     BRA_RG_NUMBER = "bra_rg_number"
     """
-    National id number for people in Brazil
+    Brazil natural person ID number
     """
 
     NINEA_NO = "ninea_no"
     """
-    National identification number for enterprises and associations (Senegal)
+    Senegal tax ID number
     """
 
     ALB_TAX_ID = "alb_tax_id"
+    """
+    Albania tax ID number
+    """
+
     ALB_REGISTRATION_NUMBER = "alb_registration_number"
     ARG_IGJ_NUMBER = "arg_igj_number"
     """
-    Unique company id from Inspección General de Justicia in Argentina
+    Argentina corporate registry ID number
     """
 
     ARG_DNI_NUMBER = "arg_dni_number"
     """
-    A nationally issued identification number for people in Argentina
+    Argentina natural person ID number
     """
 
     ARG_CUIT_NUMBER = "arg_cuit_number"
     """
-    Single tax identification code in Argentina for any individual that initiates an economic activity
+    Argentina tax ID number
     """
 
     ARG_CUIL_NUMBER = "arg_cuil_number"
     """
-    Unified Labor Identification Code in Argentina that is required for Social Security benefits
+    Argentina social security ID number
     """
 
     ARG_CDI_NUMBER = "arg_cdi_number"
     """
-    Unique id issued to individuals in Argentina by the AFIP who don't require a CUIT or CUIL
+    Argentina natural person ID number
     """
 
     BIH_MBS_NUMBER = "bih_mbs_number"
     """
-    Bosnia and Herzegovenia business register registration number
+    Bosnia and Herzegovina corporate registry ID number
     """
 
     BIH_JIB_NUMBER = "bih_jib_number"
+    """
+    Bosnia and Herzegovina legal person ID number
+    """
+
     BIH_CUSTOMS_NUMBER = "bih_customs_number"
     USA_PUERTO_RICO_REGISTER_NUMBER = "usa_puerto_rico_register_number"
+    """
+    USA Puerto Rico corporate registry ID number
+    """
+
     DJI_RCS_NUMBER = "dji_rcs_number"
+    """
+    Djibouti corporate registry ID number
+    """
+
     CRI_CEDULA_NUMBER = "cri_cedula_number"
+    """
+    Costa Rica natural person ID number
+    """
+
     MOZ_ID_NUMBER = "moz_id_number"
     """
-    Number of National ID card for Mozambique
+    Mozambique natural person ID number
     """
 
     MOZ_NUIT_PERSON = "moz_nuit_person"
     """
-    Mozambique Taxpayer Single Identification Number for a person
+    Mozambique natural person tax ID number
     """
 
     MOZ_NUIT_CO = "moz_nuit_co"
     """
-    Mozambique Taxpayer Single Identification Number for a company
+    Mozambique legal person tax ID number
     """
 
     MOZ_PASSPORT = "moz_passport"
     """
-    Mozambique Passport Number
+    Mozambique passport number
     """
 
     MOZ_DIRE_NO = "moz_dire_no"
     """
-    Mozambique foreign residence permit number
+    Mozambique foreign resident ID number
     """
 
     MOZ_VOTER_NO = "moz_voter_no"
     """
-    Mozambique voter number
+    Mozambique voter ID number
     """
 
     MOZ_NUEL_NO = "moz_nuel_no"
     """
-    Mozambique company registration number
+    Mozambique corporate registry ID number
     """
 
     IRQ_VOTER_ID = "irq_voter_id"
+    """
+    Iraq voter ID number
+    """
+
     JOR_VOTER_CARD_NO = "jor_voter_card_no"
     """
-    Jordan voter card number
+    Jordan voter ID number
     """
 
     JOR_ID_NO = "jor_id_no"
     """
-    Deprecated use jo_national_institution_number
+    Deprecated; use jo_national_institution_number
     """
 
     PER_RUC_NO = "per_ruc_no"
     """
-    Peru unique taxpayer registration number
+    Peru tax ID number
     """
 
     ECU_COMPANY_ID = "ecu_company_id"
+    """
+    Ecuador corporate registry ID number
+    """
+
     USA_NY_DOS_ID = "usa_ny_dos_id"
+    """
+    USA New York corporate registry ID number
+    """
+
     BFA_RCCM_NUMBER = "bfa_rccm_number"
+    """
+    OHADA corporate registry ID number
+    """
+
     FL_PROP_FOLIO = "fl_prop_folio"
     """
-    Florida broward county property folio number
+    USA Florida Broward County parcel ID number
     """
 
     QAT_QFC_NUMBER = "qat_qfc_number"
+    """
+    Qatar corporate registry ID number
+    """
+
     GRC_AFM_NUMBER = "grc_afm_number"
     """
-    Greek AFM number
+    Greece tax ID number
     """
 
     VNM_ENTERPRISE_CODE = "vnm_enterprise_code"
     """
-    Vietnam enterprise code
+    Vietnam tax ID number
     """
 
     THA_REGISTRATION_NO = "tha_registration_no"
     """
-    Thai registration number
+    Thailand corporate registry ID number
     """
 
     VNM_CITIZENSHIP_NO = "vnm_citizenship_no"
     """
-    https://vi.wikipedia.org/wiki/C%C4%83n_c%C6%B0%E1%BB%9Bc_c%C3%B4ng_d%C3%A2n_(Vi%E1%BB%87t_Nam)
+    Vietnam natural person ID number
     """
 
     VNM_PERSON_ID_NO = "vnm_person_id_no"
     """
-    https://vi.wikipedia.org/wiki/Ch%E1%BB%A9ng_minh_nh%C3%A2n_d%C3%A2n
+    Vietnam natural person ID number
     """
 
     ARG_LIB_CIVICA_NUMBER = "arg_lib_civica_number"
     """
-    ID number for Argentinian women before the DNI number
+    Argentina female natural person ID number
     """
 
     ARG_LIB_ENROLAMIENTO_NUMBER = "arg_lib_enrolamiento_number"
     """
-    ID number for Argentinian men before the DNI number
+    Argentina male natural person ID number
     """
 
     NZL_NZBN = "nzl_nzbn"
     """
-    New Zealand Business Number
+    New Zealand business registry ID number
     """
 
     NZL_CO_NO = "nzl_co_no"
     """
-    New Zealand company number
+    New Zealand corporate registry ID number
     """
 
     USA_OFAC_SDN_NUMBER = "usa_ofac_sdn_number"
     """
-    OFAC Unique Identification Number
+    USA Treasury sanctions list ID number
     """
 
     SWIFT_BIC_CODE = "swift_bic_code"
     """
-    International bank code
+    Unique global ID code. Assigned to financial and non-financial institutions for use addressing messages, routing business transactions, and identifying business parties.
     """
 
     DUNS_NUMBER = "duns_number"
     """
-    DNB unique ID
+    Unique global ID code. Assigned by Dun & Bradstreet.
     """
 
     BITCOIN_ADDRESS = "bitcoin_address"
     """
-    Bitcoin bitcoin address
+    Unique digital currency address
     """
 
     LITECOIN_ADDRESS = "litecoin_address"
     """
-    Litecoin address
+    Unique digital currency address
     """
 
     RUS_MICEX_CODE = "rus_micex_code"
     """
-    Russia Moscow Stock exchange code
+    Russia securities ID code
     """
 
     TX_PROP_ID = "tx_prop_id"
     """
-    Texas Property ID
+    USA Texas Bexar County property ID number
     """
 
     TX_PACS_ID = "tx_pacs_id"
     """
-    Texas PACS Internal ID
+    USA Texas Bexar County property owner ID number
     """
 
     TX_LAND_ID = "tx_land_id"
     """
-    Texas Land Segment ID
+    USA Texas land segment ID number
     """
 
     PNG_IPA_REG_ID = "png_ipa_reg_id"
     """
-    Registration number from Papua New Guinea Investment Promotion Authority
+    Papua New Guinea business registry ID number
     """
 
     GTM_NIT_NUMBER = "gtm_nit_number"
     """
-    Guatemala tax identification number
+    Guatemala tax ID number
     """
 
     GTM_CUI_NUMBER = "gtm_cui_number"
     """
-    Guatemala unique identification code for people
+    Guatemala natural person ID number
     """
 
     DOM_RNC = "dom_rnc"
     """
-    A Dominican business tax ID. https://www.jpmorgan.com/tss/General/Dominican_Republic/1424621856282
+    Dominican Republic tax ID number
     """
 
     QAT_CR_NUMBER = "qat_cr_number"
     """
-    Company register number in Qatar
+    Qatar corporate registry ID number
     """
 
     ISIN = "isin"
     """
-    An International Securities Identification Number (ISIN) uniquely identifies a security. First two digits are ISO country code
+    Unique global ID code. Assigned to every security issuance for use facilitating the trading, clearing, and settlement of securities transactions.
     """
 
     USA_FL_DOCUMENT_NO = "usa_fl_document_no"
     """
-    Unique company identifier for the Florida corporate registry
+    USA Florida corporate registry ID code
     """
 
     USA_FL_FIC_NAME_REG_NO = "usa_fl_fic_name_reg_no"
     """
-    Unique identifier for fictitious name registrations in Florida
+    USA Florida corporate registry ID code
     """
 
     BRA_SERVIDOR_PORTAL = "bra_servidor_portal"
     """
-    Brazilian Federal Executive PEP identification number
+    Brazil federal public servant internal ID number
     """
 
     BRA_CODIGO_DA_UNIDADE_ORGANIZACIONAL = "bra_codigo_da_unidade_organizacional"
     """
-    Brazilian Federal Executive PEP organizational unit code
+    Brazil federal public servant agency unit ID code
     """
 
     USA_SEC_CIK_NUMBER = "usa_sec_cik_number"
     """
-    The Central Index Key (CIK) is used on the SEC's computer systems to identify corporations and individual people who have filed disclosure with the SEC. It's 10 digits with 0 fill in front.
+    USA SEC disclosure filer ID number
     """
 
     HR_MBS = "hr_mbs"
     """
-    Croatian Court Business Register
+    Croatia corporate registry ID number
     """
 
     HR_OIB = "hr_oib"
     """
-    Croatian Personal & Company Identification Number
+    Croatia natural and legal person ID number
     """
 
     SLV_NUMERO_IDENTIFICACION_TRIBUTARIA = "slv_numero_identificacion_tributaria"
     """
-    The Salvadorian Número de Identificación Tributaria, used on SLV commercial register
+    El Salvador tax ID number
     """
 
     SLV_MCAS = "slv_mcas"
     """
-    The Salvadorian Matrícula Consular (MCAS/CID), used on SLV commercial register
+    El Salvador corporate registry ID number
     """
 
     AUS_COMPANY_NUMBER = "aus_company_number"
     """
-    Every company in Australia is issued with a unique, nine-digit number when registered. This is an Australian Company Number (ACN) and must be displayed on all company documents.
+    Australia corporate registry ID number
     """
 
     AUS_BUSINESS_NUMBER = "aus_business_number"
     """
-    The Australian business number (ABN) is a unique 11-digit identifier that makes it easier for businesses and all levels of government to interact.
+    Australia business registry ID number
     """
 
     DEU_REGISTERNUMMER = "deu_registernummer"
     """
-    A unique ID created from a combination of the Handelsregisternummer, the company number given to each company listed in the Handelsregister, and the district court XJustiz ID. This is done because the Handelsregisternummer is not unique on its own.
+    Germany commercial registry ID number concatenated with registry district court XJustiz ID code
     """
 
     USA_IRS_EIN = "usa_irs_ein"
     """
-    The Internal Revenue Service Employer Identification Number
+    USA IRS employer ID number
     """
 
     HONG_KONG_CASE_NUMBER = "hong_kong_case_number"
     """
-    Number used to identify a Hong Kong judicial case
+    Hong Kong case ID number
     """
 
     IRN_COC_INTERNAL_ID = "irn_coc_internal_id"
     """
-    Internal ID that can be used to link related companies within source
+    Iran Tehran chamber of commerce internal ID number
     """
 
     PAN_FOLIO_FICHA_ID = "pan_folio_ficha_id"
     """
-    Unique identifier for entities in the Panamanian public registry.
+    Panama corporate registry ID number
     """
 
     PAN_CEDULA_NUMBER = "pan_cedula_number"
     """
-    Panamanian cedula number
+    Panama natural person ID number
     """
 
     XXX_CEDAR_ROSE_UID = "xxx_cedar_rose_uid"
     """
-    Cedar Rose UID
+    Cedar Rose entity internal ID number
     """
 
     XXX_RCCM = "xxx_rccm"
     """
-    West African Register of Commerce and Personal Property Transactions, originally found in BEN
+    OHADA corporate registry ID number
     """
 
     VNM_DICHVUTHONGTIN_INTERNAL_ID = "vnm_dichvuthongtin_internal_id"
     """
-    Internal identifier to dichvuthongtin corporate register
+    Vietnam business registry internal ID number
     """
 
     XXX_INTEL_INTERNAL_ID = "xxx_intel_internal_id"
     """
-    Internal identifier for Sayari Intel entities
+    Sayari Intel entity internal ID number
     """
 
     USA_WASHINGTON_STATE_UBI = "usa_washington_state_ubi"
     """
-    The State of Washington Business License Service defines a UBI number as “a 9-digit number that registers you with several state agencies and allows you to do business in Washington State.
+    USA Washington business registry ID number
     """
 
     NGA_REGISTRATION_NUMBER = "nga_registration_number"
     """
-    Nigerian corporate registration number
+    Nigeria corporate registry ID code
     """
 
     NG_CHECK_INTERNAL_ID = "ng_check_internal_id"
     """
-    ng-check.com internal id
+    NG-Check entity internal ID number
     """
 
     NYC_BBL = "nyc_bbl"
     """
-    New York City City Borough Block and Lot or Property ID
+    USA New York City real property parcel ID number
     """
 
     NYC_CRFN = "nyc_crfn"
     """
-    New York City City Register File Number
+    USA New York New York City real property registry ID number
     """
 
     TX_CORP_FILE_NUM = "tx_corp_file_num"
     """
-    Texas Corporate Registry Filing Number
+    USA Texas corporate registry ID number
     """
 
     TX_TAX_ID = "tx_tax_id"
     """
-    Texas Comptroller's Taxpayer Number
+    USA Texas tax ID number
     """
 
     USA_GA_BUSINESS_ID = "usa_ga_business_id"
     """
-    Georgia state business identification number
+    USA Georgia business registry internal ID number
     """
 
     PHL_PSE_ID = "phl_pse_id"
     """
-    Philippines stock exchange company ID
+    Philippines securities issuer internal ID number
     """
 
     PHL_SEC_ID = "phl_sec_id"
     """
-    Philippines Securities and Exchange Commission ID
+    Philippines business registry ID number
     """
 
     PHL_TIN = "phl_tin"
     """
-    Philippines Tax ID http://www.ntrc.gov.ph/images/journal/j20141112a.pdf Optional last three digits is branch code
+    Philippines tax ID number
     """
 
     AFG_PASSPORT = "afg_passport"
     """
-    Afghan passport number
+    Afghanistan passport number
     """
 
     IRN_PASSPORT = "irn_passport"
     """
-    Iranian passport number
+    Iran passport number
     """
 
     KWT_PASSPORT = "kwt_passport"
     """
-    Kuwaiti passport number
+    Kuwait passport number
     """
 
     LBY_PASSPORT = "lby_passport"
     """
-    Libyan passport number
+    Libya passport number
     """
 
     PAK_PASSPORT = "pak_passport"
     """
-    Pakistani passport number
+    Pakistan passport number
     """
 
     RUS_PASSPORT = "rus_passport"
     """
-    Russian passport number
+    Russia passport number
     """
 
     TUN_PASSPORT = "tun_passport"
     """
-    Tunisian passport number
+    Tunisia passport number
     """
 
     YEM_PASSPORT = "yem_passport"
     """
-    Yemeni passport number
+    Yemen passport number
     """
 
     UN_SANCTION_PRN = "un_sanction_prn"
     """
-    UN Security Council sanction list permanent reference number https://www.un.org/securitycouncil/content/un-sc-consolidated-list#identifiers%20and%20acronyms
+    UN Security Council sanctions list ID code
     """
 
     EU_SANCTION_RN = "eu_sanction_rn"
     """
-    EU sanction reference number
+    EU European Commission sanctions list ID number
     """
 
     CA_LP_FILE_NUM = "ca_lp_file_num"
     """
-    California LP/LLC file number
+    USA California business registry ID number
     """
 
     TX_ENTITY_FILING_NUM = "tx_entity_filing_num"
     """
-    Texas Corporate Registry entity filing number
+    USA Texas corporate registry ID number
     """
 
     USA_SOCIAL_SECURITY_NUMBER = "usa_social_security_number"
     """
-    United States of America social security number (SSN)
+    USA social security ID number
     """
 
     USA_WY_PARTY_ID = "usa_wy_party_id"
     """
-    WY internal party ID
+    USA Wyoming business registry ID number
     """
 
     USA_WY_FILING_ID = "usa_wy_filing_id"
     """
-    WY internal filing ID (primary key)
+    USA Wyoming business registry ID number
     """
 
     USA_WY_INTERNAL_FILING_ID = "usa_wy_internal_filing_id"
@@ -1003,42 +1055,42 @@ class IdentifierType(str, enum.Enum):
 
     USA_OR_REGNO = "usa_or_regno"
     """
-    Oregon corporate registry registration number
+    USA Oregon business registry ID number
     """
 
     USA_NV_CORPNO = "usa_nv_corpno"
     """
-    Nevada Corporation Number
+    USA Nevada corporate registry ID code
     """
 
     USA_NV_BIZID = "usa_nv_bizid"
     """
-    Nevada Business ID
+    USA Nevada business registry ID code
     """
 
     PRK_INTERNAL_TRADE_ID = "prk_internal_trade_id"
     """
-    Internal ID used to link companies between PRK/CN exports and trade dict sources. Downgraded to weak id.
+    North Korea-China trade internal ID number
     """
 
     LSO_CORPREG_ID = "lso_corpreg_id"
     """
-    Identifier number from the Lesotho corporate registry
+    Lesotho corporate registry ID number
     """
 
     UZB_TIN_NUMBER = "uzb_tin_number"
     """
-    Tin number used in Uzbekistan for companies and people
+    Uzbekistan tax ID number
     """
 
     CA_CORPORATE_ID_NUM = "ca_corporate_id_num"
     """
-    California corporate identification number
+    USA California business registry ID number
     """
 
     GBR_HM_TREASURY_SANCTION_GROUP_ID = "gbr_hm_treasury_sanction_group_id"
     """
-    ID for entities in HM Treasury Sanctions list
+    UK HM Treasury OFSI sanctions list ID number
     """
 
     GBR_IPO_TRADEMARK_REG_NO = "gbr_ipo_trademark_reg_no"
@@ -1048,77 +1100,77 @@ class IdentifierType(str, enum.Enum):
 
     USA_GA_CONTROL_NO = "usa_ga_control_no"
     """
-    USA state of Georgia control number assigned to companies
+    USA Georgia business registry ID number
     """
 
     HND_COC_COMPANY_REGISTRATION_NUMBER = "hnd_coc_company_registration_number"
     """
-    Company registration number for Honduran companies
+    Honduras Cortes commercial registry ID number
     """
 
     MNE_PROPERTY_UID = "mne_property_uid"
     """
-    UID used for properties in Montenegro land registry
+    Montenegro real property registry internal ID number
     """
 
     PHL_BNN = "phl_bnn"
     """
-    Philippines Certificate No. / Bnn
+    Philippines business registry ID number
     """
 
     ROU_COMPANY_REGISTRATION_CODE = "rou_company_registration_code"
     """
-    Romanian unique registration code for companies
+    Romania tax ID number
     """
 
     ROU_IDENTITY_CARD = "rou_identity_card"
     """
-    Romanian identity card for citizens
+    Romania natural person ID number
     """
 
     ROU_PERSONAL_ID_NUMBER = "rou_personal_id_number"
     """
-    Romanian personal id number
+    Romania natural person ID number
     """
 
     CUB_COD = "cub_cod"
     """
-    Cubiaian company id
+    Cuba corporate registry ID number
     """
 
     FL_PROP_FOLIO_DADE = "fl_prop_folio_dade"
     """
-    Florida dade county property folio number
+    USA Florida Miami-Dade County real property parcel ID number
     """
 
     PER_DNI_NO = "per_dni_no"
     """
-    Peruvian national identity document number
+    Peru natural person ID number
     """
 
     PER_CARNE_DE_EXTRANJERIA = "per_carne_de_extranjeria"
     """
-    Peruvian foreign resident ID
+    Peru foreign resident ID number
     """
 
     FRA_SIREN = "fra_siren"
     """
-    Identifier for French companies
+    France business directory ID number
     """
 
     FRA_SIRET = "fra_siret"
     """
-    Identifier for branches of French companies. The first 9 digits are the Siren of the principal company.
+    France legal person establishment ID number
     """
 
     CZE_FILE_NUMBER = "cze_file_number"
     """
-    Czechia file number from Moj registry, this has been changed to a weak identifier
+    Czechia commercial registry ID number
     """
 
     ESP_BORME_REG_ID = "esp_borme_reg_id"
     """
-    Value taken from Datos registrales section used to identify companies in Borme. Not an official identifier.
+    Value taken from datos registrales section used to identify companies in the Borme. Not an official identifier.
     """
 
     MEX_TM_NO = "mex_tm_no"
@@ -1143,7 +1195,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_CGAC_AGENCY_CODE = "usa_cgac_agency_code"
     """
-    Common Government-wide Accounting Classification (CGAC) agency code assigned by the Treasury
+    Common Government-wide Accounting Classification (CGAC) agency code assigned by the US Treasury
     """
 
     USA_GOVT_AGENCY_ID = "usa_govt_agency_id"
@@ -1168,22 +1220,22 @@ class IdentifierType(str, enum.Enum):
 
     JORDAN_COMPANY_NO = "jordan_company_no"
     """
-    Deprecated use weak identifier jordan_company_no
+    Deprecated; use weak identifier jordan_company_no
     """
 
     DNK_CVR = "dnk_cvr"
     """
-    Denmark business registration number https://erhvervsstyrelsen.dk/cvr-numre-p-numre-og-se-numre
+    Denmark business registration number; see https://erhvervsstyrelsen.dk/cvr-numre-p-numre-og-se-numre
     """
 
     DNK_PRODUCTION_UNIT_NO = "dnk_production_unit_no"
     """
-    Denmark business branch number https://skat.dk/skat.aspx?oid=2045880
+    Denmark business branch number
     """
 
     DNK_ENTITY = "dnk_entity"
     """
-    Internal ID for Denmark virk
+    Internal ID for Denmark Virk
     """
 
     NOR_ORG_NO = "nor_org_no"
@@ -1193,7 +1245,7 @@ class IdentifierType(str, enum.Enum):
 
     SWE_ORG_NO = "swe_org_no"
     """
-    Sweden Organisationsnummer, may have - separating last 3 digits
+    Sweden Organisationsnummer. May have "-" separating last three digits.
     """
 
     USA_CO_REG_NO = "usa_co_reg_no"
@@ -1208,7 +1260,7 @@ class IdentifierType(str, enum.Enum):
 
     SGP_UNQIUE_ENTITY_NUMBER = "sgp_unqiue_entity_number"
     """
-    UEN is the standard identification number of an entity. UEN shall be for registered entities as NRIC is for Singapore citizens. The UEN uniquely identifies the entity.
+    The UEN is a standard, unique identification number for a registered entity in Singapore. It is comparable to the NRIC number, which is an ID number for Singapore citizens.
     """
 
     USA_AK_ENTITY_NO = "usa_ak_entity_no"
@@ -1223,23 +1275,23 @@ class IdentifierType(str, enum.Enum):
 
     TUR_ISTANBUL_COC_REG_NO = "tur_istanbul_coc_reg_no"
     """
-    Istanbul chamber of commerce registration number
+    Istanbul Chamber of Commerce registration number
     """
 
     TUR_MERSIS_NUMBER = "tur_mersis_number"
     """
-    Turkish Central Registry Number System MERSIS number
+    Turkish Central Registry Number System (MERSIS) number
     """
 
     CHE_CH_ID_NUMBER = "che_ch_id_number"
     ARE_DIFC_REG_NO = "are_difc_reg_no"
     """
-    ARE Dubai Intl Financial Center registration number
+    Dubai International Financial Centre registration number
     """
 
     IDN_TAX_ID = "idn_tax_id"
     """
-    IDN tax id a.k.a. NPWP Number https://wiki.scn.sap.com/wiki/display/CRM/Indonesia
+    Indonesian tax ID aka NPWP Number; see https://wiki.scn.sap.com/wiki/display/CRM/Indonesia
     """
 
     USA_VT_BIZ_ID = "usa_vt_biz_id"
@@ -1249,22 +1301,22 @@ class IdentifierType(str, enum.Enum):
 
     USA_WV_REG_ID = "usa_wv_reg_id"
     """
-    USA WV Corporate Registry ID
+    USA West Virginia Corporate Registry ID
     """
 
     USA_MS_BIZ_ID = "usa_ms_biz_id"
     """
-    USA MS Business ID
+    USA Mississippi Business ID
     """
 
     USA_ID_CONTROL_NO = "usa_id_control_no"
     """
-    USA id Business Control Number
+    USA Idaho Business Control Number
     """
 
     USA_ID_PARTY_ID = "usa_id_party_id"
     """
-    USA id Registered Agent ID
+    USA Idaho Registered Agent ID
     """
 
     IRN_COC_INTERNAL_ID_CARDNO = "irn_coc_internal_id_cardno"
@@ -1275,37 +1327,37 @@ class IdentifierType(str, enum.Enum):
 
     USA_OK_FILING_NO = "usa_ok_filing_no"
     """
-    USA ok Business Filing Number
+    USA Oklahoma Business Filing Number
     """
 
     USA_TN_CONTROL_NO = "usa_tn_control_no"
     """
-    USA tn Business Control Number
+    USA Tennessee Business Control Number
     """
 
     USA_TN_PARTY_ID = "usa_tn_party_id"
     """
-    USA tn Registered Agent ID
+    USA Tennessee Registered Agent ID
     """
 
     USA_KS_BIZ_ID = "usa_ks_biz_id"
     """
-    USA tn Business ID
+    USA Kansas Business ID
     """
 
     USA_HI_CORPORATE_REGISTRY_ID = "usa_hi_corporate_registry_id"
     """
-    Identifier made from File Number and File Suffix in HI corporate registry
+    Identifier made from File Number and File Suffix in Hawaii, USA, corporate registry
     """
 
     USA_HI_CORPORATE_REGISTRY_PERSON_ID = "usa_hi_corporate_registry_person_id"
     """
-    Identifier for officers in HI corporate regisry
+    Identifier for officers in Hawaii, USA, corporate registry
     """
 
     POL_KRS_NUMBER = "pol_krs_number"
     """
-    The National Court Register (KRS standing for Krajowy Rejestr Sądowy) number
+    The National Court Register, or Krajowy Rejestr Sądowy (KRS), number in Poland
     """
 
     POL_REGON_NUMBER = "pol_regon_number"
@@ -1325,7 +1377,7 @@ class IdentifierType(str, enum.Enum):
 
     ARM_VAT_NO = "arm_vat_no"
     """
-    Armenian VAT id number
+    Armenian VAT ID number
     """
 
     ARM_ENTERPRISE_CODE = "arm_enterprise_code"
@@ -1340,7 +1392,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_ME_CORP_ID = "usa_me_corp_id"
     """
-    Maine corporate ID
+    USA Maine corporate ID
     """
 
     CYP_REG_NO = "cyp_reg_no"
@@ -1350,69 +1402,69 @@ class IdentifierType(str, enum.Enum):
 
     USA_ND_CONTROL_ID = "usa_nd_control_id"
     """
-    North Dakota Secretary of State control id.
+    USA North Dakota Secretary of State control ID
     """
 
     USA_MI_CORP_ID = "usa_mi_corp_id"
     """
-    Michigan corporate id.
+    USA Michigan corporate ID
     """
 
     USA_MI_CORP_ID_OLD = "usa_mi_corp_id_old"
     """
-    Michigan corporate id (old format).
+    USA Michigan corporate ID (old format)
     """
 
     USA_HI_TRADE_NAME_CERT = "usa_hi_trade_name_cert"
     """
-    Certificate Number
+    USA Hawaii Certificate Number
     """
 
     USA_DC_ENTITY_NO = "usa_dc_entity_no"
     """
-    DC corponline entity number.
+    USA Washington, D.C. CorpOnline entity number
     """
 
     USA_VA_OLD_REG_ID = "usa_va_old_reg_id"
     USA_CONSOLIDATED_SCREENING_LIST_SYNTHETIC_ID = "usa_consolidated_screening_list_synthetic_id"
     USA_AR_FILING_NO = "usa_ar_filing_no"
     """
-    Arkansas Secretary of State Filing No.
+    USA Arkansas Secretary of State Filing No.
     """
 
     USA_NC_INTERNAL_ID = "usa_nc_internal_id"
     """
-    North Carolina SoS corporations UID
+    USA North Carolina SOS corporations UID
     """
 
     USA_NE_ACCT_NO = "usa_ne_acct_no"
     """
-    Nebraska corporate registry account number
+    USA Nebraska corporate registry account number
     """
 
     USA_NE_AGENT_ID = "usa_ne_agent_id"
     """
-    Nebraska registered agent id number
+    USA Nebraska registered agent ID number
     """
 
     USA_NM_BUSINESS_NO = "usa_nm_business_no"
     """
-    New Mexico Secretary of State Business No.
+    USA New Mexico Secretary of State business number
     """
 
     USA_NM_LICENSE_ID = "usa_nm_license_id"
     """
-    New Mexico Secretary of State License Id
+    USA New Mexico Secretary of State License ID
     """
 
     USA_DC_FILE_NO = "usa_dc_file_no"
     """
-    DC corporate registry file number
+    USA Washington, D.C. corporate registry file number
     """
 
     USA_RI_FEI_NO = "usa_ri_fei_no"
     """
-    Rhode Island filing entity identification number
+    USA Rhode Island filing entity identification number
     """
 
     INTERNAL_MD_5 = "internal_md5"
@@ -1427,7 +1479,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_WI_DFI_ID = "usa_wi_dfi_id"
     """
-    Wisconsin Department of Financial Institutions ID
+    USA Wisconsin Department of Financial Institutions ID
     """
 
     GEO_IDENTIFICATION_CODE = "geo_identification_code"
@@ -1457,12 +1509,12 @@ class IdentifierType(str, enum.Enum):
 
     USA_MD_DPT_TAX = "usa_md_dpt_tax"
     """
-    Maryland Dpt. of Tax Business ID with prefix
+    USA Maryland Department of Assessments and Taxation Business ID with prefix
     """
 
     USA_SD_CORP_ID = "usa_sd_corp_id"
     """
-    South Dakota Corporate ID
+    USA South Dakota Corporate ID
     """
 
     HND_TEGUCIGALPA_MATRICULA = "hnd_tegucigalpa_matricula"
@@ -1472,17 +1524,17 @@ class IdentifierType(str, enum.Enum):
 
     USA_FL_PROPERTY_ID = "usa_fl_property_id"
     """
-    Identifier for Florida property parcels. It's a concetenation of county code and parcel id
+    Identifier for Florida, USA, property parcels. A concatenation of county code and parcel ID.
     """
 
     USA_FL_PROPERTY_MP_ID = "usa_fl_property_mp_id"
     """
-    Code unique to every parcel within the real property file
+    Code unique to every parcel within the real property file. Used in Florida, USA.
     """
 
     USA_FL_PROPERTY_STATE_PAR_ID = "usa_fl_property_state_par_id"
     """
-    Code the Department assigns to each parcel based on a statewide parcel coding system.
+    Code assigned to each parcel based on a statewide parcel coding system. Used in Florida, USA.
     """
 
     MEX_CLUNI = "mex_cluni"
@@ -1492,7 +1544,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_PA_CORPORATE_REGISTRY_ID = "usa_pa_corporate_registry_id"
     """
-    Pennsylvania Department of State Business Entity ID Number
+    USA Pennsylvania Department of State Business Entity ID Number
     """
 
     PAK_IND_NTN = "pak_ind_ntn"
@@ -1507,7 +1559,7 @@ class IdentifierType(str, enum.Enum):
 
     MEX_RNIE = "mex_rnie"
     """
-    Simple 1-up identifier from the Registro Nacional de Inversiones Extranjeras.
+    Simple 1-up identifier from the Registro Nacional de Inversiones Extranjeras
     """
 
     PAK_NGO_REG_NO = "pak_ngo_reg_no"
@@ -1552,7 +1604,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_CENTRAL_REGISTRATION_DEPOSITORY_NUMBER = "usa_central_registration_depository_number"
     """
-    Company/Person identifier from FINRA data
+    Central Registration Depository (CRD) number from the Financial Industry Regulatory Authority (FINRA) in the USA. The CRD number is a company/person identifier.
     """
 
     USA_SEC_FILE_NUMBER_BD = "usa_sec_file_number_bd"
@@ -1612,12 +1664,12 @@ class IdentifierType(str, enum.Enum):
 
     USA_CT_BUSINESS_ID = "usa_ct_business_id"
     """
-    CT business ID
+    USA Connecticut Business ID
     """
 
     ECU_CEDULA_NUMBER = "ecu_cedula_number"
     """
-    Ecuador cedula https://www.jybaro.com/blog/cedula-de-identidad-ecuatoriana/#:~:text=El%20Estado%20Ecuatoriano%2C%20a%20trav%C3%A9s,d%C3%ADgitos%20con%20la%20siguiente%20estructura%3A&text=En%20caso%20de%20extranjeros%2C%20el%20n%C3%BAmero%20es%2030
+    Ecuador cedula (https://www.jybaro.com/blog/cedula-de-identidad-ecuatoriana/)
     """
 
     HKG_STOCK_CODE = "hkg_stock_code"
@@ -1668,7 +1720,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_CUSIP_NUMBER = "usa_cusip_number"
     """
-    Committee on Uniform Securities Identification Procedures - identifies a North American financial security
+    Committee on Uniform Securities Identification Procedures (CUSIP) number. Identifies a North American financial security.
     """
 
     SVN_CO_REG_NO = "svn_co_reg_no"
@@ -1714,17 +1766,17 @@ class IdentifierType(str, enum.Enum):
 
     AUS_ADV_NUMBER = "aus_adv_number"
     """
-    Australian identifying number allocated to a Financial Adviser.
+    Australian identifying number allocated to a financial adviser
     """
 
     AUS_CREDIT_LICENCE_NUMBER = "aus_credit_licence_number"
     """
-    Australian credit licensee number.
+    Australian credit licensee number
     """
 
     AUS_CREDIT_REP_NUMBER = "aus_credit_rep_number"
     """
-    Australian identifying number allocated to a credit representative.
+    Australian identifying number allocated to a credit representative
     """
 
     DART_CIK = "dart_cik"
@@ -1759,7 +1811,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_IL_CHICAGO_ACCOUNT_NUMBER = "usa_il_chicago_account_number"
     """
-    Account number for businesses on Chicago, IL business license registry
+    Account number for businesses on the Chicago, Illinois, business license registry
     """
 
     CYM_CO_NO = "cym_co_no"
@@ -1909,7 +1961,7 @@ class IdentifierType(str, enum.Enum):
 
     AER_FREE_ZONE_LICENSE = "aer_free_zone_license"
     """
-    Primary license number of Free Zone establishment in Dubai
+    Primary license number of free zone establishment in Dubai
     """
 
     AER_FREE_ZONE_REG_NO = "aer_free_zone_reg_no"
@@ -1939,7 +1991,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_DE_FILE_NUMBER = "usa_de_file_number"
     """
-    Delaware File Number
+    USA Delaware File Number
     """
 
     IMN_COMPANY_NUMBER = "imn_company_number"
@@ -1964,7 +2016,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_DE_REGISTERED_AGENT_ID = "usa_de_registered_agent_id"
     """
-    Delaware Registered Agent ID
+    USA Delaware Registered Agent ID
     """
 
     ICIJ_OFFSHORE_INTERNAL_ID = "icij_offshore_internal_id"
@@ -2019,12 +2071,12 @@ class IdentifierType(str, enum.Enum):
 
     USA_CT_INTERNAL_ID = "usa_ct_internal_id"
     """
-    CT Internal ID
+    USA Connecticut Internal ID
     """
 
     ALEI = "alei"
     """
-    https://en.wikipedia.org/wiki/ISO_8000
+    Authoritative legal entity identifier (ALEI), a government-issued registration number that is standardized according to https://en.wikipedia.org/wiki/ISO_8000
     """
 
     CAN_NS_CORPORATE_REGISTRY = "can_ns_corporate_registry"
@@ -2101,7 +2153,15 @@ class IdentifierType(str, enum.Enum):
     CRI_CEDULA_CITIZEN_PERSON = "cri_cedula_citizen_person"
     CRI_CEDULA_FOREIGN_PERSON = "cri_cedula_foreign_person"
     BOL_MATRICULA = "bol_matricula"
+    """
+    Bolivia Matricula Number
+    """
+
     BOL_OLD_MATRICULA = "bol_old_matricula"
+    """
+    Bolivia Matricula Number (old format)
+    """
+
     NGA_CRP_REG_INTERNAL_ID = "nga_crp_reg_internal_id"
     """
     Nigerian Corporate Registry Internal ID
@@ -2109,7 +2169,7 @@ class IdentifierType(str, enum.Enum):
 
     NGA_REGISTRATION_SN = "nga_registration_sn"
     """
-    Nigerian Corporate Registry Registration Serial No
+    Nigerian Corporate Registry Registration Serial No.
     """
 
     NGA_NIN = "nga_nin"
@@ -2134,12 +2194,12 @@ class IdentifierType(str, enum.Enum):
 
     CAGE = "cage"
     """
-    The Commercial And Government Entity (CAGE) Code is a five-character ID number used extensively within the federal government, assigned by the Department of Defense's Defense Logistics Agency (DLA). The CAGE code provides a standardized method of identifying a given facility at a specific location. CAGE codes for entities located outside the United States are called NATO Commercial and Government Entity (NCAGE) codes. NCAGE codes are assigned internationally as part of the NATO Codification System (NCS). https://fawiki.fws.gov/display/SAM/Commercial+And+Government+Entity+%28CAGE%29+Code+Information
+    The Commercial and Government Entity (CAGE) code is a five-character ID assigned by the US Department of Defense's Defense Logistics Agency (DLA) to refer to a facility at a specific location (includes government suppliers, agencies, and other organizations). CAGE codes for entities outside the USA are called NATO Commercial and Government Entity (NCAGE) codes and are part of the NATO Codification System (NCS). See https://fawiki.fws.gov/display/SAM/Commercial+And+Government+Entity+%28CAGE%29+Code+Information.
     """
 
     ATG_BUSINESS_REGISTRY_INTERNAL_ID = "atg_business_registry_internal_id"
     """
-    Antigua & Barbuda Business Registry Internal ID
+    Antigua and Barbuda Business Registry Internal ID
     """
 
     LCA_BUSINESS_REGISTRY_INTERNAL_ID = "lca_business_registry_internal_id"
@@ -2204,7 +2264,7 @@ class IdentifierType(str, enum.Enum):
 
     TUR_TAX_ID = "tur_tax_id"
     """
-    Turkey Tax Identifier
+    Turkish Tax Identifier
     """
 
     BMU_REGISTRAR_OF_COMPANIES_NUMBER = "bmu_registrar_of_companies_number"
@@ -2219,7 +2279,7 @@ class IdentifierType(str, enum.Enum):
 
     COD_RCCM_OHADA_NUMBER = "cod_rccm_ohada_number"
     """
-    Democratic Republic of the Congo RCCM OHAD Number
+    Democratic Republic of the Congo RCCM OHADA Number
     """
 
     ARE_REG_AUTH_NUMBER = "are_reg_auth_number"
@@ -2269,7 +2329,7 @@ class IdentifierType(str, enum.Enum):
 
     CHL_IMPORT_MANIFEST_NUMBER = "chl_import_manifest_number"
     """
-    Unique identifier Chilean imports
+    Unique identifier for Chilean imports
     """
 
     CHL_IMPORTER_EXPORTER_ID = "chl_importer_exporter_id"
@@ -2304,17 +2364,17 @@ class IdentifierType(str, enum.Enum):
 
     CRI_EXP = "cri_exp"
     """
-    Internal ID for Costa Rica comexport data
+    Internal ID for Costa Rica comexport data (exporter number)
     """
 
     CRI_IMP = "cri_imp"
     """
-    Internal ID for Costa Rica comexport data
+    Internal ID for Costa Rica comexport data (importer number)
     """
 
     CRI_OP_NO = "cri_op_no"
     """
-    Internal ID for Costa Rica comexport data
+    Internal ID for Costa Rica comexport data (shipping operation number)
     """
 
     COL_NUR = "col_nur"
@@ -2330,18 +2390,22 @@ class IdentifierType(str, enum.Enum):
     USA_SAM_EXCLUSIONS_NUMBER = "usa_sam_exclusions_number"
     USA_NPI_NUMBER = "usa_npi_number"
     """
-    National Provider Identifier (NPI) is a unique number for health care providers in the United States
+    The National Provider Identifier (NPI) is a unique number for health care providers in the United States.
     """
 
     USA_UPIN_NUMBER = "usa_upin_number"
     """
-    Unique Physician Identification Number (UPIN) is a unique six-character alpha-numeric identifier for health care providers in the United States discontinued in June 2007
+    A Unique Physician Identification Number (UPIN) is a unique six-character alphanumeric identifier for health care providers in the United States that was discontinued in June 2007.
     """
 
     CAN_BC_REGISTRATION_NUMBER = "can_bc_registration_number"
+    """
+    British Columbia Registration Number
+    """
+
     CAN_BUSINESS_NUMBER = "can_business_number"
     """
-    See https://www.liveabout.com/what-is-the-canada-revenue-agency-cra-business-number-2947322
+    The Canada Revenue Agency (CRA) business number is a nine-digit tax ID assigned to organizations to help them engage with federal and provincial government programs. See https://www.liveabout.com/what-is-the-canada-revenue-agency-cra-business-number-2947322.
     """
 
     CHN_CSRC_NO = "chn_csrc_no"
@@ -2351,17 +2415,17 @@ class IdentifierType(str, enum.Enum):
 
     USA_MN_MASTER_ID = "usa_mn_master_id"
     """
-    Minnesota Secretary of State Unique ID
+    USA Minnesota Secretary of State Unique ID
     """
 
     USA_MN_FILING_NUMBER = "usa_mn_filing_number"
     """
-    Minnesota Secretary of State Filing Number
+    USA Minnesota Secretary of State Filing Number
     """
 
     USA_IN_BIZ_NO = "usa_in_biz_no"
     """
-    Business ID from Indianan Corporate Registry
+    Business ID from Indiana, USA, corporate registry
     """
 
     LLOYDS_INTERNAL_VESSEL_ID = "lloyds_internal_vessel_id"
@@ -2391,7 +2455,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_MASS_SOS_COMPANY_ID = "usa_mass_sos_company_id"
     """
-    Massachusetts Secretary of State Company ID
+    USA Massachusetts Secretary of State Company ID
     """
 
     CHN_RESIDENT_ID_NUMBER = "chn_resident_id_number"
@@ -2401,7 +2465,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_NJ_BUSINESS_ID = "usa_nj_business_id"
     """
-    New Jersey Department of Treasury Business ID
+    USA New Jersey Department of Treasury Business ID
     """
 
     UTAH_CORPORATE_REGISTRY_INTERNAL_ENTITY_NUMBER = "utah_corporate_registry_internal_entity_number"
@@ -2411,17 +2475,17 @@ class IdentifierType(str, enum.Enum):
 
     USA_LA_SOS_ID = "usa_la_sos_id"
     """
-    Louisiana Secretary of State Business Entity Number
+    USA Louisiana Secretary of State Business Entity Number
     """
 
     USA_AL_SOS_ID = "usa_al_sos_id"
     """
-    Alabama Secretary of State Business Entity ID
+    USA Alabama Secretary of State Business Entity ID
     """
 
     USA_SC_CORP_ID = "usa_sc_corp_id"
     """
-    South Carolina Secretary of State Corporation ID
+    USA South Carolina Secretary of State Corporation ID
     """
 
     USA_KY_ORG_NO = "usa_ky_org_no"
@@ -2431,7 +2495,7 @@ class IdentifierType(str, enum.Enum):
 
     USA_IL_FILE_NUMBER = "usa_il_file_number"
     """
-    Illinois Secretary of State File Number
+    USA Illinois Secretary of State File Number
     """
 
     IDN_TRANSACTION_NUMBER = "idn_transaction_number"
@@ -2446,7 +2510,7 @@ class IdentifierType(str, enum.Enum):
 
     SWE_TAX_NUMBER = "swe_tax_number"
     """
-    Swedish Organisationnummer with 2 digit prefix
+    Swedish Organisationnummer with two-digit prefix
     """
 
     PANADATA_INTERNAL_SID = "panadata_internal_sid"
@@ -2506,7 +2570,7 @@ class IdentifierType(str, enum.Enum):
 
     STOCK_TICKER = "stock_ticker"
     """
-    Stock Market Ticker
+    Stock market ticker
     """
 
     CAN_MB_REGISTRY = "can_mb_registry"
@@ -2541,12 +2605,12 @@ class IdentifierType(str, enum.Enum):
 
     UKR_SANCTIONS_NAZK_COMPANY_INTERNAL_ID = "ukr_sanctions_nazk_company_internal_id"
     """
-    Ukraine NAZK sanctions company Internal ID
+    Ukraine NAZK sanctions company internal ID
     """
 
     UKR_SANCTIONS_NAZK_PERSON_INTERNAL_ID = "ukr_sanctions_nazk_person_internal_id"
     """
-    Ukraine NAZK sanctions person Internal ID
+    Ukraine NAZK sanctions person internal ID
     """
 
     ETHEREUM_ADDRESS = "ethereum_address"
@@ -2607,6 +2671,16 @@ class IdentifierType(str, enum.Enum):
     IRL_REGISTRATION_NO = "irl_registration_no"
     """
     Unique Ireland ID number. Assigned to every legal entity registered with Ireland Companies Registration Office.
+    """
+
+    BLZ_BCCAR_REG_NO = "blz_bccar_reg_no"
+    """
+    Belize Companies & Corporate Affairs Registry (BCCAR) registration number
+    """
+
+    CHN_CUSTOMS_REGISTRATION_NO = "chn_customs_registration_no"
+    """
+    Unique customs registration number. Assigned to all entities registered with China General Administration of Customs.
     """
 
     def visit(
@@ -3161,6 +3235,8 @@ class IdentifierType(str, enum.Enum):
         gbr_charity_no: typing.Callable[[], T_Result],
         gbr_go_no: typing.Callable[[], T_Result],
         irl_registration_no: typing.Callable[[], T_Result],
+        blz_bccar_reg_no: typing.Callable[[], T_Result],
+        chn_customs_registration_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4262,3 +4338,7 @@ class IdentifierType(str, enum.Enum):
             return gbr_go_no()
         if self is IdentifierType.IRL_REGISTRATION_NO:
             return irl_registration_no()
+        if self is IdentifierType.BLZ_BCCAR_REG_NO:
+            return blz_bccar_reg_no()
+        if self is IdentifierType.CHN_CUSTOMS_REGISTRATION_NO:
+            return chn_customs_registration_no()

@@ -10,7 +10,7 @@ from .person_status_data import PersonStatusData
 
 class PersonStatusInfo(PaginatedResponse):
     """
-    A key event in a person's life, usually temporal
+    A key event occurring in a person's life, usually temporal
     """
 
     data: typing.List[PersonStatusData]

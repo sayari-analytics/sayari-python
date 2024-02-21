@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class TranslationContext(str, enum.Enum):
     """
-    Translation context enums describe different types of translations
+    Translation context enums describe different types of translations.
     """
 
     SAYARI_MACHINE_TRANSLATION = "sayari_machine_translation"

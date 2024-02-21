@@ -21,7 +21,7 @@ class SharesProperties(pydantic.BaseModel):
     percentage: typing.Optional[float] = pydantic.Field(description="The percentage of shares owned")
     to_date: typing.Optional[str] = pydantic.Field(description="end date")
     type: typing.Optional[str] = pydantic.Field(
-        description="A string describing the type of shares (e.g. 'Class B,' 'Protected cell shares')"
+        description='A string describing the type of shares (e.g., "Class B", "Protected cell shares")'
     )
 
     def json(self, **kwargs: typing.Any) -> str:

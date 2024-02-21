@@ -16,7 +16,9 @@ class BusinessPurposeProperties(pydantic.BaseModel):
     code: typing.Optional[str] = pydantic.Field(description="A code")
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    standard: typing.Optional[BusinessPurposeStandard]
+    standard: typing.Optional[BusinessPurposeStandard] = pydantic.Field(
+        description='The type of code (e.g., "ISIC4", "NACE1")'
+    )
     to_date: typing.Optional[str] = pydantic.Field(description="end date")
     value: typing.Optional[str] = pydantic.Field(description="A text description")
 

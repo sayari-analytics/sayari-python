@@ -15,8 +15,8 @@ class GenericProperties(pydantic.BaseModel):
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
     to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    type: typing.Optional[str] = pydantic.Field(description="We would probably group by type in a GUI")
-    value: typing.Optional[str]
+    type: typing.Optional[str] = pydantic.Field(description='A text description of the attribute (e.g., "name of pet")')
+    value: typing.Optional[str] = pydantic.Field(description='The value of the attribute as text (e.g., "Max")')
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

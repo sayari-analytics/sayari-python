@@ -18,7 +18,7 @@ class CountryContext(str, enum.Enum):
 
     INCORPORATION = "incorporation"
     """
-    Rarely used. Converted to 'domicile.'
+    Rarely used. Converted to "domicile".
     """
 
     RESIDENCE = "residence"
@@ -43,7 +43,7 @@ class CountryContext(str, enum.Enum):
 
     DOMICILE = "domicile"
     """
-    e.g. 'Country of incorporation,' 'Jurisdiction of formation,' 'Organized under the laws of.' A company can operate in multiple countries, but can only have one domicile at a time.
+    e.g., "Country of incorporation", "Jurisdiction of formation", "Organized under the laws of". A company can operate in multiple countries, but can only have one domicile at a time.
     """
 
     SHIPMENT_DEPARTURE = "shipment_departure"
@@ -63,12 +63,12 @@ class CountryContext(str, enum.Enum):
 
     ACTIVITY_IN = "activity_in"
     """
-    Indicates entity is principal entity in record in source from this country
+    The entity is the principal entity in a record originating from this country
     """
 
     MENTIONED_IN = "mentioned_in"
     """
-    Indicates entity is mentioned in record in source from this country
+    The entity is mentioned in a record originating from this country
     """
 
     def visit(

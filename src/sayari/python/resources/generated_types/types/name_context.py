@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class NameContext(str, enum.Enum):
     """
-    Name context enums describe different ways in which a name can belong to an entity
+    Name context enums describe different ways in which a name can belong to an entity.
     """
 
     PRIMARY = "primary"
@@ -18,12 +18,12 @@ class NameContext(str, enum.Enum):
 
     GIVEN = "given"
     """
-    A given name (i.e. first name, middle name)
+    A given name (i.e., first name, middle name)
     """
 
     FAMILY = "family"
     """
-    A family name (i.e. last name)
+    A family name (i.e., last name)
     """
 
     ALIAS = "alias"
@@ -38,7 +38,7 @@ class NameContext(str, enum.Enum):
 
     TRANSLITERATION = "transliteration"
     """
-    A machine transliteration of a name using a specific system (e.g. Pinyin, ISO, UNGEGN)
+    A machine transliteration of a name using a specific system (e.g., Pinyin, ISO, UNGEGN)
     """
 
     def visit(

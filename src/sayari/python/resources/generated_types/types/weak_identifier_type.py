@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class WeakIdentifierType(str, enum.Enum):
     """
-    All weak (non-unique) identifiers in Sayari's database
+    This includes all weak (non-unique) identifiers in Sayari's database.
     """
 
     UNKNOWN = "unknown"
@@ -17,11 +17,23 @@ class WeakIdentifierType(str, enum.Enum):
     """
 
     MX_PARTIAL_RFC_PERSON = "mx_partial_rfc_person"
+    """
+    Partial Mexican RFC
+    """
+
     RU_OKTMO = "ru_oktmo"
+    """
+    Russia OKTMO (Russian Classification of Territories of Municipal Formations)
+    """
+
     RU_KPP = "ru_kpp"
+    """
+    Russian KPP, or tax registration event code
+    """
+
     RU_OKPO = "ru_okpo"
     """
-    A unique identifier that is reissued when a company dissolves
+    A unique identifier that is reissued when a company dissolves. Applies to Russian companies.
     """
 
     UNKNOWN_PASSPORT = "unknown_passport"
@@ -36,7 +48,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     BRA_PARTIAL_CPF = "bra_partial_cpf"
     """
-    Individual taxpayer registry identification (https://en.wikipedia.org/wiki/Cadastro_de_Pessoas_F%C3%ADsicas)
+    Individual taxpayer registry identification in Brazil (https://en.wikipedia.org/wiki/Cadastro_de_Pessoas_F%C3%ADsicas)
     """
 
     VEN_COLEGIADO_NUMBER = "ven_colegiado_number"
@@ -45,12 +57,20 @@ class WeakIdentifierType(str, enum.Enum):
     """
 
     PAN_FOLIO = "pan_folio"
+    """
+    Panama Folio No.
+    """
+
     KGZ_OKPO = "kgz_okpo"
     """
-    A unique identifier that is reissued when a company dissolves
+    A unique identifier that is reissued when a company dissolves. Applies to Kyrgyz companies.
     """
 
     KGZ_INN = "kgz_inn"
+    """
+    Kyrgyzstan INN
+    """
+
     LBN_REGISTRATION_NUMBER = "lbn_registration_number"
     ITA_EBR_REG_NUMBER = "ita_ebr_reg_number"
     """
@@ -94,7 +114,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     RU_LICENSE_NUMBER = "ru_license_number"
     """
-    Label for various license numbers extracted from EGRUL documents
+    Label for various license numbers extracted from EGRUL (Russia Federal Tax Registry) documents
     """
 
     MARITIME_CALL_SIGN = "maritime_call_sign"
@@ -119,15 +139,19 @@ class WeakIdentifierType(str, enum.Enum):
 
     ARG_IGJ_NUMBER = "arg_igj_number"
     """
-    Unique company id from Inspección General de Justicia in Argentina
+    Unique company ID from Inspección General de Justicia in Argentina
     """
 
     UNKNOWN_BRA_CASE_NUMBER = "unknown_bra_case_number"
     """
-    Brazilian Lawyer Identification number
+    Brazil Litigation Case No.
     """
 
     IRQ_PROVISION_CARD = "irq_provision_card"
+    """
+    Iraq Provision Card No.
+    """
+
     MBL_HM_SN = "mbl_hm_sn"
     """
     Mobile Home Serial Number
@@ -155,22 +179,22 @@ class WeakIdentifierType(str, enum.Enum):
 
     UNKNOWN_NATIONAL_ID_NUM = "unknown_national_id_num"
     """
-    A National ID Number whose country of origin is not known
+    A national ID number whose country of origin is not known
     """
 
     UNKNOWN_CIVIL_REG_NUM = "unknown_civil_reg_num"
     """
-    A Civil Reg Number whose country of origin is not known
+    A civil registration number whose country of origin is not known
     """
 
     UNKNOWN_RESIDENCY_NUM = "unknown_residency_num"
     """
-    A Residency Number whose country of origin is not known
+    A residency number whose country of origin is not known
     """
 
     UNKNOWN_FOLIO_ID_NUM = "unknown_folio_id_num"
     """
-    A Folio ID Number whose country of origin is not known
+    A folio ID Number whose country of origin is not known
     """
 
     UNKNOWN_COMMERCIAL_REGISTER_ID = "unknown_commercial_register_id"
@@ -180,7 +204,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     UNKNOWN_CHAMBER_OF_COMMERCE_ID = "unknown_chamber_of_commerce_id"
     """
-    A chamber of commerce number of unknwon origin
+    A chamber of commerce number of unknown origin
     """
 
     UNKNOWN_LICENSE_NUM = "unknown_license_num"
@@ -195,7 +219,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     CZE_FILE_NUMBER = "cze_file_number"
     """
-    Czechia file number from Moj registry
+    Czechia file number from MOJ registry
     """
 
     MEX_TM_APP_NO = "mex_tm_app_no"
@@ -215,7 +239,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     CN_QCC_INTERNAL_ID = "cn_qcc_internal_id"
     """
-    Part of a qichacha URL, used to uniquely identify people within the site
+    Part of a Qichacha URL, used to uniquely identify people within the site
     """
 
     JOR_SOL_PROP_INSTITUTION_NUMBER = "jor_sol_prop_institution_number"
@@ -225,12 +249,12 @@ class WeakIdentifierType(str, enum.Enum):
 
     USA_NC_CORP_NO = "usa_nc_corp_no"
     """
-    North Carolina SoS corporation number
+    USA North Carolina SOS corporation number
     """
 
     USA_NM_LICENSE_ID = "usa_nm_license_id"
     """
-    New Mexico Secretary of State License Id
+    USA New Mexico Secretary of State License ID
     """
 
     KHM_TIN_NUMBER = "khm_tin_number"
@@ -240,12 +264,12 @@ class WeakIdentifierType(str, enum.Enum):
 
     USA_MO_ENTITY_ID = "usa_mo_entity_id"
     """
-    Entity ID from Missouri Corporate Registry
+    Entity ID from USA Missouri Corporate Registry
     """
 
     USA_MO_CORP_NUMBER = "usa_mo_corp_number"
     """
-    Corporation Number from Missouri Corporate Registry - used on SoS search
+    Corporation Number from USA Missouri Corporate Registry. Used on SOS search.
     """
 
     MAC_RAEM_CASE_NUMBER = "mac_raem_case_number"
@@ -264,7 +288,15 @@ class WeakIdentifierType(str, enum.Enum):
     """
 
     TX_BEXAR_PROPERTY_GEO_ID = "tx_bexar_property_geo_id"
+    """
+    Bexar Appraisal District GEO ID
+    """
+
     PAK_CNIC_FAMILY_NO = "pak_cnic_family_no"
+    """
+    Pakistan CNIC family number
+    """
+
     ROU_COMMERCIAL_REGISTER_ID = "rou_commercial_register_id"
     """
     Romanian Commercial Register ID (concatenated from jud_com, nr_com, and an_com from ROU/taxpayers)
@@ -277,12 +309,12 @@ class WeakIdentifierType(str, enum.Enum):
 
     PRK_INTERNAL_TRADE_ID = "prk_internal_trade_id"
     """
-    Internal ID used to link companies between PRK/CN exports and trade dict sources. Downgraded to weak id.
+    North Korea-China trade internal ID number
     """
 
     CHN_CUSTOMS_REGISTRATION_CODE = "chn_customs_registration_code"
     """
-    Chinese custums registration code. Downgraded to weak identifier.
+    Chinese customs registration code. Downgraded to weak identifier.
     """
 
     AUT_FORMER_CR_NO = "aut_former_cr_no"
@@ -311,6 +343,10 @@ class WeakIdentifierType(str, enum.Enum):
     """
 
     RKS_BUSINESS_NUMBER = "rks_business_number"
+    """
+    Kosovo Business No.
+    """
+
     RKS_FISCAL_NUMBER = "rks_fiscal_number"
     """
     A fiscal number from the Kosovo company registry
@@ -318,22 +354,22 @@ class WeakIdentifierType(str, enum.Enum):
 
     MDG_NIF_NUMBER = "mdg_nif_number"
     """
-    A tax identifier number in Madagascar.
+    A tax identifier number (NIF) in Madagascar.
     """
 
     MDG_RCS_NUMBER = "mdg_rcs_number"
     """
-    A tax identifier number in Madagascar.
+    A tax identifier number (RCS) in Madagascar.
     """
 
     VAT = "vat"
     """
-    See https://en.wikipedia.org/wiki/VAT_identification_number
+    Value-added tax ID number
     """
 
     USA_IL_CHICAGO_SITE_NUMBER = "usa_il_chicago_site_number"
     """
-    Site number of business registered in Chicago, IL business license registry (unique to account number)
+    Site number of business registered in Chicago, Illinois, business license registry (unique to account number)
     """
 
     USA_GENERIC_TICKER = "usa_generic_ticker"
@@ -363,7 +399,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     POL_REGON_NUMBER = "pol_regon_number"
     """
-    The register REGON fulfils the function of the national official Register of National Economy Entities
+    The register REGON serves as the national official Register of National Economy Entities.
     """
 
     POL_NIP_NUMBER = "pol_nip_number"
@@ -388,7 +424,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     JPN_PERMIT_NO = "jpn_permit_no"
     """
-    Japan ministry of land, infrastructure, transportation and tourism permit number
+    Japan Ministry of Land, Infrastructure, Transport and Tourism permit number
     """
 
     DMA_CORPORATE_REGISTRY_ENTITY_NUM = "dma_corporate_registry_entity_num"
@@ -413,12 +449,12 @@ class WeakIdentifierType(str, enum.Enum):
 
     COL_MATRICULA_MERCANTIL = "col_matricula_mercantil"
     """
-    Matricula mercantil number which is non unique across different chambers of commerce
+    Matricula mercantil number, which is non-unique across different chambers of commerce
     """
 
     MARITIME_MOBILE_SERVICE_IDENTITY = "maritime_mobile_service_identity"
     """
-    Maritime Mobile Service Identity Number (https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity)
+    Maritime Mobile Service Identity number (https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity)
     """
 
     USA_FORMER_FEIN = "usa_former_fein"
@@ -438,7 +474,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     TUR_PARTIAL_MERSIS_NUMBER = "tur_partial_mersis_number"
     """
-    Partial Turkish Central Registry Number System MERSIS number
+    Partial Turkish Central Registry Number System (MERSIS) number
     """
 
     TUR_OFFICE_REGISTRATION_NUMBER = "tur_office_registration_number"
@@ -448,7 +484,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     PARTIAL_VEN_CEDULA = "partial_ven_cedula"
     """
-    A Identification Card or Passport Document for people in Venezuela
+    An identification card or passport document for people in Venezuela
     """
 
     RUS_CBR_ID = "rus_cbr_id"
@@ -463,12 +499,17 @@ class WeakIdentifierType(str, enum.Enum):
 
     BIH_MBS_NUMBER = "bih_mbs_number"
     """
-    Bosnia and Herzegovenia business register registration number
+    Bosnia and Herzegovina business register registration number
     """
 
     GBR_GRANT_INFO_NUMBER = "gbr_grant_info_number"
     """
-    UK entity ID number assigned to entities registered in the UK Government Grants Information System.
+    UK entity ID number assigned to entities registered in the UK Government Grants Information System
+    """
+
+    PRY_SHIPMENT_NUMBER = "pry_shipment_number"
+    """
+    Paraguay Shipment Number
     """
 
     MALFORMED_MMR_PRIOR_REG_NO = "malformed mmr_prior_reg_no"
@@ -578,6 +619,7 @@ class WeakIdentifierType(str, enum.Enum):
         geo_state_registration_number: typing.Callable[[], T_Result],
         bih_mbs_number: typing.Callable[[], T_Result],
         gbr_grant_info_number: typing.Callable[[], T_Result],
+        pry_shipment_number: typing.Callable[[], T_Result],
         malformed_mmr_prior_reg_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
@@ -780,5 +822,7 @@ class WeakIdentifierType(str, enum.Enum):
             return bih_mbs_number()
         if self is WeakIdentifierType.GBR_GRANT_INFO_NUMBER:
             return gbr_grant_info_number()
+        if self is WeakIdentifierType.PRY_SHIPMENT_NUMBER:
+            return pry_shipment_number()
         if self is WeakIdentifierType.MALFORMED_MMR_PRIOR_REG_NO:
             return malformed_mmr_prior_reg_no()

@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class Currency(str, enum.Enum):
     """
-    Currency enums are normalized representations of currencies
+    Currency enums are normalized representations of currencies. Based on https://en.wikipedia.org/wiki/ISO_4217.
     """
 
     AFN = "AFN"
@@ -883,7 +883,7 @@ class Currency(str, enum.Enum):
 
     XXX = "XXX"
     """
-    The codes assigned for transactions where no currency is involved/999/N.A.
+    The code assigned to transactions where no currency is involved/999/N.A.
     """
 
     XAU = "XAU"
@@ -923,12 +923,12 @@ class Currency(str, enum.Enum):
 
     NLG = "NLG"
     """
-    Dutch guilder
+    Dutch Guilder
     """
 
     BEF = "BEF"
     """
-    Belgian franc
+    Belgian Franc
     """
 
     MRO = "MRO"

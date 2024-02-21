@@ -16,7 +16,7 @@ class GenderProperties(pydantic.BaseModel):
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
     to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    value: Gender
+    value: Gender = pydantic.Field(description='May be described as "female", "male", or "other"')
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

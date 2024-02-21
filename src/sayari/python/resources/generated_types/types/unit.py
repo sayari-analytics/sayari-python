@@ -8,12 +8,23 @@ T_Result = typing.TypeVar("T_Result")
 
 class Unit(str, enum.Enum):
     """
-    Unit of measurement (i.e. SI base units)
+    These enums describe the unit of measurement (i.e., using SI base units) for some dimension of an entity.
     """
 
     METRE = "metre"
+    """
+    Indicates meters (m)
+    """
+
     KILOGRAM = "kilogram"
+    """
+    Indicates kilograms (kg)
+    """
+
     UNIT = "unit"
+    """
+    Used to show the number of units of a product
+    """
 
     def visit(
         self,

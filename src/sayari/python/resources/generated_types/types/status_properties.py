@@ -14,7 +14,9 @@ except ImportError:
 
 
 class StatusProperties(pydantic.BaseModel):
-    context: typing.Optional[StatusContext] = pydantic.Field(description="The type of status")
+    context: typing.Optional[StatusContext] = pydantic.Field(
+        description="The type of status, such as license or partnership type"
+    )
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
     text: typing.Optional[str] = pydantic.Field(description="The raw status text")

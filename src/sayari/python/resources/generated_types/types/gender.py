@@ -8,12 +8,23 @@ T_Result = typing.TypeVar("T_Result")
 
 class Gender(str, enum.Enum):
     """
-    Gender enums are normalized ways to refer to different genders
+    Gender enums are normalized ways to refer to different genders.
     """
 
     MALE = "male"
+    """
+    Refers to a male person
+    """
+
     FEMALE = "female"
+    """
+    Refers to a female person
+    """
+
     OTHER = "other"
+    """
+    Indicates a gender other than male or female
+    """
 
     def visit(
         self,

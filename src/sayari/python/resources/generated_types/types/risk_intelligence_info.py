@@ -10,7 +10,7 @@ from .risk_intelligence_data import RiskIntelligenceData
 
 class RiskIntelligenceInfo(PaginatedResponse):
     """
-    Risk intelligence metadata
+    An attribute for risk intelligence metadata
     """
 
     data: typing.List[RiskIntelligenceData]

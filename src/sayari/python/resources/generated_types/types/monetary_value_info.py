@@ -10,7 +10,7 @@ from .monetary_value_data import MonetaryValueData
 
 class MonetaryValueInfo(PaginatedResponse):
     """
-    The financial value of an asset (e.g. FOB, CIF)
+    The financial value of an asset (e.g., FOB, CIF)
     """
 
     data: typing.List[MonetaryValueData]

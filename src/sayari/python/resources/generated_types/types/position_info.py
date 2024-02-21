@@ -10,7 +10,7 @@ from .position_data import PositionData
 
 class PositionInfo(PaginatedResponse):
     """
-    An attribute used for many different relationship types that allows for the inclusion of a title or designation (e.g. member_of_the_board_of, Position: 'Secretary of the Board,' or shareholder_of, Position: 'Minority shareholder')
+    An attribute used for many different relationship types that allows for the inclusion of a title or designation (e.g., member_of_the_board_of, Position: "Secretary of the Board" or shareholder_of, Position: "Minority shareholder")
     """
 
     data: typing.List[PositionData]
