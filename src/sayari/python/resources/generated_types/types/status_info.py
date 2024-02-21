@@ -10,7 +10,7 @@ from .status_data import StatusData
 
 class StatusInfo(PaginatedResponse):
     """
-    The status of an entity.
+    The status of an entity. This attribute is used to indicate details such as registration, operating, or liquidation status as well as an entity's license or sole proprietorship status.
     """
 
     data: typing.List[StatusData]

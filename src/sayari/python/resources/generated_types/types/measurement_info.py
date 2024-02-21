@@ -10,7 +10,7 @@ from .measurement_data import MeasurementData
 
 class MeasurementInfo(PaginatedResponse):
     """
-    A numerical representation in a standard unit of some dimension of an entity, for example, weight
+    A numerical measurement of a dimension of an entity (e.g., weight) using a standard unit
     """
 
     data: typing.List[MeasurementData]

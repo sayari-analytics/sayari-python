@@ -8,12 +8,23 @@ T_Result = typing.TypeVar("T_Result")
 
 class PersonStatus(str, enum.Enum):
     """
-    Person status enums describe different life events
+    Person status enums describe different life events.
     """
 
     BORN = "born"
+    """
+    Indicates a person was born
+    """
+
     DIED = "died"
+    """
+    Indicates a person died
+    """
+
     MARRIED = "married"
+    """
+    Indicates a marriage
+    """
 
     def visit(
         self,

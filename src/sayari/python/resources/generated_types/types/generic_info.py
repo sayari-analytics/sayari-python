@@ -10,7 +10,7 @@ from .generic_data import GenericData
 
 class GenericInfo(PaginatedResponse):
     """
-    A placeholder attribute. Rarely used.
+    A placeholder attribute. Rarely used. A generic attribute typically does not fit any other attribute type.
     """
 
     data: typing.List[GenericData]

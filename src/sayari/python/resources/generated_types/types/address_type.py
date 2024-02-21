@@ -8,37 +8,37 @@ T_Result = typing.TypeVar("T_Result")
 
 class AddressType(str, enum.Enum):
     """
-    indicates what location an address is referring to
+    This enumerated type indicates the kind of location an address is referring to.
     """
 
     ARRIVAL = "arrival"
     """
-    the port to which a shipment is sent
+    The port to which a shipment is sent
     """
 
     DEPARTURE = "departure"
     """
-    the port from which a shipment leaves
+    The port from which a shipment leaves
     """
 
     MAILING = "mailing"
     """
-    an address at which an entity receives mail
+    An address at which an entity receives mail
     """
 
     PHYSICAL = "physical"
     """
-    an address at which an entity has a physical presence
+    An address at which an entity has a physical presence
     """
 
     REGISTERED = "registered"
     """
-    an address an entity has listed for its registration
+    An address an entity has listed for its registration
     """
 
     BUSINESS = "business"
     """
-    an address at which an entity conducts its operations
+    An address at which an entity conducts its operations
     """
 
     def visit(

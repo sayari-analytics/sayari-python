@@ -248,7 +248,7 @@ class Country(str, enum.Enum):
 
     COD = "COD"
     """
-    DR Congo
+    Democratic Republic of the Congo
     """
 
     COG = "COG"

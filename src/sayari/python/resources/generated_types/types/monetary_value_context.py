@@ -8,11 +8,18 @@ T_Result = typing.TypeVar("T_Result")
 
 class MonetaryValueContext(str, enum.Enum):
     """
-    Monetary value context enums describe the types of financial values an asset can have
+    Monetary value context enums describe the types of financial values an asset can have.
     """
 
     COST_INSURANCE_AND_FREIGHT = "cost_insurance_and_freight"
+    """
+    Indicates cost, insurance, and freight (CIF) arrangement
+    """
+
     FREE_ON_BOARD = "free_on_board"
+    """
+    Indicates free on board (FOB) arrangement
+    """
 
     def visit(
         self, cost_insurance_and_freight: typing.Callable[[], T_Result], free_on_board: typing.Callable[[], T_Result]

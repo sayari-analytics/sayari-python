@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class Tag(str, enum.Enum):
     """
-    Risk tags
+    Risk tags describe risk associated with an entity.
     """
 
     PEP = "pep"

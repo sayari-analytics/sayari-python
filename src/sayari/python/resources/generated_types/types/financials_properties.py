@@ -13,14 +13,14 @@ except ImportError:
 
 
 class FinancialsProperties(pydantic.BaseModel):
-    assets: typing.Optional[float] = pydantic.Field(description="The total amount of assets owned by a company")
+    assets: typing.Optional[float] = pydantic.Field(description="The total value of assets owned by a company")
     currency: typing.Optional[Currency] = pydantic.Field(description="Reporting currency")
     date: typing.Optional[str] = pydantic.Field(description="as-of date")
     employees: typing.Optional[int] = pydantic.Field(description="Total employees")
     from_date: typing.Optional[str] = pydantic.Field(description="start date")
     liabilities: typing.Optional[float] = pydantic.Field(description="Sum of the combined debts a company owes")
     net_income: typing.Optional[float] = pydantic.Field(
-        description="Company's earnings for a period net of operating costs, taxes, and interest"
+        description="Company's earnings for a period after subtracting operating costs, taxes, and interest"
     )
     paid_up_capital: typing.Optional[float] = pydantic.Field(
         description="Paid-up capital is the capital already held by the company"
