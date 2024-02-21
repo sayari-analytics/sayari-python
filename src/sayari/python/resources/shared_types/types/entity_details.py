@@ -19,6 +19,11 @@ from .shipment_arrival import ShipmentArrival
 from .shipment_departue import ShipmentDepartue
 from .status import Status
 
+try:
+    import pydantic.v1 as pydantic  # type: ignore
+except ImportError:
+    import pydantic  # type: ignore
+
 
 class EntityDetails(EmbeddedEntity):
     """
@@ -32,9 +37,11 @@ class EntityDetails(EmbeddedEntity):
     shipment_departure: typing.Optional[ShipmentDepartue]
     company_type: typing.Optional[CompanyType]
     latest_status: typing.Optional[Status]
-    risk: EntityRisk
+    risk: EntityRisk = pydantic.Field(
+        description="[Risk factors](/sayari-library/ontology/risk-factors) associated with the entity."
+    )
     attributes: typing.Optional[AttributeDetails]
-    relationships: typing.Optional["EntityRelationships"]
+    relationships: typing.Optional[EntityRelationships]
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
 
@@ -54,6 +61,5 @@ class EntityDetails(EmbeddedEntity):
 
 
 from .entity_relationships import EntityRelationships  # noqa: E402
-from .relationship_data import RelationshipData  # noqa: E402
 
-EntityDetails.update_forward_refs(EntityRelationships=EntityRelationships)
+EntityDetails.update_forward_refs()

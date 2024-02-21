@@ -15,7 +15,7 @@ from . import (
     trade,
     traversal,
 )
-from .auth import AccessToken, Audience, AuthResponse, ClientId, ClientSecret, ExpiresIn, GrantType, TokenType
+from .auth import Audience, AuthResponse, ClientId, ClientSecret, GrantType
 from .base_types import PaginatedResponse, SizeInfo
 from .entity import EntitySummaryResponse, GetEntityResponse
 from .generated_types import (
@@ -142,14 +142,10 @@ from .shared_types import (
     CompanyType,
     Coordinate,
     EmbeddedEntity,
-    EntityAddresses,
     EntityDetails,
-    EntityDob,
     EntityHsCode,
-    EntityId,
     EntityMatches,
     EntityRegistrationDate,
-    EntityRelationshipCount,
     EntityRelationships,
     EntityRisk,
     EntityTranslatedLabel,
@@ -206,7 +202,6 @@ from .traversal import (
 )
 
 __all__ = [
-    "AccessToken",
     "AdditionalInformationData",
     "AdditionalInformationInfo",
     "AdditionalInformationProperties",
@@ -258,21 +253,16 @@ __all__ = [
     "DateOfBirthProperties",
     "EmbeddedEntity",
     "Entities",
-    "EntityAddresses",
     "EntityDetails",
-    "EntityDob",
     "EntityHsCode",
-    "EntityId",
     "EntityMatches",
     "EntityRegistrationDate",
-    "EntityRelationshipCount",
     "EntityRelationships",
     "EntityRisk",
     "EntitySearchResponse",
     "EntitySummaryResponse",
     "EntityTranslatedLabel",
     "EventInfo",
-    "ExpiresIn",
     "FilterList",
     "FinanceType",
     "FinancesData",
@@ -388,7 +378,6 @@ __all__ = [
     "SupplierOrBuyer",
     "SupplierSearchResponse",
     "Tag",
-    "TokenType",
     "TradeFilterList",
     "TranslatedNameData",
     "TranslatedNameInfo",

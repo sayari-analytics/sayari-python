@@ -6,7 +6,6 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.risk import Risk
-from ...shared_types.types.entity_id import EntityId
 from .business_purpose import BusinessPurpose
 
 try:
@@ -16,7 +15,7 @@ except ImportError:
 
 
 class SourceOrDestinationEntity(pydantic.BaseModel):
-    id: EntityId
+    id: str = pydantic.Field(description="Unique identifier of the entity")
     names: typing.List[str]
     risks: typing.Dict[Risk, typing.Any]
     business_purpose: typing.List[BusinessPurpose]

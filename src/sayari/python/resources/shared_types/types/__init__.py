@@ -4,14 +4,10 @@ from .client_name import ClientName
 from .company_type import CompanyType
 from .coordinate import Coordinate
 from .embedded_entity import EmbeddedEntity
-from .entity_addresses import EntityAddresses
 from .entity_details import EntityDetails
-from .entity_dob import EntityDob
 from .entity_hs_code import EntityHsCode
-from .entity_id import EntityId
 from .entity_matches import EntityMatches
 from .entity_registration_date import EntityRegistrationDate
-from .entity_relationship_count import EntityRelationshipCount
 from .entity_relationships import EntityRelationships
 from .entity_risk import EntityRisk
 from .entity_translated_label import EntityTranslatedLabel
@@ -42,14 +38,10 @@ __all__ = [
     "CompanyType",
     "Coordinate",
     "EmbeddedEntity",
-    "EntityAddresses",
     "EntityDetails",
-    "EntityDob",
     "EntityHsCode",
-    "EntityId",
     "EntityMatches",
     "EntityRegistrationDate",
-    "EntityRelationshipCount",
     "EntityRelationships",
     "EntityRisk",
     "EntityTranslatedLabel",

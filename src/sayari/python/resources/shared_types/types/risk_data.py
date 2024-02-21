@@ -15,7 +15,7 @@ except ImportError:
 class RiskData(pydantic.BaseModel):
     value: typing.Any
     metadata: typing.Dict[str, typing.Any]
-    level: RiskLevel
+    level: RiskLevel = pydantic.Field(description="The severity of the risk.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

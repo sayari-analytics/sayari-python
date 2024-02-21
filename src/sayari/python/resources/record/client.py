@@ -6,7 +6,9 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
@@ -38,6 +40,7 @@ class RecordClient:
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetRecordResponse:
         """
         Retrieve a record from the database based on the ID
@@ -48,6 +51,8 @@ class RecordClient:
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -57,11 +62,30 @@ class RecordClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
-            params=remove_none_from_dict(
-                {"references.limit": references_limit, "references.offset": references_offset}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "references.limit": references_limit,
+                        "references.offset": references_offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
@@ -96,6 +120,7 @@ class AsyncRecordClient:
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetRecordResponse:
         """
         Retrieve a record from the database based on the ID
@@ -106,6 +131,8 @@ class AsyncRecordClient:
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 
             - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -115,11 +142,30 @@ class AsyncRecordClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
-            params=remove_none_from_dict(
-                {"references.limit": references_limit, "references.offset": references_offset}
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "references.limit": references_limit,
+                        "references.offset": references_offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore

@@ -4,9 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .access_token import AccessToken
-from .expires_in import ExpiresIn
-from .token_type import TokenType
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -15,9 +12,11 @@ except ImportError:
 
 
 class AuthResponse(pydantic.BaseModel):
-    access_token: AccessToken
-    expires_in: ExpiresIn
-    token_type: TokenType
+    access_token: str = pydantic.Field(
+        description="The bearer token you will pass in to subsequent API calls to authenticate."
+    )
+    expires_in: int = pydantic.Field(description="Tells you how long (in seconds) until your bearer token expires.")
+    token_type: str = pydantic.Field(description='Will always be "Bearer"')
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

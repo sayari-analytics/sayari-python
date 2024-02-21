@@ -7,8 +7,11 @@ from json.decoder import JSONDecodeError
 
 from ...core.api_error import ApiError
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
+from ...core.request_options import RequestOptions
 from ..generated_types.types.country import Country
+from ..generated_types.types.relationships import Relationships
 from ..generated_types.types.tag import Tag
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
@@ -22,7 +25,6 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.entity_id import EntityId
 from .types.entity_summary_response import EntitySummaryResponse
 from .types.get_entity_response import GetEntityResponse
 
@@ -38,7 +40,7 @@ class EntityClient:
 
     def get_entity(
         self,
-        id: EntityId,
+        id: str,
         *,
         attributes_name_next: typing.Optional[str] = None,
         attributes_name_prev: typing.Optional[str] = None,
@@ -52,7 +54,7 @@ class EntityClient:
         relationships_next: typing.Optional[str] = None,
         relationships_prev: typing.Optional[str] = None,
         relationships_limit: typing.Optional[int] = None,
-        relationships_type: typing.Optional[str] = None,
+        relationships_type: typing.Optional[Relationships] = None,
         relationships_sort: typing.Optional[str] = None,
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
@@ -73,12 +75,13 @@ class EntityClient:
         referenced_by_next: typing.Optional[str] = None,
         referenced_by_prev: typing.Optional[str] = None,
         referenced_by_limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetEntityResponse:
         """
         Retrieve an entity from the database based on the ID
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
 
@@ -104,7 +107,7 @@ class EntityClient:
 
             - relationships_limit: typing.Optional[int]. Limit total relationship values. Defaults to 50.
 
-            - relationships_type: typing.Optional[str]. Filter relationships to relationship type, e.g. director_of or has_shareholder
+            - relationships_type: typing.Optional[Relationships]. Filter relationships to [relationship type](/sayari-library/ontology/relationships), e.g. director_of or has_shareholder
 
             - relationships_sort: typing.Optional[str]. Sorts relationships by As Of date or Shareholder percentage, e.g. date or -shares
 
@@ -114,15 +117,15 @@ class EntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of countries
+            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
 
-            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
 
             - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
 
-            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
 
@@ -130,7 +133,7 @@ class EntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner risk
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -145,6 +148,8 @@ class EntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -154,49 +159,73 @@ class EntityClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "attributes.name.next": attributes_name_next,
-                    "attributes.name.prev": attributes_name_prev,
-                    "attributes.name.limit": attributes_name_limit,
-                    "attributes.address.next": attributes_address_next,
-                    "attributes.address.prev": attributes_address_prev,
-                    "attributes.address.limit": attributes_address_limit,
-                    "attributes.country.next": attributes_country_next,
-                    "attributes.country.prev": attributes_country_prev,
-                    "attributes.country.limit": attributes_country_limit,
-                    "relationships.next": relationships_next,
-                    "relationships.prev": relationships_prev,
-                    "relationships.limit": relationships_limit,
-                    "relationships.type": relationships_type,
-                    "relationships.sort": relationships_sort,
-                    "relationships.startDate": str(relationships_start_date)
-                    if relationships_start_date is not None
-                    else None,
-                    "relationships.endDate": str(relationships_end_date)
-                    if relationships_end_date is not None
-                    else None,
-                    "relationships.minShares": relationships_min_shares,
-                    "relationships.country": relationships_country,
-                    "relationships.arrivalCountry": relationships_arrival_country,
-                    "relationships.arrivalState": relationships_arrival_state,
-                    "relationships.arrivalCity": relationships_arrival_city,
-                    "relationships.departureCountry": relationships_departure_country,
-                    "relationships.departureState": relationships_departure_state,
-                    "relationships.departureCity": relationships_departure_city,
-                    "relationships.partnerName": relationships_partner_name,
-                    "relationships.partnerRisk": relationships_partner_risk,
-                    "relationships.hsCode": relationships_hs_code,
-                    "possibly_same_as.next": possibly_same_as_next,
-                    "possibly_same_as.prev": possibly_same_as_prev,
-                    "possibly_same_as.limit": possibly_same_as_limit,
-                    "referenced_by.next": referenced_by_next,
-                    "referenced_by.prev": referenced_by_prev,
-                    "referenced_by.limit": referenced_by_limit,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "attributes.name.next": attributes_name_next,
+                        "attributes.name.prev": attributes_name_prev,
+                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.address.next": attributes_address_next,
+                        "attributes.address.prev": attributes_address_prev,
+                        "attributes.address.limit": attributes_address_limit,
+                        "attributes.country.next": attributes_country_next,
+                        "attributes.country.prev": attributes_country_prev,
+                        "attributes.country.limit": attributes_country_limit,
+                        "relationships.next": relationships_next,
+                        "relationships.prev": relationships_prev,
+                        "relationships.limit": relationships_limit,
+                        "relationships.type": relationships_type.value if relationships_type is not None else None,
+                        "relationships.sort": relationships_sort,
+                        "relationships.startDate": str(relationships_start_date)
+                        if relationships_start_date is not None
+                        else None,
+                        "relationships.endDate": str(relationships_end_date)
+                        if relationships_end_date is not None
+                        else None,
+                        "relationships.minShares": relationships_min_shares,
+                        "relationships.country": relationships_country.value
+                        if relationships_country is not None
+                        else None,
+                        "relationships.arrivalCountry": relationships_arrival_country.value
+                        if relationships_arrival_country is not None
+                        else None,
+                        "relationships.arrivalState": relationships_arrival_state,
+                        "relationships.arrivalCity": relationships_arrival_city,
+                        "relationships.departureCountry": relationships_departure_country.value
+                        if relationships_departure_country is not None
+                        else None,
+                        "relationships.departureState": relationships_departure_state,
+                        "relationships.departureCity": relationships_departure_city,
+                        "relationships.partnerName": relationships_partner_name,
+                        "relationships.partnerRisk": relationships_partner_risk.value
+                        if relationships_partner_risk is not None
+                        else None,
+                        "relationships.hsCode": relationships_hs_code,
+                        "possibly_same_as.next": possibly_same_as_next,
+                        "possibly_same_as.prev": possibly_same_as_prev,
+                        "possibly_same_as.limit": possibly_same_as_limit,
+                        "referenced_by.next": referenced_by_next,
+                        "referenced_by.prev": referenced_by_prev,
+                        "referenced_by.limit": referenced_by_limit,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
@@ -220,12 +249,16 @@ class EntityClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def entity_summary(self, id: EntityId) -> EntitySummaryResponse:
+    def entity_summary(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> EntitySummaryResponse:
         """
         The Entity Summary endpoint returns a smaller entity payload
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
 
@@ -235,8 +268,20 @@ class EntityClient:
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
@@ -267,7 +312,7 @@ class AsyncEntityClient:
 
     async def get_entity(
         self,
-        id: EntityId,
+        id: str,
         *,
         attributes_name_next: typing.Optional[str] = None,
         attributes_name_prev: typing.Optional[str] = None,
@@ -281,7 +326,7 @@ class AsyncEntityClient:
         relationships_next: typing.Optional[str] = None,
         relationships_prev: typing.Optional[str] = None,
         relationships_limit: typing.Optional[int] = None,
-        relationships_type: typing.Optional[str] = None,
+        relationships_type: typing.Optional[Relationships] = None,
         relationships_sort: typing.Optional[str] = None,
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
@@ -302,12 +347,13 @@ class AsyncEntityClient:
         referenced_by_next: typing.Optional[str] = None,
         referenced_by_prev: typing.Optional[str] = None,
         referenced_by_limit: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> GetEntityResponse:
         """
         Retrieve an entity from the database based on the ID
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
 
             - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
 
@@ -333,7 +379,7 @@ class AsyncEntityClient:
 
             - relationships_limit: typing.Optional[int]. Limit total relationship values. Defaults to 50.
 
-            - relationships_type: typing.Optional[str]. Filter relationships to relationship type, e.g. director_of or has_shareholder
+            - relationships_type: typing.Optional[Relationships]. Filter relationships to [relationship type](/sayari-library/ontology/relationships), e.g. director_of or has_shareholder
 
             - relationships_sort: typing.Optional[str]. Sorts relationships by As Of date or Shareholder percentage, e.g. date or -shares
 
@@ -343,15 +389,15 @@ class AsyncEntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of countries
+            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
 
-            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival countries
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
 
             - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
 
-            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure countries
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
 
@@ -359,7 +405,7 @@ class AsyncEntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner risk
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -374,6 +420,8 @@ class AsyncEntityClient:
             - referenced_by_prev: typing.Optional[str]. The pagination token for the previous page of the entity's referencing records
 
             - referenced_by_limit: typing.Optional[int]. Limit totals values returned for entity's referencing records. Defaults to 100.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -383,49 +431,73 @@ class AsyncEntityClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
-            params=remove_none_from_dict(
-                {
-                    "attributes.name.next": attributes_name_next,
-                    "attributes.name.prev": attributes_name_prev,
-                    "attributes.name.limit": attributes_name_limit,
-                    "attributes.address.next": attributes_address_next,
-                    "attributes.address.prev": attributes_address_prev,
-                    "attributes.address.limit": attributes_address_limit,
-                    "attributes.country.next": attributes_country_next,
-                    "attributes.country.prev": attributes_country_prev,
-                    "attributes.country.limit": attributes_country_limit,
-                    "relationships.next": relationships_next,
-                    "relationships.prev": relationships_prev,
-                    "relationships.limit": relationships_limit,
-                    "relationships.type": relationships_type,
-                    "relationships.sort": relationships_sort,
-                    "relationships.startDate": str(relationships_start_date)
-                    if relationships_start_date is not None
-                    else None,
-                    "relationships.endDate": str(relationships_end_date)
-                    if relationships_end_date is not None
-                    else None,
-                    "relationships.minShares": relationships_min_shares,
-                    "relationships.country": relationships_country,
-                    "relationships.arrivalCountry": relationships_arrival_country,
-                    "relationships.arrivalState": relationships_arrival_state,
-                    "relationships.arrivalCity": relationships_arrival_city,
-                    "relationships.departureCountry": relationships_departure_country,
-                    "relationships.departureState": relationships_departure_state,
-                    "relationships.departureCity": relationships_departure_city,
-                    "relationships.partnerName": relationships_partner_name,
-                    "relationships.partnerRisk": relationships_partner_risk,
-                    "relationships.hsCode": relationships_hs_code,
-                    "possibly_same_as.next": possibly_same_as_next,
-                    "possibly_same_as.prev": possibly_same_as_prev,
-                    "possibly_same_as.limit": possibly_same_as_limit,
-                    "referenced_by.next": referenced_by_next,
-                    "referenced_by.prev": referenced_by_prev,
-                    "referenced_by.limit": referenced_by_limit,
-                }
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "attributes.name.next": attributes_name_next,
+                        "attributes.name.prev": attributes_name_prev,
+                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.address.next": attributes_address_next,
+                        "attributes.address.prev": attributes_address_prev,
+                        "attributes.address.limit": attributes_address_limit,
+                        "attributes.country.next": attributes_country_next,
+                        "attributes.country.prev": attributes_country_prev,
+                        "attributes.country.limit": attributes_country_limit,
+                        "relationships.next": relationships_next,
+                        "relationships.prev": relationships_prev,
+                        "relationships.limit": relationships_limit,
+                        "relationships.type": relationships_type.value if relationships_type is not None else None,
+                        "relationships.sort": relationships_sort,
+                        "relationships.startDate": str(relationships_start_date)
+                        if relationships_start_date is not None
+                        else None,
+                        "relationships.endDate": str(relationships_end_date)
+                        if relationships_end_date is not None
+                        else None,
+                        "relationships.minShares": relationships_min_shares,
+                        "relationships.country": relationships_country.value
+                        if relationships_country is not None
+                        else None,
+                        "relationships.arrivalCountry": relationships_arrival_country.value
+                        if relationships_arrival_country is not None
+                        else None,
+                        "relationships.arrivalState": relationships_arrival_state,
+                        "relationships.arrivalCity": relationships_arrival_city,
+                        "relationships.departureCountry": relationships_departure_country.value
+                        if relationships_departure_country is not None
+                        else None,
+                        "relationships.departureState": relationships_departure_state,
+                        "relationships.departureCity": relationships_departure_city,
+                        "relationships.partnerName": relationships_partner_name,
+                        "relationships.partnerRisk": relationships_partner_risk.value
+                        if relationships_partner_risk is not None
+                        else None,
+                        "relationships.hsCode": relationships_hs_code,
+                        "possibly_same_as.next": possibly_same_as_next,
+                        "possibly_same_as.prev": possibly_same_as_prev,
+                        "possibly_same_as.limit": possibly_same_as_limit,
+                        "referenced_by.next": referenced_by_next,
+                        "referenced_by.prev": referenced_by_prev,
+                        "referenced_by.limit": referenced_by_limit,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
             ),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
@@ -449,12 +521,16 @@ class AsyncEntityClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def entity_summary(self, id: EntityId) -> EntitySummaryResponse:
+    async def entity_summary(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> EntitySummaryResponse:
         """
         The Entity Summary endpoint returns a smaller entity payload
 
         Parameters:
-            - id: EntityId.
+            - id: str. Unique identifier of the entity
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
@@ -464,8 +540,20 @@ class AsyncEntityClient:
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
-            headers=self._client_wrapper.get_headers(),
-            timeout=60,
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
         )
         if 200 <= _response.status_code < 300:
             return pydantic.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
