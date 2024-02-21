@@ -4,8 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .record_id import RecordId
-from .source_id import SourceId
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,14 +12,14 @@ except ImportError:
 
 
 class RecordDetails(pydantic.BaseModel):
-    id: RecordId
+    id: str = pydantic.Field(description="The unique identifier for a record in the database")
     label: str
-    source: SourceId
-    publication_date: typing.Optional[str]
-    acquisition_date: str
-    references_count: int
-    record_url: str
-    source_url: typing.Optional[str]
+    source: str = pydantic.Field(description="The unique identifier for a source in the database")
+    publication_date: typing.Optional[str] = pydantic.Field(description="The date the record was published")
+    acquisition_date: str = pydantic.Field(description="The date Sayari acquired this record")
+    references_count: int = pydantic.Field(description="Number of times this record is referenced")
+    record_url: str = pydantic.Field(description="The url to download the record from Sayari")
+    source_url: typing.Optional[str] = pydantic.Field(description="The url to access to original source")
     document_urls: typing.Optional[typing.List[str]]
     matches: typing.Optional[typing.Dict[str, typing.List[str]]]
 

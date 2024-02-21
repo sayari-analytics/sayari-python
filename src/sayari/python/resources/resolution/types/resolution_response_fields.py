@@ -16,11 +16,17 @@ except ImportError:
 class ResolutionResponseFields(pydantic.BaseModel):
     name: typing.Optional[typing.List[str]]
     identifier: typing.Optional[typing.List[str]]
-    country: typing.Optional[typing.List[Country]]
-    address: typing.Optional[typing.List[str]]
+    country: typing.Optional[typing.List[Country]] = pydantic.Field(
+        description="Entity country - must be ISO (3166) Trigram i.e., USA. See complete list [here](/sayari-library/ontology/enumerated-types#country)"
+    )
+    address: typing.Optional[typing.List[str]] = pydantic.Field(
+        description="List of physical addresses associated with the entity."
+    )
     date_of_birth: typing.Optional[typing.List[str]]
     contact: typing.Optional[typing.List[str]]
-    type: typing.Optional[typing.List[Entities]]
+    type: typing.Optional[typing.List[Entities]] = pydantic.Field(
+        description="[Entity type](/sayari-library/ontology/entities)"
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

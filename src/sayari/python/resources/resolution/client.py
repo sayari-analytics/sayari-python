@@ -63,7 +63,7 @@ class ResolutionClient:
 
             - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -160,7 +160,7 @@ class AsyncResolutionClient:
 
             - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Entity type. If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---

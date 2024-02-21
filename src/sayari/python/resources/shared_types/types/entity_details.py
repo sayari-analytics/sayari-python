@@ -40,8 +40,12 @@ class EntityDetails(EmbeddedEntity):
     risk: EntityRisk = pydantic.Field(
         description="[Risk factors](/sayari-library/ontology/risk-factors) associated with the entity."
     )
-    attributes: typing.Optional[AttributeDetails]
-    relationships: typing.Optional[EntityRelationships]
+    attributes: typing.Optional[AttributeDetails] = pydantic.Field(
+        description="Detailed information about the entity's [attributes](/sayari-library/ontology/attributes)."
+    )
+    relationships: typing.Optional[EntityRelationships] = pydantic.Field(
+        description="Detailed information about the entity's [relationships](/sayari-library/ontology/relationships)."
+    )
     possibly_same_as: typing.Optional[PossiblySameAs]
     referenced_by: typing.Optional[ReferencedBy]
 

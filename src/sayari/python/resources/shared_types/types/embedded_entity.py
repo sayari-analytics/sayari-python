@@ -36,9 +36,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     sanctioned: bool = pydantic.Field(
         description='True if the entity has the ["Sanctioned" risk factor](/sayari-library/ontology/risk-factors#sanctioned), otherwise false.'
     )
-    type: Entities = pydantic.Field(
-        description="The entity type. See detailed explanations [here](/sayari-library/ontology/entities)."
-    )
+    type: Entities = pydantic.Field(description="The [entity type](/sayari-library/ontology/entities).")
     identifiers: typing.List[Identifier]
     countries: typing.List[Country] = pydantic.Field(
         description="Entity [country](/sayari-library/ontology/enumerated-types#country)"
@@ -53,10 +51,10 @@ class EmbeddedEntity(pydantic.BaseModel):
         description="Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)"
     )
     relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given relationship type."
+        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
     )
     user_relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given relationship type."
+        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
     )
     attribute_counts: typing.Any
     user_attribute_counts: typing.Any

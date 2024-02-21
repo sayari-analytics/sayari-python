@@ -21,7 +21,6 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.record_id import RecordId
 from .types.get_record_response import GetRecordResponse
 
 try:
@@ -36,7 +35,7 @@ class RecordClient:
 
     def get_record(
         self,
-        id: RecordId,
+        id: str,
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
@@ -46,7 +45,7 @@ class RecordClient:
         Retrieve a record from the database based on the ID
 
         Parameters:
-            - id: RecordId.
+            - id: str. The unique identifier for a record in the database
 
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 
@@ -116,7 +115,7 @@ class AsyncRecordClient:
 
     async def get_record(
         self,
-        id: RecordId,
+        id: str,
         *,
         references_limit: typing.Optional[int] = None,
         references_offset: typing.Optional[int] = None,
@@ -126,7 +125,7 @@ class AsyncRecordClient:
         Retrieve a record from the database based on the ID
 
         Parameters:
-            - id: RecordId.
+            - id: str. The unique identifier for a record in the database
 
             - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
 

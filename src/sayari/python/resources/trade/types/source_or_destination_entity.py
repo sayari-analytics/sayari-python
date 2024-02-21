@@ -17,9 +17,13 @@ except ImportError:
 class SourceOrDestinationEntity(pydantic.BaseModel):
     id: str = pydantic.Field(description="Unique identifier of the entity")
     names: typing.List[str]
-    risks: typing.Dict[Risk, typing.Any]
-    business_purpose: typing.List[BusinessPurpose]
-    countries: typing.List[Country]
+    risks: typing.Dict[Risk, typing.Any] = pydantic.Field(description="[Risks](/sayari-library/ontology/risk-factors)")
+    business_purpose: typing.List[BusinessPurpose] = pydantic.Field(
+        description="[Business Purpose](/sayari-library/ontology/enumerated-types#business-purpose-standard)"
+    )
+    countries: typing.List[Country] = pydantic.Field(
+        description="[Countries](/sayari-library/ontology/enumerated-types#country)"
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -21,7 +21,6 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from ..shared_types.types.source_id import SourceId
 from .types.get_source_response import GetSourceResponse
 from .types.list_sources_response import ListSourcesResponse
 
@@ -105,12 +104,12 @@ class SourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_source(self, id: SourceId, *, request_options: typing.Optional[RequestOptions] = None) -> GetSourceResponse:
+    def get_source(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
-            - id: SourceId.
+            - id: str. The unique identifier for a source in the database
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -235,13 +234,13 @@ class AsyncSourceClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_source(
-        self, id: SourceId, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetSourceResponse:
         """
         Returns metadata for a source that Sayari collects data from
 
         Parameters:
-            - id: SourceId.
+            - id: str. The unique identifier for a source in the database
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---

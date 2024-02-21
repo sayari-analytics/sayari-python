@@ -18,7 +18,6 @@ from .types import (
     PossiblySameAsMatch,
     PsaEntity,
     RecordDetails,
-    RecordId,
     ReferencedBy,
     ReferencedByData,
     ReferencedByDataType,
@@ -31,7 +30,6 @@ from .types import (
     ShipmentArrival,
     ShipmentDepartue,
     SourceCountInfo,
-    SourceId,
     Status,
 )
 
@@ -53,7 +51,6 @@ __all__ = [
     "PossiblySameAsMatch",
     "PsaEntity",
     "RecordDetails",
-    "RecordId",
     "ReferencedBy",
     "ReferencedByData",
     "ReferencedByDataType",
@@ -66,6 +63,5 @@ __all__ = [
     "ShipmentArrival",
     "ShipmentDepartue",
     "SourceCountInfo",
-    "SourceId",
     "Status",
 ]

@@ -13,10 +13,10 @@ except ImportError:
 
 
 class Source(pydantic.BaseModel):
-    id: str
+    id: str = pydantic.Field(description="The unique identifier of the source")
     label: str
     description: str
-    country: Country
+    country: Country = pydantic.Field(description="Source [country](/sayari-library/ontology/enumerated-types#country)")
     region: str
     date_added: str
     source_type: str

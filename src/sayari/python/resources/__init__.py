@@ -116,7 +116,7 @@ from .generated_types import (
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults
+from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -155,7 +155,6 @@ from .shared_types import (
     PossiblySameAsMatch,
     PsaEntity,
     RecordDetails,
-    RecordId,
     ReferencedBy,
     ReferencedByData,
     ReferencedByDataType,
@@ -168,7 +167,6 @@ from .shared_types import (
     ShipmentArrival,
     ShipmentDepartue,
     SourceCountInfo,
-    SourceId,
     Status,
 )
 from .source import GetSourceResponse, ListSourcesResponse, Source
@@ -330,7 +328,6 @@ __all__ = [
     "RateLimitExceeded",
     "RateLimitResponse",
     "RecordDetails",
-    "RecordId",
     "RecordReferences",
     "RecordSearchResponse",
     "ReferencedBy",
