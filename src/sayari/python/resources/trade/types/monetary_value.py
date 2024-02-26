@@ -14,8 +14,8 @@ except ImportError:
 
 class MonetaryValue(pydantic.BaseModel):
     value: float
-    currency: typing.Optional[Currency]
-    context: typing.Optional[str]
+    currency: typing.Optional[Currency] = None
+    context: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

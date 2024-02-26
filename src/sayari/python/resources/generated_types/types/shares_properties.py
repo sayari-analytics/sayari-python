@@ -13,15 +13,19 @@ except ImportError:
 
 
 class SharesProperties(pydantic.BaseModel):
-    currency: typing.Optional[Currency] = pydantic.Field(description="The currency of the monetary_value")
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    monetary_value: typing.Optional[float] = pydantic.Field(description="The total monetary value of the shares")
-    num_shares: typing.Optional[float] = pydantic.Field(description="The number of shares held, issued, etc.")
-    percentage: typing.Optional[float] = pydantic.Field(description="The percentage of shares owned")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
+    currency: typing.Optional[Currency] = pydantic.Field(default=None, description="The currency of the monetary_value")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    monetary_value: typing.Optional[float] = pydantic.Field(
+        default=None, description="The total monetary value of the shares"
+    )
+    num_shares: typing.Optional[float] = pydantic.Field(
+        default=None, description="The number of shares held, issued, etc."
+    )
+    percentage: typing.Optional[float] = pydantic.Field(default=None, description="The percentage of shares owned")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
     type: typing.Optional[str] = pydantic.Field(
-        description='A string describing the type of shares (e.g., "Class B", "Protected cell shares")'
+        default=None, description='A string describing the type of shares (e.g., "Class B", "Protected cell shares")'
     )
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -12,8 +12,8 @@ except ImportError:
 
 
 class BusinessPurpose(pydantic.BaseModel):
-    value: typing.Optional[str]
-    code: typing.Optional[str]
+    value: typing.Optional[str] = None
+    code: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

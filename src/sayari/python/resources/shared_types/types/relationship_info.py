@@ -14,15 +14,15 @@ except ImportError:
 
 
 class RelationshipInfo(pydantic.BaseModel):
-    editable: typing.Optional[bool]
+    editable: typing.Optional[bool] = None
     record: str
     attributes: typing.Dict[Attributes, typing.List[RelationshipAttributeValue]]
-    date: typing.Optional[str]
-    from_date: typing.Optional[str]
-    to_date: typing.Optional[str]
+    date: typing.Optional[str] = None
+    from_date: typing.Optional[str] = None
+    to_date: typing.Optional[str] = None
     acquisition_date: str
-    former: typing.Optional[bool]
-    publication_date: typing.Optional[str]
+    former: typing.Optional[bool] = None
+    publication_date: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

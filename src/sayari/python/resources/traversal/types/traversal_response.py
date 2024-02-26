@@ -39,8 +39,8 @@ class TraversalResponse(pydantic.BaseModel):
     limit: int
     next: bool
     data: typing.List[TraversalData]
-    sanctioned: typing.Optional[bool]
-    pep: typing.Optional[bool]
+    sanctioned: typing.Optional[bool] = None
+    pep: typing.Optional[bool] = None
     explored_count: int
 
     def json(self, **kwargs: typing.Any) -> str:

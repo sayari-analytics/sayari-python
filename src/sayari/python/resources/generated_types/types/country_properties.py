@@ -14,11 +14,13 @@ except ImportError:
 
 
 class CountryProperties(pydantic.BaseModel):
-    context: typing.Optional[CountryContext] = pydantic.Field(description="The type of affiliation")
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    state: typing.Optional[str] = pydantic.Field(description="The subnational state, province, region, etc.")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
+    context: typing.Optional[CountryContext] = pydantic.Field(default=None, description="The type of affiliation")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    state: typing.Optional[str] = pydantic.Field(
+        default=None, description="The subnational state, province, region, etc."
+    )
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
     value: Country = pydantic.Field(description="The country, ideally normalized to an ISO trigram")
 
     def json(self, **kwargs: typing.Any) -> str:

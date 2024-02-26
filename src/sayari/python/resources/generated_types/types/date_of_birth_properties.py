@@ -12,9 +12,9 @@ except ImportError:
 
 
 class DateOfBirthProperties(pydantic.BaseModel):
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
     value: str = pydantic.Field(description="The date of birth in YYYY-MM-DD, YYYY-MM, or YYYY format")
 
     def json(self, **kwargs: typing.Any) -> str:

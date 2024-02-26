@@ -39,32 +39,32 @@ class ResolutionClient:
     def resolution(
         self,
         *,
-        name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]] = None,
-        country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        contact: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        type: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        address: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
-            - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
+            - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
 
-            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+            - country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Union[str, typing.List[str]]]. Entity address
+            - address: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity address
 
-            - date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]]. Entity date of birth
+            - date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity date of birth
 
-            - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
+            - contact: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -81,11 +81,11 @@ class ResolutionClient:
                     {
                         "name": name,
                         "identifier": identifier,
-                        "country": country.value if country is not None else None,
+                        "country": country,
                         "address": address,
                         "date_of_birth": date_of_birth,
                         "contact": contact,
-                        "type": type.value if type is not None else None,
+                        "type": type,
                         **(
                             request_options.get("additional_query_parameters", {})
                             if request_options is not None
@@ -136,32 +136,32 @@ class AsyncResolutionClient:
     async def resolution(
         self,
         *,
-        name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]] = None,
-        country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        contact: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        type: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        address: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
-            - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
+            - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
 
-            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+            - country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Union[str, typing.List[str]]]. Entity address
+            - address: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity address
 
-            - date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]]. Entity date of birth
+            - date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity date of birth
 
-            - contact: typing.Optional[typing.Union[str, typing.List[str]]]. Entity contact
+            - contact: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+            - type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
@@ -178,11 +178,11 @@ class AsyncResolutionClient:
                     {
                         "name": name,
                         "identifier": identifier,
-                        "country": country.value if country is not None else None,
+                        "country": country,
                         "address": address,
                         "date_of_birth": date_of_birth,
                         "contact": contact,
-                        "type": type.value if type is not None else None,
+                        "type": type,
                         **(
                             request_options.get("additional_query_parameters", {})
                             if request_options is not None

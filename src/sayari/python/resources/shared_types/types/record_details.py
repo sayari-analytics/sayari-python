@@ -15,13 +15,15 @@ class RecordDetails(pydantic.BaseModel):
     id: str = pydantic.Field(description="The unique identifier for a record in the database")
     label: str
     source: str = pydantic.Field(description="The unique identifier for a source in the database")
-    publication_date: typing.Optional[str] = pydantic.Field(description="The date the record was published")
+    publication_date: typing.Optional[str] = pydantic.Field(
+        default=None, description="The date the record was published"
+    )
     acquisition_date: str = pydantic.Field(description="The date Sayari acquired this record")
     references_count: int = pydantic.Field(description="Number of times this record is referenced")
     record_url: str = pydantic.Field(description="The url to download the record from Sayari")
-    source_url: typing.Optional[str] = pydantic.Field(description="The url to access to original source")
-    document_urls: typing.Optional[typing.List[str]]
-    matches: typing.Optional[typing.Dict[str, typing.List[str]]]
+    source_url: typing.Optional[str] = pydantic.Field(default=None, description="The url to access to original source")
+    document_urls: typing.Optional[typing.List[str]] = None
+    matches: typing.Optional[typing.Dict[str, typing.List[str]]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

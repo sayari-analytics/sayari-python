@@ -13,14 +13,14 @@ except ImportError:
 
 
 class BusinessPurposeProperties(pydantic.BaseModel):
-    code: typing.Optional[str] = pydantic.Field(description="A code")
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
+    code: typing.Optional[str] = pydantic.Field(default=None, description="A code")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
     standard: typing.Optional[BusinessPurposeStandard] = pydantic.Field(
-        description='The type of code (e.g., "ISIC4", "NACE1")'
+        default=None, description='The type of code (e.g., "ISIC4", "NACE1")'
     )
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    value: typing.Optional[str] = pydantic.Field(description="A text description")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
+    value: typing.Optional[str] = pydantic.Field(default=None, description="A text description")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

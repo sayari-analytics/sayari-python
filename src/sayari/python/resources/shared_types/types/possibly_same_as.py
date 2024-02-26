@@ -13,8 +13,8 @@ class PossiblySameAs(PaginatedResponse):
     List of entities that are Possibly the Same As (PSA) the entity.
     """
 
-    offset: typing.Optional[int]
-    next: typing.Optional[typing.Any]
+    offset: typing.Optional[int] = None
+    next: typing.Optional[typing.Any] = None
     data: typing.List[PossiblySameAsData]
 
     def json(self, **kwargs: typing.Any) -> str:

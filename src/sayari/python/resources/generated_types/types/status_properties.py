@@ -15,14 +15,14 @@ except ImportError:
 
 class StatusProperties(pydantic.BaseModel):
     context: typing.Optional[StatusContext] = pydantic.Field(
-        description="The type of status, such as license or partnership type"
+        default=None, description="The type of status, such as license or partnership type"
     )
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    text: typing.Optional[str] = pydantic.Field(description="The raw status text")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    text: typing.Optional[str] = pydantic.Field(default=None, description="The raw status text")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
     value: typing.Optional[CompanyStatus] = pydantic.Field(
-        description="The status, normalized to one of the status enums"
+        default=None, description="The status, normalized to one of the status enums"
     )
 
     def json(self, **kwargs: typing.Any) -> str:

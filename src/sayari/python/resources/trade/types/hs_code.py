@@ -15,7 +15,7 @@ class HsCode(pydantic.BaseModel):
     key: str
     doc_count: int
     value: str
-    value_simple: typing.Optional[str]
+    value_simple: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

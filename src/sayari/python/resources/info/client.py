@@ -101,7 +101,7 @@ class InfoClient:
     def get_history(
         self,
         *,
-        events: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        events: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         from_: typing.Optional[dt.date] = None,
         to: typing.Optional[dt.date] = None,
         size: typing.Optional[int] = None,
@@ -112,7 +112,7 @@ class InfoClient:
         The history endpoint return a user's event history.
 
         Parameters:
-            - events: typing.Optional[typing.Union[str, typing.List[str]]]. The type of events to filter on.
+            - events: typing.Optional[typing.Union[str, typing.Sequence[str]]]. The type of events to filter on.
 
             - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
 
@@ -248,7 +248,7 @@ class AsyncInfoClient:
     async def get_history(
         self,
         *,
-        events: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        events: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         from_: typing.Optional[dt.date] = None,
         to: typing.Optional[dt.date] = None,
         size: typing.Optional[int] = None,
@@ -259,7 +259,7 @@ class AsyncInfoClient:
         The history endpoint return a user's event history.
 
         Parameters:
-            - events: typing.Optional[typing.Union[str, typing.List[str]]]. The type of events to filter on.
+            - events: typing.Optional[typing.Union[str, typing.Sequence[str]]]. The type of events to filter on.
 
             - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
 

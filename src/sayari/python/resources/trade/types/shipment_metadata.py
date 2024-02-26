@@ -18,7 +18,7 @@ class ShipmentMetadata(pydantic.BaseModel):
     jurisdiction: typing.List[Country]
     reference_id: str
     entity_id: str = pydantic.Field(description="Unique identifier of the entity")
-    departure_address: typing.Optional[AddressProperties]
+    departure_address: typing.Optional[AddressProperties] = None
     type: str
     sources: typing.List[str]
     departure_country: typing.List[Country]

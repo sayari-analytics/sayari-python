@@ -22,7 +22,7 @@ class Source(pydantic.BaseModel):
     source_type: str
     record_type: str
     structure: str
-    source_url: typing.Optional[str]
+    source_url: typing.Optional[str] = None
     pep: bool
     watchlist: bool
 

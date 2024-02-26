@@ -20,13 +20,13 @@ class FilterList(pydantic.BaseModel):
     Filter your search on the following attributes.
     """
 
-    source: typing.Optional[typing.List[SourceId]]
-    country: typing.Optional[typing.List[Country]]
-    state: typing.Optional[typing.List[str]]
-    city: typing.Optional[typing.List[str]]
-    entity_type: typing.Optional[typing.List[Entities]]
-    bounds: typing.Optional[typing.List[str]]
-    risk: typing.Optional[typing.List[Tag]]
+    source: typing.Optional[typing.List[SourceId]] = None
+    country: typing.Optional[typing.List[Country]] = None
+    state: typing.Optional[typing.List[str]] = None
+    city: typing.Optional[typing.List[str]] = None
+    entity_type: typing.Optional[typing.List[Entities]] = None
+    bounds: typing.Optional[typing.List[str]] = None
+    risk: typing.Optional[typing.List[Tag]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
