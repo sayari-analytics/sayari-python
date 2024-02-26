@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class Country(str, enum.Enum):
     """
-    Country enums are normalized representations of country names. Taken from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#ECU
+    Country enums are normalized representations of country names. [Source](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3#ECU)
     """
 
     ABW = "ABW"
