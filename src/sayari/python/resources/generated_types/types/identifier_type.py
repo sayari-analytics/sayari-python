@@ -1190,7 +1190,7 @@ class IdentifierType(str, enum.Enum):
 
     JPN_CORPORATE_NO = "jpn_corporate_no"
     """
-    Japanese corporate number (https://en.wikipedia.org/wiki/Corporate_Number).
+    Japanese corporate number. Learn more [here](https://en.wikipedia.org/wiki/Corporate_Number).
     """
 
     USA_CGAC_AGENCY_CODE = "usa_cgac_agency_code"
@@ -1225,7 +1225,7 @@ class IdentifierType(str, enum.Enum):
 
     DNK_CVR = "dnk_cvr"
     """
-    Denmark business registration number; see https://erhvervsstyrelsen.dk/cvr-numre-p-numre-og-se-numre
+    Denmark business registration number; learn more [here](https://erhvervsstyrelsen.dk/cvr-numre-p-numre-og-se-numre)
     """
 
     DNK_PRODUCTION_UNIT_NO = "dnk_production_unit_no"
@@ -1291,7 +1291,7 @@ class IdentifierType(str, enum.Enum):
 
     IDN_TAX_ID = "idn_tax_id"
     """
-    Indonesian tax ID aka NPWP Number; see https://wiki.scn.sap.com/wiki/display/CRM/Indonesia
+    Indonesian tax ID aka NPWP Number; learn more [here](https://wiki.scn.sap.com/wiki/display/CRM/Indonesia)
     """
 
     USA_VT_BIZ_ID = "usa_vt_biz_id"
@@ -1669,7 +1669,7 @@ class IdentifierType(str, enum.Enum):
 
     ECU_CEDULA_NUMBER = "ecu_cedula_number"
     """
-    Ecuador cedula (https://www.jybaro.com/blog/cedula-de-identidad-ecuatoriana/)
+    [Ecuador cedula](https://www.jybaro.com/blog/cedula-de-identidad-ecuatoriana/)
     """
 
     HKG_STOCK_CODE = "hkg_stock_code"
@@ -1685,6 +1685,11 @@ class IdentifierType(str, enum.Enum):
     CAN_BC_EXTRAPROVINCIAL_REGISTRATION_ID = "can_bc_extraprovincial_registration_id"
     """
     British Columbia Extraprovincial Company Registration ID
+    """
+
+    CAN_IPO_TRADEMARK_APPLICATION_NO = "can_ipo_trademark_application_no"
+    """
+    Unique Canada ID number. Assigned to every trademark application.
     """
 
     LTU_COMPANY_REGISTRATION_CODE = "ltu_company_registration_code"
@@ -2076,7 +2081,7 @@ class IdentifierType(str, enum.Enum):
 
     ALEI = "alei"
     """
-    Authoritative legal entity identifier (ALEI), a government-issued registration number that is standardized according to https://en.wikipedia.org/wiki/ISO_8000
+    Authoritative legal entity identifier (ALEI), a government-issued registration number that is standardized according to [ISO 8000](https://en.wikipedia.org/wiki/ISO_8000)
     """
 
     CAN_NS_CORPORATE_REGISTRY = "can_ns_corporate_registry"
@@ -2194,7 +2199,7 @@ class IdentifierType(str, enum.Enum):
 
     CAGE = "cage"
     """
-    The Commercial and Government Entity (CAGE) code is a five-character ID assigned by the US Department of Defense's Defense Logistics Agency (DLA) to refer to a facility at a specific location (includes government suppliers, agencies, and other organizations). CAGE codes for entities outside the USA are called NATO Commercial and Government Entity (NCAGE) codes and are part of the NATO Codification System (NCS). See https://fawiki.fws.gov/display/SAM/Commercial+And+Government+Entity+%28CAGE%29+Code+Information.
+    The Commercial and Government Entity (CAGE) code is a five-character ID assigned by the US Department of Defense's Defense Logistics Agency (DLA) to refer to a facility at a specific location (includes government suppliers, agencies, and other organizations). CAGE codes for entities outside the USA are called NATO Commercial and Government Entity (NCAGE) codes and are part of the NATO Codification System (NCS). Learn more [here](https://fawiki.fws.gov/display/SAM/Commercial+And+Government+Entity+%28CAGE%29+Code+Information).
     """
 
     ATG_BUSINESS_REGISTRY_INTERNAL_ID = "atg_business_registry_internal_id"
@@ -2405,7 +2410,7 @@ class IdentifierType(str, enum.Enum):
 
     CAN_BUSINESS_NUMBER = "can_business_number"
     """
-    The Canada Revenue Agency (CRA) business number is a nine-digit tax ID assigned to organizations to help them engage with federal and provincial government programs. See https://www.liveabout.com/what-is-the-canada-revenue-agency-cra-business-number-2947322.
+    The Canada Revenue Agency (CRA) business number is a nine-digit tax ID assigned to organizations to help them engage with federal and provincial government programs. Learn more [here](https://www.liveabout.com/what-is-the-canada-revenue-agency-cra-business-number-2947322).
     """
 
     CHN_CSRC_NO = "chn_csrc_no"
@@ -2681,6 +2686,16 @@ class IdentifierType(str, enum.Enum):
     CHN_CUSTOMS_REGISTRATION_NO = "chn_customs_registration_no"
     """
     Unique customs registration number. Assigned to all entities registered with China General Administration of Customs.
+    """
+
+    ISL_VAT_NUM = "isl_vat_num"
+    """
+    Iceland VAT identification number. Assigned to legal entities registered with Tax Administration.
+    """
+
+    CAN_TM_REGISTRATION_NO = "can_tm_registration_no"
+    """
+    Unique Canada ID number. Assigned to every registered trademark.
     """
 
     def visit(
@@ -3033,6 +3048,7 @@ class IdentifierType(str, enum.Enum):
         hkg_stock_code: typing.Callable[[], T_Result],
         can_bc_company_registration_id: typing.Callable[[], T_Result],
         can_bc_extraprovincial_registration_id: typing.Callable[[], T_Result],
+        can_ipo_trademark_application_no: typing.Callable[[], T_Result],
         ltu_company_registration_code: typing.Callable[[], T_Result],
         usa_sec_private_fund: typing.Callable[[], T_Result],
         lva_insolvency_proceeding_id: typing.Callable[[], T_Result],
@@ -3237,6 +3253,8 @@ class IdentifierType(str, enum.Enum):
         irl_registration_no: typing.Callable[[], T_Result],
         blz_bccar_reg_no: typing.Callable[[], T_Result],
         chn_customs_registration_no: typing.Callable[[], T_Result],
+        isl_vat_num: typing.Callable[[], T_Result],
+        can_tm_registration_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -3934,6 +3952,8 @@ class IdentifierType(str, enum.Enum):
             return can_bc_company_registration_id()
         if self is IdentifierType.CAN_BC_EXTRAPROVINCIAL_REGISTRATION_ID:
             return can_bc_extraprovincial_registration_id()
+        if self is IdentifierType.CAN_IPO_TRADEMARK_APPLICATION_NO:
+            return can_ipo_trademark_application_no()
         if self is IdentifierType.LTU_COMPANY_REGISTRATION_CODE:
             return ltu_company_registration_code()
         if self is IdentifierType.USA_SEC_PRIVATE_FUND:
@@ -4342,3 +4362,7 @@ class IdentifierType(str, enum.Enum):
             return blz_bccar_reg_no()
         if self is IdentifierType.CHN_CUSTOMS_REGISTRATION_NO:
             return chn_customs_registration_no()
+        if self is IdentifierType.ISL_VAT_NUM:
+            return isl_vat_num()
+        if self is IdentifierType.CAN_TM_REGISTRATION_NO:
+            return can_tm_registration_no()

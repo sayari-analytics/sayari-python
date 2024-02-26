@@ -14,7 +14,7 @@ except ImportError:
 
 class Identifier(pydantic.BaseModel):
     """
-    Identifiers associated with the entity. See https://docs.sayari.com/attributes/#identifier
+    Identifiers associated with the entity.
     """
 
     value: str
