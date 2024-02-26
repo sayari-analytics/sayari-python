@@ -9,6 +9,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.jsonable_encoder import jsonable_encoder
 from ...core.remove_none_from_dict import remove_none_from_dict
 from ...core.request_options import RequestOptions
+from ..generated_types.types.both_identifier_types import BothIdentifierTypes
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
 from ..shared_errors.errors.bad_request import BadRequest
@@ -39,7 +40,7 @@ class ResolutionClient:
         self,
         *,
         name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        identifier: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]] = None,
         country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
         date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
@@ -53,7 +54,7 @@ class ResolutionClient:
         Parameters:
             - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
 
-            - identifier: typing.Optional[typing.Union[str, typing.List[str]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
             - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
@@ -136,7 +137,7 @@ class AsyncResolutionClient:
         self,
         *,
         name: typing.Optional[typing.Union[str, typing.List[str]]] = None,
-        identifier: typing.Optional[typing.Union[str, typing.List[str]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]] = None,
         country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
         address: typing.Optional[typing.Union[str, typing.List[str]]] = None,
         date_of_birth: typing.Optional[typing.Union[str, typing.List[str]]] = None,
@@ -150,7 +151,7 @@ class AsyncResolutionClient:
         Parameters:
             - name: typing.Optional[typing.Union[str, typing.List[str]]]. Entity name
 
-            - identifier: typing.Optional[typing.Union[str, typing.List[str]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.List[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
             - country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
