@@ -6,7 +6,7 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from ...generated_types.types.tag import Tag
+from ...generated_types.types.risk import Risk
 from .source_id import SourceId
 
 try:
@@ -26,7 +26,7 @@ class FilterList(pydantic.BaseModel):
     city: typing.Optional[typing.List[str]] = None
     entity_type: typing.Optional[typing.List[Entities]] = None
     bounds: typing.Optional[typing.List[str]] = None
-    risk: typing.Optional[typing.List[Tag]] = None
+    risk: typing.Optional[typing.List[Risk]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
