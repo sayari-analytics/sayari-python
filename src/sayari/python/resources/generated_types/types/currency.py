@@ -8,7 +8,7 @@ T_Result = typing.TypeVar("T_Result")
 
 class Currency(str, enum.Enum):
     """
-    Currency enums are normalized representations of currencies. Based on https://en.wikipedia.org/wiki/ISO_4217.
+    Currency enums are normalized representations of currencies. [Source](https://en.wikipedia.org/wiki/ISO_4217).
     """
 
     AFN = "AFN"
@@ -908,7 +908,7 @@ class Currency(str, enum.Enum):
 
     LVL = "LVL"
     """
-    Latvian Lat; See https://en.wikipedia.org/wiki/Latvian_lats
+    Latvian Lat; Learn more [here](https://en.wikipedia.org/wiki/Latvian_lats)
     """
 
     SKK = "SKK"
