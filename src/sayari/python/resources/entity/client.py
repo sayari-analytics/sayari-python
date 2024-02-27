@@ -12,7 +12,7 @@ from ...core.remove_none_from_dict import remove_none_from_dict
 from ...core.request_options import RequestOptions
 from ..generated_types.types.country import Country
 from ..generated_types.types.relationships import Relationships
-from ..generated_types.types.tag import Tag
+from ..generated_types.types.risk import Risk
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
@@ -67,7 +67,7 @@ class EntityClient:
         relationships_departure_state: typing.Optional[str] = None,
         relationships_departure_city: typing.Optional[str] = None,
         relationships_partner_name: typing.Optional[str] = None,
-        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Risk, typing.Sequence[Risk]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -133,7 +133,7 @@ class EntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
+            - relationships_partner_risk: typing.Optional[typing.Union[Risk, typing.Sequence[Risk]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -333,7 +333,7 @@ class AsyncEntityClient:
         relationships_departure_state: typing.Optional[str] = None,
         relationships_departure_city: typing.Optional[str] = None,
         relationships_partner_name: typing.Optional[str] = None,
-        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Risk, typing.Sequence[Risk]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -399,7 +399,7 @@ class AsyncEntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
+            - relationships_partner_risk: typing.Optional[typing.Union[Risk, typing.Sequence[Risk]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
