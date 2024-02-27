@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .address_type import AddressType
 from .language import Language
 
 try:
@@ -81,7 +80,7 @@ class AddressProperties(pydantic.BaseModel):
     transliterated: typing.Optional[str] = pydantic.Field(
         default=None, description="The address value transliterated to English"
     )
-    type: typing.Optional[AddressType] = pydantic.Field(
+    type: typing.Optional[str] = pydantic.Field(
         default=None,
         description="Indicates what the address is referring to. For example, it could be a physical address, mailing address, or other address type.",
     )
