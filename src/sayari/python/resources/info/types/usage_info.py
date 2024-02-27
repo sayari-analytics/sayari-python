@@ -12,14 +12,14 @@ except ImportError:
 
 
 class UsageInfo(pydantic.BaseModel):
-    entity: typing.Optional[int]
-    entity_summary: typing.Optional[int]
-    record: typing.Optional[int]
-    resolve: typing.Optional[int]
-    search_entities: typing.Optional[int]
-    search_records: typing.Optional[int]
-    search_trade: typing.Optional[int]
-    traversal: typing.Optional[int]
+    entity: typing.Optional[int] = None
+    entity_summary: typing.Optional[int] = None
+    record: typing.Optional[int] = None
+    resolve: typing.Optional[int] = None
+    search_entities: typing.Optional[int] = None
+    search_records: typing.Optional[int] = None
+    search_trade: typing.Optional[int] = None
+    traversal: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

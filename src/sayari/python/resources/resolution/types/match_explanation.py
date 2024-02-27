@@ -12,10 +12,10 @@ except ImportError:
 
 
 class MatchExplanation(pydantic.BaseModel):
-    matched: typing.Optional[str]
-    uploaded: typing.Optional[str]
-    name_custom_tf_idf_score: typing.Optional[float] = pydantic.Field(alias="nameCustomTfIdfScore")
-    high_quality_match_name: typing.Optional[bool] = pydantic.Field(alias="highQualityMatchName")
+    matched: typing.Optional[str] = None
+    uploaded: typing.Optional[str] = None
+    name_custom_tf_idf_score: typing.Optional[float] = pydantic.Field(alias="nameCustomTfIdfScore", default=None)
+    high_quality_match_name: typing.Optional[bool] = pydantic.Field(alias="highQualityMatchName", default=None)
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

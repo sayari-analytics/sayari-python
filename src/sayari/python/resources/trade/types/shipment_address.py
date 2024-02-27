@@ -12,12 +12,12 @@ except ImportError:
 
 
 class ShipmentAddress(pydantic.BaseModel):
-    x: typing.Optional[float]
-    y: typing.Optional[float]
-    city: typing.Optional[str]
-    state: typing.Optional[str]
-    country: typing.Optional[str]
-    value: typing.Optional[str]
+    x: typing.Optional[float] = None
+    y: typing.Optional[float] = None
+    city: typing.Optional[str] = None
+    state: typing.Optional[str] = None
+    country: typing.Optional[str] = None
+    value: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

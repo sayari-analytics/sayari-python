@@ -60,7 +60,7 @@ class RecordClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -140,7 +140,7 @@ class AsyncRecordClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {

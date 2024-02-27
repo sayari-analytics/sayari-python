@@ -59,15 +59,15 @@ class EntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         relationships_arrival_state: typing.Optional[str] = None,
         relationships_arrival_city: typing.Optional[str] = None,
-        relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         relationships_departure_state: typing.Optional[str] = None,
         relationships_departure_city: typing.Optional[str] = None,
         relationships_partner_name: typing.Optional[str] = None,
-        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -117,15 +117,15 @@ class EntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
 
-            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
 
             - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
 
-            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
 
@@ -133,7 +133,7 @@ class EntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -158,7 +158,7 @@ class EntityClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -174,7 +174,7 @@ class EntityClient:
                         "relationships.next": relationships_next,
                         "relationships.prev": relationships_prev,
                         "relationships.limit": relationships_limit,
-                        "relationships.type": relationships_type.value if relationships_type is not None else None,
+                        "relationships.type": relationships_type,
                         "relationships.sort": relationships_sort,
                         "relationships.startDate": str(relationships_start_date)
                         if relationships_start_date is not None
@@ -183,23 +183,15 @@ class EntityClient:
                         if relationships_end_date is not None
                         else None,
                         "relationships.minShares": relationships_min_shares,
-                        "relationships.country": relationships_country.value
-                        if relationships_country is not None
-                        else None,
-                        "relationships.arrivalCountry": relationships_arrival_country.value
-                        if relationships_arrival_country is not None
-                        else None,
+                        "relationships.country": relationships_country,
+                        "relationships.arrivalCountry": relationships_arrival_country,
                         "relationships.arrivalState": relationships_arrival_state,
                         "relationships.arrivalCity": relationships_arrival_city,
-                        "relationships.departureCountry": relationships_departure_country.value
-                        if relationships_departure_country is not None
-                        else None,
+                        "relationships.departureCountry": relationships_departure_country,
                         "relationships.departureState": relationships_departure_state,
                         "relationships.departureCity": relationships_departure_city,
                         "relationships.partnerName": relationships_partner_name,
-                        "relationships.partnerRisk": relationships_partner_risk.value
-                        if relationships_partner_risk is not None
-                        else None,
+                        "relationships.partnerRisk": relationships_partner_risk,
                         "relationships.hsCode": relationships_hs_code,
                         "possibly_same_as.next": possibly_same_as_next,
                         "possibly_same_as.prev": possibly_same_as_prev,
@@ -267,7 +259,9 @@ class EntityClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{jsonable_encoder(id)}"
+            ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
@@ -331,15 +325,15 @@ class AsyncEntityClient:
         relationships_start_date: typing.Optional[dt.date] = None,
         relationships_end_date: typing.Optional[dt.date] = None,
         relationships_min_shares: typing.Optional[int] = None,
-        relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        relationships_arrival_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         relationships_arrival_state: typing.Optional[str] = None,
         relationships_arrival_city: typing.Optional[str] = None,
-        relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
+        relationships_departure_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         relationships_departure_state: typing.Optional[str] = None,
         relationships_departure_city: typing.Optional[str] = None,
         relationships_partner_name: typing.Optional[str] = None,
-        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]] = None,
+        relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]] = None,
         relationships_hs_code: typing.Optional[str] = None,
         possibly_same_as_next: typing.Optional[str] = None,
         possibly_same_as_prev: typing.Optional[str] = None,
@@ -389,15 +383,15 @@ class AsyncEntityClient:
 
             - relationships_min_shares: typing.Optional[int]. Filters relationships to greater than or equal to a Shareholder percentage
 
-            - relationships_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters relationships to a list of [countries](/sayari-library/ontology/enumerated-types#country)
 
-            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_arrival_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters shipment relationships to a list of arrival [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_arrival_state: typing.Optional[str]. Filters shipment relationships to an arrival state
 
             - relationships_arrival_city: typing.Optional[str]. Filters shipment relationships to an arrival city
 
-            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
+            - relationships_departure_country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filters shipment relationships to a list of departure [countries](/sayari-library/ontology/enumerated-types#country)
 
             - relationships_departure_state: typing.Optional[str]. Filters shipment relationships to a departure state
 
@@ -405,7 +399,7 @@ class AsyncEntityClient:
 
             - relationships_partner_name: typing.Optional[str]. Filters shipment relationships to a trade partner name
 
-            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.List[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
+            - relationships_partner_risk: typing.Optional[typing.Union[Tag, typing.Sequence[Tag]]]. Filters shipment relationships to a trade partner [risk tag](/sayari-library/ontology/enumerated-types#tag)
 
             - relationships_hs_code: typing.Optional[str]. Filters shipment relationships to an HS code
 
@@ -430,7 +424,7 @@ class AsyncEntityClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -446,7 +440,7 @@ class AsyncEntityClient:
                         "relationships.next": relationships_next,
                         "relationships.prev": relationships_prev,
                         "relationships.limit": relationships_limit,
-                        "relationships.type": relationships_type.value if relationships_type is not None else None,
+                        "relationships.type": relationships_type,
                         "relationships.sort": relationships_sort,
                         "relationships.startDate": str(relationships_start_date)
                         if relationships_start_date is not None
@@ -455,23 +449,15 @@ class AsyncEntityClient:
                         if relationships_end_date is not None
                         else None,
                         "relationships.minShares": relationships_min_shares,
-                        "relationships.country": relationships_country.value
-                        if relationships_country is not None
-                        else None,
-                        "relationships.arrivalCountry": relationships_arrival_country.value
-                        if relationships_arrival_country is not None
-                        else None,
+                        "relationships.country": relationships_country,
+                        "relationships.arrivalCountry": relationships_arrival_country,
                         "relationships.arrivalState": relationships_arrival_state,
                         "relationships.arrivalCity": relationships_arrival_city,
-                        "relationships.departureCountry": relationships_departure_country.value
-                        if relationships_departure_country is not None
-                        else None,
+                        "relationships.departureCountry": relationships_departure_country,
                         "relationships.departureState": relationships_departure_state,
                         "relationships.departureCity": relationships_departure_city,
                         "relationships.partnerName": relationships_partner_name,
-                        "relationships.partnerRisk": relationships_partner_risk.value
-                        if relationships_partner_risk is not None
-                        else None,
+                        "relationships.partnerRisk": relationships_partner_risk,
                         "relationships.hsCode": relationships_hs_code,
                         "possibly_same_as.next": possibly_same_as_next,
                         "possibly_same_as.prev": possibly_same_as_prev,
@@ -539,7 +525,9 @@ class AsyncEntityClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{id}"),
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{jsonable_encoder(id)}"
+            ),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),

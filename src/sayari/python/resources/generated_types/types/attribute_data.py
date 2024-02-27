@@ -12,7 +12,7 @@ except ImportError:
 
 
 class AttributeData(pydantic.BaseModel):
-    editable: typing.Optional[bool]
+    editable: typing.Optional[bool] = None
     record: typing.List[str]
     record_count: int
 

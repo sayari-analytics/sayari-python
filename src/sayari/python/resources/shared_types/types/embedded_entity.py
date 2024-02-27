@@ -31,7 +31,7 @@ class EmbeddedEntity(pydantic.BaseModel):
     pep: bool = pydantic.Field(
         description='True if the entity has the ["Politically Exposed Person (PEP)" risk factor](/sayari-library/ontology/risk-factors#politically-exposed-person-pep-), otherwise false.'
     )
-    psa_id: typing.Optional[str]
+    psa_id: typing.Optional[str] = None
     psa_count: int = pydantic.Field(description="Number of entities that are Possibly the Same As (PSA) the entity.")
     sanctioned: bool = pydantic.Field(
         description='True if the entity has the ["Sanctioned" risk factor](/sayari-library/ontology/risk-factors#sanctioned), otherwise false.'
@@ -48,7 +48,8 @@ class EmbeddedEntity(pydantic.BaseModel):
         description="List of physical addresses associated with the entity. See more [here](/sayari-library/ontology/attributes#address)"
     )
     date_of_birth: typing.Optional[str] = pydantic.Field(
-        description="Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)"
+        default=None,
+        description="Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)",
     )
     relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
         description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."

@@ -13,10 +13,10 @@ except ImportError:
 
 
 class ContactProperties(pydantic.BaseModel):
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    type: typing.Optional[ContactType] = pydantic.Field(description="Email, fax, phone number, or URL")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
+    type: typing.Optional[ContactType] = pydantic.Field(default=None, description="Email, fax, phone number, or URL")
     value: str = pydantic.Field(description='The contact detail itself (e.g., "jdoe@sayari.com", "202-555-5555")')
 
     def json(self, **kwargs: typing.Any) -> str:

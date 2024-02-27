@@ -13,7 +13,7 @@ except ImportError:
 
 
 class SupplierMetadata(pydantic.BaseModel):
-    latest_shipment_date: typing.Optional[str] = pydantic.Field(alias="latestShipmentDate")
+    latest_shipment_date: typing.Optional[str] = pydantic.Field(alias="latestShipmentDate", default=None)
     shipments: int
     hs_codes: typing.List[HsCode] = pydantic.Field(alias="hsCodes")
 

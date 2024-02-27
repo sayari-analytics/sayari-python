@@ -14,7 +14,7 @@ except ImportError:
 
 
 class PossiblySameAsData(pydantic.BaseModel):
-    editable: typing.Optional[bool]
+    editable: typing.Optional[bool] = None
     entity: PsaEntity
     matches: typing.Dict[str, typing.List[PossiblySameAsMatch]]
 

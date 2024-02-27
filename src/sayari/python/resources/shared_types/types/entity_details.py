@@ -30,24 +30,26 @@ class EntityDetails(EmbeddedEntity):
     Additional fields providing more details about an entity
     """
 
-    registration_date: typing.Optional[EntityRegistrationDate]
-    translated_label: typing.Optional[EntityTranslatedLabel]
-    hs_code: typing.Optional[EntityHsCode]
-    shipment_arrival: typing.Optional[ShipmentArrival]
-    shipment_departure: typing.Optional[ShipmentDepartue]
-    company_type: typing.Optional[CompanyType]
-    latest_status: typing.Optional[Status]
+    registration_date: typing.Optional[EntityRegistrationDate] = None
+    translated_label: typing.Optional[EntityTranslatedLabel] = None
+    hs_code: typing.Optional[EntityHsCode] = None
+    shipment_arrival: typing.Optional[ShipmentArrival] = None
+    shipment_departure: typing.Optional[ShipmentDepartue] = None
+    company_type: typing.Optional[CompanyType] = None
+    latest_status: typing.Optional[Status] = None
     risk: EntityRisk = pydantic.Field(
         description="[Risk factors](/sayari-library/ontology/risk-factors) associated with the entity."
     )
     attributes: typing.Optional[AttributeDetails] = pydantic.Field(
-        description="Detailed information about the entity's [attributes](/sayari-library/ontology/attributes)."
+        default=None,
+        description="Detailed information about the entity's [attributes](/sayari-library/ontology/attributes).",
     )
     relationships: typing.Optional[EntityRelationships] = pydantic.Field(
-        description="Detailed information about the entity's [relationships](/sayari-library/ontology/relationships)."
+        default=None,
+        description="Detailed information about the entity's [relationships](/sayari-library/ontology/relationships).",
     )
-    possibly_same_as: typing.Optional[PossiblySameAs]
-    referenced_by: typing.Optional[ReferencedBy]
+    possibly_same_as: typing.Optional[PossiblySameAs] = None
+    referenced_by: typing.Optional[ReferencedBy] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

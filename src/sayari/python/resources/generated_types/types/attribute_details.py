@@ -34,28 +34,28 @@ except ImportError:
 
 
 class AttributeDetails(pydantic.BaseModel):
-    additional_information: typing.Optional[AdditionalInformationInfo]
-    address: typing.Optional[AddressInfo]
-    business_purpose: typing.Optional[BusinessPurposeInfo]
-    company_type: typing.Optional[CompanyTypeInfo]
-    contact: typing.Optional[ContactInfo]
-    country: typing.Optional[CountryInfo]
-    date_of_birth: typing.Optional[DateOfBirthInfo]
-    finances: typing.Optional[FinancesInfo]
-    financials: typing.Optional[FinancialsInfo]
-    gender: typing.Optional[GenderInfo]
-    generic: typing.Optional[GenericInfo]
-    identifier: typing.Optional[IdentifierInfo]
-    measurement: typing.Optional[MeasurementInfo]
-    monetary_value: typing.Optional[MonetaryValueInfo]
-    name: typing.Optional[NameInfo]
-    person_status: typing.Optional[PersonStatusInfo]
-    position: typing.Optional[PositionInfo]
-    risk_intelligence: typing.Optional[RiskIntelligenceInfo]
-    shares: typing.Optional[SharesInfo]
-    status: typing.Optional[StatusInfo]
-    translated_name: typing.Optional[TranslatedNameInfo]
-    weak_identifier: typing.Optional[WeakIdentifierInfo]
+    additional_information: typing.Optional[AdditionalInformationInfo] = None
+    address: typing.Optional[AddressInfo] = None
+    business_purpose: typing.Optional[BusinessPurposeInfo] = None
+    company_type: typing.Optional[CompanyTypeInfo] = None
+    contact: typing.Optional[ContactInfo] = None
+    country: typing.Optional[CountryInfo] = None
+    date_of_birth: typing.Optional[DateOfBirthInfo] = None
+    finances: typing.Optional[FinancesInfo] = None
+    financials: typing.Optional[FinancialsInfo] = None
+    gender: typing.Optional[GenderInfo] = None
+    generic: typing.Optional[GenericInfo] = None
+    identifier: typing.Optional[IdentifierInfo] = None
+    measurement: typing.Optional[MeasurementInfo] = None
+    monetary_value: typing.Optional[MonetaryValueInfo] = None
+    name: typing.Optional[NameInfo] = None
+    person_status: typing.Optional[PersonStatusInfo] = None
+    position: typing.Optional[PositionInfo] = None
+    risk_intelligence: typing.Optional[RiskIntelligenceInfo] = None
+    shares: typing.Optional[SharesInfo] = None
+    status: typing.Optional[StatusInfo] = None
+    translated_name: typing.Optional[TranslatedNameInfo] = None
+    weak_identifier: typing.Optional[WeakIdentifierInfo] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

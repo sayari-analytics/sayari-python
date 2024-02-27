@@ -13,13 +13,15 @@ except ImportError:
 
 
 class NameProperties(pydantic.BaseModel):
-    context: typing.Optional[str]
-    date: typing.Optional[str] = pydantic.Field(description="as-of date")
-    from_date: typing.Optional[str] = pydantic.Field(description="start date")
-    language: typing.Optional[Language] = pydantic.Field(description="The language that the name is in")
-    to_date: typing.Optional[str] = pydantic.Field(description="end date")
-    translated: typing.Optional[str] = pydantic.Field(description="The name value translated to English")
-    transliterated: typing.Optional[str] = pydantic.Field(description="The name value transliterated to English")
+    context: typing.Optional[str] = None
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
+    language: typing.Optional[Language] = pydantic.Field(default=None, description="The language that the name is in")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date")
+    translated: typing.Optional[str] = pydantic.Field(default=None, description="The name value translated to English")
+    transliterated: typing.Optional[str] = pydantic.Field(
+        default=None, description="The name value transliterated to English"
+    )
     value: str = pydantic.Field(description="The name, as text")
 
     def json(self, **kwargs: typing.Any) -> str:

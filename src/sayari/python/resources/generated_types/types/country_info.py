@@ -14,8 +14,8 @@ class CountryInfo(PaginatedResponse):
     """
 
     data: typing.List[CountryData]
-    next: typing.Optional[typing.Any]
-    offset: typing.Optional[int]
+    next: typing.Optional[typing.Any] = None
+    offset: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

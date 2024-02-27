@@ -49,10 +49,10 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -88,13 +88,13 @@ class TraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -143,7 +143,7 @@ class TraversalClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -151,10 +151,10 @@ class TraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
-                        "relationships": relationships.value if relationships is not None else None,
+                        "relationships": relationships,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -229,8 +229,8 @@ class TraversalClient:
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -268,9 +268,9 @@ class TraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -319,7 +319,7 @@ class TraversalClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -328,8 +328,8 @@ class TraversalClient:
                         "min_depth": min_depth,
                         "max_depth": max_depth,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -404,8 +404,8 @@ class TraversalClient:
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -443,9 +443,9 @@ class TraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -494,7 +494,7 @@ class TraversalClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -503,8 +503,8 @@ class TraversalClient:
                         "min_depth": min_depth,
                         "max_depth": max_depth,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -578,10 +578,10 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -617,13 +617,13 @@ class TraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -672,7 +672,7 @@ class TraversalClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -680,10 +680,10 @@ class TraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
-                        "relationships": relationships.value if relationships is not None else None,
+                        "relationships": relationships,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -750,13 +750,16 @@ class TraversalClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def shortest_path(
-        self, *, entities: typing.Union[str, typing.List[str]], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        entities: typing.Union[str, typing.Sequence[str]],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ShortestPathResponse:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
         Parameters:
-            - entities: typing.Union[str, typing.List[str]].
+            - entities: typing.Union[str, typing.Sequence[str]].
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """
@@ -826,10 +829,10 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -865,13 +868,13 @@ class AsyncTraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -920,7 +923,7 @@ class AsyncTraversalClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -928,10 +931,10 @@ class AsyncTraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
-                        "relationships": relationships.value if relationships is not None else None,
+                        "relationships": relationships,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -1006,8 +1009,8 @@ class AsyncTraversalClient:
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -1045,9 +1048,9 @@ class AsyncTraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -1096,7 +1099,7 @@ class AsyncTraversalClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1105,8 +1108,8 @@ class AsyncTraversalClient:
                         "min_depth": min_depth,
                         "max_depth": max_depth,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -1181,8 +1184,8 @@ class AsyncTraversalClient:
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -1220,9 +1223,9 @@ class AsyncTraversalClient:
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -1271,7 +1274,7 @@ class AsyncTraversalClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1280,8 +1283,8 @@ class AsyncTraversalClient:
                         "min_depth": min_depth,
                         "max_depth": max_depth,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -1355,10 +1358,10 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
-        relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
-        countries: typing.Optional[typing.Union[Country, typing.List[Country]]] = None,
-        types: typing.Optional[typing.Union[Entities, typing.List[Entities]]] = None,
+        countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         sanctioned: typing.Optional[bool] = None,
         pep: typing.Optional[bool] = None,
         min_shares: typing.Optional[int] = None,
@@ -1394,13 +1397,13 @@ class AsyncTraversalClient:
 
             - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.List[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
             - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.List[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.List[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
             - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
@@ -1449,7 +1452,7 @@ class AsyncTraversalClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
-            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{id}"),
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{jsonable_encoder(id)}"),
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -1457,10 +1460,10 @@ class AsyncTraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
-                        "relationships": relationships.value if relationships is not None else None,
+                        "relationships": relationships,
                         "psa": psa,
-                        "countries": countries.value if countries is not None else None,
-                        "types": types.value if types is not None else None,
+                        "countries": countries,
+                        "types": types,
                         "sanctioned": sanctioned,
                         "pep": pep,
                         "min_shares": min_shares,
@@ -1527,13 +1530,16 @@ class AsyncTraversalClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def shortest_path(
-        self, *, entities: typing.Union[str, typing.List[str]], request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        entities: typing.Union[str, typing.Sequence[str]],
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> ShortestPathResponse:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
         Parameters:
-            - entities: typing.Union[str, typing.List[str]].
+            - entities: typing.Union[str, typing.Sequence[str]].
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         """

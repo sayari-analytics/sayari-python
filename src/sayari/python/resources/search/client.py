@@ -45,7 +45,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[SearchField]] = OMIT,
+        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -62,7 +62,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
 
             - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
@@ -152,7 +152,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
@@ -168,7 +168,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -192,7 +192,7 @@ class SearchClient:
                         "limit": limit,
                         "offset": offset,
                         "q": q,
-                        "fields": fields.value if fields is not None else None,
+                        "fields": fields,
                         "facets": facets,
                         "geo_facets": geo_facets,
                         "advanced": advanced,
@@ -244,7 +244,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[SearchField]] = OMIT,
+        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -260,7 +260,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
 
             - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
@@ -346,7 +346,7 @@ class SearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -361,7 +361,7 @@ class SearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -383,7 +383,7 @@ class SearchClient:
                         "limit": limit,
                         "offset": offset,
                         "q": q,
-                        "fields": fields.value if fields is not None else None,
+                        "fields": fields,
                         "facets": facets,
                         "advanced": advanced,
                         **(
@@ -439,7 +439,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[SearchField]] = OMIT,
+        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         geo_facets: typing.Optional[bool] = OMIT,
@@ -456,7 +456,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
 
             - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
@@ -546,7 +546,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
@@ -562,7 +562,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -586,7 +586,7 @@ class AsyncSearchClient:
                         "limit": limit,
                         "offset": offset,
                         "q": q,
-                        "fields": fields.value if fields is not None else None,
+                        "fields": fields,
                         "facets": facets,
                         "geo_facets": geo_facets,
                         "advanced": advanced,
@@ -638,7 +638,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.List[SearchField]] = OMIT,
+        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -654,7 +654,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.List[SearchField]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
 
             - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
 
@@ -740,7 +740,7 @@ class AsyncSearchClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         q: str,
-        fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]] = None,
+        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -755,7 +755,7 @@ class AsyncSearchClient:
 
             - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.List[SearchField]]]. Record or entity fields to search against.
+            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
@@ -777,7 +777,7 @@ class AsyncSearchClient:
                         "limit": limit,
                         "offset": offset,
                         "q": q,
-                        "fields": fields.value if fields is not None else None,
+                        "fields": fields,
                         "facets": facets,
                         "advanced": advanced,
                         **(

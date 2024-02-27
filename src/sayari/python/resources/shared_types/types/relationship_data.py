@@ -21,11 +21,11 @@ class RelationshipData(pydantic.BaseModel):
         description="Additional information for each [relationship type](/sayari-library/ontology/relationships)."
     )
     dates: typing.List[str]
-    first_observed: typing.Optional[str]
-    former: typing.Optional[bool]
-    last_observed: typing.Optional[str]
-    start_date: typing.Optional[str]
-    end_date: typing.Optional[str]
+    first_observed: typing.Optional[str] = None
+    former: typing.Optional[bool] = None
+    last_observed: typing.Optional[str] = None
+    start_date: typing.Optional[str] = None
+    end_date: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

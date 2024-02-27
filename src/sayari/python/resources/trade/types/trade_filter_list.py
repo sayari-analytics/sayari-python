@@ -19,72 +19,82 @@ class TradeFilterList(pydantic.BaseModel):
     """
 
     buyer_id: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Exact match against the entity_id of the buyer. The buyer is the receiver_of shipments."
+        default=None,
+        description="Exact match against the entity_id of the buyer. The buyer is the receiver_of shipments.",
     )
     supplier_id: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Exact match against the entity_id of the supplier. The supplier is the shipper_of shipments."
+        default=None,
+        description="Exact match against the entity_id of the supplier. The supplier is the shipper_of shipments.",
     )
     buyer_name: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Buyers whose name contains the provided string."
+        default=None, description="Buyers whose name contains the provided string."
     )
     supplier_name: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipper whose name contains the provided string."
+        default=None, description="Shipper whose name contains the provided string."
     )
     buyer_risk: typing.Optional[typing.List[Risk]] = pydantic.Field(
-        description="Buyer with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors)."
+        default=None,
+        description="Buyer with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors).",
     )
     supplier_risk: typing.Optional[typing.List[Risk]] = pydantic.Field(
-        description="Shipper with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors)."
+        default=None,
+        description="Shipper with an exact match for the provided [risk factor](/sayari-library/ontology/risk-factors).",
     )
     buyer_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Buyer with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
+        default=None,
+        description="Buyer with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).",
     )
     supplier_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Supplier with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
+        default=None,
+        description="Supplier with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).",
     )
     departure_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Shipment departs from a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
+        default=None,
+        description="Shipment departs from a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).",
     )
     departure_state: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipment departs from a state that contains the provided state name."
+        default=None, description="Shipment departs from a state that contains the provided state name."
     )
     departure_city: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipment departs from a city that contains the provided city name."
+        default=None, description="Shipment departs from a city that contains the provided city name."
     )
     arrival_country: typing.Optional[typing.List[Country]] = pydantic.Field(
-        description="Shipment arrives at a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country)."
+        default=None,
+        description="Shipment arrives at a country with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).",
     )
     arrival_state: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipment arrives at a state that contains the provided state name."
+        default=None, description="Shipment arrives at a state that contains the provided state name."
     )
     arrival_city: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="Shipment arrives at a city that contains the provided city name."
+        default=None, description="Shipment arrives at a city that contains the provided city name."
     )
     hs_code: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The shipment HS code starts with the provided HS code."
+        default=None, description="The shipment HS code starts with the provided HS code."
     )
     hs_description: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The HS description contains the provided string."
+        default=None, description="The HS description contains the provided string."
     )
     supplier_purpose: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The supplier purpose contains the provided string."
+        default=None, description="The supplier purpose contains the provided string."
     )
     buyer_purpose: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The buyer purpose contains the provided string."
+        default=None, description="The buyer purpose contains the provided string."
     )
     arrival_date: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The arrival date is within the provided range."
+        default=None, description="The arrival date is within the provided range."
     )
     departure_date: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The departure date is within the provided range."
+        default=None, description="The departure date is within the provided range."
     )
     shipment_identifier: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The shipment identifier starts with the provided string."
+        default=None, description="The shipment identifier starts with the provided string."
     )
     weight: typing.Optional[typing.List[str]] = pydantic.Field(
-        description="The shipment weight is within the provided range."
+        default=None, description="The shipment weight is within the provided range."
     )
-    sources: typing.Optional[typing.List[str]] = pydantic.Field(description="An exact match for the provided sources.")
+    sources: typing.Optional[typing.List[str]] = pydantic.Field(
+        default=None, description="An exact match for the provided sources."
+    )
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

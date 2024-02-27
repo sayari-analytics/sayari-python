@@ -17,9 +17,9 @@ class PsaEntity(EmbeddedEntity):
     """
 
     risk: EntityRisk
-    registration_date: typing.Optional[EntityRegistrationDate]
-    company_type: typing.Optional[CompanyType]
-    latest_status: typing.Optional[Status]
+    registration_date: typing.Optional[EntityRegistrationDate] = None
+    company_type: typing.Optional[CompanyType] = None
+    latest_status: typing.Optional[Status] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
