@@ -48,7 +48,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     BRA_PARTIAL_CPF = "bra_partial_cpf"
     """
-    Individual taxpayer registry identification in Brazil (https://en.wikipedia.org/wiki/Cadastro_de_Pessoas_F%C3%ADsicas)
+    Individual taxpayer registry identification in Brazil. Learn more [here](https://en.wikipedia.org/wiki/Cadastro_de_Pessoas_F%C3%ADsicas)
     """
 
     VEN_COLEGIADO_NUMBER = "ven_colegiado_number"
@@ -109,7 +109,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     UKR_EDRPOU = "ukr_edrpou"
     """
-    See https://www.wikidata.org/wiki/Property:P3125
+    Learn more [here](https://www.wikidata.org/wiki/Property:P3125)
     """
 
     RU_LICENSE_NUMBER = "ru_license_number"
@@ -454,7 +454,7 @@ class WeakIdentifierType(str, enum.Enum):
 
     MARITIME_MOBILE_SERVICE_IDENTITY = "maritime_mobile_service_identity"
     """
-    Maritime Mobile Service Identity number (https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity)
+    Maritime Mobile Service Identity number. Learn more [here](https://en.wikipedia.org/wiki/Maritime_Mobile_Service_Identity)
     """
 
     USA_FORMER_FEIN = "usa_former_fein"
