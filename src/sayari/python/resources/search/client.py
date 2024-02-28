@@ -77,7 +77,7 @@ class SearchClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.search.search_entity(q="victoria beckham limited", )
+        client.search.search_entity(limit=1, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -181,7 +181,7 @@ class SearchClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.search.search_entity_get(limit=2, q="victoria beckham limited", )
+        client.search.search_entity_get(limit=1, q="victoria beckham limited", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -273,7 +273,7 @@ class SearchClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.search.search_record(limit=2, q="victoria beckham limited", )
+        client.search.search_record(limit=1, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -372,7 +372,7 @@ class SearchClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.search.search_record_get(q="victoria beckham limited", limit=2, )
+        client.search.search_record_get(q="victoria beckham limited", limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -471,7 +471,7 @@ class AsyncSearchClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.search.search_entity(q="victoria beckham limited", )
+        await client.search.search_entity(limit=1, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -575,7 +575,7 @@ class AsyncSearchClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.search.search_entity_get(limit=2, q="victoria beckham limited", )
+        await client.search.search_entity_get(limit=1, q="victoria beckham limited", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -667,7 +667,7 @@ class AsyncSearchClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.search.search_record(limit=2, q="victoria beckham limited", )
+        await client.search.search_record(limit=1, q="victoria beckham limited", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if fields is not OMIT:
@@ -766,7 +766,7 @@ class AsyncSearchClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.search.search_record_get(q="victoria beckham limited", limit=2, )
+        await client.search.search_record_get(q="victoria beckham limited", limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

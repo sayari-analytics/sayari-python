@@ -5,7 +5,6 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.attributes import Attributes
-from .relationship_attribute_value import RelationshipAttributeValue
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -16,7 +15,7 @@ except ImportError:
 class RelationshipInfo(pydantic.BaseModel):
     editable: typing.Optional[bool] = None
     record: str
-    attributes: typing.Dict[Attributes, typing.List[RelationshipAttributeValue]]
+    attributes: typing.Dict[Attributes, typing.List[typing.Any]]
     date: typing.Optional[str] = None
     from_date: typing.Optional[str] = None
     to_date: typing.Optional[str] = None

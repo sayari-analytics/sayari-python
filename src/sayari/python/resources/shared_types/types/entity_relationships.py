@@ -14,6 +14,7 @@ class EntityRelationships(PaginatedResponse):
     All relationships the entity is a part of.
     """
 
+    next: typing.Optional[typing.Any] = None
     data: typing.List[RelationshipData]
 
     def json(self, **kwargs: typing.Any) -> str:

@@ -69,7 +69,7 @@ class TradeClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.trade.search_shipments(limit=2, q="rum", )
+        client.trade.search_shipments(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -164,7 +164,7 @@ class TradeClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.trade.search_suppliers(limit=2, q="rum", )
+        client.trade.search_suppliers(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -259,7 +259,7 @@ class TradeClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.trade.search_buyers(limit=2, q="rum", )
+        client.trade.search_buyers(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -359,7 +359,7 @@ class AsyncTradeClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.trade.search_shipments(limit=2, q="rum", )
+        await client.trade.search_shipments(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -454,7 +454,7 @@ class AsyncTradeClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.trade.search_suppliers(limit=2, q="rum", )
+        await client.trade.search_suppliers(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
@@ -549,7 +549,7 @@ class AsyncTradeClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.trade.search_buyers(limit=2, q="rum", )
+        await client.trade.search_buyers(limit=1, q="rum", )
         """
         _request: typing.Dict[str, typing.Any] = {"q": q}
         if filter is not OMIT:
