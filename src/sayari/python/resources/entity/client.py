@@ -154,7 +154,7 @@ class EntityClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", )
+        client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", attributes_name_limit=1, attributes_address_limit=1, attributes_country_limit=1, relationships_limit=1, possibly_same_as_limit=1, referenced_by_limit=1, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -420,7 +420,7 @@ class AsyncEntityClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", )
+        await client.entity.get_entity(id="mGq1lpuqKssNWTjIokuPeA", attributes_name_limit=1, attributes_address_limit=1, attributes_country_limit=1, relationships_limit=1, possibly_same_as_limit=1, referenced_by_limit=1, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
