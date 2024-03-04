@@ -82,7 +82,7 @@ class TraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -260,7 +260,7 @@ class TraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -435,7 +435,7 @@ class TraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -611,7 +611,7 @@ class TraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -862,7 +862,7 @@ class AsyncTraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -1040,7 +1040,7 @@ class AsyncTraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -1215,7 +1215,7 @@ class AsyncTraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
@@ -1391,7 +1391,7 @@ class AsyncTraversalClient:
 
             - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0.
+            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
