@@ -5,7 +5,6 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .currency import Currency
-from .monetary_value_context import MonetaryValueContext
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -14,7 +13,7 @@ except ImportError:
 
 
 class MonetaryValueProperties(pydantic.BaseModel):
-    context: MonetaryValueContext = pydantic.Field(description="The type of value")
+    context: typing.Optional[str] = pydantic.Field(default=None, description="The type of value")
     currency: typing.Optional[Currency] = pydantic.Field(default=None, description="The ISO 4217 currency code")
     date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
