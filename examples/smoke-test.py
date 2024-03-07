@@ -22,7 +22,7 @@ firstSource = client.source.get_source(sources.data[0].id)
 print("First source is:", firstSource.label)
 
 # search for an entity
-search_term = "Slickdeals"
+search_term = "victoria beckham limited"
 entitySearchResults = client.search.search_entity(q=search_term)
 print("Found", len(entitySearchResults.data), "entity results for ", search_term)
 

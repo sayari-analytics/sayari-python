@@ -16,7 +16,7 @@ from .entity_translated_label import EntityTranslatedLabel
 from .possibly_same_as import PossiblySameAs
 from .referenced_by import ReferencedBy
 from .shipment_arrival import ShipmentArrival
-from .shipment_departue import ShipmentDepartue
+from .shipment_departure import ShipmentDeparture
 from .status import Status
 
 try:
@@ -34,7 +34,7 @@ class EntityDetails(EmbeddedEntity):
     translated_label: typing.Optional[EntityTranslatedLabel] = None
     hs_code: typing.Optional[EntityHsCode] = None
     shipment_arrival: typing.Optional[ShipmentArrival] = None
-    shipment_departure: typing.Optional[ShipmentDepartue] = None
+    shipment_departure: typing.Optional[ShipmentDeparture] = None
     company_type: typing.Optional[CompanyType] = None
     latest_status: typing.Optional[Status] = None
     risk: EntityRisk = pydantic.Field(
