@@ -13,7 +13,7 @@ except ImportError:
 
 class Status(pydantic.BaseModel):
     """
-    The most recent satus of an entity and when that status was observed.
+    The most recent status of an entity and when that status was observed.
     """
 
     status: str

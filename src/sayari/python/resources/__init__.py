@@ -164,7 +164,7 @@ from .shared_types import (
     RiskLevel,
     SearchField,
     ShipmentArrival,
-    ShipmentDepartue,
+    ShipmentDeparture,
     SourceCountInfo,
     Status,
 )
@@ -353,7 +353,7 @@ __all__ = [
     "ShipmentAddress",
     "ShipmentArrival",
     "ShipmentCountry",
-    "ShipmentDepartue",
+    "ShipmentDeparture",
     "ShipmentIdentifier",
     "ShipmentMetadata",
     "ShipmentSearchResponse",

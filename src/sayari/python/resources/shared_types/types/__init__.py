@@ -26,7 +26,7 @@ from .risk_data import RiskData
 from .risk_level import RiskLevel
 from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
-from .shipment_departue import ShipmentDepartue
+from .shipment_departure import ShipmentDeparture
 from .source_count_info import SourceCountInfo
 from .status import Status
 
@@ -57,7 +57,7 @@ __all__ = [
     "RiskLevel",
     "SearchField",
     "ShipmentArrival",
-    "ShipmentDepartue",
+    "ShipmentDeparture",
     "SourceCountInfo",
     "Status",
 ]

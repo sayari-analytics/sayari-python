@@ -27,7 +27,7 @@ from .types import (
     RiskLevel,
     SearchField,
     ShipmentArrival,
-    ShipmentDepartue,
+    ShipmentDeparture,
     SourceCountInfo,
     Status,
 )
@@ -59,7 +59,7 @@ __all__ = [
     "RiskLevel",
     "SearchField",
     "ShipmentArrival",
-    "ShipmentDepartue",
+    "ShipmentDeparture",
     "SourceCountInfo",
     "Status",
 ]
