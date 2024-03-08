@@ -2698,6 +2698,21 @@ class IdentifierType(str, enum.Enum):
     Unique Canada ID number. Assigned to every registered trademark.
     """
 
+    AZE_TIN_NUMBER = "aze_tin_number"
+    """
+    Azerbaijan TIN. Unique number assigned to taxpayers registered with Azerbaijan State Tax Service.
+    """
+
+    TJK_TIN_NUMBER = "tjk_tin_number"
+    """
+    Tajikistan TIN. Unique number assigned to taxpayers registered with Tajikistan Tax Authorities.
+    """
+
+    TJK_EIN_NUMBER = "tjk_ein_number"
+    """
+    Tajikistan EIN (RYIAM) number. Unique number assigned to taxpayers in Tajikistan.
+    """
+
     def visit(
         self,
         cn_tianyancha_company_id: typing.Callable[[], T_Result],
@@ -3255,6 +3270,9 @@ class IdentifierType(str, enum.Enum):
         chn_customs_registration_no: typing.Callable[[], T_Result],
         isl_vat_num: typing.Callable[[], T_Result],
         can_tm_registration_no: typing.Callable[[], T_Result],
+        aze_tin_number: typing.Callable[[], T_Result],
+        tjk_tin_number: typing.Callable[[], T_Result],
+        tjk_ein_number: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4366,3 +4384,9 @@ class IdentifierType(str, enum.Enum):
             return isl_vat_num()
         if self is IdentifierType.CAN_TM_REGISTRATION_NO:
             return can_tm_registration_no()
+        if self is IdentifierType.AZE_TIN_NUMBER:
+            return aze_tin_number()
+        if self is IdentifierType.TJK_TIN_NUMBER:
+            return tjk_tin_number()
+        if self is IdentifierType.TJK_EIN_NUMBER:
+            return tjk_ein_number()
