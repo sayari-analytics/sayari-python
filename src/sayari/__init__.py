@@ -3,7 +3,6 @@ import time
 
 from .python.client import SayariAnalyticsApi
 from .python.resources.traversal.client import TraversalResponse
-from .python.resources.base_types import SizeInfo
 from .python.resources.auth.types.audience import Audience
 from .python.resources.auth.types.grant_type import GrantType
 from .python.resources.shared_types.types.client_name import ClientName
