@@ -4,8 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .risk_level import RiskLevel
-from .risk_value import RiskValue
+from .notification import Notification
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,10 +12,11 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class RiskData(pydantic.BaseModel):
-    value: RiskValue
-    metadata: typing.Dict[str, typing.Any]
-    level: RiskLevel = pydantic.Field(description="The severity of the risk.")
+class ProjectNotificationData(pydantic.BaseModel):
+    id: str = pydantic.Field(description="The ID of the entity")
+    resource_id: str = pydantic.Field(alias="resourceId", description="The ID of the saved resource")
+    entity_id: str = pydantic.Field(alias="entityId", description="The ID of the entity")
+    notifications: typing.List[Notification]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -29,4 +29,5 @@ class RiskData(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

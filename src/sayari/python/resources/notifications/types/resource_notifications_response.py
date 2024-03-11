@@ -4,8 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .risk_level import RiskLevel
-from .risk_value import RiskValue
+from .resource_notification_data import ResourceNotificationData
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,10 +12,20 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class RiskData(pydantic.BaseModel):
-    value: RiskValue
-    metadata: typing.Dict[str, typing.Any]
-    level: RiskLevel = pydantic.Field(description="The severity of the risk.")
+class ResourceNotificationsResponse(pydantic.BaseModel):
+    """
+    OK
+    ---
+    from sayari-analytics import (NotificationType, ResourceNotificationData,
+                                  ResourceNotificationsResponse, Risk)
+
+    ResourceNotificationsResponse(offset=0, limit=20, next=False, data=[ResourceNotificationData(saved_resource_id="03ePyj", project_id="0oZnoG", entity_id="wxwqZshCF4trlrmOa2eu9w", type=NotificationType.RISK, field=Risk.FORCED_LABOR_SHEFFIELD_HALLAM_UNIVERSITY_REPORTS_ORIGIN_SUBTIER, date="2024-02-15T00:00:00.000Z", )], )
+    """
+
+    offset: int
+    limit: int
+    next: bool
+    data: typing.List[ResourceNotificationData]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -4,8 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .risk_level import RiskLevel
-from .risk_value import RiskValue
+from ...generated_types.types.additional_information_properties import AdditionalInformationProperties
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,10 +12,9 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class RiskData(pydantic.BaseModel):
-    value: RiskValue
-    metadata: typing.Dict[str, typing.Any]
-    level: RiskLevel = pydantic.Field(description="The severity of the risk.")
+class NotificationAdditionalInformation(pydantic.BaseModel):
+    value: typing.Optional[typing.Dict[str, typing.Any]] = None
+    properties: typing.List[AdditionalInformationProperties]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
