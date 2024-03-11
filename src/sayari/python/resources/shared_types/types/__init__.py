@@ -24,6 +24,7 @@ from .relationship_data import RelationshipData
 from .relationship_info import RelationshipInfo
 from .risk_data import RiskData
 from .risk_level import RiskLevel
+from .risk_value import RiskValue
 from .search_field import SearchField
 from .shipment_arrival import ShipmentArrival
 from .shipment_departure import ShipmentDeparture
@@ -55,6 +56,7 @@ __all__ = [
     "RelationshipInfo",
     "RiskData",
     "RiskLevel",
+    "RiskValue",
     "SearchField",
     "ShipmentArrival",
     "ShipmentDeparture",
