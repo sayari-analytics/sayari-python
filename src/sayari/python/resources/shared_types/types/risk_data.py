@@ -5,6 +5,7 @@ import typing
 
 from ....core.datetime_utils import serialize_datetime
 from .risk_level import RiskLevel
+from .risk_value import RiskValue
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,7 +14,7 @@ except ImportError:
 
 
 class RiskData(pydantic.BaseModel):
-    value: typing.Any
+    value: RiskValue
     metadata: typing.Dict[str, typing.Any]
     level: RiskLevel = pydantic.Field(description="The severity of the risk.")
 
