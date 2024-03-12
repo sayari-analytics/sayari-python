@@ -15,6 +15,7 @@ from .resources.notifications.client import AsyncNotificationsClient, Notificati
 from .resources.project.client import AsyncProjectClient, ProjectClient
 from .resources.record.client import AsyncRecordClient, RecordClient
 from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
+from .resources.resource.client import AsyncResourceClient, ResourceClient
 from .resources.search.client import AsyncSearchClient, SearchClient
 from .resources.source.client import AsyncSourceClient, SourceClient
 from .resources.trade.client import AsyncTradeClient, TradeClient
@@ -113,6 +114,7 @@ class SayariAnalyticsApi:
         self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
+        self.resource = ResourceClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
         self.source = SourceClient(client_wrapper=self._client_wrapper)
         self.trade = TradeClient(client_wrapper=self._client_wrapper)
@@ -169,6 +171,7 @@ class AsyncSayariAnalyticsApi:
         self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
+        self.resource = AsyncResourceClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)
         self.source = AsyncSourceClient(client_wrapper=self._client_wrapper)
         self.trade = AsyncTradeClient(client_wrapper=self._client_wrapper)
