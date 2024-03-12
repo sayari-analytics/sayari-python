@@ -45,7 +45,6 @@ class TradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
@@ -62,8 +61,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
@@ -76,8 +73,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
@@ -140,7 +135,6 @@ class TradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
@@ -157,8 +151,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
@@ -171,8 +163,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
@@ -235,7 +225,6 @@ class TradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
@@ -252,8 +241,6 @@ class TradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import SayariAnalyticsApi
@@ -266,8 +253,6 @@ class TradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
@@ -335,7 +320,6 @@ class AsyncTradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
@@ -352,8 +336,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
@@ -366,8 +348,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
@@ -430,7 +410,6 @@ class AsyncTradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
@@ -447,8 +426,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
@@ -461,8 +438,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
@@ -525,7 +500,6 @@ class AsyncTradeClient:
         q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
-        advanced: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
@@ -542,8 +516,6 @@ class AsyncTradeClient:
 
             - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
-
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
         from sayari-analytics.client import AsyncSayariAnalyticsApi
@@ -556,8 +528,6 @@ class AsyncTradeClient:
             _request["filter"] = filter
         if facets is not OMIT:
             _request["facets"] = facets
-        if advanced is not OMIT:
-            _request["advanced"] = advanced
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
