@@ -3,6 +3,7 @@
 from .client_name import ClientName
 from .company_type import CompanyType
 from .coordinate import Coordinate
+from .core_entity import CoreEntity
 from .embedded_entity import EmbeddedEntity
 from .entity_details import EntityDetails
 from .entity_hs_code import EntityHsCode
@@ -10,12 +11,15 @@ from .entity_matches import EntityMatches
 from .entity_registration_date import EntityRegistrationDate
 from .entity_relationships import EntityRelationships
 from .entity_risk import EntityRisk
+from .entity_summary import EntitySummary
 from .entity_translated_label import EntityTranslatedLabel
 from .identifier import Identifier
 from .possibly_same_as import PossiblySameAs
 from .possibly_same_as_data import PossiblySameAsData
 from .possibly_same_as_match import PossiblySameAsMatch
+from .psa import Psa
 from .psa_entity import PsaEntity
+from .psa_match_keys import PsaMatchKeys
 from .record_details import RecordDetails
 from .referenced_by import ReferencedBy
 from .referenced_by_data import ReferencedByData
@@ -35,6 +39,7 @@ __all__ = [
     "ClientName",
     "CompanyType",
     "Coordinate",
+    "CoreEntity",
     "EmbeddedEntity",
     "EntityDetails",
     "EntityHsCode",
@@ -42,12 +47,15 @@ __all__ = [
     "EntityRegistrationDate",
     "EntityRelationships",
     "EntityRisk",
+    "EntitySummary",
     "EntityTranslatedLabel",
     "Identifier",
     "PossiblySameAs",
     "PossiblySameAsData",
     "PossiblySameAsMatch",
+    "Psa",
     "PsaEntity",
+    "PsaMatchKeys",
     "RecordDetails",
     "ReferencedBy",
     "ReferencedByData",

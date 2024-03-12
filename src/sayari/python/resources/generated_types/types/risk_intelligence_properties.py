@@ -18,8 +18,10 @@ class RiskIntelligenceProperties(pydantic.BaseModel):
     )
     date: typing.Optional[str] = pydantic.Field(default=None, description="as-of date")
     from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date")
-    list: typing.Optional[str] = pydantic.Field(
-        default=None, description="Official list where the entity's risk information or enforcement action is recorded"
+    list_: typing.Optional[str] = pydantic.Field(
+        alias="list",
+        default=None,
+        description="Official list where the entity's risk information or enforcement action is recorded",
     )
     program: typing.Optional[str] = pydantic.Field(
         default=None, description="Specific to sanctions risk. Sanctions program under which the entity is designated."
@@ -41,4 +43,5 @@ class RiskIntelligenceProperties(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

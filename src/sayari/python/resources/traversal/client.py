@@ -762,6 +762,11 @@ class TraversalClient:
             - entities: typing.Union[str, typing.Sequence[str]].
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.traversal.shortest_path(entities="string", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -1542,6 +1547,11 @@ class AsyncTraversalClient:
             - entities: typing.Union[str, typing.Sequence[str]].
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.traversal.shortest_path(entities="string", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

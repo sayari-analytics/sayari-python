@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .size_info import SizeInfo
+from .qualified_count import QualifiedCount
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -18,7 +18,7 @@ class PaginatedResponse(pydantic.BaseModel):
     """
 
     limit: int
-    size: SizeInfo
+    size: QualifiedCount
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
