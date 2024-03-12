@@ -7,6 +7,7 @@ import httpx
 
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import SayariAnalyticsApiEnvironment
+from .resources.attributes.client import AsyncAttributesClient, AttributesClient
 from .resources.auth.client import AsyncAuthClient, AuthClient
 from .resources.entity.client import AsyncEntityClient, EntityClient
 from .resources.info.client import AsyncInfoClient, InfoClient
@@ -103,6 +104,7 @@ class SayariAnalyticsApi:
             token=token,
             httpx_client=httpx.Client(timeout=timeout, transport=Retry()) if httpx_client is None else httpx_client,
         )
+        self.attributes = AttributesClient(client_wrapper=self._client_wrapper)
         self.auth = AuthClient(client_wrapper=self._client_wrapper)
         self.entity = EntityClient(client_wrapper=self._client_wrapper)
         self.info = InfoClient(client_wrapper=self._client_wrapper)
@@ -157,6 +159,7 @@ class AsyncSayariAnalyticsApi:
             if httpx_client is None
             else httpx_client,
         )
+        self.attributes = AsyncAttributesClient(client_wrapper=self._client_wrapper)
         self.auth = AsyncAuthClient(client_wrapper=self._client_wrapper)
         self.entity = AsyncEntityClient(client_wrapper=self._client_wrapper)
         self.info = AsyncInfoClient(client_wrapper=self._client_wrapper)
