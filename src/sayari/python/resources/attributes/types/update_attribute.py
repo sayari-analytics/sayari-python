@@ -4,7 +4,6 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .qualified_count import QualifiedCount
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,13 +11,17 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PaginatedResponse(pydantic.BaseModel):
+class UpdateAttribute(pydantic.BaseModel):
     """
-    Response fields that represent unbounded collections, such as a search result or an entity's attributes or relationships, or a record's references, can all be paginated in cases where the collection is larger than can be efficiently returned in a single request.
+    from sayari-analytics import UpdateAttribute
+
+    UpdateAttribute(value={"street1": "1600 Pennsylvania Avenue NW", "city": "Washington DC", "state": "Washington DC", "postalCode": "20500", "country": "US"}, to_date="2024-04-30", from_date="2024-01-01", date="2024-02-15", )
     """
 
-    limit: int
-    size: QualifiedCount
+    value: typing.Any = pydantic.Field(description="value of additional information in JSON format")
+    date: typing.Optional[str] = pydantic.Field(default=None, description="as of date of the attribute")
+    from_date: typing.Optional[str] = pydantic.Field(default=None, description="start date of the attribute")
+    to_date: typing.Optional[str] = pydantic.Field(default=None, description="end date of the attribute")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

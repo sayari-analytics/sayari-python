@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .qualified_count import QualifiedCount
+from ...generated_types.types.attributes import Attributes
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,13 +12,8 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PaginatedResponse(pydantic.BaseModel):
-    """
-    Response fields that represent unbounded collections, such as a search result or an entity's attributes or relationships, or a record's references, can all be paginated in cases where the collection is larger than can be efficiently returned in a single request.
-    """
-
-    limit: int
-    size: QualifiedCount
+class EntitySummary(pydantic.BaseModel):
+    attributes: typing.Dict[Attributes, typing.List[typing.Any]]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

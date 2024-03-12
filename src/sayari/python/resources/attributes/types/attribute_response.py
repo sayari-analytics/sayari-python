@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from .qualified_count import QualifiedCount
+from .attribute_response_data import AttributeResponseData
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -12,13 +12,17 @@ except ImportError:
     import pydantic  # type: ignore
 
 
-class PaginatedResponse(pydantic.BaseModel):
+class AttributeResponse(pydantic.BaseModel):
     """
-    Response fields that represent unbounded collections, such as a search result or an entity's attributes or relationships, or a record's references, can all be paginated in cases where the collection is larger than can be efficiently returned in a single request.
+    OK
+    ---
+    from sayari-analytics import (AttributeProperties, AttributeResponse,
+                                  AttributeResponseData)
+
+    AttributeResponse(data=AttributeResponseData(value={"street1": "1600 Pennsylvania Avenue NW", "city": "Washington DC", "state": "Washington DC", "postalCode": "20500", "country": "US"}, properties=[AttributeProperties(editable=True, record_count=0, id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB", )], ), )
     """
 
-    limit: int
-    size: QualifiedCount
+    data: AttributeResponseData
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

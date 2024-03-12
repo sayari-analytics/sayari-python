@@ -7,10 +7,12 @@ import httpx
 
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .environment import SayariAnalyticsApiEnvironment
+from .resources.attributes.client import AsyncAttributesClient, AttributesClient
 from .resources.auth.client import AsyncAuthClient, AuthClient
 from .resources.entity.client import AsyncEntityClient, EntityClient
 from .resources.info.client import AsyncInfoClient, InfoClient
 from .resources.notifications.client import AsyncNotificationsClient, NotificationsClient
+from .resources.project.client import AsyncProjectClient, ProjectClient
 from .resources.record.client import AsyncRecordClient, RecordClient
 from .resources.resolution.client import AsyncResolutionClient, ResolutionClient
 from .resources.search.client import AsyncSearchClient, SearchClient
@@ -103,10 +105,12 @@ class SayariAnalyticsApi:
             token=token,
             httpx_client=httpx.Client(timeout=timeout, transport=Retry()) if httpx_client is None else httpx_client,
         )
+        self.attributes = AttributesClient(client_wrapper=self._client_wrapper)
         self.auth = AuthClient(client_wrapper=self._client_wrapper)
         self.entity = EntityClient(client_wrapper=self._client_wrapper)
         self.info = InfoClient(client_wrapper=self._client_wrapper)
         self.notifications = NotificationsClient(client_wrapper=self._client_wrapper)
+        self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
@@ -157,10 +161,12 @@ class AsyncSayariAnalyticsApi:
             if httpx_client is None
             else httpx_client,
         )
+        self.attributes = AsyncAttributesClient(client_wrapper=self._client_wrapper)
         self.auth = AsyncAuthClient(client_wrapper=self._client_wrapper)
         self.entity = AsyncEntityClient(client_wrapper=self._client_wrapper)
         self.info = AsyncInfoClient(client_wrapper=self._client_wrapper)
         self.notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
+        self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)

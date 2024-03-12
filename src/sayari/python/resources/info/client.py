@@ -49,6 +49,13 @@ class InfoClient:
             - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.info.get_usage(from_=datetime.date.fromisoformat("2023-01-15", ), to=datetime.date.fromisoformat("2023-01-15", ), )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -123,6 +130,13 @@ class InfoClient:
             - token: typing.Optional[str]. Pagination token to retrieve the next page of results
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.info.get_history(events="string", from_=datetime.date.fromisoformat("2023-01-15", ), to=datetime.date.fromisoformat("2023-01-15", ), size=1, token="string", )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
@@ -196,6 +210,13 @@ class AsyncInfoClient:
             - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.info.get_usage(from_=datetime.date.fromisoformat("2023-01-15", ), to=datetime.date.fromisoformat("2023-01-15", ), )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
@@ -270,6 +291,13 @@ class AsyncInfoClient:
             - token: typing.Optional[str]. Pagination token to retrieve the next page of results
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        import datetime
+
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.info.get_history(events="string", from_=datetime.date.fromisoformat("2023-01-15", ), to=datetime.date.fromisoformat("2023-01-15", ), size=1, token="string", )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",

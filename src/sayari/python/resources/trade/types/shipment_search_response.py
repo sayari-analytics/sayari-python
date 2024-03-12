@@ -12,12 +12,12 @@ class ShipmentSearchResponse(PaginatedResponse):
     """
     OK
     ---
-    from sayari-analytics import (Country, DataSource, Risk, Shipment,
-                                  ShipmentAddress, ShipmentIdentifier,
-                                  ShipmentSearchResponse, SizeInfo,
+    from sayari-analytics import (CountQualifier, Country, DataSource,
+                                  QualifiedCount, Risk, Shipment, ShipmentAddress,
+                                  ShipmentIdentifier, ShipmentSearchResponse,
                                   SourceOrDestinationEntity, Weight)
 
-    ShipmentSearchResponse(offset=0, limit=1, size=SizeInfo(count=10000, qualifier="gte", ), next=True, data=[Shipment(id="KIB4wNCMtzLhG-onltADgQ", type="shipment", buyer=[SourceOrDestinationEntity(id="M_vGQfA6PWYdNkj5a_XMNQ", names=["HEMINGWAY RUM COMPANY LLC"], risks={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, countries=[Country.USA], business_purpose=[], )], supplier=[SourceOrDestinationEntity(id="9NQnfZhEFrRnp4YWk5yAVQ", names=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], risks={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, countries=[Country.BRB], business_purpose=[], )], arrival_date="2022-05-25", departure_date="2022-05", departure_address=ShipmentAddress(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), monetary_value=[], weight=[Weight(value=5388.0, unit="kilogram", type="gross_weight", )], identifier=[ShipmentIdentifier(value="TSCW15541208", )], sources=[DataSource(id="16a4cc2d0f467fa993b28587d542a25d", label="USA Imports (2021 - Present)", )], hs_codes=[], product_descriptions=["0000000006FOURSQUARE 5YR OLD RUM"], record="16a4cc2d0f467fa993b28587d542a25d/TSCW15541208/1653523200000/0", )], )
+    ShipmentSearchResponse(offset=0, limit=1, size=QualifiedCount(count=10000, qualifier=CountQualifier.GTE, ), next=True, data=[Shipment(id="KIB4wNCMtzLhG-onltADgQ", type="shipment", buyer=[SourceOrDestinationEntity(id="M_vGQfA6PWYdNkj5a_XMNQ", names=["HEMINGWAY RUM COMPANY LLC"], risks={Risk.BASEL_AML: 4.63, Risk.CPI_SCORE: 67}, countries=[Country.USA], business_purpose=[], )], supplier=[SourceOrDestinationEntity(id="9NQnfZhEFrRnp4YWk5yAVQ", names=["FOURSQUARE RUM DISTILLERY FOURSQUARE"], risks={Risk.EU_HIGH_RISK_THIRD: true, Risk.BASEL_AML: 5.81, Risk.CPI_SCORE: 65}, countries=[Country.BRB], business_purpose=[], )], arrival_date="2022-05-25", departure_date="2022-05", departure_address=ShipmentAddress(x=-79.4861, city="ALAMANCE", state="NC", y=36.035, value="27201", ), monetary_value=[], weight=[Weight(value=5388.0, unit="kilogram", type="gross_weight", )], identifier=[ShipmentIdentifier(value="TSCW15541208", )], sources=[DataSource(id="16a4cc2d0f467fa993b28587d542a25d", label="USA Imports (2021 - Present)", )], hs_codes=[], product_descriptions=["0000000006FOURSQUARE 5YR OLD RUM"], record="16a4cc2d0f467fa993b28587d542a25d/TSCW15541208/1653523200000/0", )], )
     """
 
     offset: int

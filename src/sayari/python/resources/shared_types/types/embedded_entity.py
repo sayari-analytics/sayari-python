@@ -18,7 +18,7 @@ except ImportError:
 
 class EmbeddedEntity(pydantic.BaseModel):
     """
-    The attributes fields common to most entities.
+    Fields of an entity when nested within other data structures.
     """
 
     id: str = pydantic.Field(description="Unique identifier of the entity")

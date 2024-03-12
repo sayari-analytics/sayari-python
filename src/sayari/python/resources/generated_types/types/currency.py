@@ -945,7 +945,7 @@ class Currency(str, enum.Enum):
         self,
         afn: typing.Callable[[], T_Result],
         eur: typing.Callable[[], T_Result],
-        all: typing.Callable[[], T_Result],
+        all_: typing.Callable[[], T_Result],
         dzd: typing.Callable[[], T_Result],
         usd: typing.Callable[[], T_Result],
         aoa: typing.Callable[[], T_Result],
@@ -1135,7 +1135,7 @@ class Currency(str, enum.Enum):
         if self is Currency.EUR:
             return eur()
         if self is Currency.ALL:
-            return all()
+            return all_()
         if self is Currency.DZD:
             return dzd()
         if self is Currency.USD:
