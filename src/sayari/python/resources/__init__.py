@@ -11,6 +11,7 @@ from . import (
     project,
     record,
     resolution,
+    resource,
     search,
     shared_errors,
     shared_types,
@@ -153,6 +154,7 @@ from .project import (
 )
 from .record import GetRecordResponse, RecordReferences
 from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
+from .resource import ResourceType, SaveEntityRequest, SaveEntityResponse, SaveEntityResponseData
 from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
 from .shared_errors import (
     BadGateway,
@@ -415,6 +417,7 @@ __all__ = [
     "ResolutionResult",
     "ResourceNotificationData",
     "ResourceNotificationsResponse",
+    "ResourceType",
     "Risk",
     "RiskData",
     "RiskIntelligenceData",
@@ -425,6 +428,9 @@ __all__ = [
     "Role",
     "RoleMember",
     "RoleMemberType",
+    "SaveEntityRequest",
+    "SaveEntityResponse",
+    "SaveEntityResponseData",
     "SearchField",
     "SearchResults",
     "SharesData",
@@ -484,6 +490,7 @@ __all__ = [
     "project",
     "record",
     "resolution",
+    "resource",
     "search",
     "shared_errors",
     "shared_types",
