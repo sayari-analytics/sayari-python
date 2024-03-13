@@ -16,12 +16,12 @@ class SaveEntityRequest(pydantic.BaseModel):
     """
     from sayari-analytics import ResourceType, SaveEntityRequest
 
-    SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", resource_id="Zk0qOaM2SSYg_ZhsljykMQ", )
+    SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", entity_id="Zk0qOaM2SSYg_ZhsljykMQ", )
     """
 
     type: ResourceType
     project: str = pydantic.Field(description="The project identifier.")
-    resource_id: str = pydantic.Field(description="The entity identifier.")
+    entity_id: str = pydantic.Field(description="The entity identifier.")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -23,7 +23,7 @@ class ProjectEntity(pydantic.BaseModel):
     updated_by: str
     version: int = pydantic.Field(description="Will be 0.")
     type: typing.Literal["entity"]
-    resource_id: str = pydantic.Field(description="Entity ID.")
+    entity_id: str = pydantic.Field(description="Entity ID.")
     tag_ids: typing.List[str]
     case_status: str
     match_strength: typing.Any

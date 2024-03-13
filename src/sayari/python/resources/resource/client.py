@@ -52,7 +52,7 @@ class ResourceClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.resource.save_entity(request=SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", resource_id="Zk0qOaM2SSYg_ZhsljykMQ", ), )
+        client.resource.save_entity(request=SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", entity_id="Zk0qOaM2SSYg_ZhsljykMQ", ), )
         """
         _response = self._client_wrapper.httpx_client.request(
             "POST",
@@ -120,7 +120,7 @@ class AsyncResourceClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.resource.save_entity(request=SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", resource_id="Zk0qOaM2SSYg_ZhsljykMQ", ), )
+        await client.resource.save_entity(request=SaveEntityRequest(type=ResourceType.ENTITY, project="GNJbkG", entity_id="Zk0qOaM2SSYg_ZhsljykMQ", ), )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "POST",

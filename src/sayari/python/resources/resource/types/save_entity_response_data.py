@@ -21,7 +21,9 @@ class SaveEntityResponseData(pydantic.BaseModel):
     updated: str
     updated_by: str
     version: int
-    resource_id: str
+    entity_id: str
+    tag_ids: typing.List[str]
+    case_status: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
