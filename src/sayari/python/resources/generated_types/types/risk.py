@@ -13,6 +13,7 @@ class Risk(str, enum.Enum):
     FORCED_LABOR_XINJIANG_GEOSPATIAL = "forced_labor_xinjiang_geospatial"
     EU_HIGH_RISK_THIRD = "eu_high_risk_third"
     SHEFFIELD_HALLAM_UNIVERSITY_USEFUL_RESOURCES = "sheffield_hallam_university_useful_resources"
+    OWNER_OF_ASPI_FORCED_LABOR_ENTITY = "owner_of_aspi_forced_labor_entity"
     SANCTIONED = "sanctioned"
     REPUTATIONAL_RISK_FINANCIAL_CRIME = "reputational_risk_financial_crime"
     CMIC_ENTITY = "cmic_entity"
@@ -30,17 +31,20 @@ class Risk(str, enum.Enum):
     FORCED_LABOR_XINJIANG_ORIGIN_SUBTIER = "forced_labor_xinjiang_origin_subtier"
     PSA_FORCED_LABOR_XINJIANG_NAME = "psa_forced_labor_xinjiang_name"
     BASEL_AML = "basel_aml"
+    ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY_ADJACENT = "aspi_uyghur_forced_labor_report_entity_adjacent"
     OWNED_BY_CMIC_ENTITY = "owned_by_cmic_entity"
     OFAC_SDN = "ofac_sdn"
     OWNED_BY_BIS_MEU_ENTITY = "owned_by_bis_meu_entity"
     OWNED_BY_FORCED_LABOR_XINJIANG_UFLPA = "owned_by_forced_labor_xinjiang_uflpa"
     FORCED_LABOR_XINJIANG_UFLPA_ADJACENT = "forced_labor_xinjiang_uflpa_adjacent"
     OWNED_BY_WRO_ENTITY = "owned_by_wro_entity"
+    FORCED_LABOR_ASPI_ORIGIN_SUBTIER = "forced_labor_aspi_origin_subtier"
     FORMER_WRO_ENTITY = "former_wro_entity"
     FORCED_LABOR_WRO_ORIGIN_DIRECT = "forced_labor_wro_origin_direct"
     OWNED_BY_SHEFFIELD_HALLAM_UNIVERSITY_REPORTS_FORCED_LABOR_ENTITY = (
         "owned_by_sheffield_hallam_university_reports_forced_labor_entity"
     )
+    ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY = "aspi_uyghur_forced_labor_report_entity"
     FORCED_LABOR_CHINA_KEYWORDS = "forced_labor_china_keywords"
     SOE_ADJACENT = "soe_adjacent"
     STATE_OWNED = "state_owned"
@@ -57,6 +61,7 @@ class Risk(str, enum.Enum):
     OWNER_OF_FORCED_LABOR_XINJIANG_UFLPA = "owner_of_forced_labor_xinjiang_uflpa"
     PEP = "pep"
     OWNED_BY_ENTITY_IN_EXPORT_CONTROLS = "owned_by_entity_in_export_controls"
+    PSA_FORCED_LABOR_ASPI_UYGHUR = "psa_forced_labor_aspi_uyghur"
     FORCED_LABOR_WRO_ORIGIN_SUBTIER = "forced_labor_wro_origin_subtier"
     REPUTATIONAL_RISK_OTHER = "reputational_risk_other"
     EXPORT_TO_SANCTIONED = "export_to_sanctioned"
@@ -76,6 +81,7 @@ class Risk(str, enum.Enum):
     OWNER_OF_WRO_ENTITY = "owner_of_wro_entity"
     FORCED_LABOR_XINJIANG_REGISTRATION = "forced_labor_xinjiang_registration"
     FORCED_LABOR_XINJIANG_NAME = "forced_labor_xinjiang_name"
+    OWNED_BY_ASPI_FORCED_LABOR_ENTITY = "owned_by_aspi_forced_labor_entity"
     REPUTATIONAL_RISK_TERRORISM = "reputational_risk_terrorism"
     FORMERLY_SANCTIONED = "formerly_sanctioned"
     OWNED_BY_SECTION_1260_H_ENTITY = "owned_by_section_1260h_entity"
@@ -94,6 +100,7 @@ class Risk(str, enum.Enum):
     WRO_ENTITY_ADJACENT = "wro_entity_adjacent"
     REPUTATIONAL_RISK_CYBERCRIME = "reputational_risk_cybercrime"
     OWNER_OF_SOE = "owner_of_soe"
+    FORCED_LABOR_ASPI_ORIGIN_DIRECT = "forced_labor_aspi_origin_direct"
     EXPORTS_BIS_HIGH_PRIORITY_ITEMS = "exports_bis_high_priority_items"
     FORCED_LABOR_UFLPA_ORIGIN_SUBTIER = "forced_labor_uflpa_origin_subtier"
     OWNER_OF_REGULATORY_ACTION_ENTITY = "owner_of_regulatory_action_entity"
@@ -111,6 +118,7 @@ class Risk(str, enum.Enum):
         forced_labor_xinjiang_geospatial: typing.Callable[[], T_Result],
         eu_high_risk_third: typing.Callable[[], T_Result],
         sheffield_hallam_university_useful_resources: typing.Callable[[], T_Result],
+        owner_of_aspi_forced_labor_entity: typing.Callable[[], T_Result],
         sanctioned: typing.Callable[[], T_Result],
         reputational_risk_financial_crime: typing.Callable[[], T_Result],
         cmic_entity: typing.Callable[[], T_Result],
@@ -128,15 +136,18 @@ class Risk(str, enum.Enum):
         forced_labor_xinjiang_origin_subtier: typing.Callable[[], T_Result],
         psa_forced_labor_xinjiang_name: typing.Callable[[], T_Result],
         basel_aml: typing.Callable[[], T_Result],
+        aspi_uyghur_forced_labor_report_entity_adjacent: typing.Callable[[], T_Result],
         owned_by_cmic_entity: typing.Callable[[], T_Result],
         ofac_sdn: typing.Callable[[], T_Result],
         owned_by_bis_meu_entity: typing.Callable[[], T_Result],
         owned_by_forced_labor_xinjiang_uflpa: typing.Callable[[], T_Result],
         forced_labor_xinjiang_uflpa_adjacent: typing.Callable[[], T_Result],
         owned_by_wro_entity: typing.Callable[[], T_Result],
+        forced_labor_aspi_origin_subtier: typing.Callable[[], T_Result],
         former_wro_entity: typing.Callable[[], T_Result],
         forced_labor_wro_origin_direct: typing.Callable[[], T_Result],
         owned_by_sheffield_hallam_university_reports_forced_labor_entity: typing.Callable[[], T_Result],
+        aspi_uyghur_forced_labor_report_entity: typing.Callable[[], T_Result],
         forced_labor_china_keywords: typing.Callable[[], T_Result],
         soe_adjacent: typing.Callable[[], T_Result],
         state_owned: typing.Callable[[], T_Result],
@@ -151,6 +162,7 @@ class Risk(str, enum.Enum):
         owner_of_forced_labor_xinjiang_uflpa: typing.Callable[[], T_Result],
         pep: typing.Callable[[], T_Result],
         owned_by_entity_in_export_controls: typing.Callable[[], T_Result],
+        psa_forced_labor_aspi_uyghur: typing.Callable[[], T_Result],
         forced_labor_wro_origin_subtier: typing.Callable[[], T_Result],
         reputational_risk_other: typing.Callable[[], T_Result],
         export_to_sanctioned: typing.Callable[[], T_Result],
@@ -166,6 +178,7 @@ class Risk(str, enum.Enum):
         owner_of_wro_entity: typing.Callable[[], T_Result],
         forced_labor_xinjiang_registration: typing.Callable[[], T_Result],
         forced_labor_xinjiang_name: typing.Callable[[], T_Result],
+        owned_by_aspi_forced_labor_entity: typing.Callable[[], T_Result],
         reputational_risk_terrorism: typing.Callable[[], T_Result],
         formerly_sanctioned: typing.Callable[[], T_Result],
         owned_by_section_1260_h_entity: typing.Callable[[], T_Result],
@@ -180,6 +193,7 @@ class Risk(str, enum.Enum):
         wro_entity_adjacent: typing.Callable[[], T_Result],
         reputational_risk_cybercrime: typing.Callable[[], T_Result],
         owner_of_soe: typing.Callable[[], T_Result],
+        forced_labor_aspi_origin_direct: typing.Callable[[], T_Result],
         exports_bis_high_priority_items: typing.Callable[[], T_Result],
         forced_labor_uflpa_origin_subtier: typing.Callable[[], T_Result],
         owner_of_regulatory_action_entity: typing.Callable[[], T_Result],
@@ -201,6 +215,8 @@ class Risk(str, enum.Enum):
             return eu_high_risk_third()
         if self is Risk.SHEFFIELD_HALLAM_UNIVERSITY_USEFUL_RESOURCES:
             return sheffield_hallam_university_useful_resources()
+        if self is Risk.OWNER_OF_ASPI_FORCED_LABOR_ENTITY:
+            return owner_of_aspi_forced_labor_entity()
         if self is Risk.SANCTIONED:
             return sanctioned()
         if self is Risk.REPUTATIONAL_RISK_FINANCIAL_CRIME:
@@ -235,6 +251,8 @@ class Risk(str, enum.Enum):
             return psa_forced_labor_xinjiang_name()
         if self is Risk.BASEL_AML:
             return basel_aml()
+        if self is Risk.ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY_ADJACENT:
+            return aspi_uyghur_forced_labor_report_entity_adjacent()
         if self is Risk.OWNED_BY_CMIC_ENTITY:
             return owned_by_cmic_entity()
         if self is Risk.OFAC_SDN:
@@ -247,12 +265,16 @@ class Risk(str, enum.Enum):
             return forced_labor_xinjiang_uflpa_adjacent()
         if self is Risk.OWNED_BY_WRO_ENTITY:
             return owned_by_wro_entity()
+        if self is Risk.FORCED_LABOR_ASPI_ORIGIN_SUBTIER:
+            return forced_labor_aspi_origin_subtier()
         if self is Risk.FORMER_WRO_ENTITY:
             return former_wro_entity()
         if self is Risk.FORCED_LABOR_WRO_ORIGIN_DIRECT:
             return forced_labor_wro_origin_direct()
         if self is Risk.OWNED_BY_SHEFFIELD_HALLAM_UNIVERSITY_REPORTS_FORCED_LABOR_ENTITY:
             return owned_by_sheffield_hallam_university_reports_forced_labor_entity()
+        if self is Risk.ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY:
+            return aspi_uyghur_forced_labor_report_entity()
         if self is Risk.FORCED_LABOR_CHINA_KEYWORDS:
             return forced_labor_china_keywords()
         if self is Risk.SOE_ADJACENT:
@@ -281,6 +303,8 @@ class Risk(str, enum.Enum):
             return pep()
         if self is Risk.OWNED_BY_ENTITY_IN_EXPORT_CONTROLS:
             return owned_by_entity_in_export_controls()
+        if self is Risk.PSA_FORCED_LABOR_ASPI_UYGHUR:
+            return psa_forced_labor_aspi_uyghur()
         if self is Risk.FORCED_LABOR_WRO_ORIGIN_SUBTIER:
             return forced_labor_wro_origin_subtier()
         if self is Risk.REPUTATIONAL_RISK_OTHER:
@@ -311,6 +335,8 @@ class Risk(str, enum.Enum):
             return forced_labor_xinjiang_registration()
         if self is Risk.FORCED_LABOR_XINJIANG_NAME:
             return forced_labor_xinjiang_name()
+        if self is Risk.OWNED_BY_ASPI_FORCED_LABOR_ENTITY:
+            return owned_by_aspi_forced_labor_entity()
         if self is Risk.REPUTATIONAL_RISK_TERRORISM:
             return reputational_risk_terrorism()
         if self is Risk.FORMERLY_SANCTIONED:
@@ -339,6 +365,8 @@ class Risk(str, enum.Enum):
             return reputational_risk_cybercrime()
         if self is Risk.OWNER_OF_SOE:
             return owner_of_soe()
+        if self is Risk.FORCED_LABOR_ASPI_ORIGIN_DIRECT:
+            return forced_labor_aspi_origin_direct()
         if self is Risk.EXPORTS_BIS_HIGH_PRIORITY_ITEMS:
             return exports_bis_high_priority_items()
         if self is Risk.FORCED_LABOR_UFLPA_ORIGIN_SUBTIER:
