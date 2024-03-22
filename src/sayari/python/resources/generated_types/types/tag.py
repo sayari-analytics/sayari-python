@@ -30,6 +30,7 @@ class Tag(str, enum.Enum):
     WRO_ENTITY = "wro_entity"
     UFLPA_ENTITY = "uflpa_entity"
     SHEFFIELD_HALLAM_UNIVERSITY_FORCED_LABOR_ENTITY = "sheffield_hallam_university_forced_labor_entity"
+    ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY = "aspi_uyghur_forced_labor_report_entity"
 
     def visit(
         self,
@@ -52,6 +53,7 @@ class Tag(str, enum.Enum):
         wro_entity: typing.Callable[[], T_Result],
         uflpa_entity: typing.Callable[[], T_Result],
         sheffield_hallam_university_forced_labor_entity: typing.Callable[[], T_Result],
+        aspi_uyghur_forced_labor_report_entity: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is Tag.PEP:
             return pep()
@@ -91,3 +93,5 @@ class Tag(str, enum.Enum):
             return uflpa_entity()
         if self is Tag.SHEFFIELD_HALLAM_UNIVERSITY_FORCED_LABOR_ENTITY:
             return sheffield_hallam_university_forced_labor_entity()
+        if self is Tag.ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY:
+            return aspi_uyghur_forced_labor_report_entity()

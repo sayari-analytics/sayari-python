@@ -2668,6 +2668,11 @@ class IdentifierType(str, enum.Enum):
     Unique UK charity ID number. Assigned to every charity registered with the Charity Commission for England and Wales.
     """
 
+    GBR_TRUSTEE_ID = "gbr_trustee_id"
+    """
+    Unique UK internal ID number. Assigned to every trustee registered with the Charity Commission for England and Wales.
+    """
+
     GBR_GO_NO = "gbr_go_no"
     """
     Unique UK government organization ID number. Assigned to government organizations in the UK.
@@ -2711,6 +2716,16 @@ class IdentifierType(str, enum.Enum):
     TJK_EIN_NUMBER = "tjk_ein_number"
     """
     Tajikistan EIN (RYIAM) number. Unique number assigned to taxpayers in Tajikistan.
+    """
+
+    MCO_RCI_NUMBER = "mco_rci_number"
+    """
+    Monaco RCI Trade Register Number. Unique number assigned to entities with activities in Monaco registered with the Directory of Trade and Industry Directory.
+    """
+
+    MCO_NIS = "mco_nis"
+    """
+    Monaco Statistical Identification Number. Unique identifier assigned by the Institute of Statistics and Economic Studies (Monaco Statistics) for entities with economic activity in Monaco.
     """
 
     def visit(
@@ -3264,6 +3279,7 @@ class IdentifierType(str, enum.Enum):
         wipo_intl_reg_no: typing.Callable[[], T_Result],
         wipo_intl_ref_no: typing.Callable[[], T_Result],
         gbr_charity_no: typing.Callable[[], T_Result],
+        gbr_trustee_id: typing.Callable[[], T_Result],
         gbr_go_no: typing.Callable[[], T_Result],
         irl_registration_no: typing.Callable[[], T_Result],
         blz_bccar_reg_no: typing.Callable[[], T_Result],
@@ -3273,6 +3289,8 @@ class IdentifierType(str, enum.Enum):
         aze_tin_number: typing.Callable[[], T_Result],
         tjk_tin_number: typing.Callable[[], T_Result],
         tjk_ein_number: typing.Callable[[], T_Result],
+        mco_rci_number: typing.Callable[[], T_Result],
+        mco_nis: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4372,6 +4390,8 @@ class IdentifierType(str, enum.Enum):
             return wipo_intl_ref_no()
         if self is IdentifierType.GBR_CHARITY_NO:
             return gbr_charity_no()
+        if self is IdentifierType.GBR_TRUSTEE_ID:
+            return gbr_trustee_id()
         if self is IdentifierType.GBR_GO_NO:
             return gbr_go_no()
         if self is IdentifierType.IRL_REGISTRATION_NO:
@@ -4390,3 +4410,7 @@ class IdentifierType(str, enum.Enum):
             return tjk_tin_number()
         if self is IdentifierType.TJK_EIN_NUMBER:
             return tjk_ein_number()
+        if self is IdentifierType.MCO_RCI_NUMBER:
+            return mco_rci_number()
+        if self is IdentifierType.MCO_NIS:
+            return mco_nis()
