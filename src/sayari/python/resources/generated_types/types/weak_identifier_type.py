@@ -512,6 +512,16 @@ class WeakIdentifierType(str, enum.Enum):
     Paraguay Shipment Number
     """
 
+    ARG_IMPORT_EXPORT_ID = "arg_import_export_id"
+    """
+    Unique identifier for Argentinian imports and exports
+    """
+
+    CRI_OP_NO = "cri_op_no"
+    """
+    Internal ID for Costa Rica comexport data (shipping operation number)
+    """
+
     MALFORMED_MMR_PRIOR_REG_NO = "malformed mmr_prior_reg_no"
     """
     A temporary malformed type
@@ -620,6 +630,8 @@ class WeakIdentifierType(str, enum.Enum):
         bih_mbs_number: typing.Callable[[], T_Result],
         gbr_grant_info_number: typing.Callable[[], T_Result],
         pry_shipment_number: typing.Callable[[], T_Result],
+        arg_import_export_id: typing.Callable[[], T_Result],
+        cri_op_no: typing.Callable[[], T_Result],
         malformed_mmr_prior_reg_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
@@ -824,5 +836,9 @@ class WeakIdentifierType(str, enum.Enum):
             return gbr_grant_info_number()
         if self is WeakIdentifierType.PRY_SHIPMENT_NUMBER:
             return pry_shipment_number()
+        if self is WeakIdentifierType.ARG_IMPORT_EXPORT_ID:
+            return arg_import_export_id()
+        if self is WeakIdentifierType.CRI_OP_NO:
+            return cri_op_no()
         if self is WeakIdentifierType.MALFORMED_MMR_PRIOR_REG_NO:
             return malformed_mmr_prior_reg_no()
