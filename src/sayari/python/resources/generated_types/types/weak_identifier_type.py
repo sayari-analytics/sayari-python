@@ -522,6 +522,11 @@ class WeakIdentifierType(str, enum.Enum):
     Internal ID for Costa Rica comexport data (shipping operation number)
     """
 
+    AUS_STATE_REG_NUMBER = "aus_state_reg_number"
+    """
+    Weak AUS state registration number. Registration number assigned when legal entity is originally registered by the Australian State.
+    """
+
     MALFORMED_MMR_PRIOR_REG_NO = "malformed mmr_prior_reg_no"
     """
     A temporary malformed type
@@ -632,6 +637,7 @@ class WeakIdentifierType(str, enum.Enum):
         pry_shipment_number: typing.Callable[[], T_Result],
         arg_import_export_id: typing.Callable[[], T_Result],
         cri_op_no: typing.Callable[[], T_Result],
+        aus_state_reg_number: typing.Callable[[], T_Result],
         malformed_mmr_prior_reg_no: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is WeakIdentifierType.UNKNOWN:
@@ -840,5 +846,7 @@ class WeakIdentifierType(str, enum.Enum):
             return arg_import_export_id()
         if self is WeakIdentifierType.CRI_OP_NO:
             return cri_op_no()
+        if self is WeakIdentifierType.AUS_STATE_REG_NUMBER:
+            return aus_state_reg_number()
         if self is WeakIdentifierType.MALFORMED_MMR_PRIOR_REG_NO:
             return malformed_mmr_prior_reg_no()
