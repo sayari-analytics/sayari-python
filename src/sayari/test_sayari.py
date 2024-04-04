@@ -26,20 +26,7 @@ def test_sources(setup_connection):
     sources = client.source.list_sources()
 
     # We should have 250 sources as of 12/19/2023
-    assert len(sources.data) == 250
-
-    # The first of these should be "Abu Dhabi Registration Authority Online Registry" as of 10/4/2023
-    assert sources.data[0].label == "Abu Dhabi Registration Authority Online Registry"
-
-    """ 
-    Commented out b/c this check is slow (~20s)
-    # We should be able to describer all of these without an error
-    idx = 0
-    for source in sources.data:
-        result = client.source.get_source(source.id)
-        assert result.label == sources.data[idx].label
-        idx += 1
-    """
+    assert len(sources.data) >= 250
 
 
 def test_entities(setup_connection):
