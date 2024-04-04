@@ -46,6 +46,7 @@ class Risk(str, enum.Enum):
     )
     ASPI_UYGHUR_FORCED_LABOR_REPORT_ENTITY = "aspi_uyghur_forced_labor_report_entity"
     FORCED_LABOR_CHINA_KEYWORDS = "forced_labor_china_keywords"
+    EXPORTS_BIS_HIGH_PRIORITY_ITEMS_CRITICAL_COMPONENTS = "exports_bis_high_priority_items_critical_components"
     SOE_ADJACENT = "soe_adjacent"
     STATE_OWNED = "state_owned"
     PSA_SHEFFIELD_HALLAM_UNIVERSITY_FORCED_LABOR_ENTITY = "psa_sheffield_hallam_university_forced_labor_entity"
@@ -71,6 +72,7 @@ class Risk(str, enum.Enum):
     FORMER_SOE = "former_soe"
     REPUTATIONAL_RISK_ORGANIZED_CRIME = "reputational_risk_organized_crime"
     REPUTATIONAL_RISK_FORCED_LABOR = "reputational_risk_forced_labor"
+    IMPORTS_BIS_HIGH_PRIORITY_ITEMS_CRITICAL_COMPONENTS = "imports_bis_high_priority_items_critical_components"
     OWNER_OF_SHEFFIELD_HALLAM_UNIVERSITY_REPORTS_FORCED_LABOR_ENTITY = (
         "owner_of_sheffield_hallam_university_reports_forced_labor_entity"
     )
@@ -149,6 +151,7 @@ class Risk(str, enum.Enum):
         owned_by_sheffield_hallam_university_reports_forced_labor_entity: typing.Callable[[], T_Result],
         aspi_uyghur_forced_labor_report_entity: typing.Callable[[], T_Result],
         forced_labor_china_keywords: typing.Callable[[], T_Result],
+        exports_bis_high_priority_items_critical_components: typing.Callable[[], T_Result],
         soe_adjacent: typing.Callable[[], T_Result],
         state_owned: typing.Callable[[], T_Result],
         psa_sheffield_hallam_university_forced_labor_entity: typing.Callable[[], T_Result],
@@ -170,6 +173,7 @@ class Risk(str, enum.Enum):
         former_soe: typing.Callable[[], T_Result],
         reputational_risk_organized_crime: typing.Callable[[], T_Result],
         reputational_risk_forced_labor: typing.Callable[[], T_Result],
+        imports_bis_high_priority_items_critical_components: typing.Callable[[], T_Result],
         owner_of_sheffield_hallam_university_reports_forced_labor_entity: typing.Callable[[], T_Result],
         cpi_score: typing.Callable[[], T_Result],
         psa_sheffield_hallam_university_useful_resources: typing.Callable[[], T_Result],
@@ -277,6 +281,8 @@ class Risk(str, enum.Enum):
             return aspi_uyghur_forced_labor_report_entity()
         if self is Risk.FORCED_LABOR_CHINA_KEYWORDS:
             return forced_labor_china_keywords()
+        if self is Risk.EXPORTS_BIS_HIGH_PRIORITY_ITEMS_CRITICAL_COMPONENTS:
+            return exports_bis_high_priority_items_critical_components()
         if self is Risk.SOE_ADJACENT:
             return soe_adjacent()
         if self is Risk.STATE_OWNED:
@@ -319,6 +325,8 @@ class Risk(str, enum.Enum):
             return reputational_risk_organized_crime()
         if self is Risk.REPUTATIONAL_RISK_FORCED_LABOR:
             return reputational_risk_forced_labor()
+        if self is Risk.IMPORTS_BIS_HIGH_PRIORITY_ITEMS_CRITICAL_COMPONENTS:
+            return imports_bis_high_priority_items_critical_components()
         if self is Risk.OWNER_OF_SHEFFIELD_HALLAM_UNIVERSITY_REPORTS_FORCED_LABOR_ENTITY:
             return owner_of_sheffield_hallam_university_reports_forced_labor_entity()
         if self is Risk.CPI_SCORE:
