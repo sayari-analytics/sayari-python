@@ -237,10 +237,12 @@ from .trade import (
     Weight,
 )
 from .traversal import (
+    AdditionalRelationships,
     ShortestPathData,
     ShortestPathResponse,
     TraversalData,
     TraversalPath,
+    TraversalPathRelationships,
     TraversalRelationshipData,
     TraversalResponse,
 )
@@ -250,6 +252,7 @@ __all__ = [
     "AdditionalInformationData",
     "AdditionalInformationInfo",
     "AdditionalInformationProperties",
+    "AdditionalRelationships",
     "AddressData",
     "AddressInfo",
     "AddressProperties",
@@ -473,6 +476,7 @@ __all__ = [
     "TranslationContext",
     "TraversalData",
     "TraversalPath",
+    "TraversalPathRelationships",
     "TraversalRelationshipData",
     "TraversalResponse",
     "Unauthorized",

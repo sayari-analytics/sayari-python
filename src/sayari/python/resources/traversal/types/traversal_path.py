@@ -4,8 +4,8 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
-from ...generated_types.types.relationships import Relationships
 from ...shared_types.types.entity_details import EntityDetails
+from .traversal_path_relationships import TraversalPathRelationships
 from .traversal_relationship_data import TraversalRelationshipData
 
 try:
@@ -17,7 +17,7 @@ except ImportError:
 class TraversalPath(pydantic.BaseModel):
     field: str
     entity: EntityDetails
-    relationships: typing.Dict[Relationships, TraversalRelationshipData]
+    relationships: typing.Dict[TraversalPathRelationships, TraversalRelationshipData]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
