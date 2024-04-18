@@ -7,36 +7,6 @@ T_Result = typing.TypeVar("T_Result")
 
 
 class Relationships(str, enum.Enum):
-    SUPERVISOR_OF = "supervisor_of"
-    """
-    Entities of which this entity is reported to be a supervisor, typically in East Asia
-    """
-
-    HAS_SUPERVISOR = "has_supervisor"
-    """
-    Supervisors of this company, typically in East Asia
-    """
-
-    JUDIDICAL_REPRESENTATIVE_OF = "judidical_representative_of"
-    """
-    Deprecated and converted to legal_representative_of
-    """
-
-    HAS_JUDICIAL_REPRESENTATIVE = "has_judicial_representative"
-    """
-    Deprecated and converted to legal_representative_of
-    """
-
-    LEGAL_PREDECESSOR_OF = "legal_predecessor_of"
-    """
-    Entities created by or legally derived from this entity
-    """
-
-    HAS_LEGAL_PREDECESSOR = "has_legal_predecessor"
-    """
-    Entities from which this entity was created or legally derived
-    """
-
     NOTIFY_PARTY_OF = "notify_party_of"
     """
     Shipments that this entity were notified of upon their arrival at their destinations
@@ -45,71 +15,6 @@ class Relationships(str, enum.Enum):
     HAS_NOTIFY_PARTY = "has_notify_party"
     """
     Entity to be notified when this shipment arrives
-    """
-
-    LAWYER_OF = "lawyer_of"
-    """
-    Entities for which this entity works as a lawyer in a professional capacity
-    """
-
-    HAS_LAWYER = "has_lawyer"
-    """
-    Lawyers reported to work for this entity in a professional capacity
-    """
-
-    LAWYER_IN = "lawyer_in"
-    """
-    Legal Matters to which this entity is tied in a professional capacity
-    """
-
-    PARTY_TO = "party_to"
-    """
-    Legal Matters in which this entity is a litigant
-    """
-
-    HAS_PARTY = "has_party"
-    """
-    Litigants in this Legal Matter
-    """
-
-    MEMBER_OF_THE_BOARD_OF = "member_of_the_board_of"
-    """
-    Entities with a corporate or statutory body of oversight/control of which this entity is a member
-    """
-
-    HAS_MEMBER_OF_THE_BOARD = "has_member_of_the_board"
-    """
-    Entities that are members of this entity's corporate or statutory body of oversight/control
-    """
-
-    BENEFICIAL_OWNER_OF = "beneficial_owner_of"
-    """
-    Entities reported to be beneficially or indirectly owned by this entity
-    """
-
-    HAS_BENEFICIAL_OWNER = "has_beneficial_owner"
-    """
-    Entities reported to beneficially or indirectly own this entity
-    """
-
-    EXECUTIVE_OF = "executive_of"
-    """
-    Deprecated and converted to officer_of
-    """
-
-    HAS_EXECUTIVE = "has_executive"
-    """
-    Deprecated and converted to officer_of
-    """
-
-    CARRIER_OF = "carrier_of"
-    """
-    The entity in charge of the transportation of goods
-    """
-
-    HAS_CARRIER = "has_carrier"
-    """
-    The shipment carrying the goods
     """
 
     EMPLOYEE_OF = "employee_of"
@@ -122,79 +27,29 @@ class Relationships(str, enum.Enum):
     Employees of this company
     """
 
-    ISSUER_OF = "issuer_of"
+    BRANCH_OF = "branch_of"
     """
-    Securities this entity has issued
-    """
-
-    HAS_ISSUER = "has_issuer"
-    """
-    Companies that issued this security
+    Parent companies of which this company is a branch
     """
 
-    SECRETARY_OF = "secretary_of"
+    HAS_BRANCH = "has_branch"
     """
-    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
-    """
-
-    HAS_SECRETARY = "has_secretary"
-    """
-    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
+    Branches of this company
     """
 
-    FAMILY_OF = "family_of"
+    CLIENT_OF = "client_of"
     """
-    Family members of this entity
-    """
-
-    DIRECTOR_OF = "director_of"
-    """
-    Companies of which this entity is a Director
+    Deprecated and converted to linked_to
     """
 
-    HAS_DIRECTOR = "has_director"
+    HAS_CLIENT = "has_client"
     """
-    Directors of this company
-    """
-
-    REGISTERED_AGENT_OF = "registered_agent_of"
-    """
-    Entities of which this entity is reported to be a Registered Agent, corporate secretary, or similar
+    Deprecated and converted to linked_to
     """
 
-    HAS_REGISTERED_AGENT = "has_registered_agent"
+    LINKED_TO = "linked_to"
     """
-    Entities acting in a Registered Agent, corporate secretary, or similar role for this entity
-    """
-
-    SUBSIDIARY_OF = "subsidiary_of"
-    """
-    Companies that indirectly own this company and/or report it as a subsidiary
-    """
-
-    HAS_SUBSIDIARY = "has_subsidiary"
-    """
-    Companies reported to be subsidiaries or indirectly owned by this company
-    """
-
-    SHAREHOLDER_OF = "shareholder_of"
-    """
-    Companies of which this entity is a direct owner
-    """
-
-    HAS_SHAREHOLDER = "has_shareholder"
-    """
-    Direct owners of this company
-    """
-
-    AUDITOR_OF = "auditor_of"
-    """
-    Companies audited by this entity
-    """
-
-    HAS_AUDITOR = "has_auditor"
-    """
-    Auditors of this company
+    Entities connected to this entity via a type of relationship that does not exist in the Graph ontology
     """
 
     SHIPS_TO = "ships_to"
@@ -207,14 +62,74 @@ class Relationships(str, enum.Enum):
     The entity that has received a shipment
     """
 
-    OFFICER_OF = "officer_of"
+    MEMBER_OF_THE_BOARD_OF = "member_of_the_board_of"
     """
-    Companies of which this entity is a CEO, Treasurer, etc.
+    Entities with a corporate or statutory body of oversight/control of which this entity is a member
     """
 
-    HAS_OFFICER = "has_officer"
+    HAS_MEMBER_OF_THE_BOARD = "has_member_of_the_board"
     """
-    CEOs, Treasurers, etc. of this company
+    Entities that are members of this entity's corporate or statutory body of oversight/control
+    """
+
+    EXECUTIVE_OF = "executive_of"
+    """
+    Deprecated and converted to officer_of
+    """
+
+    HAS_EXECUTIVE = "has_executive"
+    """
+    Deprecated and converted to officer_of
+    """
+
+    LAWYER_OF = "lawyer_of"
+    """
+    Entities for which this entity works as a lawyer in a professional capacity
+    """
+
+    HAS_LAWYER = "has_lawyer"
+    """
+    Lawyers reported to work for this entity in a professional capacity
+    """
+
+    ISSUER_OF = "issuer_of"
+    """
+    Securities this entity has issued
+    """
+
+    HAS_ISSUER = "has_issuer"
+    """
+    Companies that issued this security
+    """
+
+    ASSOCIATE_OF = "associate_of"
+    """
+    Deprecated and converted to linked_to
+    """
+
+    HAS_ASSOCIATE = "has_associate"
+    """
+    Deprecated and converted to linked_to
+    """
+
+    SUBSIDIARY_OF = "subsidiary_of"
+    """
+    Companies that indirectly own this company and/or report it as a subsidiary
+    """
+
+    HAS_SUBSIDIARY = "has_subsidiary"
+    """
+    Companies reported to be subsidiaries or indirectly owned by this company
+    """
+
+    RECEIVER_OF = "receiver_of"
+    """
+    Shipments this entity received
+    """
+
+    RECEIVED_BY = "received_by"
+    """
+    The entity that received this shipment
     """
 
     LEGAL_SUCCESSOR_OF = "legal_successor_of"
@@ -227,9 +142,24 @@ class Relationships(str, enum.Enum):
     Successor entities to which this entity granted legal personality
     """
 
-    GENERIC = "generic"
+    PARTNER_OF = "partner_of"
     """
-    A placeholder relationship. Rarely used.
+    Partnerships or similar types of companies of which this entity is a business partner with an ownership stake
+    """
+
+    HAS_PARTNER = "has_partner"
+    """
+    Business partners with an ownership stake in this company
+    """
+
+    SUPERVISOR_OF = "supervisor_of"
+    """
+    Entities of which this entity is reported to be a supervisor, typically in East Asia
+    """
+
+    HAS_SUPERVISOR = "has_supervisor"
+    """
+    Supervisors of this company, typically in East Asia
     """
 
     SOLE_PROPRIETOR_OF = "sole_proprietor_of"
@@ -242,29 +172,69 @@ class Relationships(str, enum.Enum):
     Deprecated and converted to shareholder_of
     """
 
-    JUDICIAL_REPRESENTATIVE_OF = "judicial_representative_of"
+    LEGAL_PREDECESSOR_OF = "legal_predecessor_of"
     """
-    Deprecated and converted to legal_representative_of
-    """
-
-    SHIPPER_OF = "shipper_of"
-    """
-    Shipments this entity sent
+    Entities created by or legally derived from this entity
     """
 
-    SHIPPED_BY = "shipped_by"
+    HAS_LEGAL_PREDECESSOR = "has_legal_predecessor"
     """
-    The entity that sent this shipment
-    """
-
-    OWNER_OF = "owner_of"
-    """
-    Non-corporate entities (trade name, security, intellectual property, etc.) directly owned by this entity
+    Entities from which this entity was created or legally derived
     """
 
-    HAS_OWNER = "has_owner"
+    SHAREHOLDER_OF = "shareholder_of"
     """
-    Direct owners of this entity
+    Companies of which this entity is a direct owner
+    """
+
+    HAS_SHAREHOLDER = "has_shareholder"
+    """
+    Direct owners of this company
+    """
+
+    SECRETARY_OF = "secretary_of"
+    """
+    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
+    """
+
+    HAS_SECRETARY = "has_secretary"
+    """
+    Deprecated and converted to officer_of (in jurisdictions where the secretary is a fairly important control figure) or registered_agent_of (in jurisdictions where the secretary is more of a clerical role)
+    """
+
+    DIRECTOR_OF = "director_of"
+    """
+    Companies of which this entity is a Director
+    """
+
+    HAS_DIRECTOR = "has_director"
+    """
+    Directors of this company
+    """
+
+    LAWYER_IN = "lawyer_in"
+    """
+    Legal Matters to which this entity is tied in a professional capacity
+    """
+
+    REGISTERED_AGENT_OF = "registered_agent_of"
+    """
+    Entities of which this entity is reported to be a Registered Agent, corporate secretary, or similar
+    """
+
+    HAS_REGISTERED_AGENT = "has_registered_agent"
+    """
+    Entities acting in a Registered Agent, corporate secretary, or similar role for this entity
+    """
+
+    BENEFICIAL_OWNER_OF = "beneficial_owner_of"
+    """
+    Entities reported to be beneficially or indirectly owned by this entity
+    """
+
+    HAS_BENEFICIAL_OWNER = "has_beneficial_owner"
+    """
+    Entities reported to beneficially or indirectly own this entity
     """
 
     LEGAL_REPRESENTATIVE_OF = "legal_representative_of"
@@ -277,14 +247,19 @@ class Relationships(str, enum.Enum):
     Entities reported to be (or have acted as) legal representatives of this entity
     """
 
-    BRANCH_OF = "branch_of"
+    FOUNDER_OF = "founder_of"
     """
-    Parent companies of which this company is a branch
+    Entities that legally founded this company
     """
 
-    HAS_BRANCH = "has_branch"
+    HAS_FOUNDER = "has_founder"
     """
-    Branches of this company
+    The source entity is reported to be the founder of a company
+    """
+
+    FAMILY_OF = "family_of"
+    """
+    Family members of this entity
     """
 
     MANAGER_OF = "manager_of"
@@ -307,247 +282,265 @@ class Relationships(str, enum.Enum):
     Liquidators of this company
     """
 
-    RECEIVER_OF = "receiver_of"
+    CARRIER_OF = "carrier_of"
     """
-    Shipments this entity received
-    """
-
-    RECEIVED_BY = "received_by"
-    """
-    The entity that received this shipment
+    The entity in charge of the transportation of goods
     """
 
-    PARTNER_OF = "partner_of"
+    HAS_CARRIER = "has_carrier"
     """
-    Partnerships or similar types of companies of which this entity is a business partner with an ownership stake
-    """
-
-    HAS_PARTNER = "has_partner"
-    """
-    Business partners with an ownership stake in this company
+    The shipment carrying the goods
     """
 
-    CLIENT_OF = "client_of"
+    JUDICIAL_REPRESENTATIVE_OF = "judicial_representative_of"
     """
-    Deprecated and converted to linked_to
-    """
-
-    HAS_CLIENT = "has_client"
-    """
-    Deprecated and converted to linked_to
+    Deprecated and converted to legal_representative_of
     """
 
-    ASSOCIATE_OF = "associate_of"
+    HAS_JUDICIAL_REPRESENTATIVE = "has_judicial_representative"
     """
-    Deprecated and converted to linked_to
-    """
-
-    HAS_ASSOCIATE = "has_associate"
-    """
-    Deprecated and converted to linked_to
+    Deprecated and converted to legal_representative_of
     """
 
-    FOUNDER_OF = "founder_of"
+    SHIPPER_OF = "shipper_of"
     """
-    Entities that legally founded this company
-    """
-
-    HAS_FOUNDER = "has_founder"
-    """
-    The source entity is reported to be the founder of a company
+    Shipments this entity sent
     """
 
-    LINKED_TO = "linked_to"
+    SHIPPED_BY = "shipped_by"
     """
-    Entities connected to this entity via a type of relationship that does not exist in the Graph ontology
+    The entity that sent this shipment
     """
+
+    JUDIDICAL_REPRESENTATIVE_OF = "judidical_representative_of"
+    """
+    Deprecated and converted to legal_representative_of
+    """
+
+    AUDITOR_OF = "auditor_of"
+    """
+    Companies audited by this entity
+    """
+
+    HAS_AUDITOR = "has_auditor"
+    """
+    Auditors of this company
+    """
+
+    PARTY_TO = "party_to"
+    """
+    Legal Matters in which this entity is a litigant
+    """
+
+    HAS_PARTY = "has_party"
+    """
+    Litigants in this Legal Matter
+    """
+
+    OWNER_OF = "owner_of"
+    """
+    Non-corporate entities (trade name, security, intellectual property, etc.) directly owned by this entity
+    """
+
+    HAS_OWNER = "has_owner"
+    """
+    Direct owners of this entity
+    """
+
+    OFFICER_OF = "officer_of"
+    """
+    Companies of which this entity is a CEO, Treasurer, etc.
+    """
+
+    HAS_OFFICER = "has_officer"
+    """
+    CEOs, Treasurers, etc. of this company
+    """
+
+    GENERIC = "generic"
+    """
+    A placeholder relationship. Rarely used.
+    """
+
+    POSSIBLY_SAME_AS = "possibly_same_as"
 
     def visit(
         self,
-        supervisor_of: typing.Callable[[], T_Result],
-        has_supervisor: typing.Callable[[], T_Result],
-        judidical_representative_of: typing.Callable[[], T_Result],
-        has_judicial_representative: typing.Callable[[], T_Result],
-        legal_predecessor_of: typing.Callable[[], T_Result],
-        has_legal_predecessor: typing.Callable[[], T_Result],
         notify_party_of: typing.Callable[[], T_Result],
         has_notify_party: typing.Callable[[], T_Result],
-        lawyer_of: typing.Callable[[], T_Result],
-        has_lawyer: typing.Callable[[], T_Result],
-        lawyer_in: typing.Callable[[], T_Result],
-        party_to: typing.Callable[[], T_Result],
-        has_party: typing.Callable[[], T_Result],
-        member_of_the_board_of: typing.Callable[[], T_Result],
-        has_member_of_the_board: typing.Callable[[], T_Result],
-        beneficial_owner_of: typing.Callable[[], T_Result],
-        has_beneficial_owner: typing.Callable[[], T_Result],
-        executive_of: typing.Callable[[], T_Result],
-        has_executive: typing.Callable[[], T_Result],
-        carrier_of: typing.Callable[[], T_Result],
-        has_carrier: typing.Callable[[], T_Result],
         employee_of: typing.Callable[[], T_Result],
         has_employee: typing.Callable[[], T_Result],
-        issuer_of: typing.Callable[[], T_Result],
-        has_issuer: typing.Callable[[], T_Result],
-        secretary_of: typing.Callable[[], T_Result],
-        has_secretary: typing.Callable[[], T_Result],
-        family_of: typing.Callable[[], T_Result],
-        director_of: typing.Callable[[], T_Result],
-        has_director: typing.Callable[[], T_Result],
-        registered_agent_of: typing.Callable[[], T_Result],
-        has_registered_agent: typing.Callable[[], T_Result],
-        subsidiary_of: typing.Callable[[], T_Result],
-        has_subsidiary: typing.Callable[[], T_Result],
-        shareholder_of: typing.Callable[[], T_Result],
-        has_shareholder: typing.Callable[[], T_Result],
-        auditor_of: typing.Callable[[], T_Result],
-        has_auditor: typing.Callable[[], T_Result],
-        ships_to: typing.Callable[[], T_Result],
-        receives_from: typing.Callable[[], T_Result],
-        officer_of: typing.Callable[[], T_Result],
-        has_officer: typing.Callable[[], T_Result],
-        legal_successor_of: typing.Callable[[], T_Result],
-        has_legal_successor: typing.Callable[[], T_Result],
-        generic: typing.Callable[[], T_Result],
-        sole_proprietor_of: typing.Callable[[], T_Result],
-        has_sole_proprietor: typing.Callable[[], T_Result],
-        judicial_representative_of: typing.Callable[[], T_Result],
-        shipper_of: typing.Callable[[], T_Result],
-        shipped_by: typing.Callable[[], T_Result],
-        owner_of: typing.Callable[[], T_Result],
-        has_owner: typing.Callable[[], T_Result],
-        legal_representative_of: typing.Callable[[], T_Result],
-        has_legal_representative: typing.Callable[[], T_Result],
         branch_of: typing.Callable[[], T_Result],
         has_branch: typing.Callable[[], T_Result],
+        client_of: typing.Callable[[], T_Result],
+        has_client: typing.Callable[[], T_Result],
+        linked_to: typing.Callable[[], T_Result],
+        ships_to: typing.Callable[[], T_Result],
+        receives_from: typing.Callable[[], T_Result],
+        member_of_the_board_of: typing.Callable[[], T_Result],
+        has_member_of_the_board: typing.Callable[[], T_Result],
+        executive_of: typing.Callable[[], T_Result],
+        has_executive: typing.Callable[[], T_Result],
+        lawyer_of: typing.Callable[[], T_Result],
+        has_lawyer: typing.Callable[[], T_Result],
+        issuer_of: typing.Callable[[], T_Result],
+        has_issuer: typing.Callable[[], T_Result],
+        associate_of: typing.Callable[[], T_Result],
+        has_associate: typing.Callable[[], T_Result],
+        subsidiary_of: typing.Callable[[], T_Result],
+        has_subsidiary: typing.Callable[[], T_Result],
+        receiver_of: typing.Callable[[], T_Result],
+        received_by: typing.Callable[[], T_Result],
+        legal_successor_of: typing.Callable[[], T_Result],
+        has_legal_successor: typing.Callable[[], T_Result],
+        partner_of: typing.Callable[[], T_Result],
+        has_partner: typing.Callable[[], T_Result],
+        supervisor_of: typing.Callable[[], T_Result],
+        has_supervisor: typing.Callable[[], T_Result],
+        sole_proprietor_of: typing.Callable[[], T_Result],
+        has_sole_proprietor: typing.Callable[[], T_Result],
+        legal_predecessor_of: typing.Callable[[], T_Result],
+        has_legal_predecessor: typing.Callable[[], T_Result],
+        shareholder_of: typing.Callable[[], T_Result],
+        has_shareholder: typing.Callable[[], T_Result],
+        secretary_of: typing.Callable[[], T_Result],
+        has_secretary: typing.Callable[[], T_Result],
+        director_of: typing.Callable[[], T_Result],
+        has_director: typing.Callable[[], T_Result],
+        lawyer_in: typing.Callable[[], T_Result],
+        registered_agent_of: typing.Callable[[], T_Result],
+        has_registered_agent: typing.Callable[[], T_Result],
+        beneficial_owner_of: typing.Callable[[], T_Result],
+        has_beneficial_owner: typing.Callable[[], T_Result],
+        legal_representative_of: typing.Callable[[], T_Result],
+        has_legal_representative: typing.Callable[[], T_Result],
+        founder_of: typing.Callable[[], T_Result],
+        has_founder: typing.Callable[[], T_Result],
+        family_of: typing.Callable[[], T_Result],
         manager_of: typing.Callable[[], T_Result],
         has_manager: typing.Callable[[], T_Result],
         liquidator_of: typing.Callable[[], T_Result],
         has_liquidator: typing.Callable[[], T_Result],
-        receiver_of: typing.Callable[[], T_Result],
-        received_by: typing.Callable[[], T_Result],
-        partner_of: typing.Callable[[], T_Result],
-        has_partner: typing.Callable[[], T_Result],
-        client_of: typing.Callable[[], T_Result],
-        has_client: typing.Callable[[], T_Result],
-        associate_of: typing.Callable[[], T_Result],
-        has_associate: typing.Callable[[], T_Result],
-        founder_of: typing.Callable[[], T_Result],
-        has_founder: typing.Callable[[], T_Result],
-        linked_to: typing.Callable[[], T_Result],
+        carrier_of: typing.Callable[[], T_Result],
+        has_carrier: typing.Callable[[], T_Result],
+        judicial_representative_of: typing.Callable[[], T_Result],
+        has_judicial_representative: typing.Callable[[], T_Result],
+        shipper_of: typing.Callable[[], T_Result],
+        shipped_by: typing.Callable[[], T_Result],
+        judidical_representative_of: typing.Callable[[], T_Result],
+        auditor_of: typing.Callable[[], T_Result],
+        has_auditor: typing.Callable[[], T_Result],
+        party_to: typing.Callable[[], T_Result],
+        has_party: typing.Callable[[], T_Result],
+        owner_of: typing.Callable[[], T_Result],
+        has_owner: typing.Callable[[], T_Result],
+        officer_of: typing.Callable[[], T_Result],
+        has_officer: typing.Callable[[], T_Result],
+        generic: typing.Callable[[], T_Result],
+        possibly_same_as: typing.Callable[[], T_Result],
     ) -> T_Result:
-        if self is Relationships.SUPERVISOR_OF:
-            return supervisor_of()
-        if self is Relationships.HAS_SUPERVISOR:
-            return has_supervisor()
-        if self is Relationships.JUDIDICAL_REPRESENTATIVE_OF:
-            return judidical_representative_of()
-        if self is Relationships.HAS_JUDICIAL_REPRESENTATIVE:
-            return has_judicial_representative()
-        if self is Relationships.LEGAL_PREDECESSOR_OF:
-            return legal_predecessor_of()
-        if self is Relationships.HAS_LEGAL_PREDECESSOR:
-            return has_legal_predecessor()
         if self is Relationships.NOTIFY_PARTY_OF:
             return notify_party_of()
         if self is Relationships.HAS_NOTIFY_PARTY:
             return has_notify_party()
-        if self is Relationships.LAWYER_OF:
-            return lawyer_of()
-        if self is Relationships.HAS_LAWYER:
-            return has_lawyer()
-        if self is Relationships.LAWYER_IN:
-            return lawyer_in()
-        if self is Relationships.PARTY_TO:
-            return party_to()
-        if self is Relationships.HAS_PARTY:
-            return has_party()
-        if self is Relationships.MEMBER_OF_THE_BOARD_OF:
-            return member_of_the_board_of()
-        if self is Relationships.HAS_MEMBER_OF_THE_BOARD:
-            return has_member_of_the_board()
-        if self is Relationships.BENEFICIAL_OWNER_OF:
-            return beneficial_owner_of()
-        if self is Relationships.HAS_BENEFICIAL_OWNER:
-            return has_beneficial_owner()
-        if self is Relationships.EXECUTIVE_OF:
-            return executive_of()
-        if self is Relationships.HAS_EXECUTIVE:
-            return has_executive()
-        if self is Relationships.CARRIER_OF:
-            return carrier_of()
-        if self is Relationships.HAS_CARRIER:
-            return has_carrier()
         if self is Relationships.EMPLOYEE_OF:
             return employee_of()
         if self is Relationships.HAS_EMPLOYEE:
             return has_employee()
-        if self is Relationships.ISSUER_OF:
-            return issuer_of()
-        if self is Relationships.HAS_ISSUER:
-            return has_issuer()
-        if self is Relationships.SECRETARY_OF:
-            return secretary_of()
-        if self is Relationships.HAS_SECRETARY:
-            return has_secretary()
-        if self is Relationships.FAMILY_OF:
-            return family_of()
-        if self is Relationships.DIRECTOR_OF:
-            return director_of()
-        if self is Relationships.HAS_DIRECTOR:
-            return has_director()
-        if self is Relationships.REGISTERED_AGENT_OF:
-            return registered_agent_of()
-        if self is Relationships.HAS_REGISTERED_AGENT:
-            return has_registered_agent()
-        if self is Relationships.SUBSIDIARY_OF:
-            return subsidiary_of()
-        if self is Relationships.HAS_SUBSIDIARY:
-            return has_subsidiary()
-        if self is Relationships.SHAREHOLDER_OF:
-            return shareholder_of()
-        if self is Relationships.HAS_SHAREHOLDER:
-            return has_shareholder()
-        if self is Relationships.AUDITOR_OF:
-            return auditor_of()
-        if self is Relationships.HAS_AUDITOR:
-            return has_auditor()
-        if self is Relationships.SHIPS_TO:
-            return ships_to()
-        if self is Relationships.RECEIVES_FROM:
-            return receives_from()
-        if self is Relationships.OFFICER_OF:
-            return officer_of()
-        if self is Relationships.HAS_OFFICER:
-            return has_officer()
-        if self is Relationships.LEGAL_SUCCESSOR_OF:
-            return legal_successor_of()
-        if self is Relationships.HAS_LEGAL_SUCCESSOR:
-            return has_legal_successor()
-        if self is Relationships.GENERIC:
-            return generic()
-        if self is Relationships.SOLE_PROPRIETOR_OF:
-            return sole_proprietor_of()
-        if self is Relationships.HAS_SOLE_PROPRIETOR:
-            return has_sole_proprietor()
-        if self is Relationships.JUDICIAL_REPRESENTATIVE_OF:
-            return judicial_representative_of()
-        if self is Relationships.SHIPPER_OF:
-            return shipper_of()
-        if self is Relationships.SHIPPED_BY:
-            return shipped_by()
-        if self is Relationships.OWNER_OF:
-            return owner_of()
-        if self is Relationships.HAS_OWNER:
-            return has_owner()
-        if self is Relationships.LEGAL_REPRESENTATIVE_OF:
-            return legal_representative_of()
-        if self is Relationships.HAS_LEGAL_REPRESENTATIVE:
-            return has_legal_representative()
         if self is Relationships.BRANCH_OF:
             return branch_of()
         if self is Relationships.HAS_BRANCH:
             return has_branch()
+        if self is Relationships.CLIENT_OF:
+            return client_of()
+        if self is Relationships.HAS_CLIENT:
+            return has_client()
+        if self is Relationships.LINKED_TO:
+            return linked_to()
+        if self is Relationships.SHIPS_TO:
+            return ships_to()
+        if self is Relationships.RECEIVES_FROM:
+            return receives_from()
+        if self is Relationships.MEMBER_OF_THE_BOARD_OF:
+            return member_of_the_board_of()
+        if self is Relationships.HAS_MEMBER_OF_THE_BOARD:
+            return has_member_of_the_board()
+        if self is Relationships.EXECUTIVE_OF:
+            return executive_of()
+        if self is Relationships.HAS_EXECUTIVE:
+            return has_executive()
+        if self is Relationships.LAWYER_OF:
+            return lawyer_of()
+        if self is Relationships.HAS_LAWYER:
+            return has_lawyer()
+        if self is Relationships.ISSUER_OF:
+            return issuer_of()
+        if self is Relationships.HAS_ISSUER:
+            return has_issuer()
+        if self is Relationships.ASSOCIATE_OF:
+            return associate_of()
+        if self is Relationships.HAS_ASSOCIATE:
+            return has_associate()
+        if self is Relationships.SUBSIDIARY_OF:
+            return subsidiary_of()
+        if self is Relationships.HAS_SUBSIDIARY:
+            return has_subsidiary()
+        if self is Relationships.RECEIVER_OF:
+            return receiver_of()
+        if self is Relationships.RECEIVED_BY:
+            return received_by()
+        if self is Relationships.LEGAL_SUCCESSOR_OF:
+            return legal_successor_of()
+        if self is Relationships.HAS_LEGAL_SUCCESSOR:
+            return has_legal_successor()
+        if self is Relationships.PARTNER_OF:
+            return partner_of()
+        if self is Relationships.HAS_PARTNER:
+            return has_partner()
+        if self is Relationships.SUPERVISOR_OF:
+            return supervisor_of()
+        if self is Relationships.HAS_SUPERVISOR:
+            return has_supervisor()
+        if self is Relationships.SOLE_PROPRIETOR_OF:
+            return sole_proprietor_of()
+        if self is Relationships.HAS_SOLE_PROPRIETOR:
+            return has_sole_proprietor()
+        if self is Relationships.LEGAL_PREDECESSOR_OF:
+            return legal_predecessor_of()
+        if self is Relationships.HAS_LEGAL_PREDECESSOR:
+            return has_legal_predecessor()
+        if self is Relationships.SHAREHOLDER_OF:
+            return shareholder_of()
+        if self is Relationships.HAS_SHAREHOLDER:
+            return has_shareholder()
+        if self is Relationships.SECRETARY_OF:
+            return secretary_of()
+        if self is Relationships.HAS_SECRETARY:
+            return has_secretary()
+        if self is Relationships.DIRECTOR_OF:
+            return director_of()
+        if self is Relationships.HAS_DIRECTOR:
+            return has_director()
+        if self is Relationships.LAWYER_IN:
+            return lawyer_in()
+        if self is Relationships.REGISTERED_AGENT_OF:
+            return registered_agent_of()
+        if self is Relationships.HAS_REGISTERED_AGENT:
+            return has_registered_agent()
+        if self is Relationships.BENEFICIAL_OWNER_OF:
+            return beneficial_owner_of()
+        if self is Relationships.HAS_BENEFICIAL_OWNER:
+            return has_beneficial_owner()
+        if self is Relationships.LEGAL_REPRESENTATIVE_OF:
+            return legal_representative_of()
+        if self is Relationships.HAS_LEGAL_REPRESENTATIVE:
+            return has_legal_representative()
+        if self is Relationships.FOUNDER_OF:
+            return founder_of()
+        if self is Relationships.HAS_FOUNDER:
+            return has_founder()
+        if self is Relationships.FAMILY_OF:
+            return family_of()
         if self is Relationships.MANAGER_OF:
             return manager_of()
         if self is Relationships.HAS_MANAGER:
@@ -556,25 +549,37 @@ class Relationships(str, enum.Enum):
             return liquidator_of()
         if self is Relationships.HAS_LIQUIDATOR:
             return has_liquidator()
-        if self is Relationships.RECEIVER_OF:
-            return receiver_of()
-        if self is Relationships.RECEIVED_BY:
-            return received_by()
-        if self is Relationships.PARTNER_OF:
-            return partner_of()
-        if self is Relationships.HAS_PARTNER:
-            return has_partner()
-        if self is Relationships.CLIENT_OF:
-            return client_of()
-        if self is Relationships.HAS_CLIENT:
-            return has_client()
-        if self is Relationships.ASSOCIATE_OF:
-            return associate_of()
-        if self is Relationships.HAS_ASSOCIATE:
-            return has_associate()
-        if self is Relationships.FOUNDER_OF:
-            return founder_of()
-        if self is Relationships.HAS_FOUNDER:
-            return has_founder()
-        if self is Relationships.LINKED_TO:
-            return linked_to()
+        if self is Relationships.CARRIER_OF:
+            return carrier_of()
+        if self is Relationships.HAS_CARRIER:
+            return has_carrier()
+        if self is Relationships.JUDICIAL_REPRESENTATIVE_OF:
+            return judicial_representative_of()
+        if self is Relationships.HAS_JUDICIAL_REPRESENTATIVE:
+            return has_judicial_representative()
+        if self is Relationships.SHIPPER_OF:
+            return shipper_of()
+        if self is Relationships.SHIPPED_BY:
+            return shipped_by()
+        if self is Relationships.JUDIDICAL_REPRESENTATIVE_OF:
+            return judidical_representative_of()
+        if self is Relationships.AUDITOR_OF:
+            return auditor_of()
+        if self is Relationships.HAS_AUDITOR:
+            return has_auditor()
+        if self is Relationships.PARTY_TO:
+            return party_to()
+        if self is Relationships.HAS_PARTY:
+            return has_party()
+        if self is Relationships.OWNER_OF:
+            return owner_of()
+        if self is Relationships.HAS_OWNER:
+            return has_owner()
+        if self is Relationships.OFFICER_OF:
+            return officer_of()
+        if self is Relationships.HAS_OFFICER:
+            return has_officer()
+        if self is Relationships.GENERIC:
+            return generic()
+        if self is Relationships.POSSIBLY_SAME_AS:
+            return possibly_same_as()
