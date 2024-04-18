@@ -80,17 +80,17 @@ class TraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
             - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
@@ -104,7 +104,7 @@ class TraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -228,6 +228,7 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
@@ -258,15 +259,17 @@ class TraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
@@ -280,7 +283,7 @@ class TraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -327,6 +330,7 @@ class TraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
+                        "relationships": relationships,
                         "psa": psa,
                         "countries": countries,
                         "types": types,
@@ -403,6 +407,7 @@ class TraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
@@ -433,15 +438,17 @@ class TraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
@@ -455,7 +462,7 @@ class TraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -502,6 +509,7 @@ class TraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
+                        "relationships": relationships,
                         "psa": psa,
                         "countries": countries,
                         "types": types,
@@ -604,22 +612,22 @@ class TraversalClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
-        The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist or are peps. The endpoint is a shorthand for the equivalent traversal query.
+        The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
@@ -865,17 +873,17 @@ class AsyncTraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
             - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
@@ -889,7 +897,7 @@ class AsyncTraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -1013,6 +1021,7 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
@@ -1043,15 +1052,17 @@ class AsyncTraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
@@ -1065,7 +1076,7 @@ class AsyncTraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -1112,6 +1123,7 @@ class AsyncTraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
+                        "relationships": relationships,
                         "psa": psa,
                         "countries": countries,
                         "types": types,
@@ -1188,6 +1200,7 @@ class AsyncTraversalClient:
         offset: typing.Optional[int] = None,
         min_depth: typing.Optional[int] = None,
         max_depth: typing.Optional[int] = None,
+        relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]] = None,
         psa: typing.Optional[bool] = None,
         countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
@@ -1218,15 +1231,17 @@ class AsyncTraversalClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
@@ -1240,7 +1255,7 @@ class AsyncTraversalClient:
 
             - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
 
             - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
 
@@ -1287,6 +1302,7 @@ class AsyncTraversalClient:
                         "offset": offset,
                         "min_depth": min_depth,
                         "max_depth": max_depth,
+                        "relationships": relationships,
                         "psa": psa,
                         "countries": countries,
                         "types": types,
@@ -1389,22 +1405,22 @@ class AsyncTraversalClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TraversalResponse:
         """
-        The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist or are peps. The endpoint is a shorthand for the equivalent traversal query.
+        The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist. The endpoint is a shorthand for the equivalent traversal query.
 
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 20. Max of 50.
+            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
 
             - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
 
             - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 6.
+            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to not traversing possibly same as relationships.
+            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
             - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 

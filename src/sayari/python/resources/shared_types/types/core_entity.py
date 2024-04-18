@@ -6,7 +6,6 @@ import typing
 from ....core.datetime_utils import serialize_datetime
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from ...generated_types.types.relationships import Relationships
 from .company_type import CompanyType
 from .entity_hs_code import EntityHsCode
 from .entity_registration_date import EntityRegistrationDate
@@ -15,6 +14,7 @@ from .entity_summary import EntitySummary
 from .entity_translated_label import EntityTranslatedLabel
 from .identifier import Identifier
 from .psa import Psa
+from .relationship_count import RelationshipCount
 from .shipment_arrival import ShipmentArrival
 from .shipment_departure import ShipmentDeparture
 from .source_count_info import SourceCountInfo
@@ -66,12 +66,8 @@ class CoreEntity(EntitySummary):
     )
     related_entities_count: int
     user_related_entities_count: int
-    relationship_counts: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
-    )
-    user_relationship_counts: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
-    )
+    relationship_counts: RelationshipCount
+    user_relationship_counts: RelationshipCount
     attribute_counts: typing.Any
     user_attribute_counts: typing.Any
     trade_counts: typing.Dict[str, int]

@@ -2,6 +2,8 @@
 
 from .types import (
     BucketAgg,
+    CreateProjectRequest,
+    CreateProjectResponse,
     DocCount,
     GetProjectEntitiesAcceptHeader,
     GetProjectEntitiesResponse,
@@ -27,6 +29,8 @@ from .types import (
 
 __all__ = [
     "BucketAgg",
+    "CreateProjectRequest",
+    "CreateProjectResponse",
     "DocCount",
     "GetProjectEntitiesAcceptHeader",
     "GetProjectEntitiesResponse",

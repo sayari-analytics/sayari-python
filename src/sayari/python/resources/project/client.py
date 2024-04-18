@@ -24,6 +24,8 @@ from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from .types.create_project_request import CreateProjectRequest
+from .types.create_project_response import CreateProjectResponse
 from .types.get_project_entities_accept_header import GetProjectEntitiesAcceptHeader
 from .types.get_project_entities_response import GetProjectEntitiesResponse
 from .types.get_projects_response import GetProjectsResponse
@@ -36,10 +38,76 @@ try:
 except ImportError:
     import pydantic  # type: ignore
 
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
+
 
 class ProjectClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def create_project(
+        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateProjectResponse:
+        """
+        Create a new project.
+
+        Parameters:
+            - request: CreateProjectRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari-analytics import CreateProjectRequest
+        from sayari-analytics.client import SayariAnalyticsApi
+
+        client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        client.project.create_project(request=CreateProjectRequest(label="Project Alpha", ), )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_projects(
         self,
@@ -180,12 +248,12 @@ class ProjectClient:
         from sayari-analytics.client import SayariAnalyticsApi
 
         client = SayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        client.project.get_project_entities(id="gPq6EY", accept=GetProjectEntitiesAcceptHeader.APPLICATION_JSON, )
+        client.project.get_project_entities(id="gPq6EY", accept=GetProjectEntitiesAcceptHeader.JSON, )
         """
         _response = self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v1/project/{jsonable_encoder(id)}/contents/entity"
+                f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(id)}/contents/entity"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(
@@ -249,6 +317,69 @@ class ProjectClient:
 class AsyncProjectClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def create_project(
+        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
+    ) -> CreateProjectResponse:
+        """
+        Create a new project.
+
+        Parameters:
+            - request: CreateProjectRequest.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari-analytics import CreateProjectRequest
+        from sayari-analytics.client import AsyncSayariAnalyticsApi
+
+        client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
+        await client.project.create_project(request=CreateProjectRequest(label="Project Alpha", ), )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "POST",
+            urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            json=jsonable_encoder(request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else 60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_projects(
         self,
@@ -389,12 +520,12 @@ class AsyncProjectClient:
         from sayari-analytics.client import AsyncSayariAnalyticsApi
 
         client = AsyncSayariAnalyticsApi(client_name="YOUR_CLIENT_NAME", token="YOUR_TOKEN", )
-        await client.project.get_project_entities(id="gPq6EY", accept=GetProjectEntitiesAcceptHeader.APPLICATION_JSON, )
+        await client.project.get_project_entities(id="gPq6EY", accept=GetProjectEntitiesAcceptHeader.JSON, )
         """
         _response = await self._client_wrapper.httpx_client.request(
             "GET",
             urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v1/project/{jsonable_encoder(id)}/contents/entity"
+                f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(id)}/contents/entity"
             ),
             params=jsonable_encoder(
                 remove_none_from_dict(

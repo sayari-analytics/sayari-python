@@ -4,10 +4,11 @@ import datetime as dt
 import typing
 
 from ....core.datetime_utils import serialize_datetime
+from ...generated_types.types.attributes import Attributes
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from ...generated_types.types.relationships import Relationships
 from .identifier import Identifier
+from .relationship_count import RelationshipCount
 from .source_count_info import SourceCountInfo
 
 try:
@@ -51,14 +52,14 @@ class EmbeddedEntity(pydantic.BaseModel):
         default=None,
         description="Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)",
     )
-    relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
+    relationship_count: RelationshipCount
+    user_relationship_count: RelationshipCount
+    attribute_count: typing.Dict[Attributes, int] = pydantic.Field(
+        description="Count of attributes for a given [attribute type](/sayari-library/ontology/attributes)"
     )
-    user_relationship_count: typing.Dict[Relationships, int] = pydantic.Field(
-        description="Count of related entities for a given [relationship type](/sayari-library/ontology/relationships)."
+    user_attribute_count: typing.Dict[Attributes, int] = pydantic.Field(
+        description="Count of user-created attributes for a given [attribute type](/sayari-library/ontology/attributes)"
     )
-    attribute_counts: typing.Any
-    user_attribute_counts: typing.Any
     related_entities_count: int
     user_related_entities_count: int
     user_record_count: int
