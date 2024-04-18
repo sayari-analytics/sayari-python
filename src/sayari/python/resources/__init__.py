@@ -130,6 +130,8 @@ from .notifications import (
 )
 from .project import (
     BucketAgg,
+    CreateProjectRequest,
+    CreateProjectResponse,
     DocCount,
     GetProjectEntitiesAcceptHeader,
     GetProjectEntitiesResponse,
@@ -201,6 +203,7 @@ from .shared_types import (
     ReferencedBy,
     ReferencedByData,
     ReferencedByDataType,
+    RelationshipCount,
     RelationshipData,
     RelationshipInfo,
     RiskData,
@@ -294,6 +297,8 @@ __all__ = [
     "CountryData",
     "CountryInfo",
     "CountryProperties",
+    "CreateProjectRequest",
+    "CreateProjectResponse",
     "Currency",
     "DataSource",
     "DateOfBirthData",
@@ -409,6 +414,7 @@ __all__ = [
     "ReferencedBy",
     "ReferencedByData",
     "ReferencedByDataType",
+    "RelationshipCount",
     "RelationshipData",
     "RelationshipInfo",
     "Relationships",
