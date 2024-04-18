@@ -5,3 +5,4 @@ import enum
 
 class SayariAnalyticsApiEnvironment(enum.Enum):
     PRODUCTION = "https://api.sayari.com"
+    DEV = "https://api.internal.sayari.com"
