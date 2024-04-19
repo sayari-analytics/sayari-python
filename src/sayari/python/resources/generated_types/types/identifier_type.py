@@ -1163,6 +1163,11 @@ class IdentifierType(str, enum.Enum):
     France legal person establishment ID number
     """
 
+    FRO_REG_NUM = "fro_reg_num"
+    """
+    Skráseting Føroya Registration Number. Assigned to legal entities registered with the Company Registry of the Faroe Islands.
+    """
+
     CZE_FILE_NUMBER = "cze_file_number"
     """
     Czechia commercial registry ID number
@@ -2970,6 +2975,7 @@ class IdentifierType(str, enum.Enum):
         per_carne_de_extranjeria: typing.Callable[[], T_Result],
         fra_siren: typing.Callable[[], T_Result],
         fra_siret: typing.Callable[[], T_Result],
+        fro_reg_num: typing.Callable[[], T_Result],
         cze_file_number: typing.Callable[[], T_Result],
         esp_borme_reg_id: typing.Callable[[], T_Result],
         mex_tm_no: typing.Callable[[], T_Result],
@@ -3772,6 +3778,8 @@ class IdentifierType(str, enum.Enum):
             return fra_siren()
         if self is IdentifierType.FRA_SIRET:
             return fra_siret()
+        if self is IdentifierType.FRO_REG_NUM:
+            return fro_reg_num()
         if self is IdentifierType.CZE_FILE_NUMBER:
             return cze_file_number()
         if self is IdentifierType.ESP_BORME_REG_ID:
