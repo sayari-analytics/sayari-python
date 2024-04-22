@@ -20,15 +20,16 @@ path_to_csv = "examples/entities_to_screen.csv"
 with open(path_to_csv) as csv_file:
     csv_reader = csv.reader(csv_file)
     header_skipped = False
+
+    # refer to the various fields by their index in the CSV
+    # in this CSV, the columns are name, address, address, address, country
+    # to map these columns automatically, see the code for the screen_csv function
     for row in csv_reader:
         # skip header
         if not header_skipped:
             header_skipped = True
             continue
 
-        # refer to the various fields by their index in the CSV
-        # in this CSV, the columns are name, address, address, address, country
-        # to map these columns automatically, see the code for the screen_csv function
         name = []
         name.append(row[0])
 
@@ -40,6 +41,7 @@ with open(path_to_csv) as csv_file:
         address.append(row[2])
         address.append(row[3])
 
+        # use the resolve function to attempt to resolve each entity
         entity = client.resolution.resolution(name=name, country=country, address=address)
 
         # print the label of the first result
