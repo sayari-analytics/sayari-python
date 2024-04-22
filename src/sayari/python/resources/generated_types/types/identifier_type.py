@@ -2733,6 +2733,21 @@ class IdentifierType(str, enum.Enum):
     Monaco Statistical Identification Number. Unique identifier assigned by the Institute of Statistics and Economic Studies (Monaco Statistics) for entities with economic activity in Monaco.
     """
 
+    ON_BUSINESS_ID_NUMBER = "on_business_id_number"
+    """
+    Unique Canada provincial ID number. Assigned to every business registered with Ontario Ministry of Consumer and Business Services.
+    """
+
+    SYRIA_COMMERCIAL_REGISTER_NUMBER = "syria_commercial_register_number"
+    """
+    Unique Syria ID number. Assigned to every legal entity registered with the Syria Ministry of Economy and Foreign Trade.
+    """
+
+    CN_HURD_INTERNAL_COMPANY_ID = "cn_hurd_internal_company_id"
+    """
+    Unique internal company ID number. Assigned to every company in China Xinjiang Department of Housing and Urban-Rural Development Company Database
+    """
+
     def visit(
         self,
         cn_tianyancha_company_id: typing.Callable[[], T_Result],
@@ -3297,6 +3312,9 @@ class IdentifierType(str, enum.Enum):
         tjk_ein_number: typing.Callable[[], T_Result],
         mco_rci_number: typing.Callable[[], T_Result],
         mco_nis: typing.Callable[[], T_Result],
+        on_business_id_number: typing.Callable[[], T_Result],
+        syria_commercial_register_number: typing.Callable[[], T_Result],
+        cn_hurd_internal_company_id: typing.Callable[[], T_Result],
     ) -> T_Result:
         if self is IdentifierType.CN_TIANYANCHA_COMPANY_ID:
             return cn_tianyancha_company_id()
@@ -4422,3 +4440,9 @@ class IdentifierType(str, enum.Enum):
             return mco_rci_number()
         if self is IdentifierType.MCO_NIS:
             return mco_nis()
+        if self is IdentifierType.ON_BUSINESS_ID_NUMBER:
+            return on_business_id_number()
+        if self is IdentifierType.SYRIA_COMMERCIAL_REGISTER_NUMBER:
+            return syria_commercial_register_number()
+        if self is IdentifierType.CN_HURD_INTERNAL_COMPANY_ID:
+            return cn_hurd_internal_company_id()
