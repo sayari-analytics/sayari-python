@@ -13,6 +13,8 @@ class OAuthTokenProvider:
         self._client_id = client_id
         self._client_secret = client_secret
         self._auth_client = AuthClient(client_wrapper=client_wrapper)
+        self._access_token: Optional[str] = None
+        self._expires_at: Optional[dt.datetime] = None
 
     def get_token(self) -> str:
         if self._access_token and self._expires_at > dt.datetime.now():
