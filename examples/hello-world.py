@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 from sayari.client import Sayari
 
 
@@ -9,14 +9,11 @@ from sayari.client import Sayari
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
     load_dotenv()
 
-client_id = os.getenv('CLIENT_ID')
-client_secret = os.getenv('CLIENT_SECRET')
-
 # Create a client that is authed against the API
 client = Sayari(
     client_name="test",
-    client_id=client_id,
-    client_secret=client_secret,
+    client_id=os.getenv('CLIENT_ID'),
+    client_secret=os.getenv('CLIENT_SECRET'),
 )
 
 # resolve by name
