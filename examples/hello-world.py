@@ -12,8 +12,8 @@ if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
 # Create a client that is authed against the API
 client = Sayari(
     client_name="test",
-    client_id=os.getenv('CLIENT_ID'),
-    client_secret=os.getenv('CLIENT_SECRET'),
+    client_id=str(os.getenv('CLIENT_ID')),
+    client_secret=str(os.getenv('CLIENT_SECRET')),
 )
 
 # resolve by name
