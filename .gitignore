@@ -2,3 +2,5 @@ dist/
 .mypy_cache/
 __pycache__/
 poetry.toml
+.env
+.venv
