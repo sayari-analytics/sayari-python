@@ -4,6 +4,7 @@ import datetime as dt
 
 from ..auth.client import AuthClient
 from .client_wrapper import SyncClientWrapper
+from typing import Optional
 
 
 class OAuthTokenProvider:
