@@ -19,7 +19,6 @@ if client_id is None or client_secret is None:
 
 # Create a client that is authed against the API
 client = Sayari(
-    client_name="test",
     client_id=client_id,
     client_secret=client_secret,
 )

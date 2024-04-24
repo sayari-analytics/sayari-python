@@ -21,7 +21,6 @@ def setup_connection():
 
     # Create a client that is authed against the API
     client = Sayari(
-        client_name="test",
         client_id=client_id,
         client_secret=client_secret,
     )
