@@ -53,6 +53,7 @@ jobs:
         #TODO: refactor to just loop through all examples
         run: |
           pip install python-dotenv
+          pip install .
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
           python examples/hello-world.py
