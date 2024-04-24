@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Test
-        run: poetry run pytest .
+        run: poetry run pytest . -v
 
   publish:
     needs: [compile, test]
