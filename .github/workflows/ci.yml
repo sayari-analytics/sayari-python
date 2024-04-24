@@ -61,16 +61,16 @@ jobs:
           echo "Running examples
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
-          python examples/hello-world.py
+          poetry run python examples/hello-world.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running smoke test"
-          python examples/smoke-test.py
+          poetry run python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running resolve example"
-          python examples/csv-resolve.py
+          poetry run python examples/csv-resolve.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running trade search example"
-          python examples/trade-search.py
+          poetry run python examples/trade-search.py
 
   publish:
     needs: [compile, test]
