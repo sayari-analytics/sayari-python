@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Bootstrap poetry
@@ -26,9 +26,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Bootstrap poetry
@@ -38,6 +38,41 @@ jobs:
         run: poetry install
       - name: Test
         run: poetry run pytest . -v
+  run-examples:
+    name: Run examples (to look for regressions)
+    needs: pytest
+    runs-on: ubuntu-latest
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+      - name: Bootstrap poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
+      - name: Install dependencies
+        run: poetry install
+      - name: test examples (not rate limiting)
+        #TODO: refactor to just loop through all examples
+        run: |
+          make setup
+          make local-install
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running hello world"
+          python examples/hello-world.py
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running smoke test"
+          python examples/smoke-test.py
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running resolve example"
+          python examples/csv-resolve.py
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "Running trade search example"
+          python examples/trade-search.py
 
   publish:
     needs: [compile, test]
@@ -45,9 +80,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Bootstrap poetry
