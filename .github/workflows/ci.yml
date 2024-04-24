@@ -52,6 +52,7 @@ jobs:
       - name: test examples (not rate limiting)
         #TODO: refactor to just loop through all examples
         run: |
+          pip install python-dotenv
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
           python examples/hello-world.py
