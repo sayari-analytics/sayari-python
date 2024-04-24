@@ -1,17 +1,29 @@
 import os
-from dotenv import load_dotenv
+import sys
+from dotenv import load_dotenv # type: ignore
 from datetime import date, timedelta
-from sayari import Connection, encode_record_id
+from sayari.client import Sayari
+#from sayari import encode_record_id
 
+# NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
+# it is recommended to use ENV variables
 # load ENV file if ENV vars are not set
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
     load_dotenv()
 
-# To connect you most provide your client ID and client secret. To avoid accidentally checking these into git,
-# it is recommended to use ENV variables
+
+client_id = os.getenv('CLIENT_ID')
+client_secret = os.getenv('CLIENT_SECRET')
+if client_id is None or client_secret is None:
+    print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
+    sys.exit(1)
 
 # Create a client that is authed against the API
-client = Connection(os.getenv('CLIENT_ID'), os.getenv('CLIENT_SECRET'))
+client = Sayari(
+    client_name="test",
+    client_id=client_id,
+    client_secret=client_secret,
+)
 
 # list sources
 sources = client.source.list_sources()
@@ -34,7 +46,7 @@ print("Has address:", entitySummary.addresses[0])
 
 # get the full entity
 entityDetails = client.entity.get_entity(firstEntityResult)
-print("Is referenced by", len(entityDetails.referenced_by.data), "sources")
+print("Is referenced by", len(entityDetails.referenced_by.data), "sources") # type: ignore
 
 # resolve
 resolution = client.resolution.resolution(name=search_term)
@@ -45,8 +57,9 @@ recordSearch = client.search.search_record(q=search_term)
 print("Found", len(recordSearch.data), "records.")
 
 # get record
-record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
-print("Found record:", record.label)
+# TODO: re-add this helper function and get this working
+#record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
+#print("Found record:", record.label)
 
 # do traversal
 traversal = client.traversal.traversal(firstEntityResult)
