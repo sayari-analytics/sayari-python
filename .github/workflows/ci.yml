@@ -40,7 +40,6 @@ jobs:
         run: poetry run pytest . -v
   run-examples:
     name: Run examples (to look for regressions)
-    needs: pytest
     runs-on: ubuntu-latest
     env:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
