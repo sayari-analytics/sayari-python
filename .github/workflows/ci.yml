@@ -58,8 +58,7 @@ jobs:
       - name: test examples (not rate limiting)
         #TODO: refactor to just loop through all examples
         run: |
-          make setup
-          make local-install
+          echo "Running examples
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
           python examples/hello-world.py
