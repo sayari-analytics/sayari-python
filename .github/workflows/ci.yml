@@ -58,19 +58,20 @@ jobs:
       - name: test examples (not rate limiting)
         #TODO: refactor to just loop through all examples
         run: |
+          poetry shell
           echo "Running examples
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
-          poetry run python examples/hello-world.py
+          python examples/hello-world.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running smoke test"
-          poetry run python examples/smoke-test.py
+          python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running resolve example"
-          poetry run python examples/csv-resolve.py
+          python examples/csv-resolve.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running trade search example"
-          poetry run python examples/trade-search.py
+          python examples/trade-search.py
 
   publish:
     needs: [compile, test]
