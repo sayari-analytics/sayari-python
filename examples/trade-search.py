@@ -1,16 +1,8 @@
 import os
 import sys
-from dotenv import load_dotenv # type: ignore
 from datetime import date, timedelta
 from sayari.client import Sayari
 #from sayari import encode_record_id
-
-# NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
-# it is recommended to use ENV variables
-# load ENV file if ENV vars are not set
-if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
-    load_dotenv()
-
 
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
