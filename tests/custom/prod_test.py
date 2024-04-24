@@ -2,7 +2,7 @@ import os
 import pytest
 import string
 import random
-from dotenv import load_dotenv # type: ignore
+# from dotenv import load_dotenv # type: ignore
 from sayari.client import Sayari
 # from . import Connection, encode_record_id
 
@@ -11,8 +11,8 @@ from sayari.client import Sayari
 @pytest.fixture(scope="session")
 def setup_connection():
     # load ENV file if ENV vars are not set
-    if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
-        load_dotenv()
+    # if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
+    #     load_dotenv()
 
     client_id = os.getenv('CLIENT_ID')
     client_secret = os.getenv('CLIENT_SECRET')
