@@ -40,40 +40,35 @@ jobs:
         run: poetry run pytest . -v
   run-examples:
     name: Run examples (to look for regressions)
+    needs: pytest
     runs-on: ubuntu-latest
     env:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@v4
-      - name: Set up python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.8
-      - name: Bootstrap poetry
-        run: |
-          curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
-      - name: Install dependencies
-        run: poetry install
+          python-version: '3.11'
       - name: test examples (not rate limiting)
         #TODO: refactor to just loop through all examples
         run: |
-          echo "Running examples
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running hello world"
-          poetry run python examples/hello-world.py
+          python examples/hello-world.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running smoke test"
-          poetry run python examples/smoke-test.py
+          python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running resolve example"
-          poetry run python examples/csv-resolve.py
+          python examples/csv-resolve.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running trade search example"
-          poetry run python examples/trade-search.py
+          python examples/trade-search.py
+
 
   publish:
-    needs: [compile, test]
+    needs: [compile, test, run-examples]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
     steps:
