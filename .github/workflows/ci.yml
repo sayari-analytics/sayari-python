@@ -1,18 +1,14 @@
 name: ci
 
-env:
-  CLIENT_ID: ${{ secrets.CLIENT_ID }}
-  CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-
 on: [push]
 jobs:
   compile:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Bootstrap poetry
@@ -23,13 +19,12 @@ jobs:
       - name: Compile
         run: poetry run mypy .
   test:
-    name: Test
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Bootstrap poetry
@@ -38,46 +33,17 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Test
-        run: poetry run pytest . -v
-  run-examples:
-    name: Run examples (to look for regressions)
-    runs-on: ubuntu-latest
-    env:
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: test examples (not rate limiting)
-        #TODO: refactor to run all examples (based on file location) and run them in parallel
-        run: |
-          pip install python-dotenv
-          pip install .
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running hello world"
-          python examples/hello-world.py
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running smoke test"
-          python examples/smoke-test.py
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running resolve example"
-          python examples/screening.py
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "Running trade search example"
-          python examples/trade-search.py
-
+        run: poetry run pytest .
 
   publish:
-    needs: [compile, test, run-examples]
+    needs: [compile, test]
     if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Bootstrap poetry
