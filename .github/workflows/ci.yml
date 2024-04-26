@@ -23,6 +23,7 @@ jobs:
       - name: Compile
         run: poetry run mypy .
   test:
+    name: Test
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
