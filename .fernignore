@@ -2,3 +2,7 @@
 examples/
 Makefile
 .gitignore
+.github/workflows/
+README.md
+src/sayari/client.py
+tests/custom/prod_test.py
