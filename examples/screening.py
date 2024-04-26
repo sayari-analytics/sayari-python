@@ -1,4 +1,5 @@
 import os
+import sys
 from dotenv import load_dotenv # type: ignore
 from sayari.client import Sayari
 

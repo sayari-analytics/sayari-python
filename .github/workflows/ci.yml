@@ -50,7 +50,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: test examples (not rate limiting)
-        #TODO: refactor to just loop through all examples
+        #TODO: refactor to run all examples (based on file location) and run them in parallel
         run: |
           pip install python-dotenv
           pip install .
@@ -62,7 +62,7 @@ jobs:
           python examples/smoke-test.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running resolve example"
-          python examples/csv-resolve.py
+          python examples/screening.py
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Running trade search example"
           python examples/trade-search.py
