@@ -3,7 +3,7 @@ import sys
 from dotenv import load_dotenv # type: ignore
 from datetime import date, timedelta
 from sayari.client import Sayari
-#from sayari import encode_record_id
+from sayari.client import encode_record_id
 
 # NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
 # it is recommended to use ENV variables
@@ -56,9 +56,8 @@ recordSearch = client.search.search_record(q=search_term)
 print("Found", len(recordSearch.data), "records.")
 
 # get record
-# TODO: re-add this helper function and get this working
-#record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
-#print("Found record:", record.label)
+record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
+print("Found record:", record.label)
 
 # do traversal
 traversal = client.traversal.traversal(firstEntityResult)
