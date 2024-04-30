@@ -569,6 +569,9 @@ IdentifierType = typing.Union[
         "on_business_id_number",
         "syria_commercial_register_number",
         "cn_hurd_internal_company_id",
+        "hun_tax_number",
+        "hun_company_register_number",
+        "hun_person_tax_id",
     ],
     typing.Any,
 ]
