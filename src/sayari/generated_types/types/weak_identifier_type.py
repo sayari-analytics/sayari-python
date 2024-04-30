@@ -108,6 +108,7 @@ WeakIdentifierType = typing.Union[
         "arg_import_export_id",
         "cri_op_no",
         "aus_state_reg_number",
+        "hun_opten_id",
         "malformed mmr_prior_reg_no",
     ],
     typing.Any,
