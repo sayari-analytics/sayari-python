@@ -42,7 +42,7 @@ class AttributesClient:
         self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Adds a new Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Adds a new Attribute
 
         Parameters:
             - request: AddAttribute.
@@ -128,7 +128,7 @@ class AttributesClient:
         self, attribute_id: str, *, request: UpdateAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Updates an existing Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Updates an existing Attribute
 
         Parameters:
             - attribute_id: str.
@@ -219,7 +219,7 @@ class AttributesClient:
         self, attribute_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Delete an existing Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Delete an existing Attribute
 
         Parameters:
             - attribute_id: str.
@@ -294,7 +294,7 @@ class AsyncAttributesClient:
         self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Adds a new Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Adds a new Attribute
 
         Parameters:
             - request: AddAttribute.
@@ -380,7 +380,7 @@ class AsyncAttributesClient:
         self, attribute_id: str, *, request: UpdateAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Updates an existing Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Updates an existing Attribute
 
         Parameters:
             - attribute_id: str.
@@ -471,7 +471,7 @@ class AsyncAttributesClient:
         self, attribute_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        Delete an existing Attribute
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Delete an existing Attribute
 
         Parameters:
             - attribute_id: str.
