@@ -46,7 +46,7 @@ class ProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        Create a new project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Create a new project.
 
         Parameters:
             - request: CreateProjectRequest.
@@ -125,7 +125,7 @@ class ProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
-        Retrieve a list of projects including upload progress info.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Retrieve a list of projects including upload progress info.
 
         Parameters:
             - next: typing.Optional[str]. The pagination token for the next page of projects.
@@ -226,7 +226,7 @@ class ProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        Retrieve a list of entities in a project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Retrieve a list of entities in a project.
 
         Parameters:
             - id: str. The project identifier.
@@ -345,7 +345,7 @@ class AsyncProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        Create a new project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Create a new project.
 
         Parameters:
             - request: CreateProjectRequest.
@@ -424,7 +424,7 @@ class AsyncProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
-        Retrieve a list of projects including upload progress info.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Retrieve a list of projects including upload progress info.
 
         Parameters:
             - next: typing.Optional[str]. The pagination token for the next page of projects.
@@ -525,7 +525,7 @@ class AsyncProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        Retrieve a list of entities in a project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Retrieve a list of entities in a project.
 
         Parameters:
             - id: str. The project identifier.

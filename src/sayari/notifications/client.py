@@ -43,7 +43,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters:
             - id: str. Unique identifier of the project
@@ -133,7 +133,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResourceNotificationsResponse:
         """
-        The Resource Notifications endpoint returns a list of notifications for a saved entity.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
         Parameters:
             - id: str. Unique identifier of the resource
@@ -228,7 +228,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters:
             - id: str. Unique identifier of the project
@@ -318,7 +318,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResourceNotificationsResponse:
         """
-        The Resource Notifications endpoint returns a list of notifications for a saved entity.
+        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
         Parameters:
             - id: str. Unique identifier of the resource
