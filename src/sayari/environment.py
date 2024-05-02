@@ -3,6 +3,6 @@
 import enum
 
 
-class ClientEnvironment(enum.Enum):
+class SayariEnvironment(enum.Enum):
     PRODUCTION = "https://api.sayari.com"
     DEV = "https://api.internal.sayari.com"

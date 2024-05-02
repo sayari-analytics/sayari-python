@@ -11,12 +11,10 @@ class BaseClientWrapper:
     def __init__(
         self,
         *,
-        client_name: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
     ):
-        self._client_name = client_name
         self._token = token
         self._base_url = base_url
         self._timeout = timeout
@@ -25,9 +23,8 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "sayari",
-            "X-Fern-SDK-Version": "0.0.75",
+            "X-Fern-SDK-Version": "0.0.76",
         }
-        headers["client-name"] = self._client_name
         token = self._get_token()
         if token is not None:
             headers["Authorization"] = f"Bearer {token}"
@@ -50,13 +47,12 @@ class SyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        client_name: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
         httpx_client: httpx.Client,
     ):
-        super().__init__(client_name=client_name, token=token, base_url=base_url, timeout=timeout)
+        super().__init__(token=token, base_url=base_url, timeout=timeout)
         self.httpx_client = HttpClient(httpx_client=httpx_client)
 
 
@@ -64,11 +60,10 @@ class AsyncClientWrapper(BaseClientWrapper):
     def __init__(
         self,
         *,
-        client_name: str,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         base_url: str,
         timeout: typing.Optional[float] = None,
         httpx_client: httpx.AsyncClient,
     ):
-        super().__init__(client_name=client_name, token=token, base_url=base_url, timeout=timeout)
+        super().__init__(token=token, base_url=base_url, timeout=timeout)
         self.httpx_client = AsyncHttpClient(httpx_client=httpx_client)

@@ -23,7 +23,7 @@ from .attributes import AddAttribute, AttributeProperties, AttributeResponse, At
 from .auth import AuthResponse
 from .base_types import CountQualifier, PaginatedResponse, QualifiedCount
 from .entity import EntitySummaryResponse, GetEntityResponse
-from .environment import ClientEnvironment
+from .environment import SayariEnvironment
 from .generated_types import (
     AdditionalInformationData,
     AdditionalInformationInfo,
@@ -275,7 +275,6 @@ __all__ = [
     "BusinessPurposeProperties",
     "BusinessPurposeStandard",
     "BuyerSearchResponse",
-    "ClientEnvironment",
     "ClientName",
     "CompanyStatus",
     "CompanyType",
@@ -436,6 +435,7 @@ __all__ = [
     "SaveEntityRequest",
     "SaveEntityResponse",
     "SaveEntityResponseData",
+    "SayariEnvironment",
     "SearchField",
     "SearchResults",
     "SharesData",
