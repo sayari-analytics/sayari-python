@@ -132,10 +132,9 @@ class TraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import Client
+        from sayari.client import Sayari
 
-        client = Client(
-            client_name="YOUR_CLIENT_NAME",
+        client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -320,10 +319,9 @@ class TraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import Client
+        from sayari.client import Sayari
 
-        client = Client(
-            client_name="YOUR_CLIENT_NAME",
+        client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -508,10 +506,9 @@ class TraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import Client
+        from sayari.client import Sayari
 
-        client = Client(
-            client_name="YOUR_CLIENT_NAME",
+        client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -698,10 +695,9 @@ class TraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import Client
+        from sayari.client import Sayari
 
-        client = Client(
-            client_name="YOUR_CLIENT_NAME",
+        client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -805,10 +801,9 @@ class TraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import Client
+        from sayari.client import Sayari
 
-        client = Client(
-            client_name="YOUR_CLIENT_NAME",
+        client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -971,10 +966,9 @@ class AsyncTraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import AsyncClient
+        from sayari.client import AsyncSayari
 
-        client = AsyncClient(
-            client_name="YOUR_CLIENT_NAME",
+        client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -1159,10 +1153,9 @@ class AsyncTraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import AsyncClient
+        from sayari.client import AsyncSayari
 
-        client = AsyncClient(
-            client_name="YOUR_CLIENT_NAME",
+        client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -1347,10 +1340,9 @@ class AsyncTraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import AsyncClient
+        from sayari.client import AsyncSayari
 
-        client = AsyncClient(
-            client_name="YOUR_CLIENT_NAME",
+        client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -1537,10 +1529,9 @@ class AsyncTraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import AsyncClient
+        from sayari.client import AsyncSayari
 
-        client = AsyncClient(
-            client_name="YOUR_CLIENT_NAME",
+        client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
@@ -1644,10 +1635,9 @@ class AsyncTraversalClient:
 
             - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
         ---
-        from sayari.client import AsyncClient
+        from sayari.client import AsyncSayari
 
-        client = AsyncClient(
-            client_name="YOUR_CLIENT_NAME",
+        client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )

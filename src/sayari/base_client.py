@@ -9,7 +9,7 @@ from .auth.client import AsyncAuthClient, AuthClient
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.oauth_token_provider import OAuthTokenProvider
 from .entity.client import AsyncEntityClient, EntityClient
-from .environment import ClientEnvironment
+from .environment import SayariEnvironment
 from .info.client import AsyncInfoClient, InfoClient
 from .notifications.client import AsyncNotificationsClient, NotificationsClient
 from .project.client import AsyncProjectClient, ProjectClient
@@ -29,11 +29,9 @@ class BaseClient:
     Parameters:
         - base_url: typing.Optional[str]. The base url to use for requests from the client.
 
-        - environment: ClientEnvironment. The environment to use for requests from the client. from .environment import ClientEnvironment
+        - environment: SayariEnvironment. The environment to use for requests from the client. from .environment import SayariEnvironment
 
-                                          Defaults to ClientEnvironment.PRODUCTION
-
-        - client_name: str.
+                                          Defaults to SayariEnvironment.PRODUCTION
 
         - timeout: typing.Optional[float]. The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -45,10 +43,9 @@ class BaseClient:
 
         - client_secret: str.
     ---
-    from sayari.client import Client
+    from sayari.client import Sayari
 
-    client = Client(
-        client_name="YOUR_CLIENT_NAME",
+    client = Sayari(
         client_id="YOUR_CLIENT_ID",
         client_secret="YOUR_CLIENT_SECRET",
     )
@@ -58,8 +55,7 @@ class BaseClient:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
-        client_name: str,
+        environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -72,7 +68,6 @@ class BaseClient:
             client_secret=client_secret,
             client_wrapper=SyncClientWrapper(
                 base_url=_get_base_url(base_url=base_url, environment=environment),
-                client_name=client_name,
                 httpx_client=httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
                 if follow_redirects is not None
                 else httpx.Client(timeout=_defaulted_timeout),
@@ -81,7 +76,6 @@ class BaseClient:
         )
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            client_name=client_name,
             token=oauth_token_provider.get_token,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -112,11 +106,9 @@ class AsyncBaseClient:
     Parameters:
         - base_url: typing.Optional[str]. The base url to use for requests from the client.
 
-        - environment: ClientEnvironment. The environment to use for requests from the client. from .environment import ClientEnvironment
+        - environment: SayariEnvironment. The environment to use for requests from the client. from .environment import SayariEnvironment
 
-                                          Defaults to ClientEnvironment.PRODUCTION
-
-        - client_name: str.
+                                          Defaults to SayariEnvironment.PRODUCTION
 
         - timeout: typing.Optional[float]. The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -128,10 +120,9 @@ class AsyncBaseClient:
 
         - client_secret: str.
     ---
-    from sayari.client import AsyncClient
+    from sayari.client import AsyncSayari
 
-    client = AsyncClient(
-        client_name="YOUR_CLIENT_NAME",
+    client = AsyncSayari(
         client_id="YOUR_CLIENT_ID",
         client_secret="YOUR_CLIENT_SECRET",
     )
@@ -141,8 +132,7 @@ class AsyncBaseClient:
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
-        client_name: str,
+        environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -155,7 +145,6 @@ class AsyncBaseClient:
             client_secret=client_secret,
             client_wrapper=SyncClientWrapper(
                 base_url=_get_base_url(base_url=base_url, environment=environment),
-                client_name=client_name,
                 httpx_client=httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
                 if follow_redirects is not None
                 else httpx.Client(timeout=_defaulted_timeout),
@@ -164,7 +153,6 @@ class AsyncBaseClient:
         )
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            client_name=client_name,
             token=oauth_token_provider.get_token,
             httpx_client=httpx_client
             if httpx_client is not None
@@ -188,7 +176,7 @@ class AsyncBaseClient:
         self.traversal = AsyncTraversalClient(client_wrapper=self._client_wrapper)
 
 
-def _get_base_url(*, base_url: typing.Optional[str] = None, environment: ClientEnvironment) -> str:
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: SayariEnvironment) -> str:
     if base_url is not None:
         return base_url
     elif environment is not None:

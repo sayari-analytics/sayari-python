@@ -6,7 +6,7 @@ import queue
 import time
 from multiprocessing import Process, Queue, set_start_method
 from .base_client import BaseClient, AsyncBaseClient
-from .environment import ClientEnvironment
+from .environment import SayariEnvironment
 
 # resolution attributes
 Name = "name"
@@ -64,7 +64,7 @@ class Sayari(BaseClient):
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
+        environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -74,8 +74,6 @@ class Sayari(BaseClient):
         super().__init__(
             base_url=base_url,
             environment=environment,
-            # TODO: capture version info here
-            client_name="python_sdk",
             timeout=timeout,
             follow_redirects=follow_redirects,
             httpx_client=httpx_client,
@@ -167,7 +165,7 @@ class AsyncSayari(AsyncBaseClient):
         self,
         *,
         base_url: typing.Optional[str] = None,
-        environment: ClientEnvironment = ClientEnvironment.PRODUCTION,
+        environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -177,8 +175,6 @@ class AsyncSayari(AsyncBaseClient):
         super().__init__(
             base_url=base_url,
             environment=environment,
-            # TODO: capture version info here
-            client_name="python_sdk",
             timeout=timeout,
             follow_redirects=follow_redirects,
             httpx_client=httpx_client,
