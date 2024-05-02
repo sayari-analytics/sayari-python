@@ -1,4 +1,4 @@
 
 from importlib import metadata
 
-__version__ = metadata.version("sayari")
+__version__ = metadata.version("sayari-analytics")
