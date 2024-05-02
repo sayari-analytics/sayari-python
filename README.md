@@ -18,9 +18,9 @@ pip install --upgrade sayari
 # Usage
 
 ```python
-from sayari.client import Client
+from sayari.client import Sayari
 
-client = Client(
+client = Sayari(
     client_id="YOUR_CLIENT_ID",
     client_secret="YOUR_CLIENT_SECRET",
 )
@@ -31,9 +31,9 @@ client = Client(
 # Async Client
 
 ```python
-from sayari.client import AsyncClient
+from sayari.client import AsyncSayari
 
-client = AsyncClient(
+client = AsyncSayari(
     client_id="YOUR_CLIENT_ID",
     client_secret="YOUR_CLIENT_SECRET",
 )
