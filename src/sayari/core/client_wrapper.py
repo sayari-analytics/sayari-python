@@ -25,7 +25,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "sayari",
-            "X-Fern-SDK-Version": "0.0.56",
+            "X-Fern-SDK-Version": "0.0.74",
         }
         headers["client-name"] = self._client_name
         token = self._get_token()
