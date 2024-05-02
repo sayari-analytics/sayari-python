@@ -85,6 +85,10 @@ jobs:
           curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
       - name: Install dependencies
         run: poetry install
+      - name: Update pyproject.toml
+        run: |
+          sed 's/description = ""/description = "A Python SDK for Sayari"/g' pyproject.toml > tmp_pyproject
+          mv tmp_pyproject pyproject.toml
       - name: Publish to pypi
         run: |
           poetry config repositories.remote https://upload.pypi.org/legacy/
