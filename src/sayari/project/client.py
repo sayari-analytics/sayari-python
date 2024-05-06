@@ -233,7 +233,7 @@ class ProjectClient:
 
             - prev: typing.Optional[str]. The pagination token for the previous page of entities.
 
-            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 10,000. Max 10,000.
+            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 1,000. Max 10,000.
 
             - entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
 
@@ -529,7 +529,7 @@ class AsyncProjectClient:
 
             - prev: typing.Optional[str]. The pagination token for the previous page of entities.
 
-            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 10,000. Max 10,000.
+            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 1,000. Max 10,000.
 
             - entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
 
