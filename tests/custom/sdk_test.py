@@ -4,6 +4,7 @@ import string
 import random
 # from dotenv import load_dotenv # type: ignore
 from sayari.client import Sayari
+from sayari.environment import SayariEnvironment
 # from . import Connection, encode_record_id
 
 
@@ -19,10 +20,17 @@ def setup_connection():
     assert client_id is not None
     assert client_secret is not None
 
+    # Set ENV if provided
+    env = SayariEnvironment.PRODUCTION
+    if os.getenv('BASE_URL') is not None:
+        env = os.getenv('BASE_URL')
+    assert env is not None
+
     # Create a client that is authed against the API
     client = Sayari(
         client_id=client_id,
         client_secret=client_secret,
+        environment=env
     )
 
     return client

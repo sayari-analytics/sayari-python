@@ -4,6 +4,7 @@ from dotenv import load_dotenv # type: ignore
 from datetime import date, timedelta
 from sayari.client import Sayari
 from sayari.client import encode_record_id
+from sayari.environment import SayariEnvironment
 
 # NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
 # it is recommended to use ENV variables
@@ -11,17 +12,22 @@ from sayari.client import encode_record_id
 if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
     load_dotenv()
 
-
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
 if client_id is None or client_secret is None:
     print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
     sys.exit(1)
 
+# Set ENV if provided
+env = SayariEnvironment.PRODUCTION
+if os.getenv('BASE_URL') is not None:
+    env = SayariEnvironment(os.getenv('BASE_URL'))
+
 # Create a client that is authed against the API
 client = Sayari(
     client_id=client_id,
     client_secret=client_secret,
+    environment=env
 )
 
 # list sources
