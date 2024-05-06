@@ -21,12 +21,14 @@ if client_id is None or client_secret is None:
 # Set ENV if provided
 env = SayariEnvironment.PRODUCTION
 if os.getenv('BASE_URL') is not None:
+    base_url = os.getenv('BASE_URL')
     env = SayariEnvironment(os.getenv('BASE_URL'))
 
 # Create a client that is authed against the API
 client = Sayari(
     client_id=client_id,
     client_secret=client_secret,
+    base_url=base_url,
     environment=env
 )
 

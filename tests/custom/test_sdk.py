@@ -23,6 +23,7 @@ def setup_connection():
     # Set ENV if provided
     env = SayariEnvironment.PRODUCTION
     if os.getenv('BASE_URL') is not None:
+        base_url = os.getenv('BASE_URL')
         env = os.getenv('BASE_URL')
     assert env is not None
 
@@ -30,6 +31,7 @@ def setup_connection():
     client = Sayari(
         client_id=client_id,
         client_secret=client_secret,
+        base_url=base_url,
         environment=env
     )
 
