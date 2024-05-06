@@ -18,18 +18,15 @@ if client_id is None or client_secret is None:
     print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
     sys.exit(1)
 
-# Set ENV if provided (the next 5 lines can be omitted if running in prod)
+# Set ENV if provided (next 3 lines can be omitted if running in prod, as well as the env arg when creating the client.)
 env = SayariEnvironment.PRODUCTION
-base_url = None
 if os.getenv('BASE_URL') is not None:
-    base_url = os.getenv('BASE_URL')
     env = SayariEnvironment(os.getenv('BASE_URL'))
 
 # Create a client that is authed against the API
 client = Sayari(
     client_id=client_id,
     client_secret=client_secret,
-    base_url=base_url,
     environment=env
 )
 
