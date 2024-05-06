@@ -572,6 +572,11 @@ IdentifierType = typing.Union[
         "hun_tax_number",
         "hun_company_register_number",
         "hun_person_tax_id",
+        "mw_tpin_tax_reg_num",
+        "lr_tin",
+        "cm_nui_tax_reg_num",
+        "eu_fsd_id",
+        "cn_hk_br_number",
     ],
     typing.Any,
 ]
