@@ -22,6 +22,7 @@ def setup_connection():
 
     # Set ENV if provided
     env = SayariEnvironment.PRODUCTION
+    base_url = "https://api.sayari.com"
     if os.getenv('BASE_URL') is not None:
         base_url = os.getenv('BASE_URL')
         env = os.getenv('BASE_URL')

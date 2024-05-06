@@ -18,8 +18,9 @@ if client_id is None or client_secret is None:
     print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
     sys.exit(1)
 
-# Set ENV if provided
+# Set ENV if provided (the next 5 lines can be omitted if running in prod)
 env = SayariEnvironment.PRODUCTION
+base_url = "https://api.sayari.com"
 if os.getenv('BASE_URL') is not None:
     base_url = os.getenv('BASE_URL')
     env = SayariEnvironment(os.getenv('BASE_URL'))
