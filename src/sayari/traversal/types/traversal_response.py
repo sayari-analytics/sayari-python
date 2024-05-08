@@ -43,24 +43,27 @@ class TraversalResponse(pydantic_v1.BaseModel):
             TraversalData(
                 source="mGq1lpuqKssNWTjIokuPeA",
                 target=EntityDetails(
-                    id="gm0zROLKqgX34AlFV4nw6w",
-                    label="HAL MANAGEMENT LIMITED",
+                    id="puXgX-Swu-Z8bCMW2_FSdQ",
+                    label="MARIE LEBLANC",
                     degree=1,
-                    entity_url="/v1/entity/gm0zROLKqgX34AlFV4nw6w",
+                    entity_url="/v1/entity/puXgX-Swu-Z8bCMW2_FSdQ",
                     pep=False,
-                    psa_id="15753940187055",
-                    psa_count=1303,
+                    psa_count=0,
                     sanctioned=False,
                     closed=False,
-                    type="company",
+                    trade_count={"sent": 0, "received": 0},
+                    type="person",
                     identifiers=[],
-                    addresses=["HANOVER HOUSE, 14 HANOVER SQUARE, W1S 1HP"],
-                    countries=["GBR"],
-                    relationship_count={"registered_agent_of": 1},
+                    addresses=[
+                        "202 HAMMERSMITH ROAD UNITED KINGDOM",
+                        "202 HAMMERSMITH ROAD BRITISH ISLES",
+                    ],
+                    countries=["USA", "GBR"],
+                    relationship_count={"officer_of": 1},
                     source_count={
-                        "ecdfb3f2ecc8c3797e77d5795a8066ef": SourceCountInfo(
-                            count=2,
-                            label="UK Corporate Registry",
+                        "a447a7b622c4ead6e1caf94983dc2337": SourceCountInfo(
+                            count=6,
+                            label="USA California Secretary of State",
                         )
                     },
                     risk={
@@ -80,30 +83,34 @@ class TraversalResponse(pydantic_v1.BaseModel):
                     user_related_entities_count=0,
                     user_relationship_count={},
                     related_entities_count=1,
-                    attribute_count={"address": 1, "name": 1, "country": 2},
+                    attribute_count={"name": 1, "address": 2, "country": 2},
+                    reference_id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000:0ce01cbfaa586fcfb82164f0e5a010d5",
                 ),
                 path=[
                     TraversalPath(
-                        field="has_registered_agent",
+                        field="has_officer",
                         entity=EntityDetails(
-                            id="gm0zROLKqgX34AlFV4nw6w",
-                            label="HAL MANAGEMENT LIMITED",
+                            id="puXgX-Swu-Z8bCMW2_FSdQ",
+                            label="MARIE LEBLANC",
                             degree=1,
-                            entity_url="/v1/entity/gm0zROLKqgX34AlFV4nw6w",
+                            entity_url="/v1/entity/puXgX-Swu-Z8bCMW2_FSdQ",
                             pep=False,
-                            psa_id="15753940187055",
-                            psa_count=1303,
+                            psa_count=0,
                             sanctioned=False,
                             closed=False,
-                            type="company",
+                            trade_count={"sent": 0, "received": 0},
+                            type="person",
                             identifiers=[],
-                            addresses=["HANOVER HOUSE, 14 HANOVER SQUARE, W1S 1HP"],
-                            countries=["GBR"],
-                            relationship_count={"registered_agent_of": 1},
+                            addresses=[
+                                "202 HAMMERSMITH ROAD UNITED KINGDOM",
+                                "202 HAMMERSMITH ROAD BRITISH ISLES",
+                            ],
+                            countries=["USA", "GBR"],
+                            relationship_count={"officer_of": 1},
                             source_count={
-                                "ecdfb3f2ecc8c3797e77d5795a8066ef": SourceCountInfo(
-                                    count=2,
-                                    label="UK Corporate Registry",
+                                "a447a7b622c4ead6e1caf94983dc2337": SourceCountInfo(
+                                    count=6,
+                                    label="USA California Secretary of State",
                                 )
                             },
                             risk={
@@ -123,36 +130,48 @@ class TraversalResponse(pydantic_v1.BaseModel):
                             user_related_entities_count=0,
                             user_relationship_count={},
                             related_entities_count=1,
-                            attribute_count={"address": 1, "name": 1, "country": 2},
+                            attribute_count={"name": 1, "address": 2, "country": 2},
+                            reference_id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000:0ce01cbfaa586fcfb82164f0e5a010d5",
                         ),
                         relationships={
-                            "has_registered_agent": TraversalRelationshipData(
+                            "has_officer": TraversalRelationshipData(
                                 values=[
                                     RelationshipInfo(
-                                        record="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1682985600000",
-                                        from_date="2008-02-28",
-                                        to_date="2008-07-10",
-                                        acquisition_date="2023-05-02",
-                                        publication_date="2023-05-02",
-                                        former=True,
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000",
+                                        acquisition_date="2022-04-05",
                                         attributes={
-                                            "position": [{"value": "Secretary"}]
+                                            "position": [
+                                                {"value": "Chief Executive Officer"}
+                                            ]
                                         },
                                     ),
                                     RelationshipInfo(
-                                        record="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1686009600000",
-                                        from_date="2008-02-28",
-                                        to_date="2008-07-10",
-                                        acquisition_date="2023-06-06",
-                                        publication_date="2023-06-06",
-                                        former=True,
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1678752000000",
+                                        acquisition_date="2023-03-14",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1685664000000",
+                                        acquisition_date="2023-06-02",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1693872000000",
+                                        acquisition_date="2023-09-05",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1701648000000",
+                                        acquisition_date="2023-12-04",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1709769600000",
+                                        acquisition_date="2024-03-07",
                                         attributes={},
                                     ),
                                 ],
-                                former=True,
-                                start_date="2008-02-28",
-                                end_date="2008-07-10",
-                                last_observed="2008-07-10",
+                                last_observed="2024-03-07",
                             )
                         },
                     )

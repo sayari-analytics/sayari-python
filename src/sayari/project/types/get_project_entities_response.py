@@ -27,6 +27,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
         QualifiedCount,
         RiskData,
         SourceCountInfo,
+        TradeCount,
     )
 
     GetProjectEntitiesResponse(
@@ -50,6 +51,10 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 case_status="not_assigned",
                 received_hs_codes=["271290", "271220"],
                 shipped_hs_codes=[],
+                trade_count_incl_mg=TradeCount(
+                    receiver_of=5,
+                    shipper_of=0,
+                ),
                 match_strength={
                     "rules": {
                         "is_strong_v1": false,
@@ -95,7 +100,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     },
                     user_relationship_counts={},
                     attribute_counts={"name": 1, "country": 1, "address": 2},
-                    trade_counts={"sent": 0, "received": 5},
+                    trade_count={"sent": 0, "received": 5},
                     user_attribute_counts={},
                     record_count=5,
                     user_record_count=0,

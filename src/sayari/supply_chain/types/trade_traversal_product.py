@@ -5,26 +5,14 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .notification import Notification
 
 
-class ProjectNotificationData(pydantic_v1.BaseModel):
-    id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    resource_id: str = pydantic_v1.Field()
-    """
-    The ID of the saved resource
-    """
-
-    entity_id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    notifications: typing.List[Notification]
+class TradeTraversalProduct(pydantic_v1.BaseModel):
+    hs_code: str = pydantic_v1.Field(alias="hsCode")
+    min_date: str = pydantic_v1.Field(alias="minDate")
+    max_date: str = pydantic_v1.Field(alias="maxDate")
+    arrival_countries: typing.List[str] = pydantic_v1.Field(alias="arrivalCountries")
+    departure_countries: typing.List[str] = pydantic_v1.Field(alias="departureCountries")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -37,5 +25,7 @@ class ProjectNotificationData(pydantic_v1.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
+        populate_by_name = True
         extra = pydantic_v1.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

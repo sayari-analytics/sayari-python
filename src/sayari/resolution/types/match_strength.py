@@ -5,26 +5,10 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .notification import Notification
 
 
-class ProjectNotificationData(pydantic_v1.BaseModel):
-    id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    resource_id: str = pydantic_v1.Field()
-    """
-    The ID of the saved resource
-    """
-
-    entity_id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    notifications: typing.List[Notification]
+class MatchStrength(pydantic_v1.BaseModel):
+    value: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -27,6 +27,9 @@ from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.resolution_response import ResolutionResponse
 
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
+
 
 class ResolutionClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
@@ -35,6 +38,8 @@ class ResolutionClient:
     def resolution(
         self,
         *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
         name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
         country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
@@ -48,6 +53,10 @@ class ResolutionClient:
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
             - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
 
             - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
@@ -80,6 +89,8 @@ class ResolutionClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
+                        "limit": limit,
+                        "offset": offset,
                         "name": name,
                         "identifier": identifier,
                         "country": country,
@@ -131,6 +142,128 @@ class ResolutionClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def resolution_post(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        name: typing.Optional[typing.Sequence[str]] = OMIT,
+        identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]] = OMIT,
+        country: typing.Optional[typing.Sequence[Country]] = OMIT,
+        address: typing.Optional[typing.Sequence[str]] = OMIT,
+        date_of_birth: typing.Optional[typing.Sequence[str]] = OMIT,
+        contact: typing.Optional[typing.Sequence[str]] = OMIT,
+        type: typing.Optional[typing.Sequence[Entities]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResolutionResponse:
+        """
+        The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - name: typing.Optional[typing.Sequence[str]]. Entity name
+
+            - identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+
+            - country: typing.Optional[typing.Sequence[Country]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+
+            - address: typing.Optional[typing.Sequence[str]]. Entity address
+
+            - date_of_birth: typing.Optional[typing.Sequence[str]]. Entity date of birth
+
+            - contact: typing.Optional[typing.Sequence[str]]. Entity contact
+
+            - type: typing.Optional[typing.Sequence[Entities]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.resolution.resolution_post(
+            limit=2,
+            name=["victoria beckham limited"],
+        )
+        """
+        _request: typing.Dict[str, typing.Any] = {}
+        if name is not OMIT:
+            _request["name"] = name
+        if identifier is not OMIT:
+            _request["identifier"] = identifier
+        if country is not OMIT:
+            _request["country"] = country
+        if address is not OMIT:
+            _request["address"] = address
+        if date_of_birth is not OMIT:
+            _request["date_of_birth"] = date_of_birth
+        if contact is not OMIT:
+            _request["contact"] = contact
+        if type is not OMIT:
+            _request["type"] = type
+        _response = self._client_wrapper.httpx_client.request(
+            method="POST",
+            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncResolutionClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -139,6 +272,8 @@ class AsyncResolutionClient:
     async def resolution(
         self,
         *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
         name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
         country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
@@ -152,6 +287,10 @@ class AsyncResolutionClient:
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
             - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
 
             - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
@@ -184,6 +323,8 @@ class AsyncResolutionClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
+                        "limit": limit,
+                        "offset": offset,
                         "name": name,
                         "identifier": identifier,
                         "country": country,
@@ -199,6 +340,128 @@ class AsyncResolutionClient:
                     }
                 )
             ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(ResolutionResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 406:
+            raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def resolution_post(
+        self,
+        *,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        name: typing.Optional[typing.Sequence[str]] = OMIT,
+        identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]] = OMIT,
+        country: typing.Optional[typing.Sequence[Country]] = OMIT,
+        address: typing.Optional[typing.Sequence[str]] = OMIT,
+        date_of_birth: typing.Optional[typing.Sequence[str]] = OMIT,
+        contact: typing.Optional[typing.Sequence[str]] = OMIT,
+        type: typing.Optional[typing.Sequence[Entities]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResolutionResponse:
+        """
+        The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
+
+        Parameters:
+            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+
+            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+
+            - name: typing.Optional[typing.Sequence[str]]. Entity name
+
+            - identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+
+            - country: typing.Optional[typing.Sequence[Country]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+
+            - address: typing.Optional[typing.Sequence[str]]. Entity address
+
+            - date_of_birth: typing.Optional[typing.Sequence[str]]. Entity date of birth
+
+            - contact: typing.Optional[typing.Sequence[str]]. Entity contact
+
+            - type: typing.Optional[typing.Sequence[Entities]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        await client.resolution.resolution_post(
+            limit=2,
+            name=["victoria beckham limited"],
+        )
+        """
+        _request: typing.Dict[str, typing.Any] = {}
+        if name is not OMIT:
+            _request["name"] = name
+        if identifier is not OMIT:
+            _request["identifier"] = identifier
+        if country is not OMIT:
+            _request["country"] = country
+        if address is not OMIT:
+            _request["address"] = address
+        if date_of_birth is not OMIT:
+            _request["date_of_birth"] = date_of_birth
+        if contact is not OMIT:
+            _request["contact"] = contact
+        if type is not OMIT:
+            _request["type"] = type
+        _response = await self._client_wrapper.httpx_client.request(
+            method="POST",
+            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
+            params=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        "limit": limit,
+                        "offset": offset,
+                        **(
+                            request_options.get("additional_query_parameters", {})
+                            if request_options is not None
+                            else {}
+                        ),
+                    }
+                )
+            ),
+            json=jsonable_encoder(_request)
+            if request_options is None or request_options.get("additional_body_parameters") is None
+            else {
+                **jsonable_encoder(_request),
+                **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
+            },
             headers=jsonable_encoder(
                 remove_none_from_dict(
                     {

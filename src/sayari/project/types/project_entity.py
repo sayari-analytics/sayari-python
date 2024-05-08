@@ -8,6 +8,7 @@ from ...core.pydantic_utilities import pydantic_v1
 from ...shared_types.types.core_entity import CoreEntity
 from .project_entity_upstream import ProjectEntityUpstream
 from .psa_summary import PsaSummary
+from .trade_count import TradeCount
 
 
 class ProjectEntity(pydantic_v1.BaseModel):
@@ -43,6 +44,11 @@ class ProjectEntity(pydantic_v1.BaseModel):
     received_hs_codes: typing.List[str] = pydantic_v1.Field()
     """
     HS codes received by the entity.
+    """
+
+    trade_count_incl_mg: TradeCount = pydantic_v1.Field()
+    """
+    Counts of sent and received shipments for this entity and its match group.
     """
 
     upstream: ProjectEntityUpstream

@@ -5,29 +5,21 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from ...generated_types.types.country import Country
-from ...generated_types.types.entities import Entities
-from ...shared_types.types.identifier import Identifier
-from .match_explanation import MatchExplanation
-from .match_strength import MatchStrength
+from .resource_type import ResourceType
 
 
-class ResolutionResult(pydantic_v1.BaseModel):
-    profile: str
-    score: float
-    entity_id: str
+class EntityResponseData(pydantic_v1.BaseModel):
+    type: ResourceType
+    id: str
+    project: str
     label: str
-    type: Entities
-    identifiers: typing.List[Identifier]
-    psa_id: typing.Optional[float] = None
-    addresses: typing.List[str]
-    countries: typing.List[Country]
-    sources: typing.List[str]
-    typed_matched_queries: typing.List[str]
-    matched_queries: typing.List[str]
-    highlight: typing.Dict[str, typing.List[str]]
-    explanation: typing.Dict[str, typing.List[MatchExplanation]]
-    match_strength: MatchStrength
+    created: str
+    updated: str
+    updated_by: str
+    version: int
+    entity_id: str
+    tag_ids: typing.List[str]
+    case_status: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

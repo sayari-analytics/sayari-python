@@ -5,26 +5,31 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .notification import Notification
+from .project import Project
 
 
-class ProjectNotificationData(pydantic_v1.BaseModel):
-    id: str = pydantic_v1.Field()
+class DeleteProjectResponse(pydantic_v1.BaseModel):
     """
-    The ID of the entity
+    from sayari import DeleteProjectResponse, Project, ProjectCounts
+
+    DeleteProjectResponse(
+        data=Project(
+            id="Gam5qG",
+            label="Project Delta",
+            archived=False,
+            created="2024-04-24 13:43:56.546705+00",
+            updated="2024-04-24 13:43:56.546705+00",
+            counts=ProjectCounts(
+                entity=2,
+                graph=0,
+                record=0,
+                search=0,
+            ),
+        ),
+    )
     """
 
-    resource_id: str = pydantic_v1.Field()
-    """
-    The ID of the saved resource
-    """
-
-    entity_id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    notifications: typing.List[Notification]
+    data: Project
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

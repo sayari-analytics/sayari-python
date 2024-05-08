@@ -5,15 +5,15 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .save_entity_response_data import SaveEntityResponseData
+from .entity_response_data import EntityResponseData
 
 
 class SaveEntityResponse(pydantic_v1.BaseModel):
     """
-    from sayari import SaveEntityResponse, SaveEntityResponseData
+    from sayari import EntityResponseData, SaveEntityResponse
 
     SaveEntityResponse(
-        data=SaveEntityResponseData(
+        data=EntityResponseData(
             type="entity",
             id="Ywk6qw",
             project="GNJbkG",
@@ -29,7 +29,7 @@ class SaveEntityResponse(pydantic_v1.BaseModel):
     )
     """
 
-    data: SaveEntityResponseData
+    data: EntityResponseData
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

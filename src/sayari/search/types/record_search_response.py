@@ -25,13 +25,13 @@ class RecordSearchResponse(PaginatedResponse):
         next=True,
         data=[
             RecordDetails(
-                id="a7e5a83df5551eb557688c84451abd9d/0000950123-09-004358-index.htm/1649179145577",
+                id="a7e5a83df5551eb557688c84451abd9d/0000950123-09-004358-index.htm/1697610858173",
                 label="Company Record from USA SEC 10-K Database",
                 source="a7e5a83df5551eb557688c84451abd9d",
                 publication_date="2009-03-10",
-                acquisition_date="2022-04-05",
+                acquisition_date="2023-10-18",
                 references_count=10,
-                record_url="/v1/record/a7e5a83df5551eb557688c84451abd9d%2F0000950123-09-004358-index.htm%2F1649179145577",
+                record_url="/v1/record/a7e5a83df5551eb557688c84451abd9d%2F0000950123-09-004358-index.htm%2F1697610858173",
                 source_url="https://www.sec.gov/Archives/edgar/data/2488/000119312513069422/0000950123-09-004358-index.htm",
                 matches={
                     "text": [
@@ -42,6 +42,9 @@ class RecordSearchResponse(PaginatedResponse):
                         "In 2008, <em>Victoria</em> successfully launched her\n    dress collection, a new denim collection under her DVB Style\n    brand and a DVB line of eyewear.",
                     ]
                 },
+                country="USA",
+                page=8.0,
+                page_count=92.0,
             )
         ],
     )

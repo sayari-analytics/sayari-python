@@ -11,17 +11,17 @@ from .notification_type import NotificationType
 
 
 class ResourceNotificationData(pydantic_v1.BaseModel):
-    saved_resource_id: str = pydantic_v1.Field(alias="savedResourceId")
+    saved_resource_id: str = pydantic_v1.Field()
     """
     The ID of the saved resource
     """
 
-    project_id: str = pydantic_v1.Field(alias="projectId")
+    project_id: str = pydantic_v1.Field()
     """
     The ID of the project the entity is saved to
     """
 
-    entity_id: str = pydantic_v1.Field(alias="entityId")
+    entity_id: str = pydantic_v1.Field()
     """
     The ID of the entity
     """
@@ -57,7 +57,5 @@ class ResourceNotificationData(pydantic_v1.BaseModel):
     class Config:
         frozen = True
         smart_union = True
-        allow_population_by_field_name = True
-        populate_by_name = True
         extra = pydantic_v1.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}
