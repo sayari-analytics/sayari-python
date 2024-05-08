@@ -3,6 +3,7 @@
 from .bucket_agg import BucketAgg
 from .create_project_request import CreateProjectRequest
 from .create_project_response import CreateProjectResponse
+from .delete_project_response import DeleteProjectResponse
 from .doc_count import DocCount
 from .get_project_entities_accept_header import GetProjectEntitiesAcceptHeader
 from .get_project_entities_response import GetProjectEntitiesResponse
@@ -18,17 +19,20 @@ from .project_entities_aggs_definition import ProjectEntitiesAggsDefinition
 from .project_entities_filter import ProjectEntitiesFilter
 from .project_entity import ProjectEntity
 from .project_entity_upstream import ProjectEntityUpstream
+from .project_share_on_create import ProjectShareOnCreate
 from .project_with_members import ProjectWithMembers
 from .psa_summary import PsaSummary
 from .role import Role
 from .role_member import RoleMember
 from .role_member_type import RoleMemberType
 from .sort_field import SortField
+from .trade_count import TradeCount
 
 __all__ = [
     "BucketAgg",
     "CreateProjectRequest",
     "CreateProjectResponse",
+    "DeleteProjectResponse",
     "DocCount",
     "GetProjectEntitiesAcceptHeader",
     "GetProjectEntitiesResponse",
@@ -44,10 +48,12 @@ __all__ = [
     "ProjectEntitiesFilter",
     "ProjectEntity",
     "ProjectEntityUpstream",
+    "ProjectShareOnCreate",
     "ProjectWithMembers",
     "PsaSummary",
     "Role",
     "RoleMember",
     "RoleMemberType",
     "SortField",
+    "TradeCount",
 ]

@@ -87,7 +87,7 @@ class CoreEntity(EntitySummary):
     user_relationship_counts: RelationshipCount
     attribute_counts: typing.Any
     user_attribute_counts: typing.Any
-    trade_counts: typing.Dict[str, int]
+    trade_count: typing.Dict[str, int]
     record_count: int
     user_record_count: int
     source_counts: typing.Dict[str, SourceCountInfo] = pydantic_v1.Field()

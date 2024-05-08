@@ -5,6 +5,7 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
+from .project_share_on_create import ProjectShareOnCreate
 
 
 class CreateProjectRequest(pydantic_v1.BaseModel):
@@ -17,6 +18,10 @@ class CreateProjectRequest(pydantic_v1.BaseModel):
     """
 
     label: str
+    share: typing.Optional[ProjectShareOnCreate] = pydantic_v1.Field(default=None)
+    """
+    Specifies access levels available to users in a project within an organization. For comprehensive access, the admin role is recommended.
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

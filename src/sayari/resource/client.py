@@ -22,6 +22,8 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from .types.delete_resource_response import DeleteResourceResponse
+from .types.resource_type import ResourceType
 from .types.save_entity_request import SaveEntityRequest
 from .types.save_entity_response import SaveEntityResponse
 
@@ -107,6 +109,75 @@ class ResourceClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def delete_resource(
+        self, type: ResourceType, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteResourceResponse:
+        """
+        Deletes an existing saved resource from a project.
+
+        Parameters:
+            - type: ResourceType.
+
+            - resource_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.resource.delete_resource(
+            type="entity",
+            resource_id="YWmNKV",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(DeleteResourceResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncResourceClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -166,6 +237,75 @@ class AsyncResourceClient:
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(SaveEntityResponse, _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_resource(
+        self, type: ResourceType, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteResourceResponse:
+        """
+        Deletes an existing saved resource from a project.
+
+        Parameters:
+            - type: ResourceType.
+
+            - resource_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        await client.resource.delete_resource(
+            type="entity",
+            resource_id="YWmNKV",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/",
+                f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic_v1.parse_obj_as(DeleteResourceResponse, _response.json())  # type: ignore
         if _response.status_code == 400:
             raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
         if _response.status_code == 401:

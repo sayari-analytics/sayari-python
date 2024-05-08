@@ -16,6 +16,7 @@ from . import (
     shared_errors,
     shared_types,
     source,
+    supply_chain,
     trade,
     traversal,
 )
@@ -133,6 +134,7 @@ from .project import (
     BucketAgg,
     CreateProjectRequest,
     CreateProjectResponse,
+    DeleteProjectResponse,
     DocCount,
     GetProjectEntitiesAcceptHeader,
     GetProjectEntitiesResponse,
@@ -148,16 +150,18 @@ from .project import (
     ProjectEntitiesFilter,
     ProjectEntity,
     ProjectEntityUpstream,
+    ProjectShareOnCreate,
     ProjectWithMembers,
     PsaSummary,
     Role,
     RoleMember,
     RoleMemberType,
     SortField,
+    TradeCount,
 )
 from .record import GetRecordResponse, RecordReferences
-from .resolution import MatchExplanation, ResolutionResponse, ResolutionResponseFields, ResolutionResult
-from .resource import ResourceType, SaveEntityRequest, SaveEntityResponse, SaveEntityResponseData
+from .resolution import MatchExplanation, MatchStrength, ResolutionResponse, ResolutionResponseFields, ResolutionResult
+from .resource import DeleteResourceResponse, EntityResponseData, ResourceType, SaveEntityRequest, SaveEntityResponse
 from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
 from .shared_errors import (
     BadGateway,
@@ -217,6 +221,16 @@ from .shared_types import (
     Status,
 )
 from .source import GetSourceResponse, ListSourcesResponse, Source
+from .supply_chain import (
+    EntityId,
+    TradeTraversalEntity,
+    TradeTraversalPath,
+    TradeTraversalPathOrSegment,
+    TradeTraversalPathSegment,
+    TradeTraversalPathSegments,
+    TradeTraversalProduct,
+    UpstreamTradeTraversalResponse,
+)
 from .trade import (
     BusinessPurpose,
     BuyerSearchResponse,
@@ -303,14 +317,18 @@ __all__ = [
     "DateOfBirthData",
     "DateOfBirthInfo",
     "DateOfBirthProperties",
+    "DeleteProjectResponse",
+    "DeleteResourceResponse",
     "DocCount",
     "EmbeddedEntity",
     "Entities",
     "EntityDetails",
     "EntityHsCode",
+    "EntityId",
     "EntityMatches",
     "EntityRegistrationDate",
     "EntityRelationships",
+    "EntityResponseData",
     "EntityRisk",
     "EntitySearchResponse",
     "EntitySummary",
@@ -356,6 +374,7 @@ __all__ = [
     "Language",
     "ListSourcesResponse",
     "MatchExplanation",
+    "MatchStrength",
     "MeasurementData",
     "MeasurementInfo",
     "MeasurementProperties",
@@ -398,6 +417,7 @@ __all__ = [
     "ProjectEntityUpstream",
     "ProjectNotificationData",
     "ProjectNotificationsResponse",
+    "ProjectShareOnCreate",
     "ProjectWithMembers",
     "Psa",
     "PsaEntity",
@@ -434,7 +454,6 @@ __all__ = [
     "RoleMemberType",
     "SaveEntityRequest",
     "SaveEntityResponse",
-    "SaveEntityResponseData",
     "SayariEnvironment",
     "SearchField",
     "SearchResults",
@@ -465,7 +484,14 @@ __all__ = [
     "SupplierOrBuyer",
     "SupplierSearchResponse",
     "Tag",
+    "TradeCount",
     "TradeFilterList",
+    "TradeTraversalEntity",
+    "TradeTraversalPath",
+    "TradeTraversalPathOrSegment",
+    "TradeTraversalPathSegment",
+    "TradeTraversalPathSegments",
+    "TradeTraversalProduct",
     "TranslatedNameData",
     "TranslatedNameInfo",
     "TranslatedNameProperties",
@@ -478,6 +504,7 @@ __all__ = [
     "UnauthorizedResponse",
     "Unit",
     "UpdateAttribute",
+    "UpstreamTradeTraversalResponse",
     "UsageInfo",
     "UsageResponse",
     "WeakIdentifierData",
@@ -501,6 +528,7 @@ __all__ = [
     "shared_errors",
     "shared_types",
     "source",
+    "supply_chain",
     "trade",
     "traversal",
 ]

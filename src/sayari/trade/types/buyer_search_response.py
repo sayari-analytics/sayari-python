@@ -87,6 +87,7 @@ class BuyerSearchResponse(PaginatedResponse):
                     "receives_from": 98,
                     "has_legal_representative": 4,
                 },
+                trade_count={"sent": 0, "received": 150},
                 source_count={
                     "96c06a5a03b61b91324c7e05b3114fb6": SourceCountInfo(
                         count=4142,

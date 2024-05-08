@@ -43,6 +43,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                     latest_status=Status(
                         status="active",
                     ),
+                    trade_count={"sent": 0, "received": 0},
                     type="company",
                     identifiers=[
                         Identifier(
@@ -54,14 +55,14 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                     addresses=["202 HAMMERSMITH ROAD, LONDON, W6 7DN"],
                     countries=["GBR"],
                     relationship_count={
-                        "has_director": 4,
-                        "has_shareholder": 1,
                         "linked_to": 1,
                         "has_registered_agent": 1,
+                        "has_director": 4,
+                        "has_shareholder": 1,
                     },
                     source_count={
                         "ecdfb3f2ecc8c3797e77d5795a8066ef": SourceCountInfo(
-                            count=32,
+                            count=33,
                             label="UK Corporate Registry",
                         ),
                         "2b618f1996252fe537a6d998ae14c9b2": SourceCountInfo(
@@ -69,7 +70,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                             label="UK Corporate Registry Confirmation Statements",
                         ),
                         "4ea8bac1bed868e1510ffd21842e9551": SourceCountInfo(
-                            count=18,
+                            count=23,
                             label="UK Persons with Significant Control",
                         ),
                     },
@@ -88,6 +89,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                         "status": 2,
                         "address": 1,
                     },
+                    reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/08661308/1540252800000:6f842cf70eab52cc2178b948dea30489",
                 ),
                 path=[
                     TraversalPath(
@@ -106,6 +108,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                             latest_status=Status(
                                 status="active",
                             ),
+                            trade_count={"sent": 0, "received": 0},
                             type="company",
                             identifiers=[
                                 Identifier(
@@ -117,14 +120,14 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                             addresses=["202 HAMMERSMITH ROAD, LONDON, W6 7DN"],
                             countries=["GBR"],
                             relationship_count={
-                                "has_director": 4,
-                                "has_shareholder": 1,
                                 "linked_to": 1,
                                 "has_registered_agent": 1,
+                                "has_director": 4,
+                                "has_shareholder": 1,
                             },
                             source_count={
                                 "ecdfb3f2ecc8c3797e77d5795a8066ef": SourceCountInfo(
-                                    count=32,
+                                    count=33,
                                     label="UK Corporate Registry",
                                 ),
                                 "2b618f1996252fe537a6d998ae14c9b2": SourceCountInfo(
@@ -132,7 +135,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                     label="UK Corporate Registry Confirmation Statements",
                                 ),
                                 "4ea8bac1bed868e1510ffd21842e9551": SourceCountInfo(
-                                    count=18,
+                                    count=23,
                                     label="UK Persons with Significant Control",
                                 ),
                             },
@@ -151,6 +154,7 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                 "status": 2,
                                 "address": 1,
                             },
+                            reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/08661308/1540252800000:6f842cf70eab52cc2178b948dea30489",
                         ),
                         relationships={
                             "linked_to": TraversalRelationshipData(
@@ -162,7 +166,11 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                             "position": [
                                                 {
                                                     "value": "Has right to appoint and remove directors"
-                                                }
+                                                },
+                                                {"value": "Owns 75-100% of shares"},
+                                                {
+                                                    "value": "Owns 75-100% of voting rights"
+                                                },
                                             ]
                                         },
                                     ),
@@ -249,6 +257,31 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                     RelationshipInfo(
                                         record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1699488000000",
                                         acquisition_date="2023-11-09",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1702252800000",
+                                        acquisition_date="2023-12-11",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1704067200000",
+                                        acquisition_date="2024-01-01",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1706832000000",
+                                        acquisition_date="2024-02-02",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1709596800000",
+                                        acquisition_date="2024-03-05",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1711843200000",
+                                        acquisition_date="2024-03-31",
                                         attributes={},
                                     ),
                                 ],
@@ -262,8 +295,13 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                             "position": [
                                                 {
                                                     "value": "Has right to appoint and remove directors"
-                                                }
-                                            ]
+                                                },
+                                                {"value": "Owns 75-100% of shares"},
+                                                {
+                                                    "value": "Owns 75-100% of voting rights"
+                                                },
+                                            ],
+                                            "shares": [{"percentage": 75}],
                                         },
                                     ),
                                     RelationshipInfo(
@@ -349,6 +387,31 @@ class ShortestPathResponse(pydantic_v1.BaseModel):
                                     RelationshipInfo(
                                         record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1699488000000",
                                         acquisition_date="2023-11-09",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1702252800000",
+                                        acquisition_date="2023-12-11",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1704067200000",
+                                        acquisition_date="2024-01-01",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1706832000000",
+                                        acquisition_date="2024-02-02",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1709596800000",
+                                        acquisition_date="2024-03-05",
+                                        attributes={},
+                                    ),
+                                    RelationshipInfo(
+                                        record="4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1711843200000",
+                                        acquisition_date="2024-03-31",
                                         attributes={},
                                     ),
                                 ],

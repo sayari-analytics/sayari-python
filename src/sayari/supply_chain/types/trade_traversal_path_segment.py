@@ -5,21 +5,14 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .resource_type import ResourceType
+from .trade_traversal_product import TradeTraversalProduct
 
 
-class SaveEntityResponseData(pydantic_v1.BaseModel):
-    type: ResourceType
-    id: str
-    project: str
-    label: str
-    created: str
-    updated: str
-    updated_by: str
-    version: int
-    entity_id: str
-    tag_ids: typing.List[str]
-    case_status: str
+class TradeTraversalPathSegment(pydantic_v1.BaseModel):
+    src: str
+    dst: str
+    hs_codes: typing.Optional[typing.List[str]] = None
+    products: typing.Optional[typing.List[TradeTraversalProduct]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

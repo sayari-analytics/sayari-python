@@ -212,6 +212,201 @@ class NotificationsClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def delete_project_notifications(
+        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes all notifications from a project.
+
+        Parameters:
+            - project_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.notifications.delete_project_notifications(
+            project_id="YWmNKV",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(project_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def delete_entity_notifications(
+        self, entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes notifications for saved resources of an entity.
+
+        Parameters:
+            - entity_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.notifications.delete_entity_notifications(
+            entity_id="N0xLDy4wcud-M1ZtwdsvRA",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/entity/{jsonable_encoder(entity_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def delete_resource_notifications(
+        self, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes notifications for a saved resource.
+
+        Parameters:
+            - resource_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.notifications.delete_resource_notifications(
+            resource_id="oGxxqG",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(resource_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncNotificationsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -389,6 +584,201 @@ class AsyncNotificationsClient:
             raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
         if _response.status_code == 520:
             raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_project_notifications(
+        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes all notifications from a project.
+
+        Parameters:
+            - project_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        await client.notifications.delete_project_notifications(
+            project_id="YWmNKV",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(project_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_entity_notifications(
+        self, entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes notifications for saved resources of an entity.
+
+        Parameters:
+            - entity_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        await client.notifications.delete_entity_notifications(
+            entity_id="N0xLDy4wcud-M1ZtwdsvRA",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/entity/{jsonable_encoder(entity_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_resource_notifications(
+        self, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes notifications for a saved resource.
+
+        Parameters:
+            - resource_id: str.
+
+            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
+        ---
+        from sayari.client import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        await client.notifications.delete_resource_notifications(
+            resource_id="oGxxqG",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            method="DELETE",
+            url=urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(resource_id)}"
+            ),
+            params=jsonable_encoder(
+                request_options.get("additional_query_parameters") if request_options is not None else None
+            ),
+            headers=jsonable_encoder(
+                remove_none_from_dict(
+                    {
+                        **self._client_wrapper.get_headers(),
+                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
+                    }
+                )
+            ),
+            timeout=request_options.get("timeout_in_seconds")
+            if request_options is not None and request_options.get("timeout_in_seconds") is not None
+            else self._client_wrapper.get_timeout(),
+            retries=0,
+            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+        )
+        if 200 <= _response.status_code < 300:
+            return
+        if _response.status_code == 400:
+            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+        if _response.status_code == 401:
+            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+        if _response.status_code == 405:
+            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
+        if _response.status_code == 429:
+            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+        if _response.status_code == 500:
+            raise InternalServerError(
+                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+            )
         try:
             _response_json = _response.json()
         except JSONDecodeError:

@@ -45,6 +45,7 @@ class SupplierSearchResponse(PaginatedResponse):
                 addresses=[],
                 countries=[],
                 relationship_count={"shipper_of": 2522, "ships_to": 1},
+                trade_count={"sent": 20, "received": 33308},
                 source_count={
                     "96c06a5a03b61b91324c7e05b3114fb6": SourceCountInfo(
                         count=2522,

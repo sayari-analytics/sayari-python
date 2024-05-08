@@ -38,15 +38,30 @@ class EntityClient:
         self,
         id: str,
         *,
-        attributes_name_next: typing.Optional[str] = None,
-        attributes_name_prev: typing.Optional[str] = None,
-        attributes_name_limit: typing.Optional[int] = None,
+        attributes_additional_information_next: typing.Optional[str] = None,
+        attributes_additional_information_prev: typing.Optional[str] = None,
+        attributes_additional_information_limit: typing.Optional[int] = None,
         attributes_address_next: typing.Optional[str] = None,
         attributes_address_prev: typing.Optional[str] = None,
         attributes_address_limit: typing.Optional[int] = None,
+        attributes_business_purpose_next: typing.Optional[str] = None,
+        attributes_business_purpose_prev: typing.Optional[str] = None,
+        attributes_business_purpose_limit: typing.Optional[int] = None,
+        attributes_company_type_next: typing.Optional[str] = None,
+        attributes_company_type_prev: typing.Optional[str] = None,
+        attributes_company_type_limit: typing.Optional[int] = None,
         attributes_country_next: typing.Optional[str] = None,
         attributes_country_prev: typing.Optional[str] = None,
         attributes_country_limit: typing.Optional[int] = None,
+        attributes_identifier_next: typing.Optional[str] = None,
+        attributes_identifier_prev: typing.Optional[str] = None,
+        attributes_identifier_limit: typing.Optional[int] = None,
+        attributes_name_next: typing.Optional[str] = None,
+        attributes_name_prev: typing.Optional[str] = None,
+        attributes_name_limit: typing.Optional[int] = None,
+        attributes_status_next: typing.Optional[str] = None,
+        attributes_status_prev: typing.Optional[str] = None,
+        attributes_status_limit: typing.Optional[int] = None,
         relationships_next: typing.Optional[str] = None,
         relationships_prev: typing.Optional[str] = None,
         relationships_limit: typing.Optional[int] = None,
@@ -79,11 +94,11 @@ class EntityClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
+            - attributes_additional_information_next: typing.Optional[str]. The pagination token for the next page of attribute `additional_information`.
 
-            - attributes_name_prev: typing.Optional[str]. The pagination token for the previous page of attribute `name`.
+            - attributes_additional_information_prev: typing.Optional[str]. The pagination token for the previous page of attribute `additional_information`.
 
-            - attributes_name_limit: typing.Optional[int]. Limit total values returned for attribute `name`. Defaults to 100.
+            - attributes_additional_information_limit: typing.Optional[int]. Limit total values returned for attribute `additional_information`. Defaults to 100.
 
             - attributes_address_next: typing.Optional[str]. The pagination token for the next page of attribute `address`.
 
@@ -91,11 +106,41 @@ class EntityClient:
 
             - attributes_address_limit: typing.Optional[int]. Limit total values returned for attribute `address`. Defaults to 100.
 
+            - attributes_business_purpose_next: typing.Optional[str]. The pagination token for the next page of attribute `business_purpose`.
+
+            - attributes_business_purpose_prev: typing.Optional[str]. The pagination token for the previous page of attribute `business_purpose`.
+
+            - attributes_business_purpose_limit: typing.Optional[int]. Limit total values returned for attribute `business_purpose`. Defaults to 100.
+
+            - attributes_company_type_next: typing.Optional[str]. The pagination token for the next page of attribute `company_type`.
+
+            - attributes_company_type_prev: typing.Optional[str]. The pagination token for the previous page of attribute `company_type`.
+
+            - attributes_company_type_limit: typing.Optional[int]. Limit total values returned for attribute `company_type`. Defaults to 100.
+
             - attributes_country_next: typing.Optional[str]. The pagination token for the next page of attribute `country`.
 
             - attributes_country_prev: typing.Optional[str]. The pagination token for the previous page of attribute `country`.
 
             - attributes_country_limit: typing.Optional[int]. Limit total values returned for attribute `country`. Defaults to 100.
+
+            - attributes_identifier_next: typing.Optional[str]. The pagination token for the next page of attribute `identifier`.
+
+            - attributes_identifier_prev: typing.Optional[str]. The pagination token for the previous page of attribute `identifier`.
+
+            - attributes_identifier_limit: typing.Optional[int]. Limit total values returned for attribute `identifier`. Defaults to 100.
+
+            - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
+
+            - attributes_name_prev: typing.Optional[str]. The pagination token for the previous page of attribute `name`.
+
+            - attributes_name_limit: typing.Optional[int]. Limit total values returned for attribute `name`. Defaults to 100.
+
+            - attributes_status_next: typing.Optional[str]. The pagination token for the next page of attribute `status`.
+
+            - attributes_status_prev: typing.Optional[str]. The pagination token for the previous page of attribute `status`.
+
+            - attributes_status_limit: typing.Optional[int]. Limit total values returned for attribute `status`. Defaults to 100.
 
             - relationships_next: typing.Optional[str]. The pagination token for the next page of relationship results
 
@@ -158,6 +203,11 @@ class EntityClient:
             attributes_name_limit=1,
             attributes_address_limit=1,
             attributes_country_limit=1,
+            attributes_additional_information_limit=1,
+            attributes_business_purpose_limit=1,
+            attributes_company_type_limit=1,
+            attributes_identifier_limit=1,
+            attributes_status_limit=1,
             relationships_limit=1,
             possibly_same_as_limit=1,
             referenced_by_limit=1,
@@ -169,15 +219,30 @@ class EntityClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
-                        "attributes.name.next": attributes_name_next,
-                        "attributes.name.prev": attributes_name_prev,
-                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.additional_information.next": attributes_additional_information_next,
+                        "attributes.additional_information.prev": attributes_additional_information_prev,
+                        "attributes.additional_information.limit": attributes_additional_information_limit,
                         "attributes.address.next": attributes_address_next,
                         "attributes.address.prev": attributes_address_prev,
                         "attributes.address.limit": attributes_address_limit,
+                        "attributes.business_purpose.next": attributes_business_purpose_next,
+                        "attributes.business_purpose.prev": attributes_business_purpose_prev,
+                        "attributes.business_purpose.limit": attributes_business_purpose_limit,
+                        "attributes.company_type.next": attributes_company_type_next,
+                        "attributes.company_type.prev": attributes_company_type_prev,
+                        "attributes.company_type.limit": attributes_company_type_limit,
                         "attributes.country.next": attributes_country_next,
                         "attributes.country.prev": attributes_country_prev,
                         "attributes.country.limit": attributes_country_limit,
+                        "attributes.identifier.next": attributes_identifier_next,
+                        "attributes.identifier.prev": attributes_identifier_prev,
+                        "attributes.identifier.limit": attributes_identifier_limit,
+                        "attributes.name.next": attributes_name_next,
+                        "attributes.name.prev": attributes_name_prev,
+                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.status.next": attributes_status_next,
+                        "attributes.status.prev": attributes_status_prev,
+                        "attributes.status.limit": attributes_status_limit,
                         "relationships.next": relationships_next,
                         "relationships.prev": relationships_prev,
                         "relationships.limit": relationships_limit,
@@ -324,15 +389,30 @@ class AsyncEntityClient:
         self,
         id: str,
         *,
-        attributes_name_next: typing.Optional[str] = None,
-        attributes_name_prev: typing.Optional[str] = None,
-        attributes_name_limit: typing.Optional[int] = None,
+        attributes_additional_information_next: typing.Optional[str] = None,
+        attributes_additional_information_prev: typing.Optional[str] = None,
+        attributes_additional_information_limit: typing.Optional[int] = None,
         attributes_address_next: typing.Optional[str] = None,
         attributes_address_prev: typing.Optional[str] = None,
         attributes_address_limit: typing.Optional[int] = None,
+        attributes_business_purpose_next: typing.Optional[str] = None,
+        attributes_business_purpose_prev: typing.Optional[str] = None,
+        attributes_business_purpose_limit: typing.Optional[int] = None,
+        attributes_company_type_next: typing.Optional[str] = None,
+        attributes_company_type_prev: typing.Optional[str] = None,
+        attributes_company_type_limit: typing.Optional[int] = None,
         attributes_country_next: typing.Optional[str] = None,
         attributes_country_prev: typing.Optional[str] = None,
         attributes_country_limit: typing.Optional[int] = None,
+        attributes_identifier_next: typing.Optional[str] = None,
+        attributes_identifier_prev: typing.Optional[str] = None,
+        attributes_identifier_limit: typing.Optional[int] = None,
+        attributes_name_next: typing.Optional[str] = None,
+        attributes_name_prev: typing.Optional[str] = None,
+        attributes_name_limit: typing.Optional[int] = None,
+        attributes_status_next: typing.Optional[str] = None,
+        attributes_status_prev: typing.Optional[str] = None,
+        attributes_status_limit: typing.Optional[int] = None,
         relationships_next: typing.Optional[str] = None,
         relationships_prev: typing.Optional[str] = None,
         relationships_limit: typing.Optional[int] = None,
@@ -365,11 +445,11 @@ class AsyncEntityClient:
         Parameters:
             - id: str. Unique identifier of the entity
 
-            - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
+            - attributes_additional_information_next: typing.Optional[str]. The pagination token for the next page of attribute `additional_information`.
 
-            - attributes_name_prev: typing.Optional[str]. The pagination token for the previous page of attribute `name`.
+            - attributes_additional_information_prev: typing.Optional[str]. The pagination token for the previous page of attribute `additional_information`.
 
-            - attributes_name_limit: typing.Optional[int]. Limit total values returned for attribute `name`. Defaults to 100.
+            - attributes_additional_information_limit: typing.Optional[int]. Limit total values returned for attribute `additional_information`. Defaults to 100.
 
             - attributes_address_next: typing.Optional[str]. The pagination token for the next page of attribute `address`.
 
@@ -377,11 +457,41 @@ class AsyncEntityClient:
 
             - attributes_address_limit: typing.Optional[int]. Limit total values returned for attribute `address`. Defaults to 100.
 
+            - attributes_business_purpose_next: typing.Optional[str]. The pagination token for the next page of attribute `business_purpose`.
+
+            - attributes_business_purpose_prev: typing.Optional[str]. The pagination token for the previous page of attribute `business_purpose`.
+
+            - attributes_business_purpose_limit: typing.Optional[int]. Limit total values returned for attribute `business_purpose`. Defaults to 100.
+
+            - attributes_company_type_next: typing.Optional[str]. The pagination token for the next page of attribute `company_type`.
+
+            - attributes_company_type_prev: typing.Optional[str]. The pagination token for the previous page of attribute `company_type`.
+
+            - attributes_company_type_limit: typing.Optional[int]. Limit total values returned for attribute `company_type`. Defaults to 100.
+
             - attributes_country_next: typing.Optional[str]. The pagination token for the next page of attribute `country`.
 
             - attributes_country_prev: typing.Optional[str]. The pagination token for the previous page of attribute `country`.
 
             - attributes_country_limit: typing.Optional[int]. Limit total values returned for attribute `country`. Defaults to 100.
+
+            - attributes_identifier_next: typing.Optional[str]. The pagination token for the next page of attribute `identifier`.
+
+            - attributes_identifier_prev: typing.Optional[str]. The pagination token for the previous page of attribute `identifier`.
+
+            - attributes_identifier_limit: typing.Optional[int]. Limit total values returned for attribute `identifier`. Defaults to 100.
+
+            - attributes_name_next: typing.Optional[str]. The pagination token for the next page of attribute `name`.
+
+            - attributes_name_prev: typing.Optional[str]. The pagination token for the previous page of attribute `name`.
+
+            - attributes_name_limit: typing.Optional[int]. Limit total values returned for attribute `name`. Defaults to 100.
+
+            - attributes_status_next: typing.Optional[str]. The pagination token for the next page of attribute `status`.
+
+            - attributes_status_prev: typing.Optional[str]. The pagination token for the previous page of attribute `status`.
+
+            - attributes_status_limit: typing.Optional[int]. Limit total values returned for attribute `status`. Defaults to 100.
 
             - relationships_next: typing.Optional[str]. The pagination token for the next page of relationship results
 
@@ -444,6 +554,11 @@ class AsyncEntityClient:
             attributes_name_limit=1,
             attributes_address_limit=1,
             attributes_country_limit=1,
+            attributes_additional_information_limit=1,
+            attributes_business_purpose_limit=1,
+            attributes_company_type_limit=1,
+            attributes_identifier_limit=1,
+            attributes_status_limit=1,
             relationships_limit=1,
             possibly_same_as_limit=1,
             referenced_by_limit=1,
@@ -455,15 +570,30 @@ class AsyncEntityClient:
             params=jsonable_encoder(
                 remove_none_from_dict(
                     {
-                        "attributes.name.next": attributes_name_next,
-                        "attributes.name.prev": attributes_name_prev,
-                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.additional_information.next": attributes_additional_information_next,
+                        "attributes.additional_information.prev": attributes_additional_information_prev,
+                        "attributes.additional_information.limit": attributes_additional_information_limit,
                         "attributes.address.next": attributes_address_next,
                         "attributes.address.prev": attributes_address_prev,
                         "attributes.address.limit": attributes_address_limit,
+                        "attributes.business_purpose.next": attributes_business_purpose_next,
+                        "attributes.business_purpose.prev": attributes_business_purpose_prev,
+                        "attributes.business_purpose.limit": attributes_business_purpose_limit,
+                        "attributes.company_type.next": attributes_company_type_next,
+                        "attributes.company_type.prev": attributes_company_type_prev,
+                        "attributes.company_type.limit": attributes_company_type_limit,
                         "attributes.country.next": attributes_country_next,
                         "attributes.country.prev": attributes_country_prev,
                         "attributes.country.limit": attributes_country_limit,
+                        "attributes.identifier.next": attributes_identifier_next,
+                        "attributes.identifier.prev": attributes_identifier_prev,
+                        "attributes.identifier.limit": attributes_identifier_limit,
+                        "attributes.name.next": attributes_name_next,
+                        "attributes.name.prev": attributes_name_prev,
+                        "attributes.name.limit": attributes_name_limit,
+                        "attributes.status.next": attributes_status_next,
+                        "attributes.status.prev": attributes_status_prev,
+                        "attributes.status.limit": attributes_status_limit,
                         "relationships.next": relationships_next,
                         "relationships.prev": relationships_prev,
                         "relationships.limit": relationships_limit,

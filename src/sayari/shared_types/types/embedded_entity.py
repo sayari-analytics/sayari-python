@@ -80,6 +80,7 @@ class EmbeddedEntity(pydantic_v1.BaseModel):
     List of physical addresses associated with the entity. See more [here](/sayari-library/ontology/attributes#address)
     """
 
+    trade_count: typing.Dict[str, int]
     date_of_birth: typing.Optional[str] = pydantic_v1.Field(default=None)
     """
     Birth date of a person. See more [here](/sayari-library/ontology/attributes#date-of-birth)
@@ -100,6 +101,7 @@ class EmbeddedEntity(pydantic_v1.BaseModel):
     related_entities_count: int
     user_related_entities_count: int
     user_record_count: int
+    reference_id: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

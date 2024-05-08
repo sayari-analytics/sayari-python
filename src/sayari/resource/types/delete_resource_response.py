@@ -5,26 +5,31 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
-from .notification import Notification
+from .entity_response_data import EntityResponseData
 
 
-class ProjectNotificationData(pydantic_v1.BaseModel):
-    id: str = pydantic_v1.Field()
+class DeleteResourceResponse(pydantic_v1.BaseModel):
     """
-    The ID of the entity
+    from sayari import DeleteResourceResponse, EntityResponseData
+
+    DeleteResourceResponse(
+        data=EntityResponseData(
+            type="entity",
+            id="YWmNKV",
+            project="YWmNKV",
+            label="HOME DEPOT, U. S. A., INC.",
+            created="2024-04-24 14:24:14.07741+00",
+            updated="2024-04-24 14:24:14.07741+00",
+            updated_by="auth0|5e45bd8caccd890e68147513",
+            version=0,
+            entity_id="n9SA4T_33tDmLtS8BhC6Zg",
+            tag_ids=[],
+            case_status="not_assigned",
+        ),
+    )
     """
 
-    resource_id: str = pydantic_v1.Field()
-    """
-    The ID of the saved resource
-    """
-
-    entity_id: str = pydantic_v1.Field()
-    """
-    The ID of the entity
-    """
-
-    notifications: typing.List[Notification]
+    data: EntityResponseData
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

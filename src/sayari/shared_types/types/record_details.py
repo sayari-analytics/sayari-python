@@ -5,6 +5,7 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import pydantic_v1
+from ...generated_types.types.country import Country
 
 
 class RecordDetails(pydantic_v1.BaseModel):
@@ -46,6 +47,9 @@ class RecordDetails(pydantic_v1.BaseModel):
 
     document_urls: typing.Optional[typing.List[str]] = None
     matches: typing.Optional[typing.Dict[str, typing.List[str]]] = None
+    country: typing.Optional[Country] = None
+    page: typing.Optional[float] = None
+    page_count: typing.Optional[float] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
