@@ -31,6 +31,7 @@ BusinessPurposeStandard = typing.Union[
         "PKD2007",
         "ESA2010",
         "ATECO",
+        "CAE",
     ],
     typing.Any,
 ]
