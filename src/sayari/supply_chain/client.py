@@ -48,7 +48,7 @@ class SupplyChainClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
 
         Parameters:
             - id: str. The root entity identifier.
@@ -172,7 +172,7 @@ class AsyncSupplyChainClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
 
         Parameters:
             - id: str. The root entity identifier.

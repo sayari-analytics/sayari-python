@@ -39,7 +39,7 @@ class ResourceClient:
         self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> SaveEntityResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Save an entity to a project.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
         Parameters:
             - request: SaveEntityRequest.
@@ -187,7 +187,7 @@ class AsyncResourceClient:
         self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> SaveEntityResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Save an entity to a project.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
         Parameters:
             - request: SaveEntityRequest.
