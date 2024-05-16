@@ -44,7 +44,7 @@ class TradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -142,7 +142,7 @@ class TradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -240,7 +240,7 @@ class TradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -343,7 +343,7 @@ class AsyncTradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -441,7 +441,7 @@ class AsyncTradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
@@ -539,7 +539,7 @@ class AsyncTradeClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
-        <Callout intent="warning">This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Callout> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters:
             - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
