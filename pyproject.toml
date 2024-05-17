@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sayari"
-version = "0.0.229"
+version = "0.0.246"
 description = ""
 readme = "README.md"
 authors = []

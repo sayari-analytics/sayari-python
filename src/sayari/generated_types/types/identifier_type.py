@@ -579,6 +579,7 @@ IdentifierType = typing.Union[
         "cm_nui_tax_reg_num",
         "eu_fsd_id",
         "cn_hk_br_number",
+        "bwa_uin_reg_number",
         "can_nrd",
         "usa_irs_giin",
     ],
