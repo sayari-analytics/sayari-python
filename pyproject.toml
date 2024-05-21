@@ -4,7 +4,7 @@ version = "0.0.268"
 description = "A Python SDK for Sayari"
 readme = "README.md"
 authors = [
-    "{name = 'Sayari Analytics', email = 'support@sayari.com'}"
+    "Sayari Analytics <support@sayari.com>"
 ]
 keywords = []
 
