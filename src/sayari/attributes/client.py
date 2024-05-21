@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_gateway import BadGateway
@@ -44,11 +45,19 @@ class AttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
 
-        Parameters:
-            - request: AddAttribute.
+        Parameters
+        ----------
+        request : AddAttribute
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari import AddAttribute
         from sayari.client import Sayari
 
@@ -76,8 +85,10 @@ class AttributesClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/attribute"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -129,13 +140,21 @@ class AttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Updates an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request: UpdateAttribute.
+        request : UpdateAttribute
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari import UpdateAttribute
         from sayari.client import Sayari
 
@@ -164,8 +183,10 @@ class AttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -219,11 +240,19 @@ class AttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Delete an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -239,8 +268,10 @@ class AttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -293,11 +324,19 @@ class AsyncAttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
 
-        Parameters:
-            - request: AddAttribute.
+        Parameters
+        ----------
+        request : AddAttribute
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari import AddAttribute
         from sayari.client import AsyncSayari
 
@@ -325,8 +364,10 @@ class AsyncAttributesClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/attribute"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -378,13 +419,21 @@ class AsyncAttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Updates an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request: UpdateAttribute.
+        request : UpdateAttribute
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari import UpdateAttribute
         from sayari.client import AsyncSayari
 
@@ -413,8 +462,10 @@ class AsyncAttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -468,11 +519,19 @@ class AsyncAttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Delete an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -488,8 +547,10 @@ class AsyncAttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(

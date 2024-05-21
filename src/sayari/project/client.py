@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..generated_types.types.entities import Entities
@@ -49,11 +50,19 @@ class ProjectClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Create a new project.
 
-        Parameters:
-            - request: CreateProjectRequest.
+        Parameters
+        ----------
+        request : CreateProjectRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectResponse
+
+        Examples
+        --------
         from sayari import CreateProjectRequest
         from sayari.client import Sayari
 
@@ -70,8 +79,10 @@ class ProjectClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -127,17 +138,29 @@ class ProjectClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of projects including upload progress info.
 
-        Parameters:
-            - next: typing.Optional[str]. The pagination token for the next page of projects.
+        Parameters
+        ----------
+        next : typing.Optional[str]
+            The pagination token for the next page of projects.
 
-            - prev: typing.Optional[str]. The pagination token for the previous page of projects.
+        prev : typing.Optional[str]
+            The pagination token for the previous page of projects.
 
-            - limit: typing.Optional[int]. Limit total values returned for projects. Defaults to 100. Max 100.
+        limit : typing.Optional[int]
+            Limit total values returned for projects. Defaults to 100. Max 100.
 
-            - archived: typing.Optional[bool]. Toggle between projects that have been archived (true) or not (false). Defaults to false.
+        archived : typing.Optional[bool]
+            Toggle between projects that have been archived (true) or not (false). Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetProjectsResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -152,19 +175,21 @@ class ProjectClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "next": next,
-                        "prev": prev,
-                        "limit": limit,
-                        "archived": archived,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "next": next,
+                            "prev": prev,
+                            "limit": limit,
+                            "archived": archived,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -207,6 +232,7 @@ class ProjectClient:
         self,
         id: str,
         *,
+        accept: GetProjectEntitiesAcceptHeader,
         next: typing.Optional[str] = None,
         prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
@@ -221,43 +247,63 @@ class ProjectClient:
         aggregations: typing.Optional[
             typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]
         ] = None,
-        accept: GetProjectEntitiesAcceptHeader,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of entities in a project.
 
-        Parameters:
-            - id: str. The project identifier.
+        Parameters
+        ----------
+        id : str
+            The project identifier.
 
-            - next: typing.Optional[str]. The pagination token for the next page of entities.
+        accept : GetProjectEntitiesAcceptHeader
+            The response format. Defaults to application/json.
 
-            - prev: typing.Optional[str]. The pagination token for the previous page of entities.
+        next : typing.Optional[str]
+            The pagination token for the next page of entities.
 
-            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 1,000. Max 10,000.
+        prev : typing.Optional[str]
+            The pagination token for the previous page of entities.
 
-            - entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
+        limit : typing.Optional[int]
+            Limit total entities returned. Defaults to 1,000. Max 10,000.
 
-            - geo_facets: typing.Optional[bool]. Whether to include geo facets in the response. Defaults to false.
+        entity_types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
 
-            - hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities with the specified HS code(s).
+        geo_facets : typing.Optional[bool]
+            Whether to include geo facets in the response. Defaults to false.
 
-            - received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities that received the specified HS code(s).
+        hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities with the specified HS code(s).
 
-            - shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities that shipped the specified HS code(s).
+        received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that received the specified HS code(s).
 
-            - translation: typing.Optional[str]. The language code to translate the entity labels to. Defaults to the user's preferred language.
+        shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that shipped the specified HS code(s).
 
-            - sort: typing.Optional[SortField].
+        translation : typing.Optional[str]
+            The language code to translate the entity labels to. Defaults to the user's preferred language.
 
-            - filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]. Only return entities that match the specified filters.
+        sort : typing.Optional[SortField]
 
-            - aggregations: typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]. Aggregations for entities in a project.
+        filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
+            Only return entities that match the specified filters.
 
-            - accept: GetProjectEntitiesAcceptHeader. The response format. Defaults to application/json.
+        aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
+            Aggregations for entities in a project.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetProjectEntitiesResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -274,27 +320,29 @@ class ProjectClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(id)}/contents/entity"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "next": next,
-                        "prev": prev,
-                        "limit": limit,
-                        "entity_types": entity_types,
-                        "geo_facets": geo_facets,
-                        "hs_codes": hs_codes,
-                        "received_hs_codes": received_hs_codes,
-                        "shipped_hs_codes": shipped_hs_codes,
-                        "translation": translation,
-                        "sort": sort,
-                        "filters": filters,
-                        "aggregations": aggregations,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "next": next,
+                            "prev": prev,
+                            "limit": limit,
+                            "entity_types": entity_types,
+                            "geo_facets": geo_facets,
+                            "hs_codes": hs_codes,
+                            "received_hs_codes": received_hs_codes,
+                            "shipped_hs_codes": shipped_hs_codes,
+                            "translation": translation,
+                            "sort": sort,
+                            "filters": filters,
+                            "aggregations": aggregations,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -340,11 +388,19 @@ class ProjectClient:
         """
         Deletes an existing project.
 
-        Parameters:
-            - project_id: str.
+        Parameters
+        ----------
+        project_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteProjectResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -360,8 +416,10 @@ class ProjectClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(project_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -410,11 +468,19 @@ class AsyncProjectClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Create a new project.
 
-        Parameters:
-            - request: CreateProjectRequest.
+        Parameters
+        ----------
+        request : CreateProjectRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectResponse
+
+        Examples
+        --------
         from sayari import CreateProjectRequest
         from sayari.client import AsyncSayari
 
@@ -431,8 +497,10 @@ class AsyncProjectClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -488,17 +556,29 @@ class AsyncProjectClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of projects including upload progress info.
 
-        Parameters:
-            - next: typing.Optional[str]. The pagination token for the next page of projects.
+        Parameters
+        ----------
+        next : typing.Optional[str]
+            The pagination token for the next page of projects.
 
-            - prev: typing.Optional[str]. The pagination token for the previous page of projects.
+        prev : typing.Optional[str]
+            The pagination token for the previous page of projects.
 
-            - limit: typing.Optional[int]. Limit total values returned for projects. Defaults to 100. Max 100.
+        limit : typing.Optional[int]
+            Limit total values returned for projects. Defaults to 100. Max 100.
 
-            - archived: typing.Optional[bool]. Toggle between projects that have been archived (true) or not (false). Defaults to false.
+        archived : typing.Optional[bool]
+            Toggle between projects that have been archived (true) or not (false). Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetProjectsResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -513,19 +593,21 @@ class AsyncProjectClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/projects"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "next": next,
-                        "prev": prev,
-                        "limit": limit,
-                        "archived": archived,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "next": next,
+                            "prev": prev,
+                            "limit": limit,
+                            "archived": archived,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -568,6 +650,7 @@ class AsyncProjectClient:
         self,
         id: str,
         *,
+        accept: GetProjectEntitiesAcceptHeader,
         next: typing.Optional[str] = None,
         prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
@@ -582,43 +665,63 @@ class AsyncProjectClient:
         aggregations: typing.Optional[
             typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]
         ] = None,
-        accept: GetProjectEntitiesAcceptHeader,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of entities in a project.
 
-        Parameters:
-            - id: str. The project identifier.
+        Parameters
+        ----------
+        id : str
+            The project identifier.
 
-            - next: typing.Optional[str]. The pagination token for the next page of entities.
+        accept : GetProjectEntitiesAcceptHeader
+            The response format. Defaults to application/json.
 
-            - prev: typing.Optional[str]. The pagination token for the previous page of entities.
+        next : typing.Optional[str]
+            The pagination token for the next page of entities.
 
-            - limit: typing.Optional[int]. Limit total entities returned. Defaults to 1,000. Max 10,000.
+        prev : typing.Optional[str]
+            The pagination token for the previous page of entities.
 
-            - entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
+        limit : typing.Optional[int]
+            Limit total entities returned. Defaults to 1,000. Max 10,000.
 
-            - geo_facets: typing.Optional[bool]. Whether to include geo facets in the response. Defaults to false.
+        entity_types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
 
-            - hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities with the specified HS code(s).
+        geo_facets : typing.Optional[bool]
+            Whether to include geo facets in the response. Defaults to false.
 
-            - received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities that received the specified HS code(s).
+        hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities with the specified HS code(s).
 
-            - shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Only return entities that shipped the specified HS code(s).
+        received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that received the specified HS code(s).
 
-            - translation: typing.Optional[str]. The language code to translate the entity labels to. Defaults to the user's preferred language.
+        shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that shipped the specified HS code(s).
 
-            - sort: typing.Optional[SortField].
+        translation : typing.Optional[str]
+            The language code to translate the entity labels to. Defaults to the user's preferred language.
 
-            - filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]. Only return entities that match the specified filters.
+        sort : typing.Optional[SortField]
 
-            - aggregations: typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]. Aggregations for entities in a project.
+        filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
+            Only return entities that match the specified filters.
 
-            - accept: GetProjectEntitiesAcceptHeader. The response format. Defaults to application/json.
+        aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
+            Aggregations for entities in a project.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetProjectEntitiesResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -635,27 +738,29 @@ class AsyncProjectClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(id)}/contents/entity"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "next": next,
-                        "prev": prev,
-                        "limit": limit,
-                        "entity_types": entity_types,
-                        "geo_facets": geo_facets,
-                        "hs_codes": hs_codes,
-                        "received_hs_codes": received_hs_codes,
-                        "shipped_hs_codes": shipped_hs_codes,
-                        "translation": translation,
-                        "sort": sort,
-                        "filters": filters,
-                        "aggregations": aggregations,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "next": next,
+                            "prev": prev,
+                            "limit": limit,
+                            "entity_types": entity_types,
+                            "geo_facets": geo_facets,
+                            "hs_codes": hs_codes,
+                            "received_hs_codes": received_hs_codes,
+                            "shipped_hs_codes": shipped_hs_codes,
+                            "translation": translation,
+                            "sort": sort,
+                            "filters": filters,
+                            "aggregations": aggregations,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -701,11 +806,19 @@ class AsyncProjectClient:
         """
         Deletes an existing project.
 
-        Parameters:
-            - project_id: str.
+        Parameters
+        ----------
+        project_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteProjectResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -721,8 +834,10 @@ class AsyncProjectClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/projects/{jsonable_encoder(project_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(

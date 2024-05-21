@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -40,15 +41,26 @@ class RecordClient:
         """
         Retrieve a record from the database based on the ID
 
-        Parameters:
-            - id: str. The unique identifier for a record in the database
+        Parameters
+        ----------
+        id : str
+            The unique identifier for a record in the database
 
-            - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
+        references_limit : typing.Optional[int]
+            A limit on the number of references to be returned. Defaults to 100.
 
-            - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+        references_offset : typing.Optional[int]
+            Number of references to skip before returning response. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetRecordResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -62,17 +74,19 @@ class RecordClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "references.limit": references_limit,
-                        "references.offset": references_offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "references.limit": references_limit,
+                            "references.offset": references_offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -127,15 +141,26 @@ class AsyncRecordClient:
         """
         Retrieve a record from the database based on the ID
 
-        Parameters:
-            - id: str. The unique identifier for a record in the database
+        Parameters
+        ----------
+        id : str
+            The unique identifier for a record in the database
 
-            - references_limit: typing.Optional[int]. A limit on the number of references to be returned. Defaults to 100.
+        references_limit : typing.Optional[int]
+            A limit on the number of references to be returned. Defaults to 100.
 
-            - references_offset: typing.Optional[int]. Number of references to skip before returning response. Defaults to 0.
+        references_offset : typing.Optional[int]
+            Number of references to skip before returning response. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        GetRecordResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -149,17 +174,19 @@ class AsyncRecordClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/record/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "references.limit": references_limit,
-                        "references.offset": references_offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "references.limit": references_limit,
+                            "references.offset": references_offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(

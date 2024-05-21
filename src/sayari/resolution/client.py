@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..generated_types.types.both_identifier_types import BothIdentifierTypes
@@ -52,27 +53,44 @@ class ResolutionClient:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
+        name : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity name
 
-            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+        country : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity address
+        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity address
 
-            - date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity date of birth
+        date_of_birth : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity date of birth
 
-            - contact: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity contact
+        contact : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        type : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -86,24 +104,26 @@ class ResolutionClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "name": name,
-                        "identifier": identifier,
-                        "country": country,
-                        "address": address,
-                        "date_of_birth": date_of_birth,
-                        "contact": contact,
-                        "type": type,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "name": name,
+                            "identifier": identifier,
+                            "country": country,
+                            "address": address,
+                            "date_of_birth": date_of_birth,
+                            "contact": contact,
+                            "type": type,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -159,27 +179,44 @@ class ResolutionClient:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - name: typing.Optional[typing.Sequence[str]]. Entity name
+        name : typing.Optional[typing.Sequence[str]]
+            Entity name
 
-            - identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        identifier : typing.Optional[typing.Sequence[BothIdentifierTypes]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Sequence[Country]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+        country : typing.Optional[typing.Sequence[Country]]
+            Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Sequence[str]]. Entity address
+        address : typing.Optional[typing.Sequence[str]]
+            Entity address
 
-            - date_of_birth: typing.Optional[typing.Sequence[str]]. Entity date of birth
+        date_of_birth : typing.Optional[typing.Sequence[str]]
+            Entity date of birth
 
-            - contact: typing.Optional[typing.Sequence[str]]. Entity contact
+        contact : typing.Optional[typing.Sequence[str]]
+            Entity contact
 
-            - type: typing.Optional[typing.Sequence[Entities]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        type : typing.Optional[typing.Sequence[Entities]]
+            [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -209,17 +246,19 @@ class ResolutionClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -286,27 +325,44 @@ class AsyncResolutionClient:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - name: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity name
+        name : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity name
 
-            - identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+        country : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity address
+        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity address
 
-            - date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity date of birth
+        date_of_birth : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity date of birth
 
-            - contact: typing.Optional[typing.Union[str, typing.Sequence[str]]]. Entity contact
+        contact : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity contact
 
-            - type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        type : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -320,24 +376,26 @@ class AsyncResolutionClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "name": name,
-                        "identifier": identifier,
-                        "country": country,
-                        "address": address,
-                        "date_of_birth": date_of_birth,
-                        "contact": contact,
-                        "type": type,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "name": name,
+                            "identifier": identifier,
+                            "country": country,
+                            "address": address,
+                            "date_of_birth": date_of_birth,
+                            "contact": contact,
+                            "type": type,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -393,27 +451,44 @@ class AsyncResolutionClient:
         """
         The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
+        Parameters
+        ----------
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10. Defaults to 10.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - name: typing.Optional[typing.Sequence[str]]. Entity name
+        name : typing.Optional[typing.Sequence[str]]
+            Entity name
 
-            - identifier: typing.Optional[typing.Sequence[BothIdentifierTypes]]. Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        identifier : typing.Optional[typing.Sequence[BothIdentifierTypes]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
-            - country: typing.Optional[typing.Sequence[Country]]. Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
+        country : typing.Optional[typing.Sequence[Country]]
+            Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-            - address: typing.Optional[typing.Sequence[str]]. Entity address
+        address : typing.Optional[typing.Sequence[str]]
+            Entity address
 
-            - date_of_birth: typing.Optional[typing.Sequence[str]]. Entity date of birth
+        date_of_birth : typing.Optional[typing.Sequence[str]]
+            Entity date of birth
 
-            - contact: typing.Optional[typing.Sequence[str]]. Entity contact
+        contact : typing.Optional[typing.Sequence[str]]
+            Entity contact
 
-            - type: typing.Optional[typing.Sequence[Entities]]. [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
+        type : typing.Optional[typing.Sequence[Entities]]
+            [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -443,17 +518,19 @@ class AsyncResolutionClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)

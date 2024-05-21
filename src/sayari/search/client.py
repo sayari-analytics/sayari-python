@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -38,9 +39,9 @@ class SearchClient:
     def search_entity(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
@@ -51,25 +52,41 @@ class SearchClient:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Sequence[SearchField]]
+            Record or entity fields to search against.
 
-            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[FilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+        geo_facets : typing.Optional[bool]
+            Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EntitySearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -95,17 +112,19 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -153,9 +172,9 @@ class SearchClient:
     def search_entity_get(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
@@ -165,23 +184,38 @@ class SearchClient:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
+            Record or entity fields to search against.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+        geo_facets : typing.Optional[bool]
+            Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EntitySearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -196,22 +230,24 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "q": q,
-                        "fields": fields,
-                        "facets": facets,
-                        "geo_facets": geo_facets,
-                        "advanced": advanced,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "q": q,
+                            "fields": fields,
+                            "facets": facets,
+                            "geo_facets": geo_facets,
+                            "advanced": advanced,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -253,9 +289,9 @@ class SearchClient:
     def search_record(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
@@ -265,23 +301,38 @@ class SearchClient:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Sequence[SearchField]]
+            Record or entity fields to search against.
 
-            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[FilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecordSearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -305,17 +356,19 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -363,9 +416,9 @@ class SearchClient:
     def search_record_get(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
@@ -374,21 +427,35 @@ class SearchClient:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
+            Record or entity fields to search against.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecordSearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -403,21 +470,23 @@ class SearchClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "q": q,
-                        "fields": fields,
-                        "facets": facets,
-                        "advanced": advanced,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "q": q,
+                            "fields": fields,
+                            "facets": facets,
+                            "advanced": advanced,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -464,9 +533,9 @@ class AsyncSearchClient:
     async def search_entity(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
@@ -477,25 +546,41 @@ class AsyncSearchClient:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Sequence[SearchField]]
+            Record or entity fields to search against.
 
-            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[FilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+        geo_facets : typing.Optional[bool]
+            Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EntitySearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -521,17 +606,19 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -579,9 +666,9 @@ class AsyncSearchClient:
     async def search_entity_get(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         geo_facets: typing.Optional[bool] = None,
@@ -591,23 +678,38 @@ class AsyncSearchClient:
         """
         Search for an entity. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
+            Record or entity fields to search against.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - geo_facets: typing.Optional[bool]. Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
+        geo_facets : typing.Optional[bool]
+            Whether or not to return search geo bound facets in results giving counts by geo tile. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EntitySearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -622,22 +724,24 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/entity"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "q": q,
-                        "fields": fields,
-                        "facets": facets,
-                        "geo_facets": geo_facets,
-                        "advanced": advanced,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "q": q,
+                            "fields": fields,
+                            "facets": facets,
+                            "geo_facets": geo_facets,
+                            "advanced": advanced,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -679,9 +783,9 @@ class AsyncSearchClient:
     async def search_record(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
@@ -691,23 +795,38 @@ class AsyncSearchClient:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Sequence[SearchField]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Sequence[SearchField]]
+            Record or entity fields to search against.
 
-            - filter: typing.Optional[FilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[FilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecordSearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -731,17 +850,19 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -789,9 +910,9 @@ class AsyncSearchClient:
     async def search_record_get(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
@@ -800,21 +921,35 @@ class AsyncSearchClient:
         """
         Search for a record. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]. Record or entity fields to search against.
+        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
+            Record or entity fields to search against.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - advanced: typing.Optional[bool]. Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
+        advanced : typing.Optional[bool]
+            Set to true to enable full elasticsearch query string syntax which allows for fielded search and more complex operators. Note that the syntax is more strict and can result in empty result-sets. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RecordSearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -829,21 +964,23 @@ class AsyncSearchClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/search/record"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "q": q,
-                        "fields": fields,
-                        "facets": facets,
-                        "advanced": advanced,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "q": q,
+                            "fields": fields,
+                            "facets": facets,
+                            "advanced": advanced,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
