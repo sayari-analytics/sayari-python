@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_gateway import BadGateway
@@ -45,15 +46,26 @@ class NotificationsClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
-        Parameters:
-            - id: str. Unique identifier of the project
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the project
 
-            - limit: typing.Optional[int]. Limit total notifications in the response. Defaults to 100.
+        limit : typing.Optional[int]
+            Limit total notifications in the response. Defaults to 100.
 
-            - offset: typing.Optional[int]. Offset which notifications are returned. Defaults to 0.
+        offset : typing.Optional[int]
+            Offset which notifications are returned. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectNotificationsResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -70,17 +82,19 @@ class NotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -134,15 +148,26 @@ class NotificationsClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
-        Parameters:
-            - id: str. Unique identifier of the resource
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the resource
 
-            - limit: typing.Optional[int]. Limit total notifications in the response. Defaults to 100.
+        limit : typing.Optional[int]
+            Limit total notifications in the response. Defaults to 100.
 
-            - offset: typing.Optional[int]. Offset which notifications are returned. Defaults to 0.
+        offset : typing.Optional[int]
+            Offset which notifications are returned. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResourceNotificationsResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -159,17 +184,19 @@ class NotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -218,11 +245,19 @@ class NotificationsClient:
         """
         Deletes all notifications from a project.
 
-        Parameters:
-            - project_id: str.
+        Parameters
+        ----------
+        project_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -238,8 +273,10 @@ class NotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(project_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -283,11 +320,19 @@ class NotificationsClient:
         """
         Deletes notifications for saved resources of an entity.
 
-        Parameters:
-            - entity_id: str.
+        Parameters
+        ----------
+        entity_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -303,8 +348,10 @@ class NotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/entity/{jsonable_encoder(entity_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -348,11 +395,19 @@ class NotificationsClient:
         """
         Deletes notifications for a saved resource.
 
-        Parameters:
-            - resource_id: str.
+        Parameters
+        ----------
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -368,8 +423,10 @@ class NotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(resource_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -423,15 +480,26 @@ class AsyncNotificationsClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
-        Parameters:
-            - id: str. Unique identifier of the project
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the project
 
-            - limit: typing.Optional[int]. Limit total notifications in the response. Defaults to 100.
+        limit : typing.Optional[int]
+            Limit total notifications in the response. Defaults to 100.
 
-            - offset: typing.Optional[int]. Offset which notifications are returned. Defaults to 0.
+        offset : typing.Optional[int]
+            Offset which notifications are returned. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectNotificationsResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -448,17 +516,19 @@ class AsyncNotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -512,15 +582,26 @@ class AsyncNotificationsClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
-        Parameters:
-            - id: str. Unique identifier of the resource
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the resource
 
-            - limit: typing.Optional[int]. Limit total notifications in the response. Defaults to 100.
+        limit : typing.Optional[int]
+            Limit total notifications in the response. Defaults to 100.
 
-            - offset: typing.Optional[int]. Offset which notifications are returned. Defaults to 0.
+        offset : typing.Optional[int]
+            Offset which notifications are returned. Defaults to 0.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResourceNotificationsResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -537,17 +618,19 @@ class AsyncNotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -596,11 +679,19 @@ class AsyncNotificationsClient:
         """
         Deletes all notifications from a project.
 
-        Parameters:
-            - project_id: str.
+        Parameters
+        ----------
+        project_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -616,8 +707,10 @@ class AsyncNotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/projects/{jsonable_encoder(project_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -661,11 +754,19 @@ class AsyncNotificationsClient:
         """
         Deletes notifications for saved resources of an entity.
 
-        Parameters:
-            - entity_id: str.
+        Parameters
+        ----------
+        entity_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -681,8 +782,10 @@ class AsyncNotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/entity/{jsonable_encoder(entity_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -726,11 +829,19 @@ class AsyncNotificationsClient:
         """
         Deletes notifications for a saved resource.
 
-        Parameters:
-            - resource_id: str.
+        Parameters
+        ----------
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -746,8 +857,10 @@ class AsyncNotificationsClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/notifications/resources/{jsonable_encoder(resource_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
