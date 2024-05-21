@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_gateway import BadGateway
@@ -26,9 +27,7 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from .types.add_attribute import AddAttribute
 from .types.attribute_response import AttributeResponse
-from .types.update_attribute import UpdateAttribute
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,17 +38,48 @@ class AttributesClient:
         self._client_wrapper = client_wrapper
 
     def post_attribute(
-        self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        entity: str,
+        type: str,
+        value: typing.Any,
+        date: typing.Optional[str] = OMIT,
+        from_date: typing.Optional[str] = OMIT,
+        to_date: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AttributeResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
 
-        Parameters:
-            - request: AddAttribute.
+        Parameters
+        ----------
+        entity : str
+            entity ID
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import AddAttribute
+        type : str
+            type of additional information
+
+        value : typing.Any
+            value of additional information in JSON format
+
+        date : typing.Optional[str]
+            as of date of the attribute
+
+        from_date : typing.Optional[str]
+            start date of the attribute
+
+        to_date : typing.Optional[str]
+            end date of the attribute
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -57,32 +87,39 @@ class AttributesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.attributes.post_attribute(
-            request=AddAttribute(
-                entity="zq04axX2dLn9tE6W6Q8Qhg",
-                type="address",
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
+            entity="zq04axX2dLn9tE6W6Q8Qhg",
+            type="address",
+            value={
+                "street1": "1600 Pennsylvania Avenue NW",
+                "city": "Washington DC",
+                "state": "Washington DC",
+                "postalCode": "20500",
+                "country": "US",
+            },
+            to_date="2024-04-30",
+            from_date="2024-01-01",
+            date="2024-02-15",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"entity": entity, "type": type, "value": value}
+        if date is not OMIT:
+            _request["date"] = date
+        if from_date is not OMIT:
+            _request["from_date"] = from_date
+        if to_date is not OMIT:
+            _request["to_date"] = to_date
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/attribute"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -124,19 +161,43 @@ class AttributesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def patch_attribute(
-        self, attribute_id: str, *, request: UpdateAttribute, request_options: typing.Optional[RequestOptions] = None
+        self,
+        attribute_id: str,
+        *,
+        value: typing.Any,
+        date: typing.Optional[str] = OMIT,
+        from_date: typing.Optional[str] = OMIT,
+        to_date: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AttributeResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Updates an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request: UpdateAttribute.
+        value : typing.Any
+            value of additional information in JSON format
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import UpdateAttribute
+        date : typing.Optional[str]
+            as of date of the attribute
+
+        from_date : typing.Optional[str]
+            start date of the attribute
+
+        to_date : typing.Optional[str]
+            end date of the attribute
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -145,32 +206,39 @@ class AttributesClient:
         )
         client.attributes.patch_attribute(
             attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
-            request=UpdateAttribute(
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
+            value={
+                "street1": "1600 Pennsylvania Avenue NW",
+                "city": "Washington DC",
+                "state": "Washington DC",
+                "postalCode": "20500",
+                "country": "US",
+            },
+            to_date="2024-04-30",
+            from_date="2024-01-01",
+            date="2024-02-15",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"value": value}
+        if date is not OMIT:
+            _request["date"] = date
+        if from_date is not OMIT:
+            _request["from_date"] = from_date
+        if to_date is not OMIT:
+            _request["to_date"] = to_date
         _response = self._client_wrapper.httpx_client.request(
             method="PATCH",
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -219,11 +287,19 @@ class AttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Delete an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -239,8 +315,10 @@ class AttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -288,17 +366,48 @@ class AsyncAttributesClient:
         self._client_wrapper = client_wrapper
 
     async def post_attribute(
-        self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        entity: str,
+        type: str,
+        value: typing.Any,
+        date: typing.Optional[str] = OMIT,
+        from_date: typing.Optional[str] = OMIT,
+        to_date: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AttributeResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
 
-        Parameters:
-            - request: AddAttribute.
+        Parameters
+        ----------
+        entity : str
+            entity ID
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import AddAttribute
+        type : str
+            type of additional information
+
+        value : typing.Any
+            value of additional information in JSON format
+
+        date : typing.Optional[str]
+            as of date of the attribute
+
+        from_date : typing.Optional[str]
+            start date of the attribute
+
+        to_date : typing.Optional[str]
+            end date of the attribute
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -306,32 +415,39 @@ class AsyncAttributesClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         await client.attributes.post_attribute(
-            request=AddAttribute(
-                entity="zq04axX2dLn9tE6W6Q8Qhg",
-                type="address",
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
+            entity="zq04axX2dLn9tE6W6Q8Qhg",
+            type="address",
+            value={
+                "street1": "1600 Pennsylvania Avenue NW",
+                "city": "Washington DC",
+                "state": "Washington DC",
+                "postalCode": "20500",
+                "country": "US",
+            },
+            to_date="2024-04-30",
+            from_date="2024-01-01",
+            date="2024-02-15",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"entity": entity, "type": type, "value": value}
+        if date is not OMIT:
+            _request["date"] = date
+        if from_date is not OMIT:
+            _request["from_date"] = from_date
+        if to_date is not OMIT:
+            _request["to_date"] = to_date
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/attribute"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -373,19 +489,43 @@ class AsyncAttributesClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def patch_attribute(
-        self, attribute_id: str, *, request: UpdateAttribute, request_options: typing.Optional[RequestOptions] = None
+        self,
+        attribute_id: str,
+        *,
+        value: typing.Any,
+        date: typing.Optional[str] = OMIT,
+        from_date: typing.Optional[str] = OMIT,
+        to_date: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AttributeResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Updates an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request: UpdateAttribute.
+        value : typing.Any
+            value of additional information in JSON format
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import UpdateAttribute
+        date : typing.Optional[str]
+            as of date of the attribute
+
+        from_date : typing.Optional[str]
+            start date of the attribute
+
+        to_date : typing.Optional[str]
+            end date of the attribute
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -394,32 +534,39 @@ class AsyncAttributesClient:
         )
         await client.attributes.patch_attribute(
             attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
-            request=UpdateAttribute(
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
+            value={
+                "street1": "1600 Pennsylvania Avenue NW",
+                "city": "Washington DC",
+                "state": "Washington DC",
+                "postalCode": "20500",
+                "country": "US",
+            },
+            to_date="2024-04-30",
+            from_date="2024-01-01",
+            date="2024-02-15",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"value": value}
+        if date is not OMIT:
+            _request["date"] = date
+        if from_date is not OMIT:
+            _request["from_date"] = from_date
+        if to_date is not OMIT:
+            _request["to_date"] = to_date
         _response = await self._client_wrapper.httpx_client.request(
             method="PATCH",
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -468,11 +615,19 @@ class AsyncAttributesClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Delete an existing Attribute
 
-        Parameters:
-            - attribute_id: str.
+        Parameters
+        ----------
+        attribute_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AttributeResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -488,8 +643,10 @@ class AsyncAttributesClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/attribute/{jsonable_encoder(attribute_id)}"
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(

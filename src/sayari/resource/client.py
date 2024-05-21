@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -24,7 +25,6 @@ from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
 from .types.delete_resource_response import DeleteResourceResponse
 from .types.resource_type import ResourceType
-from .types.save_entity_request import SaveEntityRequest
 from .types.save_entity_response import SaveEntityResponse
 
 # this is used as the default value for optional parameters
@@ -36,17 +36,35 @@ class ResourceClient:
         self._client_wrapper = client_wrapper
 
     def save_entity(
-        self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        type: ResourceType,
+        project: str,
+        entity_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SaveEntityResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
-        Parameters:
-            - request: SaveEntityRequest.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import SaveEntityRequest
+        project : str
+            The project identifier.
+
+        entity_id : str
+            The entity identifier.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SaveEntityResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -54,23 +72,24 @@ class ResourceClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.resource.save_entity(
-            request=SaveEntityRequest(
-                type="entity",
-                project="GNJbkG",
-                entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
-            ),
+            type="entity",
+            project="GNJbkG",
+            entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"type": type, "project": project, "entity_id": entity_id}
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resource/entity"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -115,13 +134,21 @@ class ResourceClient:
         """
         Deletes an existing saved resource from a project.
 
-        Parameters:
-            - type: ResourceType.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - resource_id: str.
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteResourceResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -139,8 +166,10 @@ class ResourceClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -184,17 +213,35 @@ class AsyncResourceClient:
         self._client_wrapper = client_wrapper
 
     async def save_entity(
-        self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        type: ResourceType,
+        project: str,
+        entity_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SaveEntityResponse:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
-        Parameters:
-            - request: SaveEntityRequest.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
-        from sayari import SaveEntityRequest
+        project : str
+            The project identifier.
+
+        entity_id : str
+            The entity identifier.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SaveEntityResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -202,23 +249,24 @@ class AsyncResourceClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         await client.resource.save_entity(
-            request=SaveEntityRequest(
-                type="entity",
-                project="GNJbkG",
-                entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
-            ),
+            type="entity",
+            project="GNJbkG",
+            entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"type": type, "project": project, "entity_id": entity_id}
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resource/entity"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
-            json=jsonable_encoder(request)
+            json=jsonable_encoder(_request)
             if request_options is None or request_options.get("additional_body_parameters") is None
             else {
-                **jsonable_encoder(request),
+                **jsonable_encoder(_request),
                 **(jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))),
             },
             headers=jsonable_encoder(
@@ -263,13 +311,21 @@ class AsyncResourceClient:
         """
         Deletes an existing saved resource from a project.
 
-        Parameters:
-            - type: ResourceType.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - resource_id: str.
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteResourceResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -287,8 +343,10 @@ class AsyncResourceClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
