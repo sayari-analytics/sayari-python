@@ -9,6 +9,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -39,13 +40,24 @@ class InfoClient:
         """
         The usage endpoint provides a simple interface to retrieve information on usage made by your API account. This includes both views per API path and credits consumed. The time period for the usage query is also specified in the response and whether or not this includes total usage.
 
-        Parameters:
-            - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period to obtain usage stats. In the format YYYY-MM-DD
+        Parameters
+        ----------
+        from_ : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the starting time period to obtain usage stats. In the format YYYY-MM-DD
 
-            - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
+        to : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UsageResponse
+            OK
+
+        Examples
+        --------
         import datetime
 
         from sayari.client import Sayari
@@ -66,17 +78,19 @@ class InfoClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/usage"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "from": str(from_) if from_ is not None else None,
-                        "to": str(to) if to is not None else None,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "from": str(from_) if from_ is not None else None,
+                            "to": str(to) if to is not None else None,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -126,19 +140,33 @@ class InfoClient:
         """
         The history endpoint return a user's event history.
 
-        Parameters:
-            - events: typing.Optional[typing.Union[str, typing.Sequence[str]]]. The type of events to filter on.
+        Parameters
+        ----------
+        events : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The type of events to filter on.
 
-            - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
+        from_ : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
 
-            - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period for the events. In the format YYYY-MM-DD
+        to : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the ending time period for the events. In the format YYYY-MM-DD
 
-            - size: typing.Optional[int]. Size to limit number of events returned
+        size : typing.Optional[int]
+            Size to limit number of events returned
 
-            - token: typing.Optional[str]. Pagination token to retrieve the next page of results
+        token : typing.Optional[str]
+            Pagination token to retrieve the next page of results
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HistoryResponse
+            OK
+
+        Examples
+        --------
         import datetime
 
         from sayari.client import Sayari
@@ -162,20 +190,22 @@ class InfoClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/history"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "events": events,
-                        "from": str(from_) if from_ is not None else None,
-                        "to": str(to) if to is not None else None,
-                        "size": size,
-                        "token": token,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "events": events,
+                            "from": str(from_) if from_ is not None else None,
+                            "to": str(to) if to is not None else None,
+                            "size": size,
+                            "token": token,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -227,13 +257,24 @@ class AsyncInfoClient:
         """
         The usage endpoint provides a simple interface to retrieve information on usage made by your API account. This includes both views per API path and credits consumed. The time period for the usage query is also specified in the response and whether or not this includes total usage.
 
-        Parameters:
-            - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period to obtain usage stats. In the format YYYY-MM-DD
+        Parameters
+        ----------
+        from_ : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the starting time period to obtain usage stats. In the format YYYY-MM-DD
 
-            - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
+        to : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the ending time period to obtain usage stats. In the format YYYY-MM-DD
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UsageResponse
+            OK
+
+        Examples
+        --------
         import datetime
 
         from sayari.client import AsyncSayari
@@ -254,17 +295,19 @@ class AsyncInfoClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/usage"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "from": str(from_) if from_ is not None else None,
-                        "to": str(to) if to is not None else None,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "from": str(from_) if from_ is not None else None,
+                            "to": str(to) if to is not None else None,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -314,19 +357,33 @@ class AsyncInfoClient:
         """
         The history endpoint return a user's event history.
 
-        Parameters:
-            - events: typing.Optional[typing.Union[str, typing.Sequence[str]]]. The type of events to filter on.
+        Parameters
+        ----------
+        events : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The type of events to filter on.
 
-            - from_: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
+        from_ : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the starting time period for the events. In the format YYYY-MM-DD
 
-            - to: typing.Optional[dt.date]. An ISO 8601 encoded date string indicating the ending time period for the events. In the format YYYY-MM-DD
+        to : typing.Optional[dt.date]
+            An ISO 8601 encoded date string indicating the ending time period for the events. In the format YYYY-MM-DD
 
-            - size: typing.Optional[int]. Size to limit number of events returned
+        size : typing.Optional[int]
+            Size to limit number of events returned
 
-            - token: typing.Optional[str]. Pagination token to retrieve the next page of results
+        token : typing.Optional[str]
+            Pagination token to retrieve the next page of results
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HistoryResponse
+            OK
+
+        Examples
+        --------
         import datetime
 
         from sayari.client import AsyncSayari
@@ -350,20 +407,22 @@ class AsyncInfoClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/history"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "events": events,
-                        "from": str(from_) if from_ is not None else None,
-                        "to": str(to) if to is not None else None,
-                        "size": size,
-                        "token": token,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "events": events,
+                            "from": str(from_) if from_ is not None else None,
+                            "to": str(to) if to is not None else None,
+                            "size": size,
+                            "token": token,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(

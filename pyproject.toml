@@ -1,12 +1,38 @@
 [tool.poetry]
 name = "sayari"
-version = "0.0.246"
-description = ""
+version = "0.0.275"
+description = "A Python SDK for Sayari"
 readme = "README.md"
-authors = []
+authors = [
+    "Sayari Analytics <support@sayari.com>"
+]
+keywords = []
+
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Operating System :: POSIX",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
+]
 packages = [
     { include = "sayari", from = "src"}
 ]
+
+[project.urls]
+Documentation = 'https://documentation.sayari.com'
+Homepage = 'https://sayari.com'
+Repository = 'https://github.com/sayari-analytics/sayari-python'
 
 [tool.poetry.dependencies]
 python = "^3.8"

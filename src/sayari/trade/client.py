@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -36,9 +37,9 @@ class TradeClient:
     def search_shipments(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -46,19 +47,32 @@ class TradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShipmentSearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -78,17 +92,19 @@ class TradeClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -134,9 +150,9 @@ class TradeClient:
     def search_suppliers(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -144,19 +160,32 @@ class TradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SupplierSearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -176,17 +205,19 @@ class TradeClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -232,9 +263,9 @@ class TradeClient:
     def search_buyers(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -242,19 +273,32 @@ class TradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BuyerSearchResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -274,17 +318,19 @@ class TradeClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -335,9 +381,9 @@ class AsyncTradeClient:
     async def search_shipments(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -345,19 +391,32 @@ class AsyncTradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShipmentSearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -377,17 +436,19 @@ class AsyncTradeClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/shipments"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -433,9 +494,9 @@ class AsyncTradeClient:
     async def search_suppliers(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -443,19 +504,32 @@ class AsyncTradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SupplierSearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -475,17 +549,19 @@ class AsyncTradeClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/suppliers"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)
@@ -531,9 +607,9 @@ class AsyncTradeClient:
     async def search_buyers(
         self,
         *,
+        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        q: str,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -541,19 +617,32 @@ class AsyncTradeClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
-        Parameters:
-            - limit: typing.Optional[int]. A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+        Parameters
+        ----------
+        q : str
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
-            - offset: typing.Optional[int]. Number of results to skip before returning response. Defaults to 0.
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
 
-            - q: str. Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
 
-            - filter: typing.Optional[TradeFilterList]. Filters to be applied to search query to limit the result-set.
+        filter : typing.Optional[TradeFilterList]
+            Filters to be applied to search query to limit the result-set.
 
-            - facets: typing.Optional[bool]. Whether or not to return search facets in results giving counts by field. Defaults to false.
+        facets : typing.Optional[bool]
+            Whether or not to return search facets in results giving counts by field. Defaults to false.
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        BuyerSearchResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -573,17 +662,19 @@ class AsyncTradeClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/trade/search/buyers"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             json=jsonable_encoder(_request)

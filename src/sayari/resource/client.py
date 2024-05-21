@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
@@ -41,11 +42,19 @@ class ResourceClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
-        Parameters:
-            - request: SaveEntityRequest.
+        Parameters
+        ----------
+        request : SaveEntityRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SaveEntityResponse
+
+        Examples
+        --------
         from sayari import SaveEntityRequest
         from sayari.client import Sayari
 
@@ -64,8 +73,10 @@ class ResourceClient:
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resource/entity"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -115,13 +126,21 @@ class ResourceClient:
         """
         Deletes an existing saved resource from a project.
 
-        Parameters:
-            - type: ResourceType.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - resource_id: str.
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteResourceResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -139,8 +158,10 @@ class ResourceClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(
@@ -189,11 +210,19 @@ class AsyncResourceClient:
         """
         <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
 
-        Parameters:
-            - request: SaveEntityRequest.
+        Parameters
+        ----------
+        request : SaveEntityRequest
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SaveEntityResponse
+
+        Examples
+        --------
         from sayari import SaveEntityRequest
         from sayari.client import AsyncSayari
 
@@ -212,8 +241,10 @@ class AsyncResourceClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resource/entity"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             json=jsonable_encoder(request)
             if request_options is None or request_options.get("additional_body_parameters") is None
@@ -263,13 +294,21 @@ class AsyncResourceClient:
         """
         Deletes an existing saved resource from a project.
 
-        Parameters:
-            - type: ResourceType.
+        Parameters
+        ----------
+        type : ResourceType
 
-            - resource_id: str.
+        resource_id : str
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteResourceResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -287,8 +326,10 @@ class AsyncResourceClient:
                 f"{self._client_wrapper.get_base_url()}/",
                 f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",
             ),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
+            params=encode_query(
+                jsonable_encoder(
+                    request_options.get("additional_query_parameters") if request_options is not None else None
+                )
             ),
             headers=jsonable_encoder(
                 remove_none_from_dict(

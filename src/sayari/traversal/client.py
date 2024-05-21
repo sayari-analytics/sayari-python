@@ -8,6 +8,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.query_encoder import encode_query
 from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..generated_types.types.country import Country
@@ -73,65 +74,101 @@ class TraversalClient:
         """
         The Traversal endpoint returns paths from a single target entity to up to 50 directly or indirectly-related entities. Each path includes information on the 0 to 10 intermediary entities, as well as their connecting relationships. The response's explored_count field indicates the size of the graph subset the application searched. Running a traversal on a highly connected entity with a restrictive set of argument filters and a high max depth will require the application to explore a higher number of traversal paths, which may affect performance. In cases where a traversal searches over a very large, highly-connected subgraph, a partial result set may be returned containing only the most relevant results. This will be indicated in the response by the partial_results field.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -146,42 +183,44 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -260,65 +299,101 @@ class TraversalClient:
         """
         The UBO endpoint returns paths from a single target entity to up to 50 beneficial owners. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -333,42 +408,44 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -447,65 +524,101 @@ class TraversalClient:
         """
         The Ownership endpoint returns paths from a single target entity to up to 50 entities directly or indirectly owned by that entity. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -522,42 +635,44 @@ class TraversalClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -636,65 +751,101 @@ class TraversalClient:
         """
         The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to false.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -709,42 +860,44 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -796,11 +949,19 @@ class TraversalClient:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
-        Parameters:
-            - entities: typing.Union[str, typing.Sequence[str]].
+        Parameters
+        ----------
+        entities : typing.Union[str, typing.Sequence[str]]
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShortestPathResponse
+
+        Examples
+        --------
         from sayari.client import Sayari
 
         client = Sayari(
@@ -814,16 +975,18 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "entities": entities,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "entities": entities,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -907,65 +1070,101 @@ class AsyncTraversalClient:
         """
         The Traversal endpoint returns paths from a single target entity to up to 50 directly or indirectly-related entities. Each path includes information on the 0 to 10 intermediary entities, as well as their connecting relationships. The response's explored_count field indicates the size of the graph subset the application searched. Running a traversal on a highly connected entity with a restrictive set of argument filters and a high max depth will require the application to explore a higher number of traversal paths, which may affect performance. In cases where a traversal searches over a very large, highly-connected subgraph, a partial result set may be returned containing only the most relevant results. This will be indicated in the response by the partial_results field.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -980,42 +1179,44 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/traversal/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -1094,65 +1295,101 @@ class AsyncTraversalClient:
         """
         The UBO endpoint returns paths from a single target entity to up to 50 beneficial owners. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any [country](/sayari-library/ontology/enumerated-types#country).
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -1167,42 +1404,44 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/ubo/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -1281,65 +1520,101 @@ class AsyncTraversalClient:
         """
         The Ownership endpoint returns paths from a single target entity to up to 50 entities directly or indirectly owned by that entity. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to true.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to true.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -1356,42 +1631,44 @@ class AsyncTraversalClient:
             url=urllib.parse.urljoin(
                 f"{self._client_wrapper.get_base_url()}/", f"v1/downstream/{jsonable_encoder(id)}"
             ),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -1470,65 +1747,101 @@ class AsyncTraversalClient:
         """
         The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist. The endpoint is a shorthand for the equivalent traversal query.
 
-        Parameters:
-            - id: str. Unique identifier of the entity
+        Parameters
+        ----------
+        id : str
+            Unique identifier of the entity
 
-            - limit: typing.Optional[int]. Limit total values for traversal. Defaults to 10. Max of 50.
+        limit : typing.Optional[int]
+            Limit total values for traversal. Defaults to 10. Max of 50.
 
-            - offset: typing.Optional[int]. Offset values for traversal. Defaults to 0. Max of 1000.
+        offset : typing.Optional[int]
+            Offset values for traversal. Defaults to 0. Max of 1000.
 
-            - min_depth: typing.Optional[int]. Set minimum depth for traversal. Defaults to 1.
+        min_depth : typing.Optional[int]
+            Set minimum depth for traversal. Defaults to 1.
 
-            - max_depth: typing.Optional[int]. Set maximum depth for traversal. Defaults to 4.
+        max_depth : typing.Optional[int]
+            Set maximum depth for traversal. Defaults to 4.
 
-            - relationships: typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]. Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
+        relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
+            Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
 
-            - psa: typing.Optional[bool]. Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+        psa : typing.Optional[bool]
+            Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
 
-            - countries: typing.Optional[typing.Union[Country, typing.Sequence[Country]]]. Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+        countries : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
+            Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
 
-            - types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]. Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+        types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
+            Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
 
-            - sanctioned: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+        sanctioned : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
 
-            - pep: typing.Optional[bool]. Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+        pep : typing.Optional[bool]
+            Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
 
-            - min_shares: typing.Optional[int]. Set minimum percentage of share ownership for traversal. Defaults to 0.
+        min_shares : typing.Optional[int]
+            Set minimum percentage of share ownership for traversal. Defaults to 0.
 
-            - include_unknown_shares: typing.Optional[bool]. Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+        include_unknown_shares : typing.Optional[bool]
+            Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
 
-            - exclude_former_relationships: typing.Optional[bool]. Include relationships that were valid in the past but not at the present time. Defaults to false.
+        exclude_former_relationships : typing.Optional[bool]
+            Include relationships that were valid in the past but not at the present time. Defaults to false.
 
-            - exclude_closed_entities: typing.Optional[bool]. Include entities that existed in the past but not at the present time. Defaults to false.
+        exclude_closed_entities : typing.Optional[bool]
+            Include entities that existed in the past but not at the present time. Defaults to false.
 
-            - eu_high_risk_third: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        eu_high_risk_third : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_modern_slavery: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_modern_slavery : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - state_owned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        state_owned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - formerly_sanctioned: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        formerly_sanctioned : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_terrorism: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_terrorism : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_organized_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_organized_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_financial_crime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_financial_crime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_bribery_and_corruption: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_bribery_and_corruption : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_other: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_other : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - reputational_risk_cybercrime: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        reputational_risk_cybercrime : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - regulatory_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        regulatory_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - law_enforcement_action: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        law_enforcement_action : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - xinjiang_geospatial: typing.Optional[bool]. Filter paths to only those that entity with an entity that we have flagged with this risk factor
+        xinjiang_geospatial : typing.Optional[bool]
+            Filter paths to only those that entity with an entity that we have flagged with this risk factor
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        TraversalResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -1543,42 +1856,44 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/watchlist/{jsonable_encoder(id)}"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "limit": limit,
-                        "offset": offset,
-                        "min_depth": min_depth,
-                        "max_depth": max_depth,
-                        "relationships": relationships,
-                        "psa": psa,
-                        "countries": countries,
-                        "types": types,
-                        "sanctioned": sanctioned,
-                        "pep": pep,
-                        "min_shares": min_shares,
-                        "include_unknown_shares": include_unknown_shares,
-                        "exclude_former_relationships": exclude_former_relationships,
-                        "exclude_closed_entities": exclude_closed_entities,
-                        "eu_high_risk_third": eu_high_risk_third,
-                        "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
-                        "state_owned": state_owned,
-                        "formerly_sanctioned": formerly_sanctioned,
-                        "reputational_risk_terrorism": reputational_risk_terrorism,
-                        "reputational_risk_organized_crime": reputational_risk_organized_crime,
-                        "reputational_risk_financial_crime": reputational_risk_financial_crime,
-                        "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
-                        "reputational_risk_other": reputational_risk_other,
-                        "reputational_risk_cybercrime": reputational_risk_cybercrime,
-                        "regulatory_action": regulatory_action,
-                        "law_enforcement_action": law_enforcement_action,
-                        "xinjiang_geospatial": xinjiang_geospatial,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "limit": limit,
+                            "offset": offset,
+                            "min_depth": min_depth,
+                            "max_depth": max_depth,
+                            "relationships": relationships,
+                            "psa": psa,
+                            "countries": countries,
+                            "types": types,
+                            "sanctioned": sanctioned,
+                            "pep": pep,
+                            "min_shares": min_shares,
+                            "include_unknown_shares": include_unknown_shares,
+                            "exclude_former_relationships": exclude_former_relationships,
+                            "exclude_closed_entities": exclude_closed_entities,
+                            "eu_high_risk_third": eu_high_risk_third,
+                            "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
+                            "state_owned": state_owned,
+                            "formerly_sanctioned": formerly_sanctioned,
+                            "reputational_risk_terrorism": reputational_risk_terrorism,
+                            "reputational_risk_organized_crime": reputational_risk_organized_crime,
+                            "reputational_risk_financial_crime": reputational_risk_financial_crime,
+                            "reputational_risk_bribery_and_corruption": reputational_risk_bribery_and_corruption,
+                            "reputational_risk_other": reputational_risk_other,
+                            "reputational_risk_cybercrime": reputational_risk_cybercrime,
+                            "regulatory_action": regulatory_action,
+                            "law_enforcement_action": law_enforcement_action,
+                            "xinjiang_geospatial": xinjiang_geospatial,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
@@ -1630,11 +1945,19 @@ class AsyncTraversalClient:
         """
         The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
 
-        Parameters:
-            - entities: typing.Union[str, typing.Sequence[str]].
+        Parameters
+        ----------
+        entities : typing.Union[str, typing.Sequence[str]]
 
-            - request_options: typing.Optional[RequestOptions]. Request-specific configuration.
-        ---
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShortestPathResponse
+
+        Examples
+        --------
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
@@ -1648,16 +1971,18 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/shortest_path"),
-            params=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        "entities": entities,
-                        **(
-                            request_options.get("additional_query_parameters", {})
-                            if request_options is not None
-                            else {}
-                        ),
-                    }
+            params=encode_query(
+                jsonable_encoder(
+                    remove_none_from_dict(
+                        {
+                            "entities": entities,
+                            **(
+                                request_options.get("additional_query_parameters", {})
+                                if request_options is not None
+                                else {}
+                            ),
+                        }
+                    )
                 )
             ),
             headers=jsonable_encoder(
