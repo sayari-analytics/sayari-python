@@ -12,6 +12,7 @@ from ...generated_types.types.entities import Entities
 class ResolutionResponseFields(pydantic_v1.BaseModel):
     name: typing.Optional[typing.List[str]] = None
     identifier: typing.Optional[typing.List[str]] = None
+    profile: typing.Optional[typing.List[str]] = None
     country: typing.Optional[typing.List[Country]] = pydantic_v1.Field(default=None)
     """
     Entity country - must be ISO (3166) Trigram i.e., USA. See complete list [here](/sayari-library/ontology/enumerated-types#country)

@@ -31,7 +31,7 @@ class ResolutionResponse(pydantic_v1.BaseModel):
         data=[
             ResolutionResult(
                 profile="corporate",
-                score=167.00832,
+                score=167.28214,
                 entity_id="mGq1lpuqKssNWTjIokuPeA",
                 label="VICTORIA BECKHAM LIMITED",
                 type="company",
@@ -52,7 +52,7 @@ class ResolutionResponse(pydantic_v1.BaseModel):
                         label="Unknown",
                     ),
                 ],
-                psa_id=695785012897.0,
+                psa_id=4655744767230.0,
                 addresses=[
                     "202 HAMMERSMITH ROAD , LONDON , , UNITED KINGDOM , W6 7DN , GB",
                     "Unit 33, Ransomes Dock Business Centre, 35-37 Parkgate Road, London SW11 4NP",
@@ -86,52 +86,23 @@ class ResolutionResponse(pydantic_v1.BaseModel):
                         MatchExplanation(
                             matched="<em>VICTORIA</em> <em>BECKHAM</em> LIMITED",
                             uploaded="victoria beckham limited",
+                            name_custom_tf_idf_score=0.5416772821044128,
+                            high_quality_match_name=True,
+                            is_deletion_recommended=False,
                         ),
                         MatchExplanation(
                             matched="<em>BECKHAM</em> VENTURES LIMITED",
                             uploaded="victoria beckham limited",
+                            name_custom_tf_idf_score=0.5,
+                            high_quality_match_name=False,
+                            is_deletion_recommended=False,
                         ),
                     ]
                 },
                 match_strength=MatchStrength(
                     value="weak",
                 ),
-            ),
-            ResolutionResult(
-                profile="corporate",
-                score=163.52704,
-                entity_id="v7fh4Kv5aLpfk7ld8oul2w",
-                label="VICTORIA BY VICTORIA BECKHAM",
-                type="intellectual_property",
-                identifiers=[
-                    Identifier(
-                        type="chn_cnipa_tm",
-                        value="11314607",
-                        label="Chn Cnipa Tm",
-                    )
-                ],
-                addresses=[],
-                countries=["CHN"],
-                sources=["8f50655ba1d1552ab4b89d119bd9c318"],
-                typed_matched_queries=["name|0", "looseName|0"],
-                matched_queries=["name"],
-                highlight={
-                    "name": [
-                        "<em>VICTORIA</em> BY <em>VICTORIA</em> <em>BECKHAM</em>"
-                    ]
-                },
-                explanation={
-                    "name": [
-                        MatchExplanation(
-                            matched="<em>VICTORIA</em> BY <em>VICTORIA</em> <em>BECKHAM</em>",
-                            uploaded="victoria beckham limited",
-                        )
-                    ]
-                },
-                match_strength=MatchStrength(
-                    value="weak",
-                ),
-            ),
+            )
         ],
     )
     """
