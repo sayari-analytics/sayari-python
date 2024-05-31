@@ -2,8 +2,16 @@
 
 from .match_explanation import MatchExplanation
 from .match_strength import MatchStrength
+from .profile_enum import ProfileEnum
 from .resolution_response import ResolutionResponse
 from .resolution_response_fields import ResolutionResponseFields
 from .resolution_result import ResolutionResult
 
-__all__ = ["MatchExplanation", "MatchStrength", "ResolutionResponse", "ResolutionResponseFields", "ResolutionResult"]
+__all__ = [
+    "MatchExplanation",
+    "MatchStrength",
+    "ProfileEnum",
+    "ResolutionResponse",
+    "ResolutionResponseFields",
+    "ResolutionResult",
+]

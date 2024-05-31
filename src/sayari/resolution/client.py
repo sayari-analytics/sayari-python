@@ -26,6 +26,7 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from .types.profile_enum import ProfileEnum
 from .types.resolution_response import ResolutionResponse
 
 # this is used as the default value for optional parameters
@@ -48,6 +49,7 @@ class ResolutionClient:
         date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
+        profile: typing.Optional[ProfileEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -82,6 +84,9 @@ class ResolutionClient:
         type : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
             [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
+        profile : typing.Optional[ProfileEnum]
+            Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `supplier` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -99,6 +104,7 @@ class ResolutionClient:
         )
         client.resolution.resolution(
             name="victoria beckham limited",
+            limit=1,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -117,6 +123,7 @@ class ResolutionClient:
                             "date_of_birth": date_of_birth,
                             "contact": contact,
                             "type": type,
+                            "profile": profile,
                             **(
                                 request_options.get("additional_query_parameters", {})
                                 if request_options is not None
@@ -174,6 +181,7 @@ class ResolutionClient:
         date_of_birth: typing.Optional[typing.Sequence[str]] = OMIT,
         contact: typing.Optional[typing.Sequence[str]] = OMIT,
         type: typing.Optional[typing.Sequence[Entities]] = OMIT,
+        profile: typing.Optional[ProfileEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -208,6 +216,9 @@ class ResolutionClient:
         type : typing.Optional[typing.Sequence[Entities]]
             [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
+        profile : typing.Optional[ProfileEnum]
+            Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `supplier` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -224,7 +235,7 @@ class ResolutionClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.resolution.resolution_post(
-            limit=2,
+            limit=1,
             name=["victoria beckham limited"],
         )
         """
@@ -243,6 +254,8 @@ class ResolutionClient:
             _request["contact"] = contact
         if type is not OMIT:
             _request["type"] = type
+        if profile is not OMIT:
+            _request["profile"] = profile
         _response = self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),
@@ -320,6 +333,7 @@ class AsyncResolutionClient:
         date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
+        profile: typing.Optional[ProfileEnum] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -354,6 +368,9 @@ class AsyncResolutionClient:
         type : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
             [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
+        profile : typing.Optional[ProfileEnum]
+            Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `supplier` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -371,6 +388,7 @@ class AsyncResolutionClient:
         )
         await client.resolution.resolution(
             name="victoria beckham limited",
+            limit=1,
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -389,6 +407,7 @@ class AsyncResolutionClient:
                             "date_of_birth": date_of_birth,
                             "contact": contact,
                             "type": type,
+                            "profile": profile,
                             **(
                                 request_options.get("additional_query_parameters", {})
                                 if request_options is not None
@@ -446,6 +465,7 @@ class AsyncResolutionClient:
         date_of_birth: typing.Optional[typing.Sequence[str]] = OMIT,
         contact: typing.Optional[typing.Sequence[str]] = OMIT,
         type: typing.Optional[typing.Sequence[Entities]] = OMIT,
+        profile: typing.Optional[ProfileEnum] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -480,6 +500,9 @@ class AsyncResolutionClient:
         type : typing.Optional[typing.Sequence[Entities]]
             [Entity type](/sayari-library/ontology/entities). If multiple values are passed for any field, the endpoint will match entities with ANY of the values.
 
+        profile : typing.Optional[ProfileEnum]
+            Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `supplier` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -496,7 +519,7 @@ class AsyncResolutionClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         await client.resolution.resolution_post(
-            limit=2,
+            limit=1,
             name=["victoria beckham limited"],
         )
         """
@@ -515,6 +538,8 @@ class AsyncResolutionClient:
             _request["contact"] = contact
         if type is not OMIT:
             _request["type"] = type
+        if profile is not OMIT:
+            _request["profile"] = profile
         _response = await self._client_wrapper.httpx_client.request(
             method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/resolution"),

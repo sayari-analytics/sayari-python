@@ -160,7 +160,14 @@ from .project import (
     TradeCount,
 )
 from .record import GetRecordResponse, RecordReferences
-from .resolution import MatchExplanation, MatchStrength, ResolutionResponse, ResolutionResponseFields, ResolutionResult
+from .resolution import (
+    MatchExplanation,
+    MatchStrength,
+    ProfileEnum,
+    ResolutionResponse,
+    ResolutionResponseFields,
+    ResolutionResult,
+)
 from .resource import DeleteResourceResponse, EntityResponseData, ResourceType, SaveEntityRequest, SaveEntityResponse
 from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
 from .shared_errors import (
@@ -408,6 +415,7 @@ __all__ = [
     "PossiblySameAs",
     "PossiblySameAsData",
     "PossiblySameAsMatch",
+    "ProfileEnum",
     "Project",
     "ProjectCounts",
     "ProjectEntitiesAggs",

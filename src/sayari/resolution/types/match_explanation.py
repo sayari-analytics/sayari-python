@@ -10,8 +10,9 @@ from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 class MatchExplanation(pydantic_v1.BaseModel):
     matched: typing.Optional[str] = None
     uploaded: typing.Optional[str] = None
-    name_custom_tf_idf_score: typing.Optional[float] = pydantic_v1.Field(alias="nameCustomTfIdfScore", default=None)
-    high_quality_match_name: typing.Optional[bool] = pydantic_v1.Field(alias="highQualityMatchName", default=None)
+    name_custom_tf_idf_score: typing.Optional[float] = None
+    high_quality_match_name: typing.Optional[bool] = None
+    is_deletion_recommended: typing.Optional[bool] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -28,7 +29,5 @@ class MatchExplanation(pydantic_v1.BaseModel):
     class Config:
         frozen = True
         smart_union = True
-        allow_population_by_field_name = True
-        populate_by_name = True
         extra = pydantic_v1.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}
