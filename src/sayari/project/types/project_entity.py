@@ -27,7 +27,7 @@ class ProjectEntity(pydantic_v1.BaseModel):
     Will be 0.
     """
 
-    type: typing.Literal["entity"]
+    type: typing.Literal["entity"] = "entity"
     entity_id: str = pydantic_v1.Field()
     """
     Entity ID.

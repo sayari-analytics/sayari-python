@@ -25,7 +25,7 @@ from .traversal.client import AsyncTraversalClient, TraversalClient
 
 class BaseClient:
     """
-    Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propogate to these functions.
+    Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
     Parameters
     ----------
@@ -43,6 +43,7 @@ class BaseClient:
 
     client_id : str
     client_secret : str
+    _token_getter_override : typing.Optional[typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -69,6 +70,7 @@ class BaseClient:
         environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         client_id: str,
         client_secret: str,
+        _token_getter_override: typing.Optional[typing.Callable[[], str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None
@@ -87,7 +89,7 @@ class BaseClient:
         )
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            token=oauth_token_provider.get_token,
+            token=_token_getter_override if _token_getter_override is not None else oauth_token_provider.get_token,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -113,7 +115,7 @@ class BaseClient:
 
 class AsyncBaseClient:
     """
-    Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propogate to these functions.
+    Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 
     Parameters
     ----------
@@ -131,6 +133,7 @@ class AsyncBaseClient:
 
     client_id : str
     client_secret : str
+    _token_getter_override : typing.Optional[typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -157,6 +160,7 @@ class AsyncBaseClient:
         environment: SayariEnvironment = SayariEnvironment.PRODUCTION,
         client_id: str,
         client_secret: str,
+        _token_getter_override: typing.Optional[typing.Callable[[], str]] = None,
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None
@@ -175,7 +179,7 @@ class AsyncBaseClient:
         )
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            token=oauth_token_provider.get_token,
+            token=_token_getter_override if _token_getter_override is not None else oauth_token_provider.get_token,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
