@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sayari"
-version = "0.0.335"
+version = "0.0.341"
 description = "A Python SDK for Sayari"
 readme = "README.md"
 authors = [
@@ -45,6 +45,7 @@ mypy = "1.9.0"
 pytest = "^7.4.0"
 pytest-asyncio = "^0.23.5"
 python-dateutil = "^2.9.0"
+types-python-dateutil = "^2.9.0.20240316"
 
 [tool.pytest.ini_options]
 testpaths = [ "tests" ]
