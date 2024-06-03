@@ -583,6 +583,8 @@ IdentifierType = typing.Union[
         "bwa_uin_reg_number",
         "can_nrd",
         "usa_irs_giin",
+        "can_nrd_individual_id",
+        "jam_company_id",
     ],
     typing.Any,
 ]
