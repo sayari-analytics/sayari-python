@@ -2,15 +2,12 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
-from ..core.query_encoder import encode_query
-from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..generated_types.types.country import Country
 from ..generated_types.types.relationships import Relationships
@@ -272,86 +269,61 @@ class EntityClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
+            f"v1/entity/{jsonable_encoder(id)}",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{jsonable_encoder(id)}"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "attributes.additional_information.next": attributes_additional_information_next,
-                            "attributes.additional_information.prev": attributes_additional_information_prev,
-                            "attributes.additional_information.limit": attributes_additional_information_limit,
-                            "attributes.address.next": attributes_address_next,
-                            "attributes.address.prev": attributes_address_prev,
-                            "attributes.address.limit": attributes_address_limit,
-                            "attributes.business_purpose.next": attributes_business_purpose_next,
-                            "attributes.business_purpose.prev": attributes_business_purpose_prev,
-                            "attributes.business_purpose.limit": attributes_business_purpose_limit,
-                            "attributes.company_type.next": attributes_company_type_next,
-                            "attributes.company_type.prev": attributes_company_type_prev,
-                            "attributes.company_type.limit": attributes_company_type_limit,
-                            "attributes.country.next": attributes_country_next,
-                            "attributes.country.prev": attributes_country_prev,
-                            "attributes.country.limit": attributes_country_limit,
-                            "attributes.identifier.next": attributes_identifier_next,
-                            "attributes.identifier.prev": attributes_identifier_prev,
-                            "attributes.identifier.limit": attributes_identifier_limit,
-                            "attributes.name.next": attributes_name_next,
-                            "attributes.name.prev": attributes_name_prev,
-                            "attributes.name.limit": attributes_name_limit,
-                            "attributes.status.next": attributes_status_next,
-                            "attributes.status.prev": attributes_status_prev,
-                            "attributes.status.limit": attributes_status_limit,
-                            "relationships.next": relationships_next,
-                            "relationships.prev": relationships_prev,
-                            "relationships.limit": relationships_limit,
-                            "relationships.type": relationships_type,
-                            "relationships.sort": relationships_sort,
-                            "relationships.startDate": str(relationships_start_date)
-                            if relationships_start_date is not None
-                            else None,
-                            "relationships.endDate": str(relationships_end_date)
-                            if relationships_end_date is not None
-                            else None,
-                            "relationships.minShares": relationships_min_shares,
-                            "relationships.country": relationships_country,
-                            "relationships.arrivalCountry": relationships_arrival_country,
-                            "relationships.arrivalState": relationships_arrival_state,
-                            "relationships.arrivalCity": relationships_arrival_city,
-                            "relationships.departureCountry": relationships_departure_country,
-                            "relationships.departureState": relationships_departure_state,
-                            "relationships.departureCity": relationships_departure_city,
-                            "relationships.partnerName": relationships_partner_name,
-                            "relationships.partnerRisk": relationships_partner_risk,
-                            "relationships.hsCode": relationships_hs_code,
-                            "possibly_same_as.next": possibly_same_as_next,
-                            "possibly_same_as.prev": possibly_same_as_prev,
-                            "possibly_same_as.limit": possibly_same_as_limit,
-                            "referenced_by.next": referenced_by_next,
-                            "referenced_by.prev": referenced_by_prev,
-                            "referenced_by.limit": referenced_by_limit,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={
+                "attributes.additional_information.next": attributes_additional_information_next,
+                "attributes.additional_information.prev": attributes_additional_information_prev,
+                "attributes.additional_information.limit": attributes_additional_information_limit,
+                "attributes.address.next": attributes_address_next,
+                "attributes.address.prev": attributes_address_prev,
+                "attributes.address.limit": attributes_address_limit,
+                "attributes.business_purpose.next": attributes_business_purpose_next,
+                "attributes.business_purpose.prev": attributes_business_purpose_prev,
+                "attributes.business_purpose.limit": attributes_business_purpose_limit,
+                "attributes.company_type.next": attributes_company_type_next,
+                "attributes.company_type.prev": attributes_company_type_prev,
+                "attributes.company_type.limit": attributes_company_type_limit,
+                "attributes.country.next": attributes_country_next,
+                "attributes.country.prev": attributes_country_prev,
+                "attributes.country.limit": attributes_country_limit,
+                "attributes.identifier.next": attributes_identifier_next,
+                "attributes.identifier.prev": attributes_identifier_prev,
+                "attributes.identifier.limit": attributes_identifier_limit,
+                "attributes.name.next": attributes_name_next,
+                "attributes.name.prev": attributes_name_prev,
+                "attributes.name.limit": attributes_name_limit,
+                "attributes.status.next": attributes_status_next,
+                "attributes.status.prev": attributes_status_prev,
+                "attributes.status.limit": attributes_status_limit,
+                "relationships.next": relationships_next,
+                "relationships.prev": relationships_prev,
+                "relationships.limit": relationships_limit,
+                "relationships.type": relationships_type,
+                "relationships.sort": relationships_sort,
+                "relationships.startDate": str(relationships_start_date)
+                if relationships_start_date is not None
+                else None,
+                "relationships.endDate": str(relationships_end_date) if relationships_end_date is not None else None,
+                "relationships.minShares": relationships_min_shares,
+                "relationships.country": relationships_country,
+                "relationships.arrivalCountry": relationships_arrival_country,
+                "relationships.arrivalState": relationships_arrival_state,
+                "relationships.arrivalCity": relationships_arrival_city,
+                "relationships.departureCountry": relationships_departure_country,
+                "relationships.departureState": relationships_departure_state,
+                "relationships.departureCity": relationships_departure_city,
+                "relationships.partnerName": relationships_partner_name,
+                "relationships.partnerRisk": relationships_partner_risk,
+                "relationships.hsCode": relationships_hs_code,
+                "possibly_same_as.next": possibly_same_as_next,
+                "possibly_same_as.prev": possibly_same_as_prev,
+                "possibly_same_as.limit": possibly_same_as_limit,
+                "referenced_by.next": referenced_by_next,
+                "referenced_by.prev": referenced_by_prev,
+                "referenced_by.limit": referenced_by_limit,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
@@ -406,28 +378,7 @@ class EntityClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            method="GET",
-            url=urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{jsonable_encoder(id)}"
-            ),
-            params=encode_query(
-                jsonable_encoder(
-                    request_options.get("additional_query_parameters") if request_options is not None else None
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            f"v1/entity_summary/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
@@ -693,86 +644,61 @@ class AsyncEntityClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
+            f"v1/entity/{jsonable_encoder(id)}",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", f"v1/entity/{jsonable_encoder(id)}"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "attributes.additional_information.next": attributes_additional_information_next,
-                            "attributes.additional_information.prev": attributes_additional_information_prev,
-                            "attributes.additional_information.limit": attributes_additional_information_limit,
-                            "attributes.address.next": attributes_address_next,
-                            "attributes.address.prev": attributes_address_prev,
-                            "attributes.address.limit": attributes_address_limit,
-                            "attributes.business_purpose.next": attributes_business_purpose_next,
-                            "attributes.business_purpose.prev": attributes_business_purpose_prev,
-                            "attributes.business_purpose.limit": attributes_business_purpose_limit,
-                            "attributes.company_type.next": attributes_company_type_next,
-                            "attributes.company_type.prev": attributes_company_type_prev,
-                            "attributes.company_type.limit": attributes_company_type_limit,
-                            "attributes.country.next": attributes_country_next,
-                            "attributes.country.prev": attributes_country_prev,
-                            "attributes.country.limit": attributes_country_limit,
-                            "attributes.identifier.next": attributes_identifier_next,
-                            "attributes.identifier.prev": attributes_identifier_prev,
-                            "attributes.identifier.limit": attributes_identifier_limit,
-                            "attributes.name.next": attributes_name_next,
-                            "attributes.name.prev": attributes_name_prev,
-                            "attributes.name.limit": attributes_name_limit,
-                            "attributes.status.next": attributes_status_next,
-                            "attributes.status.prev": attributes_status_prev,
-                            "attributes.status.limit": attributes_status_limit,
-                            "relationships.next": relationships_next,
-                            "relationships.prev": relationships_prev,
-                            "relationships.limit": relationships_limit,
-                            "relationships.type": relationships_type,
-                            "relationships.sort": relationships_sort,
-                            "relationships.startDate": str(relationships_start_date)
-                            if relationships_start_date is not None
-                            else None,
-                            "relationships.endDate": str(relationships_end_date)
-                            if relationships_end_date is not None
-                            else None,
-                            "relationships.minShares": relationships_min_shares,
-                            "relationships.country": relationships_country,
-                            "relationships.arrivalCountry": relationships_arrival_country,
-                            "relationships.arrivalState": relationships_arrival_state,
-                            "relationships.arrivalCity": relationships_arrival_city,
-                            "relationships.departureCountry": relationships_departure_country,
-                            "relationships.departureState": relationships_departure_state,
-                            "relationships.departureCity": relationships_departure_city,
-                            "relationships.partnerName": relationships_partner_name,
-                            "relationships.partnerRisk": relationships_partner_risk,
-                            "relationships.hsCode": relationships_hs_code,
-                            "possibly_same_as.next": possibly_same_as_next,
-                            "possibly_same_as.prev": possibly_same_as_prev,
-                            "possibly_same_as.limit": possibly_same_as_limit,
-                            "referenced_by.next": referenced_by_next,
-                            "referenced_by.prev": referenced_by_prev,
-                            "referenced_by.limit": referenced_by_limit,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={
+                "attributes.additional_information.next": attributes_additional_information_next,
+                "attributes.additional_information.prev": attributes_additional_information_prev,
+                "attributes.additional_information.limit": attributes_additional_information_limit,
+                "attributes.address.next": attributes_address_next,
+                "attributes.address.prev": attributes_address_prev,
+                "attributes.address.limit": attributes_address_limit,
+                "attributes.business_purpose.next": attributes_business_purpose_next,
+                "attributes.business_purpose.prev": attributes_business_purpose_prev,
+                "attributes.business_purpose.limit": attributes_business_purpose_limit,
+                "attributes.company_type.next": attributes_company_type_next,
+                "attributes.company_type.prev": attributes_company_type_prev,
+                "attributes.company_type.limit": attributes_company_type_limit,
+                "attributes.country.next": attributes_country_next,
+                "attributes.country.prev": attributes_country_prev,
+                "attributes.country.limit": attributes_country_limit,
+                "attributes.identifier.next": attributes_identifier_next,
+                "attributes.identifier.prev": attributes_identifier_prev,
+                "attributes.identifier.limit": attributes_identifier_limit,
+                "attributes.name.next": attributes_name_next,
+                "attributes.name.prev": attributes_name_prev,
+                "attributes.name.limit": attributes_name_limit,
+                "attributes.status.next": attributes_status_next,
+                "attributes.status.prev": attributes_status_prev,
+                "attributes.status.limit": attributes_status_limit,
+                "relationships.next": relationships_next,
+                "relationships.prev": relationships_prev,
+                "relationships.limit": relationships_limit,
+                "relationships.type": relationships_type,
+                "relationships.sort": relationships_sort,
+                "relationships.startDate": str(relationships_start_date)
+                if relationships_start_date is not None
+                else None,
+                "relationships.endDate": str(relationships_end_date) if relationships_end_date is not None else None,
+                "relationships.minShares": relationships_min_shares,
+                "relationships.country": relationships_country,
+                "relationships.arrivalCountry": relationships_arrival_country,
+                "relationships.arrivalState": relationships_arrival_state,
+                "relationships.arrivalCity": relationships_arrival_city,
+                "relationships.departureCountry": relationships_departure_country,
+                "relationships.departureState": relationships_departure_state,
+                "relationships.departureCity": relationships_departure_city,
+                "relationships.partnerName": relationships_partner_name,
+                "relationships.partnerRisk": relationships_partner_risk,
+                "relationships.hsCode": relationships_hs_code,
+                "possibly_same_as.next": possibly_same_as_next,
+                "possibly_same_as.prev": possibly_same_as_prev,
+                "possibly_same_as.limit": possibly_same_as_limit,
+                "referenced_by.next": referenced_by_next,
+                "referenced_by.prev": referenced_by_prev,
+                "referenced_by.limit": referenced_by_limit,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(GetEntityResponse, _response.json())  # type: ignore
@@ -827,28 +753,7 @@ class AsyncEntityClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            method="GET",
-            url=urllib.parse.urljoin(
-                f"{self._client_wrapper.get_base_url()}/", f"v1/entity_summary/{jsonable_encoder(id)}"
-            ),
-            params=encode_query(
-                jsonable_encoder(
-                    request_options.get("additional_query_parameters") if request_options is not None else None
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            f"v1/entity_summary/{jsonable_encoder(id)}", method="GET", request_options=request_options
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(EntitySummaryResponse, _response.json())  # type: ignore
