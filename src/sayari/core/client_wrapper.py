@@ -23,7 +23,7 @@ class BaseClientWrapper:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
             "X-Fern-SDK-Name": "sayari",
-            "X-Fern-SDK-Version": "0.0.341",
+            "X-Fern-SDK-Version": "0.0.360",
         }
         token = self._get_token()
         if token is not None:
@@ -53,7 +53,12 @@ class SyncClientWrapper(BaseClientWrapper):
         httpx_client: httpx.Client,
     ):
         super().__init__(token=token, base_url=base_url, timeout=timeout)
-        self.httpx_client = HttpClient(httpx_client=httpx_client)
+        self.httpx_client = HttpClient(
+            httpx_client=httpx_client,
+            base_headers=self.get_headers(),
+            base_timeout=self.get_timeout(),
+            base_url=self.get_base_url(),
+        )
 
 
 class AsyncClientWrapper(BaseClientWrapper):
@@ -66,4 +71,9 @@ class AsyncClientWrapper(BaseClientWrapper):
         httpx_client: httpx.AsyncClient,
     ):
         super().__init__(token=token, base_url=base_url, timeout=timeout)
-        self.httpx_client = AsyncHttpClient(httpx_client=httpx_client)
+        self.httpx_client = AsyncHttpClient(
+            httpx_client=httpx_client,
+            base_headers=self.get_headers(),
+            base_timeout=self.get_timeout(),
+            base_url=self.get_base_url(),
+        )

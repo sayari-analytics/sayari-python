@@ -2,15 +2,11 @@
 
 import datetime as dt
 import typing
-import urllib.parse
 from json.decoder import JSONDecodeError
 
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import pydantic_v1
-from ..core.query_encoder import encode_query
-from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
@@ -35,7 +31,7 @@ class InfoClient:
         *,
         from_: typing.Optional[dt.date] = None,
         to: typing.Optional[dt.date] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        request_options: typing.Optional[RequestOptions] = None
     ) -> UsageResponse:
         """
         The usage endpoint provides a simple interface to retrieve information on usage made by your API account. This includes both views per API path and credits consumed. The time period for the usage query is also specified in the response and whether or not this includes total usage.
@@ -76,36 +72,10 @@ class InfoClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
+            "v1/usage",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/usage"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "from": str(from_) if from_ is not None else None,
-                            "to": str(to) if to is not None else None,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={"from": str(from_) if from_ is not None else None, "to": str(to) if to is not None else None},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(UsageResponse, _response.json())  # type: ignore
@@ -135,7 +105,7 @@ class InfoClient:
         to: typing.Optional[dt.date] = None,
         size: typing.Optional[int] = None,
         token: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        request_options: typing.Optional[RequestOptions] = None
     ) -> HistoryResponse:
         """
         The history endpoint return a user's event history.
@@ -188,39 +158,16 @@ class InfoClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
+            "v1/history",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/history"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "events": events,
-                            "from": str(from_) if from_ is not None else None,
-                            "to": str(to) if to is not None else None,
-                            "size": size,
-                            "token": token,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={
+                "events": events,
+                "from": str(from_) if from_ is not None else None,
+                "to": str(to) if to is not None else None,
+                "size": size,
+                "token": token,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(HistoryResponse, _response.json())  # type: ignore
@@ -252,7 +199,7 @@ class AsyncInfoClient:
         *,
         from_: typing.Optional[dt.date] = None,
         to: typing.Optional[dt.date] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        request_options: typing.Optional[RequestOptions] = None
     ) -> UsageResponse:
         """
         The usage endpoint provides a simple interface to retrieve information on usage made by your API account. This includes both views per API path and credits consumed. The time period for the usage query is also specified in the response and whether or not this includes total usage.
@@ -293,36 +240,10 @@ class AsyncInfoClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
+            "v1/usage",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/usage"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "from": str(from_) if from_ is not None else None,
-                            "to": str(to) if to is not None else None,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={"from": str(from_) if from_ is not None else None, "to": str(to) if to is not None else None},
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(UsageResponse, _response.json())  # type: ignore
@@ -352,7 +273,7 @@ class AsyncInfoClient:
         to: typing.Optional[dt.date] = None,
         size: typing.Optional[int] = None,
         token: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        request_options: typing.Optional[RequestOptions] = None
     ) -> HistoryResponse:
         """
         The history endpoint return a user's event history.
@@ -405,39 +326,16 @@ class AsyncInfoClient:
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
+            "v1/history",
             method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "v1/history"),
-            params=encode_query(
-                jsonable_encoder(
-                    remove_none_from_dict(
-                        {
-                            "events": events,
-                            "from": str(from_) if from_ is not None else None,
-                            "to": str(to) if to is not None else None,
-                            "size": size,
-                            "token": token,
-                            **(
-                                request_options.get("additional_query_parameters", {})
-                                if request_options is not None
-                                else {}
-                            ),
-                        }
-                    )
-                )
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
+            params={
+                "events": events,
+                "from": str(from_) if from_ is not None else None,
+                "to": str(to) if to is not None else None,
+                "size": size,
+                "token": token,
+            },
+            request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
             return pydantic_v1.parse_obj_as(HistoryResponse, _response.json())  # type: ignore
