@@ -585,6 +585,7 @@ IdentifierType = typing.Union[
         "usa_irs_giin",
         "can_nrd_individual_id",
         "jam_company_id",
+        "esp_internal_employee_number",
     ],
     typing.Any,
 ]
