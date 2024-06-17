@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sayari"
-version = "0.0.395"
+version = "0.0.396"
 description = "A Python SDK for Sayari"
 readme = "README.md"
 authors = [

@@ -16,6 +16,7 @@ CountryContext = typing.Union[
         "shipment_transit",
         "activity_in",
         "mentioned_in",
+        "product_origin",
     ],
     typing.Any,
 ]
