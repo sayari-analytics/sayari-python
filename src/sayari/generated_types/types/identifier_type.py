@@ -586,6 +586,7 @@ IdentifierType = typing.Union[
         "can_nrd_individual_id",
         "jam_company_id",
         "esp_internal_employee_number",
+        "can_new_brunswick_reference_number",
     ],
     typing.Any,
 ]
