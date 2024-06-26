@@ -13,6 +13,8 @@ class MatchExplanation(pydantic_v1.BaseModel):
     name_custom_tf_idf_score: typing.Optional[float] = None
     high_quality_match_name: typing.Optional[bool] = None
     is_deletion_recommended: typing.Optional[bool] = None
+    n_common_term_matches: typing.Optional[int] = None
+    n_uncommon_term_matches: typing.Optional[int] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
