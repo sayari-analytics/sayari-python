@@ -76,23 +76,25 @@ class ProjectClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/projects", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -150,23 +152,25 @@ class ProjectClient:
             params={"next": next, "prev": prev, "limit": limit, "archived": archived},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetProjectsResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetProjectsResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -279,23 +283,25 @@ class ProjectClient:
             headers={"Accept": str(accept) if accept is not None else None},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetProjectEntitiesResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 406:
-            raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetProjectEntitiesResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -333,23 +339,25 @@ class ProjectClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}", method="DELETE", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(DeleteProjectResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(DeleteProjectResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -395,23 +403,25 @@ class AsyncProjectClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/projects", method="POST", json=request, request_options=request_options, omit=OMIT
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(CreateProjectResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -469,23 +479,25 @@ class AsyncProjectClient:
             params={"next": next, "prev": prev, "limit": limit, "archived": archived},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetProjectsResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetProjectsResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -598,23 +610,25 @@ class AsyncProjectClient:
             headers={"Accept": str(accept) if accept is not None else None},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetProjectEntitiesResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 406:
-            raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetProjectEntitiesResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(pydantic_v1.parse_obj_as(NotAcceptableResponse, _response.json()))  # type: ignore
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -652,23 +666,25 @@ class AsyncProjectClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}", method="DELETE", request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(DeleteProjectResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(DeleteProjectResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

@@ -211,27 +211,31 @@ class TraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -413,27 +417,31 @@ class TraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -615,27 +623,31 @@ class TraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -817,27 +829,31 @@ class TraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -878,27 +894,31 @@ class TraversalClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/shortest_path", method="GET", params={"entities": entities}, request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1085,27 +1105,31 @@ class AsyncTraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1287,27 +1311,31 @@ class AsyncTraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1489,27 +1517,31 @@ class AsyncTraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1691,27 +1723,31 @@ class AsyncTraversalClient:
             },
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(TraversalResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -1752,27 +1788,31 @@ class AsyncTraversalClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/shortest_path", method="GET", params={"entities": entities}, request_options=request_options
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
-        if _response.status_code == 502:
-            raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
-        if _response.status_code == 520:
-            raise ConnectionError(pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json()))  # type: ignore
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(ShortestPathResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 502:
+                raise BadGateway(pydantic_v1.parse_obj_as(BadGatewayResponse, _response.json()))  # type: ignore
+            if _response.status_code == 520:
+                raise ConnectionError(
+                    pydantic_v1.parse_obj_as(ConnectionErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

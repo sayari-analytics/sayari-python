@@ -74,23 +74,25 @@ class RecordClient:
             params={"references.limit": references_limit, "references.offset": references_offset},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
@@ -148,23 +150,25 @@ class AsyncRecordClient:
             params={"references.limit": references_limit, "references.offset": references_offset},
             request_options=request_options,
         )
-        if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
-        if _response.status_code == 400:
-            raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
-        if _response.status_code == 401:
-            raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 404:
-            raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
-        if _response.status_code == 405:
-            raise MethodNotAllowed(pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json()))  # type: ignore
-        if _response.status_code == 429:
-            raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
-        if _response.status_code == 500:
-            raise InternalServerError(
-                pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
-            )
         try:
+            if 200 <= _response.status_code < 300:
+                return pydantic_v1.parse_obj_as(GetRecordResponse, _response.json())  # type: ignore
+            if _response.status_code == 400:
+                raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
+            if _response.status_code == 401:
+                raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 404:
+                raise NotFound(pydantic_v1.parse_obj_as(NotFoundResponse, _response.json()))  # type: ignore
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    pydantic_v1.parse_obj_as(MethodNotAllowedResponse, _response.json())  # type: ignore
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)

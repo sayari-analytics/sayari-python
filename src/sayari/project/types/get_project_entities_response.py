@@ -40,7 +40,6 @@ class GetProjectEntitiesResponse(PaginatedResponse):
         ),
         data=[
             ProjectEntity(
-                type="entity",
                 id="GOeOE8",
                 project="gPq6EY",
                 label="RAMESH FLOWERS PRIVATE LIMITED",
@@ -353,17 +352,12 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 )
             ],
             upstream_country_tiers={
-                "USA": {"tier2": 1, "totalCount": 1},
-                "CAN": {"tier1": 1, "tier2": 2, "totalCount": 3},
+                "USA": {"tier2": 1},
+                "CAN": {"tier1": 1, "tier2": 2},
             },
             upstream_risk_tiers={
-                "eu_high_risk_third": {"tier4": 1, "totalCount": 1},
-                "export_to_soe": {
-                    "tier1": 1,
-                    "tier3": 1,
-                    "tier4": 2,
-                    "totalCount": 4,
-                },
+                "eu_high_risk_third": {"tier4": 1},
+                "export_to_soe": {"tier1": 1, "tier3": 1, "tier4": 2},
             },
             shipped_hs_codes=HsCodeAgg(
                 doc_count=0,
