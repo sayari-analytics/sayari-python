@@ -49,7 +49,7 @@ class ResolutionBody(pydantic_v1.BaseModel):
 
     profile: typing.Optional[ProfileEnum] = pydantic_v1.Field(default=None)
     """
-    Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `supplier` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+    Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
     """
 
     def json(self, **kwargs: typing.Any) -> str:
