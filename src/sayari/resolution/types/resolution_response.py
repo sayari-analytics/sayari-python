@@ -14,7 +14,6 @@ class ResolutionResponse(pydantic_v1.BaseModel):
     Examples
     --------
     from sayari import (
-        Identifier,
         MatchExplanation,
         MatchStrength,
         ResolutionResponse,
@@ -29,72 +28,35 @@ class ResolutionResponse(pydantic_v1.BaseModel):
         data=[
             ResolutionResult(
                 profile="corporate",
-                score=167.28214,
-                entity_id="mGq1lpuqKssNWTjIokuPeA",
-                label="VICTORIA BECKHAM LIMITED",
-                type="company",
-                identifiers=[
-                    Identifier(
-                        type="uk_company_number",
-                        value="06517802",
-                        label="Uk Company Number",
-                    ),
-                    Identifier(
-                        type="ca_corporate_id_num",
-                        value="04781466",
-                        label="Ca Corporate Id Num",
-                    ),
-                    Identifier(
-                        type="unknown",
-                        value="6517802",
-                        label="Unknown",
-                    ),
-                ],
-                psa_id=4655744767230.0,
+                score=491.08936,
+                entity_id="ds5rQ3rMIeoN3xZUzVyVNQ",
+                label="VICTORIA BECKHAM",
+                type="person",
+                identifiers=[],
                 addresses=[
-                    "202 HAMMERSMITH ROAD , LONDON , , UNITED KINGDOM , W6 7DN , GB",
-                    "Unit 33, Ransomes Dock Business Centre, 35-37 Parkgate Road, London SW11 4NP",
-                    "SAUNDERS BUILDING, 202 HAMMERSMITH ROAD, HAMMERSMITH, LONDON",
-                    "Ransome's Dock, 35-37 Parkgate Road, London, SW11 4NP",
-                    "Hammersmith Road, London, W6 7DN",
-                    "202 HAMMERSMITH ROAD UNITED KINGDOM",
-                    "202 HAMMERSMITH ROAD BRITISH ISLES",
+                    "C/O LEE & THOMPSON LLP, 4 GEE'S COURT, ST-CHRISTOPHER'S PLACE"
                 ],
-                countries=["GBR", "USA", "VNM"],
-                sources=[
-                    "2b618f1996252fe537a6d998ae14c9b2",
-                    "2b788dbdf9194ed5a5c309386a6516b1",
-                    "a447a7b622c4ead6e1caf94983dc2337",
-                    "ecdfb3f2ecc8c3797e77d5795a8066ef",
-                    "e5de7b52cc88ef4cd1a10e201bdf46ee",
-                    "2a4fe9a14e332c8f9ded1f8a457c2b89",
-                    "ecdfb3f2ecc8c3797e77d5795a8066ef",
-                    "4ea8bac1bed868e1510ffd21842e9551",
+                countries=["GBR", "MEX"],
+                sources=["b9d809b02049993ba8dc2e4c5f7cceca"],
+                typed_matched_queries=[
+                    "name|0",
+                    "name|100phrase|0",
+                    "name|100match|0",
+                    "looseName|0",
                 ],
-                typed_matched_queries=["name|0", "looseName|0"],
                 matched_queries=["name"],
-                highlight={
-                    "name": [
-                        "<em>VICTORIA</em> <em>BECKHAM</em> LIMITED",
-                        "<em>BECKHAM</em> VENTURES LIMITED",
-                    ]
-                },
+                highlight={"name": ["<em>VICTORIA</em> <em>BECKHAM</em>"]},
                 explanation={
                     "name": [
                         MatchExplanation(
-                            matched="<em>VICTORIA</em> <em>BECKHAM</em> LIMITED",
+                            matched="<em>VICTORIA</em> <em>BECKHAM</em>",
                             uploaded="victoria beckham limited",
                             name_custom_tf_idf_score=0.5416772821044128,
                             high_quality_match_name=True,
                             is_deletion_recommended=False,
-                        ),
-                        MatchExplanation(
-                            matched="<em>BECKHAM</em> VENTURES LIMITED",
-                            uploaded="victoria beckham limited",
-                            name_custom_tf_idf_score=0.5,
-                            high_quality_match_name=False,
-                            is_deletion_recommended=False,
-                        ),
+                            n_common_term_matches=1,
+                            n_uncommon_term_matches=1,
+                        )
                     ]
                 },
                 match_strength=MatchStrength(
