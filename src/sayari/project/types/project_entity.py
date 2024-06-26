@@ -35,6 +35,11 @@ class ProjectEntity(pydantic_v1.BaseModel):
 
     tag_ids: typing.List[str]
     case_status: str
+    custom_fields: typing.Optional[typing.Any] = pydantic_v1.Field(default=None)
+    """
+    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
+    """
+
     match_strength: typing.Any
     shipped_hs_codes: typing.List[str] = pydantic_v1.Field()
     """

@@ -5,11 +5,17 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .trade_traversal_path_segment import TradeTraversalPathSegment
+from .resolution_response_fields import ResolutionResponseFields
 
 
-class TradeTraversalPathSegments(pydantic_v1.BaseModel):
-    segments: typing.List[TradeTraversalPathSegment]
+class ResolutionPersistedResponseFields(ResolutionResponseFields):
+    custom_field_name: typing.Optional[str] = pydantic_v1.Field(alias="custom_<field name>", default=None)
+    """
+    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
+    """
+
+    custom_name: typing.Optional[str] = None
+    custom_identifier: typing.Optional[str] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -26,5 +32,7 @@ class TradeTraversalPathSegments(pydantic_v1.BaseModel):
     class Config:
         frozen = True
         smart_union = True
+        allow_population_by_field_name = True
+        populate_by_name = True
         extra = pydantic_v1.Extra.allow
         json_encoders = {dt.datetime: serialize_datetime}

@@ -2,22 +2,20 @@
 
 from .types import (
     EntityId,
+    HsCodeWithDescription,
     TradeTraversalEntity,
     TradeTraversalPath,
-    TradeTraversalPathOrSegment,
     TradeTraversalPathSegment,
-    TradeTraversalPathSegments,
     TradeTraversalProduct,
     UpstreamTradeTraversalResponse,
 )
 
 __all__ = [
     "EntityId",
+    "HsCodeWithDescription",
     "TradeTraversalEntity",
     "TradeTraversalPath",
-    "TradeTraversalPathOrSegment",
     "TradeTraversalPathSegment",
-    "TradeTraversalPathSegments",
     "TradeTraversalProduct",
     "UpstreamTradeTraversalResponse",
 ]

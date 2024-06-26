@@ -5,11 +5,11 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .resolution_response_fields import ResolutionResponseFields
-from .resolution_result import ResolutionResult
+from .resolution_persisted_response_fields import ResolutionPersistedResponseFields
+from .resolution_persisted_result import ResolutionPersistedResult
 
 
-class ResolutionResponse(pydantic_v1.BaseModel):
+class ResolutionPersistedResponse(pydantic_v1.BaseModel):
     """
     Examples
     --------
@@ -17,17 +17,19 @@ class ResolutionResponse(pydantic_v1.BaseModel):
         Identifier,
         MatchExplanation,
         MatchStrength,
-        ResolutionResponse,
-        ResolutionResponseFields,
-        ResolutionResult,
+        ResolutionPersistedResponse,
+        ResolutionPersistedResponseFields,
+        ResolutionPersistedResult,
     )
 
-    ResolutionResponse(
-        fields=ResolutionResponseFields(
+    ResolutionPersistedResponse(
+        fields=ResolutionPersistedResponseFields(
             name=["victoria beckham limited"],
+            custom_name="Victoria Beckham",
         ),
         data=[
-            ResolutionResult(
+            ResolutionPersistedResult(
+                saved_entity_id="xG8wYP",
                 profile="corporate",
                 score=167.28214,
                 entity_id="mGq1lpuqKssNWTjIokuPeA",
@@ -105,8 +107,8 @@ class ResolutionResponse(pydantic_v1.BaseModel):
     )
     """
 
-    fields: ResolutionResponseFields
-    data: typing.List[ResolutionResult]
+    fields: ResolutionPersistedResponseFields
+    data: typing.List[ResolutionPersistedResult]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

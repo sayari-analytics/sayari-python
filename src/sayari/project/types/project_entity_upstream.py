@@ -12,6 +12,7 @@ from ...generated_types.types.risk import Risk
 class ProjectEntityUpstream(pydantic_v1.BaseModel):
     risk: typing.List[Risk]
     countries: typing.List[Country]
+    entities: int
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

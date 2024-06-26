@@ -5,14 +5,11 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .trade_traversal_entity import TradeTraversalEntity
-from .trade_traversal_path_segment import TradeTraversalPathSegment
 
 
-class TradeTraversalPath(pydantic_v1.BaseModel):
-    source: str
-    target: TradeTraversalEntity
-    path: typing.List[TradeTraversalPathSegment]
+class HsCodeWithDescription(pydantic_v1.BaseModel):
+    code: str
+    description: str
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

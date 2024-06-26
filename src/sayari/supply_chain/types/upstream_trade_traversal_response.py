@@ -5,9 +5,7 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .entity_id import EntityId
-from .trade_traversal_entity import TradeTraversalEntity
-from .trade_traversal_path_or_segment import TradeTraversalPathOrSegment
+from .trade_traversal_path import TradeTraversalPath
 
 
 class UpstreamTradeTraversalResponse(pydantic_v1.BaseModel):
@@ -15,73 +13,82 @@ class UpstreamTradeTraversalResponse(pydantic_v1.BaseModel):
     Examples
     --------
     from sayari import (
+        HsCodeWithDescription,
         TradeTraversalEntity,
         TradeTraversalPath,
         TradeTraversalPathSegment,
-        TradeTraversalPathSegments,
         TradeTraversalProduct,
         UpstreamTradeTraversalResponse,
     )
 
     UpstreamTradeTraversalResponse(
-        paths=[
+        data=[
             TradeTraversalPath(
-                start="ESkH7J-UCRfY5t0_JXIH3w",
-                end="A84F35yJ_3FT_hVzD9EzAw",
-                paths=[
-                    TradeTraversalPathSegments(
-                        segments=[
-                            TradeTraversalPathSegment(
-                                src="A84F35yJ_3FT_hVzD9EzAw",
-                                dst="ESkH7J-UCRfY5t0_JXIH3w",
-                                products=[
-                                    TradeTraversalProduct(
-                                        hs_code="3206",
-                                        min_date="2023-01-01",
-                                        max_date="2023-11-25",
-                                        arrival_countries=["VNM"],
-                                        departure_countries=["IND"],
-                                    ),
-                                    TradeTraversalProduct(
-                                        hs_code="3204",
-                                        min_date="2023-03-01",
-                                        max_date="2023-11-25",
-                                        arrival_countries=["VNM"],
-                                        departure_countries=["IND"],
-                                    ),
-                                ],
+                source="ESkH7J-UCRfY5t0_JXIH3w",
+                target=TradeTraversalEntity(
+                    id="BAQGiWn9riAG10h4NuK_9w",
+                    type="company",
+                    label="TEXMARK CHEMICALS INC",
+                    countries=["USA"],
+                    risk=["forced_labor_xinjiang_origin_subtier"],
+                ),
+                path=[
+                    TradeTraversalPathSegment(
+                        entity=TradeTraversalEntity(
+                            id="ESkH7J-UCRfY5t0_JXIH3w",
+                            type="company",
+                            label="ACUMEN HOUSEWARE INDUSTRY VIETNAM CO LTD",
+                            countries=["VNM"],
+                            risk=[],
+                        ),
+                        products=[
+                            TradeTraversalProduct(
+                                hs_code=HsCodeWithDescription(
+                                    code="3204",
+                                    description="Synthetic dyes & agents",
+                                ),
+                                min_date="2023-04-01",
+                                max_date="2024-03-27",
+                                arrival_countries=["VNM"],
+                                departure_countries=["IND"],
                             )
                         ],
-                    )
+                    ),
+                    TradeTraversalPathSegment(
+                        entity=TradeTraversalEntity(
+                            id="A84F35yJ_3FT_hVzD9EzAw",
+                            type="company",
+                            label="TOYO INK INDIA PRIVATE LIMITED",
+                            countries=["IND"],
+                            risk=[
+                                "forced_labor_sheffield_hallam_university_reports_origin_subtier",
+                                "forced_labor_uflpa_origin_subtier",
+                                "forced_labor_xinjiang_origin_subtier",
+                            ],
+                        ),
+                        products=[
+                            TradeTraversalProduct(
+                                hs_code=HsCodeWithDescription(
+                                    code="3206",
+                                    description="Other dyes & colorants",
+                                ),
+                                min_date="2023-03-01",
+                                max_date="2024-02-12",
+                                arrival_countries=["IND"],
+                                departure_countries=["CHN"],
+                            )
+                        ],
+                    ),
                 ],
             )
         ],
-        entities={
-            "ESkH7J-UCRfY5t0_JXIH3w": TradeTraversalEntity(
-                type="company",
-                label="ACUMEN HOUSEWARE INDUSTRY VIETNAM CO LTD",
-                countries=["VNM"],
-                risks=[],
-            ),
-            "A84F35yJ_3FT_hVzD9EzAw": TradeTraversalEntity(
-                type="company",
-                label="TOYO INK INDIA PRIVATE LIMITED",
-                countries=["IND"],
-                risks=[
-                    "forced_labor_sheffield_hallam_university_reports_origin_subtier",
-                    "forced_labor_uflpa_origin_subtier",
-                    "forced_labor_xinjiang_origin_subtier",
-                ],
-            ),
-        },
     )
     """
 
     status: typing.Optional[int] = None
     success: typing.Optional[bool] = None
     message: typing.Optional[str] = None
-    entities: typing.Dict[EntityId, TradeTraversalEntity]
-    paths: TradeTraversalPathOrSegment
+    data: typing.List[TradeTraversalPath]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

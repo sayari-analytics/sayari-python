@@ -26,7 +26,11 @@ from .role import Role
 from .role_member import RoleMember
 from .role_member_type import RoleMemberType
 from .sort_field import SortField
+from .tier_count import TierCount
+from .tier_count_agg import TierCountAgg
+from .tier_count_keys import TierCountKeys
 from .trade_count import TradeCount
+from .upstream_tiers import UpstreamTiers
 
 __all__ = [
     "BucketAgg",
@@ -55,5 +59,9 @@ __all__ = [
     "RoleMember",
     "RoleMemberType",
     "SortField",
+    "TierCount",
+    "TierCountAgg",
+    "TierCountKeys",
     "TradeCount",
+    "UpstreamTiers",
 ]

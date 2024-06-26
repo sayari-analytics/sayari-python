@@ -18,6 +18,7 @@ class SaveEntityRequest(pydantic_v1.BaseModel):
         type="entity",
         project="GNJbkG",
         entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
+        custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
     )
     """
 
@@ -30,6 +31,11 @@ class SaveEntityRequest(pydantic_v1.BaseModel):
     entity_id: str = pydantic_v1.Field()
     """
     The entity identifier.
+    """
+
+    custom_fields: typing.Any = pydantic_v1.Field()
+    """
+    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
     """
 
     def json(self, **kwargs: typing.Any) -> str:

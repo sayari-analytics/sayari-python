@@ -25,6 +25,10 @@ class ProjectNotificationData(pydantic_v1.BaseModel):
     """
 
     notifications: typing.List[Notification]
+    custom_fields: typing.Optional[typing.Any] = pydantic_v1.Field(default=None)
+    """
+    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

@@ -51,6 +51,10 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 entity_id="FyI9lrlmA-7z_3enlTOhlw",
                 tag_ids=[],
                 case_status="not_assigned",
+                custom_fields={
+                    "custom_company_size": "200+",
+                    "custom_company_type": "flower services",
+                },
                 received_hs_codes=["271290", "271220"],
                 shipped_hs_codes=[],
                 trade_count_incl_mg=TradeCount(
@@ -71,6 +75,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 upstream=ProjectEntityUpstream(
                     risk=[],
                     countries=[],
+                    entities=0,
                 ),
                 psa=PsaSummary(
                     risk=[
@@ -247,7 +252,16 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 ),
             ],
             tag_ids=[],
-            upstream_risk=[],
+            upstream_risk=[
+                BucketAgg(
+                    key="eu_high_risk_third",
+                    doc_count=1,
+                ),
+                BucketAgg(
+                    key="export_to_soe",
+                    doc_count=4,
+                ),
+            ],
             hit_count=[
                 BucketAgg(
                     key="hit_count",
@@ -299,7 +313,16 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 )
             ],
             business_purpose=[],
-            upstream_country=[],
+            upstream_country=[
+                BucketAgg(
+                    key="USA",
+                    doc_count=1,
+                ),
+                BucketAgg(
+                    key="CAN",
+                    doc_count=3,
+                ),
+            ],
             received_hs_codes=HsCodeAgg(
                 doc_count=2,
                 hs_code_terms=HsCodeAggTerms(
@@ -329,6 +352,19 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     doc_count=1,
                 )
             ],
+            upstream_country_tiers={
+                "USA": {"tier2": 1, "totalCount": 1},
+                "CAN": {"tier1": 1, "tier2": 2, "totalCount": 3},
+            },
+            upstream_risk_tiers={
+                "eu_high_risk_third": {"tier4": 1, "totalCount": 1},
+                "export_to_soe": {
+                    "tier1": 1,
+                    "tier3": 1,
+                    "tier4": 2,
+                    "totalCount": 4,
+                },
+            },
             shipped_hs_codes=HsCodeAgg(
                 doc_count=0,
                 hs_code_terms=HsCodeAggTerms(
