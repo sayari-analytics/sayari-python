@@ -27,7 +27,11 @@ from .types import (
     RoleMember,
     RoleMemberType,
     SortField,
+    TierCount,
+    TierCountAgg,
+    TierCountKeys,
     TradeCount,
+    UpstreamTiers,
 )
 
 __all__ = [
@@ -57,5 +61,9 @@ __all__ = [
     "RoleMember",
     "RoleMemberType",
     "SortField",
+    "TierCount",
+    "TierCountAgg",
+    "TierCountKeys",
     "TradeCount",
+    "UpstreamTiers",
 ]

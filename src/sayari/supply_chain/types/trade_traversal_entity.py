@@ -8,10 +8,11 @@ from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 
 
 class TradeTraversalEntity(pydantic_v1.BaseModel):
+    id: str
     type: str
     label: str
     countries: typing.List[str]
-    risks: typing.List[str]
+    risk: typing.List[str]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

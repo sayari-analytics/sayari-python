@@ -24,6 +24,7 @@ from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedRe
 from ..shared_errors.types.not_found_response import NotFoundResponse
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from .types.notifications_sort_field import NotificationsSortField
 from .types.project_notifications_response import ProjectNotificationsResponse
 from .types.resource_notifications_response import ResourceNotificationsResponse
 
@@ -38,6 +39,7 @@ class NotificationsClient:
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        sort: typing.Optional[NotificationsSortField] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
@@ -53,6 +55,8 @@ class NotificationsClient:
 
         offset : typing.Optional[int]
             Offset which notifications are returned. Defaults to 0.
+
+        sort : typing.Optional[NotificationsSortField]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -77,7 +81,7 @@ class NotificationsClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/notifications/projects/{jsonable_encoder(id)}",
             method="GET",
-            params={"limit": limit, "offset": offset},
+            params={"limit": limit, "offset": offset, "sort": sort},
             request_options=request_options,
         )
         if 200 <= _response.status_code < 300:
@@ -357,6 +361,7 @@ class AsyncNotificationsClient:
         *,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        sort: typing.Optional[NotificationsSortField] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
@@ -372,6 +377,8 @@ class AsyncNotificationsClient:
 
         offset : typing.Optional[int]
             Offset which notifications are returned. Defaults to 0.
+
+        sort : typing.Optional[NotificationsSortField]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -396,7 +403,7 @@ class AsyncNotificationsClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/projects/{jsonable_encoder(id)}",
             method="GET",
-            params={"limit": limit, "offset": offset},
+            params={"limit": limit, "offset": offset, "sort": sort},
             request_options=request_options,
         )
         if 200 <= _response.status_code < 300:

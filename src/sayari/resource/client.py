@@ -64,6 +64,7 @@ class ResourceClient:
                 type="entity",
                 project="GNJbkG",
                 entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
+                custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
             ),
         )
         """
@@ -187,6 +188,7 @@ class AsyncResourceClient:
                 type="entity",
                 project="GNJbkG",
                 entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
+                custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
             ),
         )
         """

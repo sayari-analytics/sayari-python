@@ -7,6 +7,7 @@ from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from .bucket_agg import BucketAgg
 from .hs_code_agg import HsCodeAgg
+from .tier_count_agg import TierCountAgg
 
 
 class ProjectEntitiesAggs(pydantic_v1.BaseModel):
@@ -17,8 +18,10 @@ class ProjectEntitiesAggs(pydantic_v1.BaseModel):
     hit_count: typing.Optional[typing.List[BucketAgg]] = None
     country: typing.Optional[typing.List[BucketAgg]] = None
     upstream_country: typing.Optional[typing.List[BucketAgg]] = None
+    upstream_country_tiers: typing.Optional[TierCountAgg] = None
     risk: typing.Optional[typing.List[BucketAgg]] = None
     upstream_risk: typing.Optional[typing.List[BucketAgg]] = None
+    upstream_risk_tiers: typing.Optional[TierCountAgg] = None
     source: typing.Optional[typing.List[BucketAgg]] = None
     business_purpose: typing.Optional[typing.List[BucketAgg]] = None
     tag_ids: typing.Optional[typing.List[BucketAgg]] = None

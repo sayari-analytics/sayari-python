@@ -234,10 +234,10 @@ class ProjectClient:
         sort : typing.Optional[SortField]
 
         filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
-            Only return entities that match the specified filters.
+            Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
 
         aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
-            Aggregations for entities in a project.
+            Aggregations that should be returned for entities in the project.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -273,7 +273,7 @@ class ProjectClient:
                 "shipped_hs_codes": shipped_hs_codes,
                 "translation": translation,
                 "sort": sort,
-                "filters": filters,
+                "filters": jsonable_encoder(filters),
                 "aggregations": aggregations,
             },
             headers={"Accept": str(accept) if accept is not None else None},
@@ -553,10 +553,10 @@ class AsyncProjectClient:
         sort : typing.Optional[SortField]
 
         filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
-            Only return entities that match the specified filters.
+            Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
 
         aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
-            Aggregations for entities in a project.
+            Aggregations that should be returned for entities in the project.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -592,7 +592,7 @@ class AsyncProjectClient:
                 "shipped_hs_codes": shipped_hs_codes,
                 "translation": translation,
                 "sort": sort,
-                "filters": filters,
+                "filters": jsonable_encoder(filters),
                 "aggregations": aggregations,
             },
             headers={"Accept": str(accept) if accept is not None else None},

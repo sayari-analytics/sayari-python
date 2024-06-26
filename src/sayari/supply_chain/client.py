@@ -33,16 +33,18 @@ class SupplyChainClient:
         self,
         id: str,
         *,
+        risk: typing.Optional[typing.Sequence[Risk]] = None,
+        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        risks: typing.Optional[typing.Sequence[Risk]] = None,
-        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
-        hs_code: typing.Optional[typing.Sequence[str]] = None,
-        not_hs_code: typing.Optional[typing.Sequence[str]] = None,
-        components: typing.Optional[typing.Sequence[str]] = None,
-        not_components: typing.Optional[typing.Sequence[str]] = None,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
+        component: typing.Optional[typing.Sequence[str]] = None,
+        not_component: typing.Optional[typing.Sequence[str]] = None,
+        min_date: typing.Optional[str] = None,
+        max_date: typing.Optional[str] = None,
         max_depth: typing.Optional[int] = None,
-        date: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
@@ -53,35 +55,41 @@ class SupplyChainClient:
         id : str
             The root entity identifier.
 
+        risk : typing.Optional[typing.Sequence[Risk]]
+            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified [risk factors](/sayari-library/ontology/risk-factors).
+
+        not_risk : typing.Optional[typing.Sequence[Risk]]
+            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified [risk factors](/sayari-library/ontology/risk-factors).
+
         countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
 
-        risks : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
-
-        not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
-
-        hs_code : typing.Optional[typing.Sequence[str]]
+        product : typing.Optional[typing.Sequence[str]]
             Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
 
-        not_hs_code : typing.Optional[typing.Sequence[str]]
+        not_product : typing.Optional[typing.Sequence[str]]
             Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
-        components : typing.Optional[typing.Sequence[str]]
+        component : typing.Optional[typing.Sequence[str]]
             Component node filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
 
-        not_components : typing.Optional[typing.Sequence[str]]
+        not_component : typing.Optional[typing.Sequence[str]]
             Component node filter. Only return supply chains that contain no edges with any of the specified HS codes.
+
+        min_date : typing.Optional[str]
+            Minimum date edge filter. Only return supply chains with edge dates that are greater than or equal to this date.
+
+        max_date : typing.Optional[str]
+            Maximum date edge filter. Only return supply chains with edge dates that are less than or equal to this date.
 
         max_depth : typing.Optional[int]
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
-        date : typing.Optional[str]
-            The date range to filter the supply chain by by only considering shipments within the specified date range, inclusive. The date range is formatted as "YYYY-MM-DD|YYYY-MM-DD", where the first date is the start date and the second date is the end date. Both dates are optional, e.g. "|2022-01-01" will return all shipments up to and including 2022-01-01.
+        limit : typing.Optional[int]
+            The maximum number of results to return. Default and maximum values are 25,000.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -100,27 +108,27 @@ class SupplyChainClient:
         )
         client.supply_chain.upstream_trade_traversal(
             id="ESkH7J-UCRfY5t0_JXIH3w",
-            date="2023-06-01",
-            hs_code=["3206"],
-            components=["3204"],
-            max_depth=2,
-            risks=["forced_labor_uflpa_origin_subtier"],
+            min_date="2023-03-15",
+            product=["3204"],
+            risk=["forced_labor_xinjiang_origin_subtier"],
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/upstream/{jsonable_encoder(id)}",
+            f"v1/supply_chain/upstream/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "risk": jsonable_encoder(risk),
+                "-risk": jsonable_encoder(not_risk),
                 "countries": jsonable_encoder(countries),
                 "-countries": jsonable_encoder(not_countries),
-                "risks": jsonable_encoder(risks),
-                "-risks": jsonable_encoder(not_risk),
-                "hs_code": jsonable_encoder(hs_code),
-                "-hs_code": jsonable_encoder(not_hs_code),
-                "components": jsonable_encoder(components),
-                "-components": jsonable_encoder(not_components),
+                "product": jsonable_encoder(product),
+                "-product": jsonable_encoder(not_product),
+                "component": jsonable_encoder(component),
+                "-component": jsonable_encoder(not_component),
+                "min_date": min_date,
+                "max_date": max_date,
                 "max_depth": max_depth,
-                "date": date,
+                "limit": limit,
             },
             request_options=request_options,
         )
@@ -155,16 +163,18 @@ class AsyncSupplyChainClient:
         self,
         id: str,
         *,
+        risk: typing.Optional[typing.Sequence[Risk]] = None,
+        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        risks: typing.Optional[typing.Sequence[Risk]] = None,
-        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
-        hs_code: typing.Optional[typing.Sequence[str]] = None,
-        not_hs_code: typing.Optional[typing.Sequence[str]] = None,
-        components: typing.Optional[typing.Sequence[str]] = None,
-        not_components: typing.Optional[typing.Sequence[str]] = None,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
+        component: typing.Optional[typing.Sequence[str]] = None,
+        not_component: typing.Optional[typing.Sequence[str]] = None,
+        min_date: typing.Optional[str] = None,
+        max_date: typing.Optional[str] = None,
         max_depth: typing.Optional[int] = None,
-        date: typing.Optional[str] = None,
+        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
@@ -175,35 +185,41 @@ class AsyncSupplyChainClient:
         id : str
             The root entity identifier.
 
+        risk : typing.Optional[typing.Sequence[Risk]]
+            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified [risk factors](/sayari-library/ontology/risk-factors).
+
+        not_risk : typing.Optional[typing.Sequence[Risk]]
+            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified [risk factors](/sayari-library/ontology/risk-factors).
+
         countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
 
-        risks : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
-
-        not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
-
-        hs_code : typing.Optional[typing.Sequence[str]]
+        product : typing.Optional[typing.Sequence[str]]
             Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
 
-        not_hs_code : typing.Optional[typing.Sequence[str]]
+        not_product : typing.Optional[typing.Sequence[str]]
             Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
-        components : typing.Optional[typing.Sequence[str]]
+        component : typing.Optional[typing.Sequence[str]]
             Component node filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
 
-        not_components : typing.Optional[typing.Sequence[str]]
+        not_component : typing.Optional[typing.Sequence[str]]
             Component node filter. Only return supply chains that contain no edges with any of the specified HS codes.
+
+        min_date : typing.Optional[str]
+            Minimum date edge filter. Only return supply chains with edge dates that are greater than or equal to this date.
+
+        max_date : typing.Optional[str]
+            Maximum date edge filter. Only return supply chains with edge dates that are less than or equal to this date.
 
         max_depth : typing.Optional[int]
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
-        date : typing.Optional[str]
-            The date range to filter the supply chain by by only considering shipments within the specified date range, inclusive. The date range is formatted as "YYYY-MM-DD|YYYY-MM-DD", where the first date is the start date and the second date is the end date. Both dates are optional, e.g. "|2022-01-01" will return all shipments up to and including 2022-01-01.
+        limit : typing.Optional[int]
+            The maximum number of results to return. Default and maximum values are 25,000.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -222,27 +238,27 @@ class AsyncSupplyChainClient:
         )
         await client.supply_chain.upstream_trade_traversal(
             id="ESkH7J-UCRfY5t0_JXIH3w",
-            date="2023-06-01",
-            hs_code=["3206"],
-            components=["3204"],
-            max_depth=2,
-            risks=["forced_labor_uflpa_origin_subtier"],
+            min_date="2023-03-15",
+            product=["3204"],
+            risk=["forced_labor_xinjiang_origin_subtier"],
         )
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/upstream/{jsonable_encoder(id)}",
+            f"v1/supply_chain/upstream/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "risk": jsonable_encoder(risk),
+                "-risk": jsonable_encoder(not_risk),
                 "countries": jsonable_encoder(countries),
                 "-countries": jsonable_encoder(not_countries),
-                "risks": jsonable_encoder(risks),
-                "-risks": jsonable_encoder(not_risk),
-                "hs_code": jsonable_encoder(hs_code),
-                "-hs_code": jsonable_encoder(not_hs_code),
-                "components": jsonable_encoder(components),
-                "-components": jsonable_encoder(not_components),
+                "product": jsonable_encoder(product),
+                "-product": jsonable_encoder(not_product),
+                "component": jsonable_encoder(component),
+                "-component": jsonable_encoder(not_component),
+                "min_date": min_date,
+                "max_date": max_date,
                 "max_depth": max_depth,
-                "date": date,
+                "limit": limit,
             },
             request_options=request_options,
         )

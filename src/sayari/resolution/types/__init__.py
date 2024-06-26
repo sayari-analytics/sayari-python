@@ -3,6 +3,10 @@
 from .match_explanation import MatchExplanation
 from .match_strength import MatchStrength
 from .profile_enum import ProfileEnum
+from .resolution_body import ResolutionBody
+from .resolution_persisted_response import ResolutionPersistedResponse
+from .resolution_persisted_response_fields import ResolutionPersistedResponseFields
+from .resolution_persisted_result import ResolutionPersistedResult
 from .resolution_response import ResolutionResponse
 from .resolution_response_fields import ResolutionResponseFields
 from .resolution_result import ResolutionResult
@@ -11,6 +15,10 @@ __all__ = [
     "MatchExplanation",
     "MatchStrength",
     "ProfileEnum",
+    "ResolutionBody",
+    "ResolutionPersistedResponse",
+    "ResolutionPersistedResponseFields",
+    "ResolutionPersistedResult",
     "ResolutionResponse",
     "ResolutionResponseFields",
     "ResolutionResult",
