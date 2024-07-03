@@ -305,7 +305,7 @@ def test_shipment_search(setup_connection):
 
     # test field and multi-filter
     buyer_name = "HANSOLL TEXTILE LTD"
-    buyer_id = "f_nIivE32HCYDPEoSPTGJw"
+    buyer_id = "ZxL0IrGu9KNKx3NJjN0aeA"
     hs_code = "600410"
     filter_value = {"buyer_id": [buyer_id], "hs_code": [hs_code]}
     shipments = client.trade.search_shipments(q=buyer_name, filter=filter_value)
