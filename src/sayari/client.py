@@ -91,7 +91,9 @@ class Sayari(BaseClient):
         set_start_method('fork')
         rows_to_process = Queue()
         results = Queue()
-        num_processes = 3
+        # this can be scaled up to allow for more concurrent processes
+        # it was reduced from 3 -> 1 to cope with rate limiting
+        num_processes = 1
         processes = []
 
         # Open csv
