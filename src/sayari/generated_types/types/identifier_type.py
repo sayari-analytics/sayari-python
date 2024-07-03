@@ -586,7 +586,11 @@ IdentifierType = typing.Union[
         "can_nrd_individual_id",
         "jam_company_id",
         "esp_internal_employee_number",
+        "nzl_russia_sanctions_uid",
         "can_new_brunswick_reference_number",
+        "fra_asset_freeze_id",
+        "srb_beneficial_owner_id",
+        "can_pe_registration_number",
     ],
     typing.Any,
 ]
