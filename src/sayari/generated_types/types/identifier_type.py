@@ -591,6 +591,7 @@ IdentifierType = typing.Union[
         "fra_asset_freeze_id",
         "srb_beneficial_owner_id",
         "can_pe_registration_number",
+        "cuw_reg_number",
     ],
     typing.Any,
 ]
