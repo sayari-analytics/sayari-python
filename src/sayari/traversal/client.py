@@ -1060,16 +1060,24 @@ class AsyncTraversalClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.traversal.traversal(
-            id="mGq1lpuqKssNWTjIokuPeA",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.traversal.traversal(
+                id="mGq1lpuqKssNWTjIokuPeA",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/traversal/{jsonable_encoder(id)}",
@@ -1266,16 +1274,24 @@ class AsyncTraversalClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.traversal.ubo(
-            id="mGq1lpuqKssNWTjIokuPeA",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.traversal.ubo(
+                id="mGq1lpuqKssNWTjIokuPeA",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/ubo/{jsonable_encoder(id)}",
@@ -1472,16 +1488,24 @@ class AsyncTraversalClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.traversal.ownership(
-            id="mGq1lpuqKssNWTjIokuPeA",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.traversal.ownership(
+                id="mGq1lpuqKssNWTjIokuPeA",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/downstream/{jsonable_encoder(id)}",
@@ -1678,16 +1702,24 @@ class AsyncTraversalClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.traversal.watchlist(
-            id="mGq1lpuqKssNWTjIokuPeA",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.traversal.watchlist(
+                id="mGq1lpuqKssNWTjIokuPeA",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/watchlist/{jsonable_encoder(id)}",
@@ -1775,15 +1807,23 @@ class AsyncTraversalClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.traversal.shortest_path(
-            entities="string",
-        )
+
+
+        async def main() -> None:
+            await client.traversal.shortest_path(
+                entities="string",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/shortest_path", method="GET", params={"entities": entities}, request_options=request_options

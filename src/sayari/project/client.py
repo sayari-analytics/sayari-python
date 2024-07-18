@@ -387,6 +387,8 @@ class AsyncProjectClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import CreateProjectRequest
         from sayari.client import AsyncSayari
 
@@ -394,11 +396,17 @@ class AsyncProjectClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.project.create_project(
-            request=CreateProjectRequest(
-                label="Project Alpha",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.project.create_project(
+                request=CreateProjectRequest(
+                    label="Project Alpha",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/projects", method="POST", json=request, request_options=request_options, omit=OMIT
@@ -462,16 +470,24 @@ class AsyncProjectClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.project.get_projects(
-            archived=False,
-            limit=8,
-        )
+
+
+        async def main() -> None:
+            await client.project.get_projects(
+                archived=False,
+                limit=8,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/projects",
@@ -579,16 +595,24 @@ class AsyncProjectClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.project.get_project_entities(
-            id="gPq6EY",
-            accept="application/json",
-        )
+
+
+        async def main() -> None:
+            await client.project.get_project_entities(
+                id="gPq6EY",
+                accept="application/json",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(id)}/contents/entity",
@@ -653,15 +677,23 @@ class AsyncProjectClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.project.delete_project(
-            project_id="Gam5qG",
-        )
+
+
+        async def main() -> None:
+            await client.project.delete_project(
+                project_id="Gam5qG",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}", method="DELETE", request_options=request_options

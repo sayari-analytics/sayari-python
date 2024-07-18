@@ -180,6 +180,8 @@ class AsyncResourceClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import SaveEntityRequest
         from sayari.client import AsyncSayari
 
@@ -187,14 +189,20 @@ class AsyncResourceClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.resource.save_entity(
-            request=SaveEntityRequest(
-                type="entity",
-                project="GNJbkG",
-                entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
-                custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.resource.save_entity(
+                request=SaveEntityRequest(
+                    type="entity",
+                    project="GNJbkG",
+                    entity_id="Zk0qOaM2SSYg_ZhsljykMQ",
+                    custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/resource/entity", method="POST", json=request, request_options=request_options, omit=OMIT
@@ -244,16 +252,24 @@ class AsyncResourceClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.resource.delete_resource(
-            type="entity",
-            resource_id="YWmNKV",
-        )
+
+
+        async def main() -> None:
+            await client.resource.delete_resource(
+                type="entity",
+                resource_id="YWmNKV",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/resource/{jsonable_encoder(type)}/{jsonable_encoder(resource_id)}",

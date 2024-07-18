@@ -7,6 +7,7 @@ from . import (
     entity,
     generated_types,
     info,
+    metadata,
     notifications,
     project,
     record,
@@ -121,6 +122,7 @@ from .generated_types import (
     WeakIdentifierType,
 )
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
+from .metadata import MetadataResponse, UserInfo
 from .notifications import (
     Notification,
     NotificationAdditionalInformation,
@@ -395,6 +397,7 @@ __all__ = [
     "MeasurementInfo",
     "MeasurementProperties",
     "MeasurementType",
+    "MetadataResponse",
     "MethodNotAllowed",
     "MethodNotAllowedResponse",
     "MonetaryValue",
@@ -531,6 +534,7 @@ __all__ = [
     "UpstreamTradeTraversalResponse",
     "UsageInfo",
     "UsageResponse",
+    "UserInfo",
     "WeakIdentifierData",
     "WeakIdentifierInfo",
     "WeakIdentifierProperties",
@@ -543,6 +547,7 @@ __all__ = [
     "entity",
     "generated_types",
     "info",
+    "metadata",
     "notifications",
     "project",
     "record",

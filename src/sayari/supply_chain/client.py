@@ -232,18 +232,26 @@ class AsyncSupplyChainClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.supply_chain.upstream_trade_traversal(
-            id="ESkH7J-UCRfY5t0_JXIH3w",
-            min_date="2023-03-15",
-            product=["3204"],
-            risk=["forced_labor_xinjiang_origin_subtier"],
-        )
+
+
+        async def main() -> None:
+            await client.supply_chain.upstream_trade_traversal(
+                id="ESkH7J-UCRfY5t0_JXIH3w",
+                min_date="2023-03-15",
+                product=["3204"],
+                risk=["forced_labor_xinjiang_origin_subtier"],
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/supply_chain/upstream/{jsonable_encoder(id)}",

@@ -277,6 +277,8 @@ class AsyncAttributesClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import AddAttribute
         from sayari.client import AsyncSayari
 
@@ -284,22 +286,28 @@ class AsyncAttributesClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.attributes.post_attribute(
-            request=AddAttribute(
-                entity="zq04axX2dLn9tE6W6Q8Qhg",
-                type="address",
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.attributes.post_attribute(
+                request=AddAttribute(
+                    entity="zq04axX2dLn9tE6W6Q8Qhg",
+                    type="address",
+                    value={
+                        "street1": "1600 Pennsylvania Avenue NW",
+                        "city": "Washington DC",
+                        "state": "Washington DC",
+                        "postalCode": "20500",
+                        "country": "US",
+                    },
+                    to_date="2024-04-30",
+                    from_date="2024-01-01",
+                    date="2024-02-15",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/attribute", method="POST", json=request, request_options=request_options, omit=OMIT
@@ -353,6 +361,8 @@ class AsyncAttributesClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import UpdateAttribute
         from sayari.client import AsyncSayari
 
@@ -360,21 +370,27 @@ class AsyncAttributesClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.attributes.patch_attribute(
-            attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
-            request=UpdateAttribute(
-                value={
-                    "street1": "1600 Pennsylvania Avenue NW",
-                    "city": "Washington DC",
-                    "state": "Washington DC",
-                    "postalCode": "20500",
-                    "country": "US",
-                },
-                to_date="2024-04-30",
-                from_date="2024-01-01",
-                date="2024-02-15",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.attributes.patch_attribute(
+                attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
+                request=UpdateAttribute(
+                    value={
+                        "street1": "1600 Pennsylvania Avenue NW",
+                        "city": "Washington DC",
+                        "state": "Washington DC",
+                        "postalCode": "20500",
+                        "country": "US",
+                    },
+                    to_date="2024-04-30",
+                    from_date="2024-01-01",
+                    date="2024-02-15",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/attribute/{jsonable_encoder(attribute_id)}",
@@ -432,15 +448,23 @@ class AsyncAttributesClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.attributes.delete_attribute(
-            attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
-        )
+
+
+        async def main() -> None:
+            await client.attributes.delete_attribute(
+                attribute_id="enEwNGF4WDJkTG45dEU2VzZROFFoZ3xhZGRyZXNzfDBwbEVCMHxVNzhzN21yOUVFTThIZ3pwREM3UDFB",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/attribute/{jsonable_encoder(attribute_id)}", method="DELETE", request_options=request_options

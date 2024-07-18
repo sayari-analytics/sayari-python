@@ -459,16 +459,24 @@ class AsyncSearchClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.search.search_entity(
-            limit=1,
-            q="victoria beckham limited",
-        )
+
+
+        async def main() -> None:
+            await client.search.search_entity(
+                limit=1,
+                q="victoria beckham limited",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/search/entity",
@@ -556,16 +564,24 @@ class AsyncSearchClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.search.search_entity_get(
-            limit=1,
-            q="victoria beckham limited",
-        )
+
+
+        async def main() -> None:
+            await client.search.search_entity_get(
+                limit=1,
+                q="victoria beckham limited",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/search/entity",
@@ -652,16 +668,24 @@ class AsyncSearchClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.search.search_record(
-            limit=1,
-            q="victoria beckham limited",
-        )
+
+
+        async def main() -> None:
+            await client.search.search_record(
+                limit=1,
+                q="victoria beckham limited",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/search/record",
@@ -738,16 +762,24 @@ class AsyncSearchClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.search.search_record_get(
-            q="victoria beckham limited",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.search.search_record_get(
+                q="victoria beckham limited",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/search/record",
