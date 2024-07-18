@@ -368,16 +368,24 @@ class AsyncResolutionClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.resolution.resolution(
-            name="victoria beckham limited",
-            limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.resolution.resolution(
+                name="victoria beckham limited",
+                limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/resolution",
@@ -450,6 +458,8 @@ class AsyncResolutionClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import ResolutionBody
         from sayari.client import AsyncSayari
 
@@ -457,12 +467,18 @@ class AsyncResolutionClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.resolution.resolution_post(
-            limit=1,
-            request=ResolutionBody(
-                name=["victoria beckham limited"],
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.resolution.resolution_post(
+                limit=1,
+                request=ResolutionBody(
+                    name=["victoria beckham limited"],
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/resolution",
@@ -530,6 +546,8 @@ class AsyncResolutionClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari import ResolutionBody
         from sayari.client import AsyncSayari
 
@@ -537,13 +555,19 @@ class AsyncResolutionClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.resolution.resolution_persisted(
-            project_id="V03eYM",
-            limit=1,
-            request=ResolutionBody(
-                name=["victoria beckham limited"],
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.resolution.resolution_persisted(
+                project_id="V03eYM",
+                limit=1,
+                request=ResolutionBody(
+                    name=["victoria beckham limited"],
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/resolution/persisted/{jsonable_encoder(project_id)}",

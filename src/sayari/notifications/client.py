@@ -403,16 +403,24 @@ class AsyncNotificationsClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.notifications.project_notifications(
-            id="0oZnoG",
-            limit=20,
-        )
+
+
+        async def main() -> None:
+            await client.notifications.project_notifications(
+                id="0oZnoG",
+                limit=20,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/projects/{jsonable_encoder(id)}",
@@ -481,16 +489,24 @@ class AsyncNotificationsClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.notifications.resource_notifications(
-            id="03ePyj",
-            limit=20,
-        )
+
+
+        async def main() -> None:
+            await client.notifications.resource_notifications(
+                id="03ePyj",
+                limit=20,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/resources/{jsonable_encoder(id)}",
@@ -547,15 +563,23 @@ class AsyncNotificationsClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.notifications.delete_project_notifications(
-            project_id="YWmNKV",
-        )
+
+
+        async def main() -> None:
+            await client.notifications.delete_project_notifications(
+                project_id="YWmNKV",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/projects/{jsonable_encoder(project_id)}",
@@ -605,15 +629,23 @@ class AsyncNotificationsClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.notifications.delete_entity_notifications(
-            entity_id="N0xLDy4wcud-M1ZtwdsvRA",
-        )
+
+
+        async def main() -> None:
+            await client.notifications.delete_entity_notifications(
+                entity_id="N0xLDy4wcud-M1ZtwdsvRA",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/entity/{jsonable_encoder(entity_id)}", method="DELETE", request_options=request_options
@@ -661,15 +693,23 @@ class AsyncNotificationsClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.notifications.delete_resource_notifications(
-            resource_id="oGxxqG",
-        )
+
+
+        async def main() -> None:
+            await client.notifications.delete_resource_notifications(
+                resource_id="oGxxqG",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/notifications/resources/{jsonable_encoder(resource_id)}",

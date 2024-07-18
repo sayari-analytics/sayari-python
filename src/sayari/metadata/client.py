@@ -9,38 +9,31 @@ from ..core.pydantic_utilities import pydantic_v1
 from ..core.request_options import RequestOptions
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.errors.internal_server_error import InternalServerError
+from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.bad_request_response import BadRequestResponse
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
+from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
-from .types.auth_response import AuthResponse
-
-# this is used as the default value for optional parameters
-OMIT = typing.cast(typing.Any, ...)
+from .types.metadata_response import MetadataResponse
 
 
-class AuthClient:
+class MetadataClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def get_token(
-        self, *, client_id: str, client_secret: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AuthResponse:
+    def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
         """
-        Hit the auth endpoint to get a bearer token
+        Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
 
         Parameters
         ----------
-        client_id : str
-
-        client_secret : str
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AuthResponse
+        MetadataResponse
             OK
 
         Examples
@@ -51,30 +44,18 @@ class AuthClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.auth.get_token(
-            client_id="your client_id here",
-            client_secret="your client_secret here",
-        )
+        client.metadata.metadata()
         """
-        _response = self._client_wrapper.httpx_client.request(
-            "oauth/token",
-            method="POST",
-            json={
-                "client_id": client_id,
-                "client_secret": client_secret,
-                "audience": "sayari.com",
-                "grant_type": "client_credentials",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
+        _response = self._client_wrapper.httpx_client.request("metadata", method="GET", request_options=request_options)
         try:
             if 200 <= _response.status_code < 300:
-                return pydantic_v1.parse_obj_as(AuthResponse, _response.json())  # type: ignore
+                return pydantic_v1.parse_obj_as(MetadataResponse, _response.json())  # type: ignore
             if _response.status_code == 400:
                 raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
             if _response.status_code == 401:
                 raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
             if _response.status_code == 500:
                 raise InternalServerError(
                     pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore
@@ -85,28 +66,22 @@ class AuthClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncAuthClient:
+class AsyncMetadataClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def get_token(
-        self, *, client_id: str, client_secret: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AuthResponse:
+    async def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
         """
-        Hit the auth endpoint to get a bearer token
+        Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
 
         Parameters
         ----------
-        client_id : str
-
-        client_secret : str
-
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AuthResponse
+        MetadataResponse
             OK
 
         Examples
@@ -122,33 +97,23 @@ class AsyncAuthClient:
 
 
         async def main() -> None:
-            await client.auth.get_token(
-                client_id="your client_id here",
-                client_secret="your client_secret here",
-            )
+            await client.metadata.metadata()
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "oauth/token",
-            method="POST",
-            json={
-                "client_id": client_id,
-                "client_secret": client_secret,
-                "audience": "sayari.com",
-                "grant_type": "client_credentials",
-            },
-            request_options=request_options,
-            omit=OMIT,
+            "metadata", method="GET", request_options=request_options
         )
         try:
             if 200 <= _response.status_code < 300:
-                return pydantic_v1.parse_obj_as(AuthResponse, _response.json())  # type: ignore
+                return pydantic_v1.parse_obj_as(MetadataResponse, _response.json())  # type: ignore
             if _response.status_code == 400:
                 raise BadRequest(pydantic_v1.parse_obj_as(BadRequestResponse, _response.json()))  # type: ignore
             if _response.status_code == 401:
                 raise Unauthorized(pydantic_v1.parse_obj_as(UnauthorizedResponse, _response.json()))  # type: ignore
+            if _response.status_code == 429:
+                raise RateLimitExceeded(pydantic_v1.parse_obj_as(RateLimitResponse, _response.json()))  # type: ignore
             if _response.status_code == 500:
                 raise InternalServerError(
                     pydantic_v1.parse_obj_as(InternalServerErrorResponse, _response.json())  # type: ignore

@@ -11,6 +11,7 @@ from .core.oauth_token_provider import OAuthTokenProvider
 from .entity.client import AsyncEntityClient, EntityClient
 from .environment import SayariEnvironment
 from .info.client import AsyncInfoClient, InfoClient
+from .metadata.client import AsyncMetadataClient, MetadataClient
 from .notifications.client import AsyncNotificationsClient, NotificationsClient
 from .project.client import AsyncProjectClient, ProjectClient
 from .record.client import AsyncRecordClient, RecordClient
@@ -101,6 +102,7 @@ class BaseClient:
         self.auth = AuthClient(client_wrapper=self._client_wrapper)
         self.entity = EntityClient(client_wrapper=self._client_wrapper)
         self.info = InfoClient(client_wrapper=self._client_wrapper)
+        self.metadata = MetadataClient(client_wrapper=self._client_wrapper)
         self.notifications = NotificationsClient(client_wrapper=self._client_wrapper)
         self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
@@ -191,6 +193,7 @@ class AsyncBaseClient:
         self.auth = AsyncAuthClient(client_wrapper=self._client_wrapper)
         self.entity = AsyncEntityClient(client_wrapper=self._client_wrapper)
         self.info = AsyncInfoClient(client_wrapper=self._client_wrapper)
+        self.metadata = AsyncMetadataClient(client_wrapper=self._client_wrapper)
         self.notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
         self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)

@@ -177,15 +177,23 @@ class AsyncSourceClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.source.list_sources(
-            limit=2,
-        )
+
+
+        async def main() -> None:
+            await client.source.list_sources(
+                limit=2,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/sources", method="GET", params={"limit": limit, "offset": offset}, request_options=request_options
@@ -232,15 +240,23 @@ class AsyncSourceClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.source.get_source(
-            id="f4396e4b8a41d1fd9f09ea94d2ebedb9",
-        )
+
+
+        async def main() -> None:
+            await client.source.get_source(
+                id="f4396e4b8a41d1fd9f09ea94d2ebedb9",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/source/{jsonable_encoder(id)}", method="GET", request_options=request_options

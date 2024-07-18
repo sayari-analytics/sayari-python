@@ -222,6 +222,7 @@ class AsyncInfoClient:
 
         Examples
         --------
+        import asyncio
         import datetime
 
         from sayari.client import AsyncSayari
@@ -230,14 +231,20 @@ class AsyncInfoClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.info.get_usage(
-            from_=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            to=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-        )
+
+
+        async def main() -> None:
+            await client.info.get_usage(
+                from_=datetime.date.fromisoformat(
+                    "2023-01-15",
+                ),
+                to=datetime.date.fromisoformat(
+                    "2023-01-15",
+                ),
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/usage",
@@ -305,6 +312,7 @@ class AsyncInfoClient:
 
         Examples
         --------
+        import asyncio
         import datetime
 
         from sayari.client import AsyncSayari
@@ -313,17 +321,23 @@ class AsyncInfoClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.info.get_history(
-            events="string",
-            from_=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            to=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            size=1,
-            token="string",
-        )
+
+
+        async def main() -> None:
+            await client.info.get_history(
+                events="string",
+                from_=datetime.date.fromisoformat(
+                    "2023-01-15",
+                ),
+                to=datetime.date.fromisoformat(
+                    "2023-01-15",
+                ),
+                size=1,
+                token="string",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/history",

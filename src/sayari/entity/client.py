@@ -626,26 +626,34 @@ class AsyncEntityClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.entity.get_entity(
-            id="mGq1lpuqKssNWTjIokuPeA",
-            attributes_name_limit=1,
-            attributes_address_limit=1,
-            attributes_country_limit=1,
-            attributes_additional_information_limit=1,
-            attributes_business_purpose_limit=1,
-            attributes_company_type_limit=1,
-            attributes_identifier_limit=1,
-            attributes_status_limit=1,
-            relationships_limit=1,
-            possibly_same_as_limit=1,
-            referenced_by_limit=1,
-        )
+
+
+        async def main() -> None:
+            await client.entity.get_entity(
+                id="mGq1lpuqKssNWTjIokuPeA",
+                attributes_name_limit=1,
+                attributes_address_limit=1,
+                attributes_country_limit=1,
+                attributes_additional_information_limit=1,
+                attributes_business_purpose_limit=1,
+                attributes_company_type_limit=1,
+                attributes_identifier_limit=1,
+                attributes_status_limit=1,
+                relationships_limit=1,
+                possibly_same_as_limit=1,
+                referenced_by_limit=1,
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/entity/{jsonable_encoder(id)}",
@@ -748,15 +756,23 @@ class AsyncEntityClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.entity.entity_summary(
-            id="mGq1lpuqKssNWTjIokuPeA",
-        )
+
+
+        async def main() -> None:
+            await client.entity.entity_summary(
+                id="mGq1lpuqKssNWTjIokuPeA",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/entity_summary/{jsonable_encoder(id)}", method="GET", request_options=request_options

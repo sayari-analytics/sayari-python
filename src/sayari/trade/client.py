@@ -314,16 +314,24 @@ class AsyncTradeClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.trade.search_shipments(
-            limit=1,
-            q="rum",
-        )
+
+
+        async def main() -> None:
+            await client.trade.search_shipments(
+                limit=1,
+                q="rum",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/trade/search/shipments",
@@ -394,16 +402,24 @@ class AsyncTradeClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.trade.search_suppliers(
-            limit=1,
-            q="rum",
-        )
+
+
+        async def main() -> None:
+            await client.trade.search_suppliers(
+                limit=1,
+                q="rum",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/trade/search/suppliers",
@@ -474,16 +490,24 @@ class AsyncTradeClient:
 
         Examples
         --------
+        import asyncio
+
         from sayari.client import AsyncSayari
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        await client.trade.search_buyers(
-            limit=1,
-            q="rum",
-        )
+
+
+        async def main() -> None:
+            await client.trade.search_buyers(
+                limit=1,
+                q="rum",
+            )
+
+
+        asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
             "v1/trade/search/buyers",
