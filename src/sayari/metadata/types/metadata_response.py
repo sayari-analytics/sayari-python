@@ -28,17 +28,17 @@ class MetadataResponse(pydantic_v1.BaseModel):
 
     version: str = pydantic_v1.Field()
     """
-    Usage information for each endpoint
+    Currently deployed version of the application.
     """
 
     master_release: str = pydantic_v1.Field()
     """
-    The start date of the returned usage information.
+    Currently deployed main data release.
     """
 
     watchlist_release: str = pydantic_v1.Field()
     """
-    The end date of the returned usage information.
+    Currently deployed watchlist release.
     """
 
     user: UserInfo
