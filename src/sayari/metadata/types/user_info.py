@@ -8,9 +8,20 @@ from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 
 
 class UserInfo(pydantic_v1.BaseModel):
-    id: str
+    id: str = pydantic_v1.Field()
+    """
+    Currently logged in user ID
+    """
+
     group_display_names: typing.Optional[str] = pydantic_v1.Field(alias="groupDisplayNames", default=None)
-    roles: typing.Optional[str] = None
+    """
+    Name of the sayari organization tied to credentials
+    """
+
+    roles: typing.Optional[str] = pydantic_v1.Field(default=None)
+    """
+    Licenses associated with the organization
+    """
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
