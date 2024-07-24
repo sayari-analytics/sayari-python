@@ -5,35 +5,22 @@ import typing
 
 from ...core.datetime_utils import serialize_datetime
 from ...core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
-from .notification import Notification
-from .project_notification_risk_data import ProjectNotificationRiskData
 
 
-class ProjectNotificationData(pydantic_v1.BaseModel):
-    id: str = pydantic_v1.Field()
+class ProjectNotificationRiskData(pydantic_v1.BaseModel):
+    added: typing.List[str] = pydantic_v1.Field()
     """
-    The ID of the entity
-    """
-
-    resource_id: str = pydantic_v1.Field()
-    """
-    The ID of the saved resource
+    The list of fields added
     """
 
-    entity_id: str = pydantic_v1.Field()
+    removed: typing.List[str] = pydantic_v1.Field()
     """
-    The ID of the entity
-    """
-
-    notifications: typing.List[Notification]
-    custom_fields: typing.Optional[typing.Any] = pydantic_v1.Field(default=None)
-    """
-    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
+    The list of fields removed
     """
 
-    risk_notifications: ProjectNotificationRiskData = pydantic_v1.Field()
+    date: str = pydantic_v1.Field()
     """
-    Aggregated risk notifications
+    The date of the notification
     """
 
     def json(self, **kwargs: typing.Any) -> str:

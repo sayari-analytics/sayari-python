@@ -5,6 +5,7 @@ from .notification_additional_information import NotificationAdditionalInformati
 from .notification_type import NotificationType
 from .notifications_sort_field import NotificationsSortField
 from .project_notification_data import ProjectNotificationData
+from .project_notification_risk_data import ProjectNotificationRiskData
 from .project_notifications_response import ProjectNotificationsResponse
 from .resource_notification_data import ResourceNotificationData
 from .resource_notifications_response import ResourceNotificationsResponse
@@ -15,6 +16,7 @@ __all__ = [
     "NotificationType",
     "NotificationsSortField",
     "ProjectNotificationData",
+    "ProjectNotificationRiskData",
     "ProjectNotificationsResponse",
     "ResourceNotificationData",
     "ResourceNotificationsResponse",

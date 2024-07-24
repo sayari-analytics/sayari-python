@@ -18,6 +18,7 @@ class ProjectNotificationsResponse(pydantic_v1.BaseModel):
     from sayari import (
         Notification,
         ProjectNotificationData,
+        ProjectNotificationRiskData,
         ProjectNotificationsResponse,
         QualifiedCount,
     )
@@ -44,6 +45,11 @@ class ProjectNotificationsResponse(pydantic_v1.BaseModel):
                     )
                 ],
                 custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
+                risk_notifications=ProjectNotificationRiskData(
+                    added=["forced_labor_xinjiang_origin_subtier"],
+                    removed=[],
+                    date="2024-02-06T00:00:00.000Z",
+                ),
             ),
             ProjectNotificationData(
                 id="wxwqZshCF4trlrmOa2eu9w",
@@ -57,6 +63,13 @@ class ProjectNotificationsResponse(pydantic_v1.BaseModel):
                         date="2024-02-15T00:00:00.000Z",
                     )
                 ],
+                risk_notifications=ProjectNotificationRiskData(
+                    added=[],
+                    removed=[
+                        "forced_labor_sheffield_hallam_university_reports_origin_subtier"
+                    ],
+                    date="2024-02-15T00:00:00.000Z",
+                ),
             ),
             ProjectNotificationData(
                 id="dX9cfM3FPefIp8VAuBKgIQ",
@@ -83,6 +96,16 @@ class ProjectNotificationsResponse(pydantic_v1.BaseModel):
                     ),
                 ],
                 custom_fields={"properties": {"custom_identifier": "abc123"}},
+                risk_notifications=ProjectNotificationRiskData(
+                    added=[
+                        "forced_labor_sheffield_hallam_university_reports_origin_subtier"
+                    ],
+                    removed=[
+                        "owner_of_regulatory_action_entity",
+                        "forced_labor_sheffield_hallam_university_reports_origin_direct",
+                    ],
+                    date="2024-02-15T00:00:00.000Z",
+                ),
             ),
         ],
     )
