@@ -149,6 +149,7 @@ IdentifierType = typing.Union[
         "usa_ny_dos_id",
         "bfa_rccm_number",
         "fl_prop_folio",
+        "usa_fl_pb_pcn",
         "qat_qfc_number",
         "grc_afm_number",
         "vnm_enterprise_code",
@@ -595,6 +596,9 @@ IdentifierType = typing.Union[
         "can_pe_registration_number",
         "bel_fsma_name_hash",
         "cuw_reg_number",
+        "tur_shipment_id",
+        "bd_bin",
+        "aer_ner_number",
     ],
     typing.Any,
 ]
