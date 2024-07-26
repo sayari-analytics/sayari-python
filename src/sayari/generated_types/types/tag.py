@@ -24,6 +24,7 @@ Tag = typing.Union[
         "uflpa_entity",
         "sheffield_hallam_university_forced_labor_entity",
         "aspi_uyghur_forced_labor_report_entity",
+        "bis_boycott_requester_list",
     ],
     typing.Any,
 ]
