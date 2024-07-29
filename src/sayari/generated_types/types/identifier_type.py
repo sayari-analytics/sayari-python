@@ -596,6 +596,8 @@ IdentifierType = typing.Union[
         "can_pe_registration_number",
         "bel_fsma_name_hash",
         "cuw_reg_number",
+        "rus_declaration_number",
+        "ru_trade_internal_shipment_id",
         "tur_shipment_id",
         "bd_bin",
         "aer_ner_number",
