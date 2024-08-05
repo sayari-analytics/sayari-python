@@ -601,6 +601,7 @@ IdentifierType = typing.Union[
         "tur_shipment_id",
         "bd_bin",
         "aer_ner_number",
+        "twn_passport_number",
         "bel_national_register_no",
     ],
     typing.Any,
