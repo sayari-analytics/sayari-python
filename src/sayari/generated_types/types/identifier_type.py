@@ -388,6 +388,8 @@ IdentifierType = typing.Union[
         "usa_il_chicago_account_number",
         "cym_co_no",
         "ggy_corporate_reg_number",
+        "ggy_trademark_submission_ref",
+        "ggy_trademark_no",
         "jey_corporate_reg_number",
         "cok_corp_reg_corpid",
         "cok_corp_reg_corpofficerid",
