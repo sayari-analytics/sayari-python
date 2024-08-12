@@ -71,6 +71,7 @@ IdentifierType = typing.Union[
         "lux_rcs_number",
         "mkd_embs_number",
         "mkd_embs_branch_number",
+        "mkd_archive_number",
         "mda_idno_number",
         "ury_ruc_number",
         "che_uid_number",
