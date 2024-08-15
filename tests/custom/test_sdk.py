@@ -2,6 +2,7 @@ import os
 import pytest
 import string
 import random
+import time
 # from dotenv import load_dotenv # type: ignore
 from sayari.client import Sayari
 from sayari.environment import SayariEnvironment
@@ -298,6 +299,7 @@ def test_shipment_search(setup_connection):
     # query until we get results
     shipments = client.trade.search_shipments(q=random_string)
     if len(shipments.data) == 0:
+        time.sleep(5)
         return test_shipment_search(setup_connection)
 
     # assert that we have results
@@ -341,6 +343,7 @@ def test_supplier_search(setup_connection):
     # query until we get results
     suppliers = client.trade.search_suppliers(q=random_string)
     if len(suppliers.data) == 0:
+        time.sleep(5)
         return test_supplier_search(setup_connection)
 
     # assert that we have results
@@ -358,6 +361,7 @@ def test_buyer_search(setup_connection):
     # query until we get results
     buyers = client.trade.search_buyers(q=random_string)
     if len(buyers.data) == 0:
+        time.sleep(5)
         return test_buyer_search(setup_connection)
 
     # assert that we have results
