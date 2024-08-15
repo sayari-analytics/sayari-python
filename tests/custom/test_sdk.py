@@ -289,6 +289,9 @@ def test_traversal_pagination(setup_connection):
 
 
 def test_shipment_search(setup_connection):
+    # slow down test to prevent 429
+    time.sleep(5)
+
     # get connection
     client = setup_connection
 
@@ -299,7 +302,6 @@ def test_shipment_search(setup_connection):
     # query until we get results
     shipments = client.trade.search_shipments(q=random_string)
     if len(shipments.data) == 0:
-        time.sleep(5)
         return test_shipment_search(setup_connection)
 
     # assert that we have results
@@ -333,6 +335,9 @@ def test_shipment_search(setup_connection):
 
 
 def test_supplier_search(setup_connection):
+    # slow down test to prevent 429
+    time.sleep(5)
+
     # get connection
     client = setup_connection
 
@@ -343,7 +348,6 @@ def test_supplier_search(setup_connection):
     # query until we get results
     suppliers = client.trade.search_suppliers(q=random_string)
     if len(suppliers.data) == 0:
-        time.sleep(5)
         return test_supplier_search(setup_connection)
 
     # assert that we have results
@@ -351,6 +355,9 @@ def test_supplier_search(setup_connection):
 
 
 def test_buyer_search(setup_connection):
+    # slow down test to prevent 429
+    time.sleep(5)
+
     # get connection
     client = setup_connection
 
@@ -361,7 +368,6 @@ def test_buyer_search(setup_connection):
     # query until we get results
     buyers = client.trade.search_buyers(q=random_string)
     if len(buyers.data) == 0:
-        time.sleep(5)
         return test_buyer_search(setup_connection)
 
     # assert that we have results
