@@ -2,4 +2,4 @@
 
 import typing
 
-EventInfo = typing.Dict[str, typing.Any]
+EventInfo = typing.Dict[str, typing.Optional[typing.Any]]

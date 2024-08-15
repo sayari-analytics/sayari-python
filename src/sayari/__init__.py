@@ -24,6 +24,7 @@ from . import (
 from .attributes import AddAttribute, AttributeProperties, AttributeResponse, AttributeResponseData, UpdateAttribute
 from .auth import AuthResponse
 from .base_types import CountQualifier, PaginatedResponse, QualifiedCount
+from .client import AsyncSayari, Sayari
 from .entity import EntitySummaryResponse, GetEntityResponse
 from .environment import SayariEnvironment
 from .generated_types import (
@@ -288,6 +289,7 @@ __all__ = [
     "AddressInfo",
     "AddressProperties",
     "AddressType",
+    "AsyncSayari",
     "AttributeData",
     "AttributeDetails",
     "AttributeProperties",
@@ -481,6 +483,7 @@ __all__ = [
     "RoleMemberType",
     "SaveEntityRequest",
     "SaveEntityResponse",
+    "Sayari",
     "SayariEnvironment",
     "SearchField",
     "SearchResults",
