@@ -2,4 +2,4 @@
 
 import typing
 
-InternalServerErrorResponse = typing.Any
+InternalServerErrorResponse = typing.Optional[typing.Any]

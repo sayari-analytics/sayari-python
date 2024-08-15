@@ -2,4 +2,4 @@
 
 import typing
 
-UnauthorizedResponse = typing.Any
+UnauthorizedResponse = typing.Optional[typing.Any]

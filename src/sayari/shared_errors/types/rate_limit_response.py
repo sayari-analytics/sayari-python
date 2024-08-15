@@ -2,4 +2,4 @@
 
 import typing
 
-RateLimitResponse = typing.Any
+RateLimitResponse = typing.Optional[typing.Any]

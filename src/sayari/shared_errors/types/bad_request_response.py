@@ -2,4 +2,4 @@
 
 import typing
 
-BadRequestResponse = typing.Any
+BadRequestResponse = typing.Optional[typing.Any]

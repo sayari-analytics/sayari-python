@@ -27,8 +27,8 @@
 <dd>
 
 ```python
-from sayari import AddAttribute
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.attributes import AddAttribute
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -112,8 +112,8 @@ client.attributes.post_attribute(
 <dd>
 
 ```python
-from sayari import UpdateAttribute
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.attributes import UpdateAttribute
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -204,7 +204,7 @@ client.attributes.patch_attribute(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -276,7 +276,7 @@ Hit the auth endpoint to get a bearer token
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -357,7 +357,7 @@ Retrieve an entity from the database based on the ID
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -823,7 +823,7 @@ The Entity Summary endpoint returns a smaller entity payload
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -897,7 +897,7 @@ The usage endpoint provides a simple interface to retrieve information on usage 
 ```python
 import datetime
 
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -983,7 +983,7 @@ The history endpoint return a user's event history.
 ```python
 import datetime
 
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1095,7 +1095,7 @@ Get metadta about the api, both its versions, which releases are present, and th
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1157,7 +1157,7 @@ client.metadata.metadata()
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1254,7 +1254,7 @@ client.notifications.project_notifications(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1342,7 +1342,7 @@ Deletes all notifications from a project.
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1413,7 +1413,7 @@ Deletes notifications for saved resources of an entity.
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1484,7 +1484,7 @@ Deletes notifications for a saved resource.
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1556,8 +1556,8 @@ client.notifications.delete_resource_notifications(
 <dd>
 
 ```python
-from sayari import CreateProjectRequest
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.project import CreateProjectRequest
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1630,7 +1630,7 @@ client.project.create_project(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1726,7 +1726,7 @@ client.project.get_projects(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1909,7 +1909,7 @@ Deletes an existing project.
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -1981,7 +1981,7 @@ Retrieve a record from the database based on the ID
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2069,7 +2069,7 @@ The resolution endpoints allow users to search for matching entities against a p
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2216,8 +2216,8 @@ The resolution endpoints allow users to search for matching entities against a p
 <dd>
 
 ```python
-from sayari import ResolutionBody
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.resolution import ResolutionBody
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2308,8 +2308,8 @@ client.resolution.resolution_post(
 <dd>
 
 ```python
-from sayari import ResolutionBody
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.resolution import ResolutionBody
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2410,8 +2410,8 @@ client.resolution.resolution_persisted(
 <dd>
 
 ```python
-from sayari import SaveEntityRequest
-from sayari.client import Sayari
+from sayari import Sayari
+from sayari.resource import SaveEntityRequest
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2487,7 +2487,7 @@ Deletes an existing saved resource from a project.
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2568,7 +2568,7 @@ Search for an entity. Please note, searches are limited to a maximum of 10,000 r
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2696,7 +2696,7 @@ Search for an entity. Please note, searches are limited to a maximum of 10,000 r
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2816,7 +2816,7 @@ Search for a record. Please note, searches are limited to a maximum of 10,000 re
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -2936,7 +2936,7 @@ Search for a record. Please note, searches are limited to a maximum of 10,000 re
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3049,7 +3049,7 @@ Returns metadata for all sources that Sayari collects data from
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3128,7 +3128,7 @@ Returns metadata for a source that Sayari collects data from
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3200,7 +3200,7 @@ client.source.get_source(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3371,7 +3371,7 @@ client.supply_chain.upstream_trade_traversal(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3475,7 +3475,7 @@ client.trade.search_shipments(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3579,7 +3579,7 @@ client.trade.search_suppliers(
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3684,7 +3684,7 @@ The Traversal endpoint returns paths from a single target entity to up to 50 dir
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3972,7 +3972,7 @@ The UBO endpoint returns paths from a single target entity to up to 50 beneficia
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4260,7 +4260,7 @@ The Ownership endpoint returns paths from a single target entity to up to 50 ent
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4548,7 +4548,7 @@ The Watchlist endpoint returns paths from a single target entity to up to 50 oth
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4836,7 +4836,7 @@ The Shortest Path endpoint returns a response identifying the shortest traversal
 <dd>
 
 ```python
-from sayari.client import Sayari
+from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",

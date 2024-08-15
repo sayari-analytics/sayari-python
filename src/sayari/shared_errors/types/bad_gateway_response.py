@@ -2,4 +2,4 @@
 
 import typing
 
-BadGatewayResponse = typing.Any
+BadGatewayResponse = typing.Optional[typing.Any]

@@ -2,4 +2,4 @@
 
 import typing
 
-ConnectionErrorResponse = typing.Any
+ConnectionErrorResponse = typing.Optional[typing.Any]
