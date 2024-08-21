@@ -57,7 +57,6 @@ class CoreEntity(EntitySummary):
     shipment_departure: typing.Optional[ShipmentDeparture] = None
     hs_code: typing.Optional[EntityHsCode] = None
     translated_label: typing.Optional[EntityTranslatedLabel] = None
-    short_label: typing.Optional[str] = None
     identifiers: typing.List[Identifier]
     addresses: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """

@@ -4,6 +4,7 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 from .source_or_destination_entity import SourceOrDestinationEntity
 from .shipment_address import ShipmentAddress
+from ...generated_types.types.country import Country
 from .monetary_value import MonetaryValue
 from .weight import Weight
 from .shipment_identifier import ShipmentIdentifier
@@ -22,6 +23,7 @@ class Shipment(UniversalBaseModel):
     departure_date: typing.Optional[str] = None
     departure_address: typing.Optional[ShipmentAddress] = None
     arrival_address: typing.Optional[ShipmentAddress] = None
+    product_origin: typing.List[Country]
     monetary_value: typing.List[MonetaryValue]
     weight: typing.List[Weight]
     identifier: typing.List[ShipmentIdentifier]

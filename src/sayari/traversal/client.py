@@ -359,7 +359,7 @@ class TraversalClient:
             Set maximum depth for traversal. Defaults to 4.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
-            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_partner, subsidiary_of, and branch_of.
 
         psa : typing.Optional[bool]
             Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
@@ -629,7 +629,7 @@ class TraversalClient:
             Set maximum depth for traversal. Defaults to 4.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
-            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, partner_of, has_subsidiary, and has_branch.
 
         psa : typing.Optional[bool]
             Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
@@ -1586,7 +1586,7 @@ class AsyncTraversalClient:
             Set maximum depth for traversal. Defaults to 4.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
-            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+            Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_partner, subsidiary_of, and branch_of.
 
         psa : typing.Optional[bool]
             Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
@@ -1864,7 +1864,7 @@ class AsyncTraversalClient:
             Set maximum depth for traversal. Defaults to 4.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
-            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+            Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, partner_of, has_subsidiary, and has_branch.
 
         psa : typing.Optional[bool]
             Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
