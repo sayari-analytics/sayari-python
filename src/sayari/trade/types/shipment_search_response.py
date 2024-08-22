@@ -67,6 +67,7 @@ class ShipmentSearchResponse(PaginatedResponse):
                     y=36.035,
                     value="27201",
                 ),
+                product_origin=["USA"],
                 monetary_value=[],
                 weight=[
                     Weight(

@@ -341,6 +341,19 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     ],
                 ),
             ),
+            custom_fields=[
+                BucketAgg(
+                    key="custom_id1",
+                    doc_count=7,
+                ),
+                BucketAgg(
+                    key="custom_size",
+                    doc_count=15,
+                ),
+            ],
+            custom_fields_count=IntKeyValue(
+                value=2,
+            ),
             case_statuses=[
                 BucketAgg(
                     key="not_assigned",

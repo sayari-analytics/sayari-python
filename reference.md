@@ -3404,7 +3404,7 @@ client.trade.search_shipments(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
 </dl>
@@ -3508,7 +3508,7 @@ client.trade.search_suppliers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
 </dl>
@@ -3612,7 +3612,7 @@ client.trade.search_buyers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
 </dl>
@@ -4037,7 +4037,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**relationships:** `typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]` — Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_owner, subsidiary_of, and branch_of.
+**relationships:** `typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]` — Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_partner, subsidiary_of, and branch_of.
     
 </dd>
 </dl>
@@ -4325,7 +4325,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**relationships:** `typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]` — Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, owner_of, has_subsidiary, and has_branch.
+**relationships:** `typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]` — Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, partner_of, has_subsidiary, and has_branch.
     
 </dd>
 </dl>

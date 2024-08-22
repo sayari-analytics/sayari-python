@@ -49,7 +49,7 @@ class TradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -178,7 +178,7 @@ class TradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -307,7 +307,7 @@ class TradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -441,7 +441,7 @@ class AsyncTradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -578,7 +578,7 @@ class AsyncTradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -715,7 +715,7 @@ class AsyncTradeClient:
             Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
