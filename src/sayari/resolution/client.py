@@ -49,6 +49,7 @@ class ResolutionClient:
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         profile: typing.Optional[ProfileEnum] = None,
+        name_min_percentage: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -86,6 +87,9 @@ class ResolutionClient:
         profile : typing.Optional[ProfileEnum]
             Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
 
+        name_min_percentage : typing.Optional[int]
+            Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -120,6 +124,7 @@ class ResolutionClient:
                 "contact": contact,
                 "type": type,
                 "profile": profile,
+                "name_min_percentage": name_min_percentage,
             },
             request_options=request_options,
         )
@@ -478,6 +483,7 @@ class AsyncResolutionClient:
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         profile: typing.Optional[ProfileEnum] = None,
+        name_min_percentage: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -514,6 +520,9 @@ class AsyncResolutionClient:
 
         profile : typing.Optional[ProfileEnum]
             Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+
+        name_min_percentage : typing.Optional[int]
+            Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -557,6 +566,7 @@ class AsyncResolutionClient:
                 "contact": contact,
                 "type": type,
                 "profile": profile,
+                "name_min_percentage": name_min_percentage,
             },
             request_options=request_options,
         )

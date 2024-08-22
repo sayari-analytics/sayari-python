@@ -2177,6 +2177,14 @@ client.resolution.resolution(
 <dl>
 <dd>
 
+**name_min_percentage:** `typing.Optional[int]` — Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
