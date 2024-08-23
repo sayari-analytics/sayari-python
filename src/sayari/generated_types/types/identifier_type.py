@@ -607,6 +607,7 @@ IdentifierType = typing.Union[
         "aer_ner_number",
         "twn_passport_number",
         "bel_national_register_no",
+        "ukr_fiu_list_number",
     ],
     typing.Any,
 ]
