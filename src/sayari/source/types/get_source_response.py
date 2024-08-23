@@ -14,7 +14,20 @@ class GetSourceResponse(Source):
     --------
     from sayari.source import GetSourceResponse
 
-    GetSourceResponse()
+    GetSourceResponse(
+        id="f4396e4b8a41d1fd9f09ea94d2ebedb9",
+        label="UAE Abu Dhabi Global Market Corporate Registry",
+        description="Contains profiles of registered companies. Provides standard company information including name, tax ID, status, address, and business purpose as well as current and former shareholders and directors.",
+        country="ARE",
+        region="middle_east_&_africa",
+        date_added="2022-07-25",
+        source_type="company_data",
+        record_type="company_record",
+        structure="structured",
+        source_url="https://www.adgm.com/public-registers",
+        pep=False,
+        watchlist=False,
+    )
     """
 
     if IS_PYDANTIC_V2:
