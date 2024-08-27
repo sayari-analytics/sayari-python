@@ -48,9 +48,29 @@ class TradeFilterList(UniversalBaseModel):
     Buyer with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).
     """
 
+    buyer_city: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Buyer city location
+    """
+
+    buyer_state: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Buyer state location
+    """
+
     supplier_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
     """
     Supplier with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).
+    """
+
+    supplier_city: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Supplier city location
+    """
+
+    supplier_state: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Supplier state location
     """
 
     departure_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
@@ -93,6 +113,11 @@ class TradeFilterList(UniversalBaseModel):
     The HS description contains the provided string.
     """
 
+    product_origin: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    Product Origin with an exact match for the provided [country code](/sayari-library/ontology/enumerated-types#country).
+    """
+
     supplier_purpose: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The supplier purpose contains the provided string.
@@ -116,6 +141,11 @@ class TradeFilterList(UniversalBaseModel):
     shipment_identifier: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     The shipment identifier starts with the provided string.
+    """
+
+    transit_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    Countries through which a shipment passes for the provided [country code](/sayari-library/ontology/enumerated-types#country).
     """
 
     weight: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
