@@ -2119,9 +2119,23 @@ client.resolution.resolution(
 <dl>
 <dd>
 
-**identifier:** `typing.Optional[
-    typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]
-]` — Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+**address:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Entity address. For optimal matching results, it's recommended to concatenate the full address string (street, city, state, postal code).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**city:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Entity city that contains the provided city name.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Entity state that contains the provided state name.
     
 </dd>
 </dl>
@@ -2137,7 +2151,9 @@ client.resolution.resolution(
 <dl>
 <dd>
 
-**address:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Entity address
+**identifier:** `typing.Optional[
+    typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]
+]` — Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
     
 </dd>
 </dl>
@@ -2177,7 +2193,15 @@ client.resolution.resolution(
 <dl>
 <dd>
 
-**name_min_percentage:** `typing.Optional[int]` — Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+**name_min_percentage:** `typing.Optional[int]` — Adding this param enables an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name_min_tokens:** `typing.Optional[int]` — Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
     
 </dd>
 </dl>

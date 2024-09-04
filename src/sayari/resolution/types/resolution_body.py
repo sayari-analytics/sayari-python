@@ -21,14 +21,24 @@ class ResolutionBody(UniversalBaseModel):
     Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
     """
 
-    country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
-    """
-    Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
-    """
-
     address: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     Entity address
+    """
+
+    city: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Entity city that contains the provided city name.
+    """
+
+    state: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Entity state that contains the provided state name.
+    """
+
+    country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
     """
 
     date_of_birth: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
@@ -49,6 +59,16 @@ class ResolutionBody(UniversalBaseModel):
     profile: typing.Optional[ProfileEnum] = pydantic.Field(default=None)
     """
     Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+    """
+
+    name_min_percentage: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Adding this param enables an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+    """
+
+    name_min_tokens: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
     """
 
     if IS_PYDANTIC_V2:
