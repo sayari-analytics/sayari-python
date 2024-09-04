@@ -2,8 +2,8 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from ..generated_types.types.both_identifier_types import BothIdentifierTypes
 from ..generated_types.types.country import Country
+from ..generated_types.types.both_identifier_types import BothIdentifierTypes
 from ..generated_types.types.entities import Entities
 from .types.profile_enum import ProfileEnum
 from ..core.request_options import RequestOptions
@@ -42,14 +42,17 @@ class ResolutionClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
-        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         address: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        city: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        state: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
         date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         profile: typing.Optional[ProfileEnum] = None,
         name_min_percentage: typing.Optional[int] = None,
+        name_min_tokens: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -66,14 +69,20 @@ class ResolutionClient:
         name : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Entity name
 
-        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
-            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity address. For optimal matching results, it's recommended to concatenate the full address string (street, city, state, postal code).
+
+        city : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity city that contains the provided city name.
+
+        state : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity state that contains the provided state name.
 
         country : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
             Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Entity address
+        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
         date_of_birth : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Entity date of birth
@@ -88,7 +97,10 @@ class ResolutionClient:
             Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
 
         name_min_percentage : typing.Optional[int]
-            Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+            Adding this param enables an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+
+        name_min_tokens : typing.Optional[int]
+            Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -117,14 +129,17 @@ class ResolutionClient:
                 "limit": limit,
                 "offset": offset,
                 "name": name,
-                "identifier": identifier,
-                "country": country,
                 "address": address,
+                "city": city,
+                "state": state,
+                "country": country,
+                "identifier": identifier,
                 "date_of_birth": date_of_birth,
                 "contact": contact,
                 "type": type,
                 "profile": profile,
                 "name_min_percentage": name_min_percentage,
+                "name_min_tokens": name_min_tokens,
             },
             request_options=request_options,
         )
@@ -476,14 +491,17 @@ class AsyncResolutionClient:
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
         name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
-        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
         address: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        city: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        state: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        country: typing.Optional[typing.Union[Country, typing.Sequence[Country]]] = None,
+        identifier: typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]] = None,
         date_of_birth: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         contact: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         type: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
         profile: typing.Optional[ProfileEnum] = None,
         name_min_percentage: typing.Optional[int] = None,
+        name_min_tokens: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -500,14 +518,20 @@ class AsyncResolutionClient:
         name : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Entity name
 
-        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
-            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
+        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity address. For optimal matching results, it's recommended to concatenate the full address string (street, city, state, postal code).
+
+        city : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity city that contains the provided city name.
+
+        state : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Entity state that contains the provided state name.
 
         country : typing.Optional[typing.Union[Country, typing.Sequence[Country]]]
             Entity country - must be ISO (3166) Trigram i.e., `USA`. See complete list [here](/sayari-library/ontology/enumerated-types#country)
 
-        address : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Entity address
+        identifier : typing.Optional[typing.Union[BothIdentifierTypes, typing.Sequence[BothIdentifierTypes]]]
+            Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
 
         date_of_birth : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Entity date of birth
@@ -522,7 +546,10 @@ class AsyncResolutionClient:
             Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
 
         name_min_percentage : typing.Optional[int]
-            Adding this param enable an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+            Adding this param enables an alternative matching logic. It will set a minimum percentage of tokens needed to match with user input to be considered a "hit". Accepts integers from 0 to 100 inclusive.
+
+        name_min_tokens : typing.Optional[int]
+            Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -559,14 +586,17 @@ class AsyncResolutionClient:
                 "limit": limit,
                 "offset": offset,
                 "name": name,
-                "identifier": identifier,
-                "country": country,
                 "address": address,
+                "city": city,
+                "state": state,
+                "country": country,
+                "identifier": identifier,
                 "date_of_birth": date_of_birth,
                 "contact": contact,
                 "type": type,
                 "profile": profile,
                 "name_min_percentage": name_min_percentage,
+                "name_min_tokens": name_min_tokens,
             },
             request_options=request_options,
         )
