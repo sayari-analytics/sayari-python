@@ -611,6 +611,8 @@ IdentifierType = typing.Union[
         "bel_national_register_no",
         "afg_trade_internal_shipment_id",
         "ukr_fiu_list_number",
+        "jey_trademark_reg_no",
+        "gbr_enforcement_action_num",
         "tza_brela_reg_num",
     ],
     typing.Any,
