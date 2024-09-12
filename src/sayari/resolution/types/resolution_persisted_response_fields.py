@@ -7,7 +7,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ResolutionPersistedResponseFields(ResolutionResponseFields):
-    custom_field_name: typing.Optional[str] = pydantic.Field(alias="custom_<field name>", default=None)
+    custom_field_name: typing.Optional[str] = pydantic.Field(alias="custom_{field name}", default=None)
     """
     <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
     """
