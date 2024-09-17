@@ -5,6 +5,7 @@ from ..core.client_wrapper import SyncClientWrapper
 from .types.trade_filter_list import TradeFilterList
 from ..core.request_options import RequestOptions
 from .types.shipment_search_response import ShipmentSearchResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -89,7 +90,9 @@ class TradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,
@@ -218,7 +221,9 @@ class TradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,
@@ -347,7 +352,9 @@ class TradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,
@@ -489,7 +496,9 @@ class AsyncTradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,
@@ -626,7 +635,9 @@ class AsyncTradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,
@@ -763,7 +774,9 @@ class AsyncTradeClient:
             },
             json={
                 "q": q,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=TradeFilterList, direction="write"
+                ),
                 "facets": facets,
             },
             request_options=request_options,

@@ -6,6 +6,8 @@ from ...generated_types.types.risk import Risk
 import pydantic
 from .upstream_tiers import UpstreamTiers
 from ...generated_types.types.country import Country
+import typing_extensions
+from ...core.serialization import FieldMetadata
 from ...generated_types.types.company_status import CompanyStatus
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -46,32 +48,44 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     Filter by HS code, HS code description, or business description.
     """
 
-    label_fuzzy: typing.Optional[typing.List[str]] = pydantic.Field(alias="label.fuzzy", default=None)
+    label_fuzzy: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="label.fuzzy")] = (
+        pydantic.Field(default=None)
+    )
     """
     Filter by entity label with fuzzy matching.
     """
 
-    city_fuzzy: typing.Optional[typing.List[str]] = pydantic.Field(alias="city.fuzzy", default=None)
+    city_fuzzy: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="city.fuzzy")] = (
+        pydantic.Field(default=None)
+    )
     """
     Filter by entity city with fuzzy matching.
     """
 
-    state_fuzzy: typing.Optional[typing.List[str]] = pydantic.Field(alias="state.fuzzy", default=None)
+    state_fuzzy: typing_extensions.Annotated[typing.Optional[typing.List[str]], FieldMetadata(alias="state.fuzzy")] = (
+        pydantic.Field(default=None)
+    )
     """
     Filter by entity address state with fuzzy matching.
     """
 
-    identifier_fuzzy: typing.Optional[typing.List[str]] = pydantic.Field(alias="identifier.fuzzy", default=None)
+    identifier_fuzzy: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="identifier.fuzzy")
+    ] = pydantic.Field(default=None)
     """
     Filter by entity identifier attributes with fuzzy matching.
     """
 
-    source_exact: typing.Optional[typing.List[str]] = pydantic.Field(alias="source.exact", default=None)
+    source_exact: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="source.exact")
+    ] = pydantic.Field(default=None)
     """
     Filter by entity source ID.
     """
 
-    status_exact: typing.Optional[typing.List[CompanyStatus]] = pydantic.Field(alias="status.exact", default=None)
+    status_exact: typing_extensions.Annotated[
+        typing.Optional[typing.List[CompanyStatus]], FieldMetadata(alias="status.exact")
+    ] = pydantic.Field(default=None)
     """
     Filter by entity [company status](/sayari-library/ontology/enumerated-types#company-status).
     """
@@ -81,7 +95,9 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     Filter by a geographical bounding box. The value is a pipe-delimited set of four values representing the top, left, bottom, and right sides of the bounding box, in that order. The pipes should be URL-encoded as `%7C`. The top coordinate must greater than the bottom coordinate, and the left coordinate must be less than the right coordinate. A sample is `55.680357237879136|-71.53607290158526|41.10876347746233|-40.963927098414736`
     """
 
-    custom_field_name: typing.Optional[typing.List[str]] = pydantic.Field(alias="custom_{field name}", default=None)
+    custom_field_name: typing_extensions.Annotated[
+        typing.Optional[typing.List[str]], FieldMetadata(alias="custom_{field name}")
+    ] = pydantic.Field(default=None)
     """
     <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
     """

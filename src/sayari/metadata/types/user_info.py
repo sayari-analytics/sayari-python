@@ -2,7 +2,9 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import pydantic
+import typing_extensions
 import typing
+from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -12,7 +14,9 @@ class UserInfo(UniversalBaseModel):
     Currently logged in user ID
     """
 
-    group_display_names: typing.Optional[str] = pydantic.Field(alias="groupDisplayNames", default=None)
+    group_display_names: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="groupDisplayNames")] = (
+        pydantic.Field(default=None)
+    )
     """
     Name of the sayari organization tied to credentials
     """

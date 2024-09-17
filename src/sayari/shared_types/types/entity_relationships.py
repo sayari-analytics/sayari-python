@@ -26,6 +26,9 @@ class EntityRelationships(PaginatedResponse):
             extra = pydantic.Extra.allow
 
 
+from .entity_details import EntityDetails  # noqa: E402
 from .relationship_data import RelationshipData  # noqa: E402
 
+update_forward_refs(EntityDetails, EntityRelationships=EntityRelationships)
+update_forward_refs(RelationshipData, EntityRelationships=EntityRelationships)
 update_forward_refs(EntityRelationships)

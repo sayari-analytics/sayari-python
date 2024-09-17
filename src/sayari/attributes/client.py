@@ -5,6 +5,7 @@ from ..core.client_wrapper import SyncClientWrapper
 from .types.add_attribute import AddAttribute
 from ..core.request_options import RequestOptions
 from .types.attribute_response import AttributeResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -82,7 +83,7 @@ class AttributesClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/attribute",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=AddAttribute, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
@@ -217,7 +218,9 @@ class AttributesClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/attribute/{jsonable_encoder(attribute_id)}",
             method="PATCH",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=UpdateAttribute, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -502,7 +505,7 @@ class AsyncAttributesClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/attribute",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=AddAttribute, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
@@ -645,7 +648,9 @@ class AsyncAttributesClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/attribute/{jsonable_encoder(attribute_id)}",
             method="PATCH",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=UpdateAttribute, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
