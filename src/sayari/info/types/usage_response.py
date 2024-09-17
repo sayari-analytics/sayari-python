@@ -3,6 +3,8 @@
 from ...core.pydantic_utilities import UniversalBaseModel
 from .usage_info import UsageInfo
 import pydantic
+import typing_extensions
+from ...core.serialization import FieldMetadata
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import typing
 
@@ -13,7 +15,7 @@ class UsageResponse(UniversalBaseModel):
     Usage information for each endpoint
     """
 
-    from_: str = pydantic.Field(alias="from")
+    from_: typing_extensions.Annotated[str, FieldMetadata(alias="from")] = pydantic.Field()
     """
     The start date of the returned usage information.
     """

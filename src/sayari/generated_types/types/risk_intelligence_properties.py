@@ -3,6 +3,8 @@
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
+import typing_extensions
+from ...core.serialization import FieldMetadata
 from .tag import Tag
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -23,7 +25,7 @@ class RiskIntelligenceProperties(UniversalBaseModel):
     start date
     """
 
-    list_: typing.Optional[str] = pydantic.Field(alias="list", default=None)
+    list_: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="list")] = pydantic.Field(default=None)
     """
     Official list where the entity's risk information or enforcement action is recorded
     """

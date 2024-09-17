@@ -60,5 +60,8 @@ class EntityDetails(EmbeddedEntity):
 
 
 from .entity_relationships import EntityRelationships  # noqa: E402
+from .relationship_data import RelationshipData  # noqa: E402
 
+update_forward_refs(EntityRelationships, EntityDetails=EntityDetails)
+update_forward_refs(RelationshipData, EntityDetails=EntityDetails)
 update_forward_refs(EntityDetails)

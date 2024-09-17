@@ -5,6 +5,7 @@ from ..core.client_wrapper import SyncClientWrapper
 from .types.create_project_request import CreateProjectRequest
 from ..core.request_options import RequestOptions
 from .types.create_project_response import CreateProjectResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -76,7 +77,9 @@ class ProjectClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/projects",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateProjectRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -386,7 +389,9 @@ class ProjectClient:
                 "shipped_hs_codes": shipped_hs_codes,
                 "translation": translation,
                 "sort": sort,
-                "filters": jsonable_encoder(filters),
+                "filters": convert_and_respect_annotation_metadata(
+                    object_=filters, annotation=ProjectEntitiesFilter, direction="write"
+                ),
                 "aggregations": aggregations,
             },
             headers={
@@ -624,7 +629,9 @@ class AsyncProjectClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/projects",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateProjectRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -950,7 +957,9 @@ class AsyncProjectClient:
                 "shipped_hs_codes": shipped_hs_codes,
                 "translation": translation,
                 "sort": sort,
-                "filters": jsonable_encoder(filters),
+                "filters": convert_and_respect_annotation_metadata(
+                    object_=filters, annotation=ProjectEntitiesFilter, direction="write"
+                ),
                 "aggregations": aggregations,
             },
             headers={

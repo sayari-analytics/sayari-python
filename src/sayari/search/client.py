@@ -6,6 +6,7 @@ from ..shared_types.types.search_field import SearchField
 from .types.filter_list import FilterList
 from ..core.request_options import RequestOptions
 from .types.entity_search_response import EntitySearchResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -104,7 +105,9 @@ class SearchClient:
             json={
                 "q": q,
                 "fields": fields,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=FilterList, direction="write"
+                ),
                 "facets": facets,
                 "geo_facets": geo_facets,
                 "advanced": advanced,
@@ -400,7 +403,9 @@ class SearchClient:
             json={
                 "q": q,
                 "fields": fields,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=FilterList, direction="write"
+                ),
                 "facets": facets,
                 "advanced": advanced,
             },
@@ -707,7 +712,9 @@ class AsyncSearchClient:
             json={
                 "q": q,
                 "fields": fields,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=FilterList, direction="write"
+                ),
                 "facets": facets,
                 "geo_facets": geo_facets,
                 "advanced": advanced,
@@ -1019,7 +1026,9 @@ class AsyncSearchClient:
             json={
                 "q": q,
                 "fields": fields,
-                "filter": filter,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=FilterList, direction="write"
+                ),
                 "facets": facets,
                 "advanced": advanced,
             },

@@ -5,6 +5,7 @@ from ..core.client_wrapper import SyncClientWrapper
 from .types.save_entity_request import SaveEntityRequest
 from ..core.request_options import RequestOptions
 from .types.save_entity_response import SaveEntityResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -71,7 +72,9 @@ class ResourceClient:
         _response = self._client_wrapper.httpx_client.request(
             "v1/resource/entity",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SaveEntityRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -311,7 +314,9 @@ class AsyncResourceClient:
         _response = await self._client_wrapper.httpx_client.request(
             "v1/resource/entity",
             method="POST",
-            json=request,
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=SaveEntityRequest, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )

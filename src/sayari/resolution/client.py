@@ -24,6 +24,7 @@ from ..shared_errors.types.internal_server_error_response import InternalServerE
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from .types.resolution_body import ResolutionBody
+from ..core.serialization import convert_and_respect_annotation_metadata
 from .types.resolution_persisted_response import ResolutionPersistedResponse
 from ..core.jsonable_encoder import jsonable_encoder
 from ..core.client_wrapper import AsyncClientWrapper
@@ -268,7 +269,7 @@ class ResolutionClient:
                 "limit": limit,
                 "offset": offset,
             },
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
@@ -402,7 +403,7 @@ class ResolutionClient:
                 "limit": limit,
                 "offset": offset,
             },
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
@@ -733,7 +734,7 @@ class AsyncResolutionClient:
                 "limit": limit,
                 "offset": offset,
             },
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
@@ -875,7 +876,7 @@ class AsyncResolutionClient:
                 "limit": limit,
                 "offset": offset,
             },
-            json=request,
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,
             omit=OMIT,
         )
