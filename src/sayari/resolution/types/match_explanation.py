@@ -2,6 +2,7 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
+from .match_quality import MatchQuality
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -14,6 +15,7 @@ class MatchExplanation(UniversalBaseModel):
     is_deletion_recommended: typing.Optional[bool] = None
     n_common_term_matches: typing.Optional[int] = None
     n_uncommon_term_matches: typing.Optional[int] = None
+    match_quality: typing.Optional[MatchQuality] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

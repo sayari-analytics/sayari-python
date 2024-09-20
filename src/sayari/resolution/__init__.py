@@ -2,6 +2,7 @@
 
 from .types import (
     MatchExplanation,
+    MatchQuality,
     MatchStrength,
     ProfileEnum,
     ResolutionBody,
@@ -15,6 +16,7 @@ from .types import (
 
 __all__ = [
     "MatchExplanation",
+    "MatchQuality",
     "MatchStrength",
     "ProfileEnum",
     "ResolutionBody",
