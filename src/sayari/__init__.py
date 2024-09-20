@@ -171,6 +171,7 @@ from .project import (
 from .record import GetRecordResponse, RecordReferences
 from .resolution import (
     MatchExplanation,
+    MatchQuality,
     MatchStrength,
     ProfileEnum,
     ResolutionBody,
@@ -395,6 +396,7 @@ __all__ = [
     "Language",
     "ListSourcesResponse",
     "MatchExplanation",
+    "MatchQuality",
     "MatchStrength",
     "MeasurementData",
     "MeasurementInfo",
