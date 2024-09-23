@@ -620,6 +620,12 @@ IdentifierType = typing.Union[
         "usa_fl_martin_pid",
         "usa_fl_sl_pid",
         "can_qc_sap_registry_ref_num",
+        "xxx_eu_esma_sanctions_id",
+        "ind_darpan_uid",
+        "ind_charity_registration_number",
+        "ind_society_registration_number",
+        "ind_company_registration_number",
+        "ind_coopsoc_registration_number",
     ],
     typing.Any,
 ]
