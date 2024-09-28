@@ -4875,7 +4875,7 @@ client = Sayari(
     client_secret="YOUR_CLIENT_SECRET",
 )
 client.traversal.shortest_path(
-    entities="string",
+    entities="H1y25N5ymnFyZ-q9Lpwm_g&entities=xthsA_jQuKn3GW8-9ILQqg",
 )
 
 ```
@@ -4892,7 +4892,7 @@ client.traversal.shortest_path(
 <dl>
 <dd>
 
-**entities:** `typing.Union[str, typing.Sequence[str]]` 
+**entities:** `typing.Union[str, typing.Sequence[str]]` — A list of Sayari entity IDs specifying the source and target entities for the shortest path calculation. The list must contain exactly two entity IDs The first entity ID represents the source.The second entity ID represents the target.
     
 </dd>
 </dl>
