@@ -19,47 +19,101 @@ class ResolutionResponse(UniversalBaseModel):
         ResolutionResponseFields,
         ResolutionResult,
     )
+    from sayari.shared_types import Identifier
 
     ResolutionResponse(
         fields=ResolutionResponseFields(
-            name=["victoria beckham limited"],
+            name=["Thomas Bangalter"],
+            address=["8 AVENUE RACHEL"],
+            country=["FRA"],
         ),
         data=[
             ResolutionResult(
                 profile="corporate",
-                score=491.08936,
-                entity_id="ds5rQ3rMIeoN3xZUzVyVNQ",
-                label="VICTORIA BECKHAM",
+                score=453.80554,
+                entity_id="1nOeH5G2EhmRVtmeVqO2Lw",
+                label="Mr Thomas Bangalter",
                 type="person",
-                identifiers=[],
+                identifiers=[
+                    Identifier(
+                        type="uk_person_number",
+                        value="053673450003",
+                        label="Uk Person Number",
+                    ),
+                    Identifier(
+                        type="uk_person_number",
+                        value="053673450002",
+                        label="Uk Person Number",
+                    ),
+                ],
                 addresses=[
-                    "C/O LEE & THOMPSON LLP, 4 GEE'S COURT, ST-CHRISTOPHER'S PLACE"
+                    "5TH FLOOR 104 OXFORD STREET, W1D 1LP, LONDON, UNITED KINGDOM",
+                    "Oxford Street, London, W1D 1LP",
+                    "8 AVENUE RACHEL, 75018, FRANCE",
+                    "4th Floor, 205 Wardour Street, London, W1F 8ZJ",
+                    "MSE BUSINESS MANAGEMENT LLP 4TH FLOOR, 205 WARDOUR STREET, W1F 8ZJ, UNITED KINGDOM",
                 ],
-                countries=["GBR", "MEX"],
-                sources=["b9d809b02049993ba8dc2e4c5f7cceca"],
+                countries=["FRA", "GBR"],
+                sources=[
+                    "ecdfb3f2ecc8c3797e77d5795a8066ef",
+                    "4ea8bac1bed868e1510ffd21842e9551",
+                ],
                 typed_matched_queries=[
-                    "name|0",
-                    "name|100phrase|0",
+                    "address|sub|phraseStripped|0",
                     "name|100match|0",
-                    "looseName|0",
+                    "address|subclause|0",
+                    "address|numericFirst|0",
+                    "address|numericFull|0",
+                    "address|V2|Strict|0",
+                    "name|StrictV2|0",
+                    "address|V3|0",
+                    "name|100phrase|0",
+                    "country|0",
+                    "address|sub|cleanedAddress|0",
+                    "address|sub|phraseFirstHalf|0",
                 ],
-                matched_queries=["name"],
-                highlight={"name": ["<em>VICTORIA</em> <em>BECKHAM</em>"]},
+                matched_queries=["address", "name", "identifier", "country"],
+                highlight={
+                    "name": ["Mr <em>Thomas</em> <em>Bangalter</em>"],
+                    "address": [
+                        "<em>8</em> <em>AVENUE</em> <em>RACHEL</em>, 75018, FRANCE"
+                    ],
+                    "country": ["<em>FRA</em>"],
+                },
                 explanation={
                     "name": [
                         MatchExplanation(
-                            matched="<em>VICTORIA</em> <em>BECKHAM</em>",
-                            uploaded="victoria beckham limited",
-                            name_custom_tf_idf_score=0.5416772821044128,
+                            matched="Mr <em>Thomas</em> <em>Bangalter</em>",
+                            uploaded="Thomas Bangalter",
                             high_quality_match_name=True,
-                            is_deletion_recommended=False,
+                            scores={
+                                "tf": 0.35648895767689204,
+                                "lv": 0.9142857142857143,
+                                "fz": 0.8421052631578947,
+                                "l1": 1.0,
+                                "l2": 1.0,
+                            },
                             n_common_term_matches=1,
                             n_uncommon_term_matches=1,
                         )
-                    ]
+                    ],
+                    "address": [
+                        MatchExplanation(
+                            matched="<em>8</em> <em>AVENUE</em> <em>RACHEL</em>, 75018, FRANCE",
+                            uploaded="8 AVENUE RACHEL",
+                            match_quality="medium",
+                            scores={"9p": 0.47058823529411764},
+                        )
+                    ],
+                    "country": [
+                        MatchExplanation(
+                            matched="<em>FRA</em>",
+                            uploaded="FRA",
+                        )
+                    ],
                 },
                 match_strength=MatchStrength(
-                    value="weak",
+                    value="strong",
                 ),
             )
         ],

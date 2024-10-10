@@ -16,7 +16,7 @@ class ResolutionBody(UniversalBaseModel):
     Entity name
     """
 
-    identifier: typing.Optional[typing.List[BothIdentifierTypes]] = pydantic.Field(default=None)
+    identifier: typing.Optional[BothIdentifierTypes] = pydantic.Field(default=None)
     """
     Entity identifier. Can be from either the [Identifier Type](/sayari-library/ontology/enumerated-types#identifier-type) or [Weak Identifier Type](/sayari-library/ontology/enumerated-types#weak-identifier-type) enums.
     """
@@ -58,7 +58,7 @@ class ResolutionBody(UniversalBaseModel):
 
     profile: typing.Optional[ProfileEnum] = pydantic.Field(default=None)
     """
-    Profile can be used to switch between search algorithms. The default profile `corporate` is optimized for accurate entity attribute matching and is ideal for business verification and matching entities with corporate data. The `suppliers` profile is optimized for matching entities with extensive trade data. Ideal for supply chain and trade-related use cases.
+    Specifies the search algorithm to use. `corporate` (default) is optimized for accurate entity attribute matching, ideal for business verification. `suppliers` is tailored for matching entities with trade data, suitable for supply chain use cases. `search` mimics /search/entity behavior, best for name-only matches.
     """
 
     name_min_percentage: typing.Optional[int] = pydantic.Field(default=None)
@@ -69,6 +69,16 @@ class ResolutionBody(UniversalBaseModel):
     name_min_tokens: typing.Optional[int] = pydantic.Field(default=None)
     """
     Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
+    """
+
+    minimum_score_threshold: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Specifies the minimum score required to pass, which controls the strictness of the matching threshold. The default value is 77, and tuned for general use-case accuracy. Increase the value for stricter matching, reduce to loosen.
+    """
+
+    search_fallback: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to true.
     """
 
     if IS_PYDANTIC_V2:
