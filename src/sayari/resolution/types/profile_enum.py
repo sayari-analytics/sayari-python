@@ -2,4 +2,4 @@
 
 import typing
 
-ProfileEnum = typing.Union[typing.Literal["corporate", "suppliers"], typing.Any]
+ProfileEnum = typing.Union[typing.Literal["corporate", "suppliers", "search"], typing.Any]
