@@ -10,9 +10,8 @@ import pydantic
 class MatchExplanation(UniversalBaseModel):
     matched: typing.Optional[str] = None
     uploaded: typing.Optional[str] = None
-    name_custom_tf_idf_score: typing.Optional[float] = None
     high_quality_match_name: typing.Optional[bool] = None
-    is_deletion_recommended: typing.Optional[bool] = None
+    scores: typing.Optional[typing.Dict[str, float]] = None
     n_common_term_matches: typing.Optional[int] = None
     n_uncommon_term_matches: typing.Optional[int] = None
     match_quality: typing.Optional[MatchQuality] = None
