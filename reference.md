@@ -2273,8 +2273,8 @@ client = Sayari(
 client.resolution.resolution_post(
     limit=1,
     request=ResolutionBody(
-        name=["victoria beckham limited"],
-        profile="suppliers",
+        name=["Oleg Deripaska"],
+        country=["RUS"],
     ),
 )
 
@@ -3302,7 +3302,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
+Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 </dd>
 </dl>
 </dd>
@@ -3318,6 +3318,7 @@ client.supply_chain.upstream_trade_traversal(
 
 ```python
 from sayari import Sayari
+from sayari.trade import TradeFilterList
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3325,7 +3326,12 @@ client = Sayari(
 )
 client.trade.search_shipments(
     limit=1,
-    q="rum",
+    filter=TradeFilterList(
+        departure_country=["DEU"],
+        arrival_country=["RUS"],
+        hs_code=["854231"],
+        arrival_date=["2024-01 TO 2024-10"],
+    ),
 )
 
 ```
@@ -3342,14 +3348,6 @@ client.trade.search_shipments(
 <dl>
 <dd>
 
-**q:** `str` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
@@ -3359,6 +3357,14 @@ client.trade.search_shipments(
 <dd>
 
 **offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
     
 </dd>
 </dl>
@@ -3406,7 +3412,7 @@ client.trade.search_shipments(
 <dl>
 <dd>
 
-<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
+Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 </dd>
 </dl>
 </dd>
@@ -3422,6 +3428,7 @@ client.trade.search_shipments(
 
 ```python
 from sayari import Sayari
+from sayari.trade import TradeFilterList
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3429,7 +3436,12 @@ client = Sayari(
 )
 client.trade.search_suppliers(
     limit=1,
-    q="rum",
+    filter=TradeFilterList(
+        departure_country=["DEU"],
+        arrival_country=["RUS"],
+        hs_code=["854231"],
+        arrival_date=["2024-01 TO 2024-10"],
+    ),
 )
 
 ```
@@ -3446,14 +3458,6 @@ client.trade.search_suppliers(
 <dl>
 <dd>
 
-**q:** `str` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
@@ -3463,6 +3467,14 @@ client.trade.search_suppliers(
 <dd>
 
 **offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
     
 </dd>
 </dl>
@@ -3510,7 +3522,7 @@ client.trade.search_suppliers(
 <dl>
 <dd>
 
-<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
+Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 </dd>
 </dl>
 </dd>
@@ -3526,6 +3538,7 @@ client.trade.search_suppliers(
 
 ```python
 from sayari import Sayari
+from sayari.trade import TradeFilterList
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3533,7 +3546,12 @@ client = Sayari(
 )
 client.trade.search_buyers(
     limit=1,
-    q="rum",
+    filter=TradeFilterList(
+        departure_country=["DEU"],
+        arrival_country=["RUS"],
+        hs_code=["854231"],
+        arrival_date=["2024-01 TO 2024-10"],
+    ),
 )
 
 ```
@@ -3550,14 +3568,6 @@ client.trade.search_buyers(
 <dl>
 <dd>
 
-**q:** `str` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
     
 </dd>
@@ -3567,6 +3577,14 @@ client.trade.search_buyers(
 <dd>
 
 **offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
     
 </dd>
 </dl>

@@ -19,7 +19,7 @@ class SupplierSearchResponse(PaginatedResponse):
     Examples
     --------
     from sayari.base_types import QualifiedCount
-    from sayari.shared_types import SourceCountInfo
+    from sayari.shared_types import Identifier, RiskData, SourceCountInfo
     from sayari.trade import (
         HsCode,
         SupplierMetadata,
@@ -31,73 +31,92 @@ class SupplierSearchResponse(PaginatedResponse):
         offset=0,
         limit=1,
         size=QualifiedCount(
-            count=5541,
+            count=4,
             qualifier="eq",
         ),
         next=True,
         data=[
             SupplierOrBuyer(
-                id="LvKN1AA74GQ289vydvYgtg",
-                label="RedbusAvto OU",
-                degree=2523,
-                entity_url="/v1/entity/LvKN1AA74GQ289vydvYgtg",
+                id="yNwunHdFInERKig0Thusgg",
+                label="ERBE ELEKTROMEDIZIN GMBH",
+                degree=6349,
+                entity_url="/v1/entity/yNwunHdFInERKig0Thusgg",
                 pep=False,
-                psa_count=0,
+                psa_id="4904853096420",
+                psa_count=1,
                 sanctioned=False,
                 closed=False,
                 type="company",
-                identifiers=[],
-                addresses=[],
-                countries=[],
-                relationship_count={"shipper_of": 2522, "ships_to": 1},
-                trade_count={"sent": 20, "received": 33308},
-                source_count={
-                    "96c06a5a03b61b91324c7e05b3114fb6": SourceCountInfo(
-                        count=2522,
-                        label="Ukraine Imports & Exports (January 2023 - Present)",
-                    )
+                identifiers=[
+                    Identifier(
+                        value="52990027L4WYH1AZ2T91",
+                        type="lei",
+                        label="Lei",
+                    ),
+                    Identifier(
+                        value="26.035.445/0001-09",
+                        type="bra_cnpj",
+                        label="Bra Cnpj",
+                    ),
+                ],
+                addresses=[
+                    "WALDHOERNLESTRASSE 17 72072 TUEBINGEN 0 GERMANY",
+                    "72072, , TUEBINGEN, WALDHOERNLESTRASSE 17,",
+                ],
+                countries=["USA", "SWE", "BEL", "MEX", "ITA", "DEU"],
+                relationship_count={
+                    "linked_to": 2,
+                    "officer_of": 1,
+                    "has_officer": 5,
+                    "shareholder_of": 3,
+                    "has_shareholder": 1,
+                    "ships_to": 30,
+                    "receives_from": 3,
                 },
-                risk={},
+                trade_count={"sent": 6278, "received": 5},
+                source_count={
+                    "ee100f9b5dfdae8991ba43f5de6e1854": SourceCountInfo(
+                        count=8,
+                        label="Panama Imports & Exports (January 2022 - Present)",
+                    ),
+                    "26a8072830039f470287902c1530ef79": SourceCountInfo(
+                        count=6,
+                        label="Belgium Crossroads Bank for Enterprises",
+                    ),
+                },
+                risk={
+                    "basel_aml": RiskData(
+                        value=5.07,
+                        metadata={"country": ["ECU"]},
+                        level="relevant",
+                    ),
+                    "exports_bis_high_priority_items_critical_components": RiskData(
+                        value=1.0,
+                        metadata={"origin_shipment_product": ["854231"]},
+                        level="high",
+                    ),
+                },
                 user_attribute_count={},
                 user_record_count=0,
                 user_related_entities_count=0,
                 user_relationship_count={},
-                related_entities_count=2523,
-                attribute_count={"name": 1},
+                related_entities_count=6349,
+                attribute_count={
+                    "company_type": 6,
+                    "name": 2,
+                    "business_purpose": 11,
+                    "identifier": 8,
+                },
                 metadata=SupplierMetadata(
-                    latest_shipment_date="2023-10-27",
-                    shipments=2522,
+                    latest_shipment_date="2024-07-10",
+                    shipments=6,
                     hs_codes=[
                         HsCode(
-                            key="870323",
-                            doc_count=1292,
-                            value="Vehicles; with only spark-ignition internal combustion reciprocating piston engine, cylinder capacity over 1500 but not over 3000cc",
-                            value_simple="Cars & Passenger Vehicles",
-                        ),
-                        HsCode(
-                            key="8703239013",
-                            doc_count=1288,
-                            value="Vehicles; with only spark-ignition internal combustion reciprocating piston engine, cylinder capacity over 1500 but not over 3000cc",
-                            value_simple="Cars & Passenger Vehicles",
-                        ),
-                        HsCode(
-                            key="870332",
-                            doc_count=509,
-                            value="Vehicles; with only compression-ignition internal combustion piston engine (diesel or semi-diesel), cylinder capacity over 1500 but not over 2500cc",
-                            value_simple="Cars & Passenger Vehicles",
-                        ),
-                        HsCode(
-                            key="8703329030",
-                            doc_count=508,
-                            value="Vehicles; with only compression-ignition internal combustion piston engine (diesel or semi-diesel), cylinder capacity over 1500 but not over 2500cc",
-                            value_simple="Cars & Passenger Vehicles",
-                        ),
-                        HsCode(
-                            key="870322",
-                            doc_count=472,
-                            value="Vehicles; with only spark-ignition internal combustion piston engine, cylinder capacity over 1000 but not over 1500cc",
-                            value_simple="Cars & Passenger Vehicles",
-                        ),
+                            key="854231",
+                            doc_count=6,
+                            value="Electronic integrated circuits; processors and controllers, whether or not combined with memories, converters, logic circuits, amplifiers, clock and timing circuits, or other circuits",
+                            value_simple="Integrated Circuits",
+                        )
                     ],
                 ),
             )

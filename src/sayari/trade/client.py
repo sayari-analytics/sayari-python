@@ -34,26 +34,26 @@ class TradeClient:
     def search_shipments(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -71,6 +71,7 @@ class TradeClient:
         Examples
         --------
         from sayari import Sayari
+        from sayari.trade import TradeFilterList
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
@@ -78,7 +79,12 @@ class TradeClient:
         )
         client.trade.search_shipments(
             limit=1,
-            q="rum",
+            filter=TradeFilterList(
+                departure_country=["DEU"],
+                arrival_country=["RUS"],
+                hs_code=["854231"],
+                arrival_date=["2024-01 TO 2024-10"],
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -165,26 +171,26 @@ class TradeClient:
     def search_suppliers(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -202,6 +208,7 @@ class TradeClient:
         Examples
         --------
         from sayari import Sayari
+        from sayari.trade import TradeFilterList
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
@@ -209,7 +216,12 @@ class TradeClient:
         )
         client.trade.search_suppliers(
             limit=1,
-            q="rum",
+            filter=TradeFilterList(
+                departure_country=["DEU"],
+                arrival_country=["RUS"],
+                hs_code=["854231"],
+                arrival_date=["2024-01 TO 2024-10"],
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -296,26 +308,26 @@ class TradeClient:
     def search_buyers(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -333,6 +345,7 @@ class TradeClient:
         Examples
         --------
         from sayari import Sayari
+        from sayari.trade import TradeFilterList
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
@@ -340,7 +353,12 @@ class TradeClient:
         )
         client.trade.search_buyers(
             limit=1,
-            q="rum",
+            filter=TradeFilterList(
+                departure_country=["DEU"],
+                arrival_country=["RUS"],
+                hs_code=["854231"],
+                arrival_date=["2024-01 TO 2024-10"],
+            ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -432,26 +450,26 @@ class AsyncTradeClient:
     async def search_shipments(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ShipmentSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a shipment. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -471,6 +489,7 @@ class AsyncTradeClient:
         import asyncio
 
         from sayari import AsyncSayari
+        from sayari.trade import TradeFilterList
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
@@ -481,7 +500,12 @@ class AsyncTradeClient:
         async def main() -> None:
             await client.trade.search_shipments(
                 limit=1,
-                q="rum",
+                filter=TradeFilterList(
+                    departure_country=["DEU"],
+                    arrival_country=["RUS"],
+                    hs_code=["854231"],
+                    arrival_date=["2024-01 TO 2024-10"],
+                ),
             )
 
 
@@ -571,26 +595,26 @@ class AsyncTradeClient:
     async def search_suppliers(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SupplierSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a supplier. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -610,6 +634,7 @@ class AsyncTradeClient:
         import asyncio
 
         from sayari import AsyncSayari
+        from sayari.trade import TradeFilterList
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
@@ -620,7 +645,12 @@ class AsyncTradeClient:
         async def main() -> None:
             await client.trade.search_suppliers(
                 limit=1,
-                q="rum",
+                filter=TradeFilterList(
+                    departure_country=["DEU"],
+                    arrival_country=["RUS"],
+                    hs_code=["854231"],
+                    arrival_date=["2024-01 TO 2024-10"],
+                ),
             )
 
 
@@ -710,26 +740,26 @@ class AsyncTradeClient:
     async def search_buyers(
         self,
         *,
-        q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        q: typing.Optional[str] = OMIT,
         filter: typing.Optional[TradeFilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BuyerSearchResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
+        Search for a buyer. Please note, searches are limited to a maximum of 10,000 results.
 
         Parameters
         ----------
-        q : str
-            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
-
         limit : typing.Optional[int]
             A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        q : typing.Optional[str]
+            Query term. The syntax for the query parameter follows elasticsearch simple query string syntax. The includes the ability to use search operators and to perform nested queries. Must be url encoded.
 
         filter : typing.Optional[TradeFilterList]
             Filters to be applied to search query to limit the result-set.
@@ -749,6 +779,7 @@ class AsyncTradeClient:
         import asyncio
 
         from sayari import AsyncSayari
+        from sayari.trade import TradeFilterList
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
@@ -759,7 +790,12 @@ class AsyncTradeClient:
         async def main() -> None:
             await client.trade.search_buyers(
                 limit=1,
-                q="rum",
+                filter=TradeFilterList(
+                    departure_country=["DEU"],
+                    arrival_country=["RUS"],
+                    hs_code=["854231"],
+                    arrival_date=["2024-01 TO 2024-10"],
+                ),
             )
 
 
