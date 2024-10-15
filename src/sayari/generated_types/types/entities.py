@@ -4,18 +4,18 @@ import typing
 
 Entities = typing.Union[
     typing.Literal[
-        "shipment",
-        "unknown",
-        "aircraft",
-        "vessel",
         "security",
-        "tradename",
-        "legal_matter",
         "company",
-        "generic",
-        "property",
-        "intellectual_property",
+        "vessel",
+        "unknown",
         "person",
+        "intellectual_property",
+        "tradename",
+        "generic",
+        "legal_matter",
+        "property",
+        "aircraft",
+        "shipment",
     ],
     typing.Any,
 ]
