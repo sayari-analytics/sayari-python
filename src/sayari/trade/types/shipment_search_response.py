@@ -15,9 +15,11 @@ class ShipmentSearchResponse(PaginatedResponse):
     --------
     from sayari.base_types import QualifiedCount
     from sayari.trade import (
+        BusinessPurpose,
         DataSource,
+        HsCodeInfo,
+        MonetaryValue,
         Shipment,
-        ShipmentAddress,
         ShipmentIdentifier,
         ShipmentSearchResponse,
         SourceOrDestinationEntity,
@@ -28,69 +30,101 @@ class ShipmentSearchResponse(PaginatedResponse):
         offset=0,
         limit=1,
         size=QualifiedCount(
-            count=10000,
-            qualifier="gte",
+            count=13,
+            qualifier="eq",
         ),
         next=True,
         data=[
             Shipment(
-                id="KIB4wNCMtzLhG-onltADgQ",
+                id="Sdl3aYnJ23Y-3IxgIOkXPA",
                 type="shipment",
                 buyer=[
                     SourceOrDestinationEntity(
-                        id="M_vGQfA6PWYdNkj5a_XMNQ",
-                        names=["HEMINGWAY RUM COMPANY LLC"],
-                        risks={"basel_aml": 4.63, "cpi_score": 67},
-                        countries=["USA"],
-                        business_purpose=[],
+                        id="uWNWgzX-Kvp1j-WeXKmLQw",
+                        names=[
+                            'ООО "ЭРБЭ ЭЛЕКТРОМЕДИЦИН"',
+                            'LLC "ERBE ELECTROMEDICAL"',
+                        ],
+                        risks={
+                            "imports_bis_high_priority_items": 1,
+                            "imports_bis_high_priority_items_critical_components": 1,
+                        },
+                        countries=["RUS"],
+                        business_purpose=[
+                            BusinessPurpose(
+                                value="Торговля розничная лекарственными средствами в специализированных магазинах (аптеках)",
+                                code="47.73",
+                            )
+                        ],
                     )
                 ],
                 supplier=[
                     SourceOrDestinationEntity(
-                        id="9NQnfZhEFrRnp4YWk5yAVQ",
-                        names=["FOURSQUARE RUM DISTILLERY FOURSQUARE"],
+                        id="yNwunHdFInERKig0Thusgg",
+                        names=["ERBE ELEKTROMEDIZIN GMBH", "ERBE ELEKTROMED"],
                         risks={
-                            "eu_high_risk_third": true,
-                            "basel_aml": 5.81,
-                            "cpi_score": 65,
+                            "exports_bis_high_priority_items_critical_components": 1,
+                            "exports_bis_high_priority_items": 1,
                         },
-                        countries=["BRB"],
-                        business_purpose=[],
+                        countries=[
+                            "DEU",
+                            "USA",
+                            "MEX",
+                            "BRA",
+                            "BEL",
+                            "ECU",
+                            "ITA",
+                            "SGP",
+                            "CAN",
+                            "SWE",
+                            "ZAF",
+                        ],
+                        business_purpose=[
+                            BusinessPurpose(
+                                value="Manufacture of irradiation, electromedical and electrotherapeutic equipment",
+                                code="2660",
+                            )
+                        ],
                     )
                 ],
-                arrival_date="2022-05-25",
-                departure_date="2022-05",
-                departure_address=ShipmentAddress(
-                    x=-79.4861,
-                    city="ALAMANCE",
-                    state="NC",
-                    y=36.035,
-                    value="27201",
-                ),
-                product_origin=["USA"],
-                monetary_value=[],
+                arrival_date="2024-05-14",
+                product_origin=["DEU"],
+                monetary_value=[
+                    MonetaryValue(
+                        value=2570.52,
+                        currency="USD",
+                        context="cost_insurance_and_freight",
+                    )
+                ],
                 weight=[
                     Weight(
-                        value=5388.0,
+                        value=5.5,
                         unit="kilogram",
-                        type="gross_weight",
+                        type="net_weight",
                     )
                 ],
                 identifier=[
                     ShipmentIdentifier(
-                        value="TSCW15541208",
-                        type="bill_of_lading",
+                        value="10013160/140524/3162513",
+                        type="rus_declaration_number",
                     )
                 ],
                 sources=[
                     DataSource(
-                        id="16a4cc2d0f467fa993b28587d542a25d",
-                        label="USA Imports (2021 - Present)",
+                        id="66dfefb726ae00fde8f09f34c5578d35",
+                        label="Russia Imports & Exports (January 2023 - Present)",
                     )
                 ],
-                hs_codes=[],
-                product_descriptions=["0000000006FOURSQUARE 5YR OLD RUM"],
-                record="16a4cc2d0f467fa993b28587d542a25d/TSCW15541208/1653523200000/0",
+                hs_codes=[
+                    HsCodeInfo(
+                        code="854231",
+                        description="Electronic integrated circuits; processors and controllers, whether or not combined with memories, converters, logic circuits, amplifiers, clock and timing circuits, or other circuits",
+                    )
+                ],
+                product_descriptions=[
+                    "СХЕМЫ ИНТЕГРАЛЬНЫЕ МОНОЛИТНЫЕ, ЦИФРОВЫЕ, НЕ ЛОМ ЭЛЕКТРООБОРУДОВАНИЯ, НЕ СОДЕРЖАТ КРИПТОГРАФИЧЕСКИХ МОДУЛЕЙ И ПРИЕМОПЕРЕДАТОЧНЫХ УСТР-В, НЕ ДЛЯ ШИФРОВАНИЯ, ГРАЖДАНСКОГО НАЗНАЧЕНИЯ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СОСТАВЕ МЕДИЦИНСКОГО ОБОРУДОВАНИЯ"
+                ],
+                record="4337bf42a200a30b90d536c5992167e1/1001325059/1721001600000/0",
             )
         ],
     )

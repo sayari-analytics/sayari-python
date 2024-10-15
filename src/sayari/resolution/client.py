@@ -267,7 +267,9 @@ class ResolutionClient:
         client.resolution.resolution_post(
             limit=1,
             request=ResolutionBody(
-                name=["victoria beckham limited"],
+                name=["Thomas Bangalter"],
+                address=["8 AVENUE RACHEL"],
+                country=["FRA"],
             ),
         )
         """
@@ -606,7 +608,9 @@ class AsyncResolutionClient:
             await client.resolution.resolution_post(
                 limit=1,
                 request=ResolutionBody(
-                    name=["victoria beckham limited"],
+                    name=["Thomas Bangalter"],
+                    address=["8 AVENUE RACHEL"],
+                    country=["FRA"],
                 ),
             )
 
