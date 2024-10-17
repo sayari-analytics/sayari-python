@@ -43,13 +43,13 @@ class GetRecordResponse(RecordDetails):
                         "label": "Bank of China Ltd.",
                         "degree": 22179,
                         "entity_url": "/v1/entity/YUc8LtKFCpAbUIBGK8nQpw",
-                        "pep": false,
+                        "pep": False,
                         "psa_id": "81201",
                         "psa_count": 2,
-                        "sanctioned": false,
-                        "closed": false,
+                        "sanctioned": False,
+                        "closed": False,
                         "translated_label": "Bank Of China Limited",
-                        "company_type": "\u4e0a\u699c\u6295\u8d44\u673a\u6784",
+                        "company_type": "上榜投资机构",
                         "registration_date": "Registered 2015-08-18",
                         "latest_status": {"status": "active", "date": "2019-05-20"},
                         "trade_count": {"sent": 1, "received": 1806},
@@ -286,17 +286,17 @@ class GetRecordResponse(RecordDetails):
                         },
                         "risk": {
                             "regulatory_action": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "high",
                             },
                             "eu_high_risk_third": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {"country": ["PHL", "AFG"]},
                                 "level": "relevant",
                             },
                             "reputational_risk_financial_crime": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "elevated",
                             },
@@ -311,7 +311,7 @@ class GetRecordResponse(RecordDetails):
                                 "level": "relevant",
                             },
                             "state_owned": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "high",
                             },
@@ -321,7 +321,7 @@ class GetRecordResponse(RecordDetails):
                                 "level": "high",
                             },
                             "meu_list_contractors": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {
                                     "sources": [
                                         "China Central Government Procurement Center Enterprise Database",
@@ -331,7 +331,7 @@ class GetRecordResponse(RecordDetails):
                                 "level": "high",
                             },
                             "reputational_risk_other": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "elevated",
                             },
@@ -346,7 +346,7 @@ class GetRecordResponse(RecordDetails):
                                 "level": "relevant",
                             },
                             "pep_adjacent": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "elevated",
                             },
@@ -356,7 +356,7 @@ class GetRecordResponse(RecordDetails):
                                 "level": "high",
                             },
                             "law_enforcement_action": {
-                                "value": true,
+                                "value": True,
                                 "metadata": {},
                                 "level": "elevated",
                             },

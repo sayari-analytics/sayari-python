@@ -170,7 +170,7 @@ class EntitySummaryResponse(EntityDetails):
             name=NameInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=2,
                     qualifier="eq",
@@ -202,7 +202,7 @@ class EntitySummaryResponse(EntityDetails):
             address=AddressInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=7,
                     qualifier="eq",
@@ -331,7 +331,7 @@ class EntitySummaryResponse(EntityDetails):
             identifier=IdentifierInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=3,
                     qualifier="eq",
@@ -372,7 +372,7 @@ class EntitySummaryResponse(EntityDetails):
             status=StatusInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=5,
                     qualifier="eq",
@@ -433,7 +433,7 @@ class EntitySummaryResponse(EntityDetails):
             company_type=CompanyTypeInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=2,
                     qualifier="eq",
@@ -462,7 +462,7 @@ class EntitySummaryResponse(EntityDetails):
             business_purpose=BusinessPurposeInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=4,
                     qualifier="eq",
@@ -514,7 +514,7 @@ class EntitySummaryResponse(EntityDetails):
             country=CountryInfo(
                 offset=0,
                 limit=50,
-                next=false,
+                next=False,
                 size=QualifiedCount(
                     count=8,
                     qualifier="eq",
@@ -611,7 +611,7 @@ class EntitySummaryResponse(EntityDetails):
                 qualifier="eq",
             ),
             offset=0,
-            next=false,
+            next=False,
             data=[
                 PossiblySameAsData(
                     entity=PsaEntity(
@@ -800,7 +800,7 @@ class EntitySummaryResponse(EntityDetails):
                 qualifier="eq",
             ),
             offset=0,
-            next=true,
+            next=True,
             data=[
                 ReferencedByData(
                     record=RecordDetails(

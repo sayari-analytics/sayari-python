@@ -47,7 +47,8 @@ class BuyerSearchResponse(PaginatedResponse):
                 sanctioned=False,
                 closed=False,
                 translated_label='GESELLSCHAFT MIT BESCHRANKTER HAFTUNG "ERBE ELEKTROMEDIZIN"',
-                registration_date="2008-09-08",
+                registration_date="Registered 2008-09-08",
+                trade_count={"sent": 0, "received": 192},
                 type="company",
                 identifiers=[
                     Identifier(
@@ -60,9 +61,25 @@ class BuyerSearchResponse(PaginatedResponse):
                         type="ru_ogrn",
                         label="Ru Ogrn",
                     ),
+                    Identifier(
+                        value="770401001",
+                        type="ru_kpp",
+                        label="Ru Kpp",
+                    ),
+                    Identifier(
+                        value="ФС-99-04-005763",
+                        type="ru_license_number",
+                        label="Ru License Number",
+                    ),
+                    Identifier(
+                        value="Л016-00110-77/00565584",
+                        type="ru_license_number",
+                        label="Ru License Number",
+                    ),
                 ],
                 addresses=[
                     "119270, , Г.МОСКВА, УЛ.ХАМОВНИЧЕСКИЙ ВАЛ,Д.12,ЭТ.2,ПОМ.Х,КОМ.15,",
+                    "119270, , Г.МОСКВА, УЛ.ХАМОВНИЧЕСКИЙ ВАЛ,Д.12,ЭТ12,ПОМ.Х,КОМ.15,",
                     "119270, ГОРОД МОСКВА, УЛ. ХАМОВНИЧЕСКИЙ ВАЛ, Д. 12, ЭТАЖ 2 ПОМ Х КОМ 15",
                 ],
                 countries=["RUS"],
@@ -73,7 +90,6 @@ class BuyerSearchResponse(PaginatedResponse):
                     "receives_from": 1,
                     "has_legal_representative": 1,
                 },
-                trade_count={"sent": 0, "received": 192},
                 source_count={
                     "a9a18eeb901e4376c912e95dc05ceb78": SourceCountInfo(
                         count=9,
@@ -82,6 +98,14 @@ class BuyerSearchResponse(PaginatedResponse):
                     "66dfefb726ae00fde8f09f34c5578d35": SourceCountInfo(
                         count=360,
                         label="Russia Imports & Exports (January 2023 - Present)",
+                    ),
+                    "e61c3b3478534c110b46cd64c7746e82": SourceCountInfo(
+                        count=2,
+                        label="Russia Federal Tax Service Financial Statements",
+                    ),
+                    "56bce0e008204712e302271ddd7b4fb1": SourceCountInfo(
+                        count=1,
+                        label="Russia Federal Tax Registry (2018)",
                     ),
                 },
                 risk={
@@ -96,11 +120,23 @@ class BuyerSearchResponse(PaginatedResponse):
                         level="high",
                     ),
                 },
+                user_attribute_counts={},
                 user_attribute_count={},
                 user_record_count=0,
                 user_related_entities_count=0,
                 user_relationship_count={},
                 related_entities_count=195,
+                attribute_counts={
+                    "name": 3,
+                    "business_purpose": 10,
+                    "identifier": 7,
+                    "additional_information": 2,
+                    "country": 2,
+                    "shares": 1,
+                    "status": 1,
+                    "address": 4,
+                    "financials": 3,
+                },
                 attribute_count={
                     "name": 3,
                     "business_purpose": 10,
@@ -112,6 +148,7 @@ class BuyerSearchResponse(PaginatedResponse):
                     "address": 4,
                     "financials": 3,
                 },
+                reference_id="56bce0e008204712e302271ddd7b4fb1/5087746065578_7705856072_OOO-ERBE-ELEKTROMEDICIN.html/1552661755844:e39b6745ba02f2a46afdd7ffbd700920",
                 metadata=SupplierMetadata(
                     latest_shipment_date="2024-07-10",
                     shipments=6,
