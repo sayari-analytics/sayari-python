@@ -58,11 +58,11 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 ),
                 match_strength={
                     "rules": {
-                        "is_strong_v1": false,
+                        "is_strong_v1": False,
                         "any_v1": "",
-                        "is_any_v1": false,
+                        "is_any_v1": False,
                         "strong_v1": "",
-                        "is_weak_v1": false,
+                        "is_weak_v1": False,
                         "weak_v1": "",
                         "strength_v1": "none",
                     }
@@ -160,7 +160,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                                     {
                                         "record": "faa9caafcfabcee04ef2f0b21dd9197a/MAEU226738031/1693109172077",
                                         "record_count": 4,
-                                        "editable": false,
+                                        "editable": False,
                                     }
                                 ],
                             },
@@ -183,7 +183,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                                     {
                                         "record": "faa9caafcfabcee04ef2f0b21dd9197a/MAEU1KT860018/1693109343516",
                                         "record_count": 2,
-                                        "editable": false,
+                                        "editable": False,
                                     }
                                 ],
                             },
@@ -199,7 +199,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                                     {
                                         "record": "faa9caafcfabcee04ef2f0b21dd9197a/MAEU226738031/1693109172077",
                                         "record_count": 6,
-                                        "editable": false,
+                                        "editable": False,
                                     }
                                 ],
                             }
@@ -214,7 +214,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                                     {
                                         "record": "faa9caafcfabcee04ef2f0b21dd9197a/MAEU226738031/1693109172077",
                                         "record_count": 10,
-                                        "editable": false,
+                                        "editable": False,
                                     }
                                 ],
                             }

@@ -4,7 +4,7 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import pydantic
 import typing
 from ...generated_types.types.risk import Risk
-from .business_purpose import BusinessPurpose
+from ...generated_types.types.business_purpose_properties import BusinessPurposeProperties
 from ...generated_types.types.country import Country
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
@@ -15,20 +15,26 @@ class SourceOrDestinationEntity(UniversalBaseModel):
     Unique identifier of the entity
     """
 
+    type: str
     names: typing.List[str]
     risks: typing.Dict[Risk, typing.Optional[typing.Any]] = pydantic.Field()
     """
     [Risks](/sayari-library/ontology/risk-factors)
     """
 
-    business_purpose: typing.List[BusinessPurpose] = pydantic.Field()
+    business_purpose: typing.List[BusinessPurposeProperties] = pydantic.Field()
     """
-    [Business Purpose](/sayari-library/ontology/enumerated-types#business-purpose-standard)
+    [Business Purpose](/sayari-library/ontology/attributes#business-purpose)
+    """
+
+    address: typing.List[typing.Optional[typing.Any]] = pydantic.Field()
+    """
+    [Address](/sayari-library/ontology/attributes#address)
     """
 
     countries: typing.List[Country] = pydantic.Field()
     """
-    [Countries](/sayari-library/ontology/enumerated-types#country)
+    [Country](/sayari-library/ontology/attributes#country)
     """
 
     if IS_PYDANTIC_V2:

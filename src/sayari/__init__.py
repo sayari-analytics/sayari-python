@@ -249,7 +249,6 @@ from .supply_chain import (
     UpstreamTradeTraversalResponse,
 )
 from .trade import (
-    BusinessPurpose,
     BuyerSearchResponse,
     DataSource,
     HsCode,
@@ -301,7 +300,6 @@ __all__ = [
     "BadRequestResponse",
     "BothIdentifierTypes",
     "BucketAgg",
-    "BusinessPurpose",
     "BusinessPurposeData",
     "BusinessPurposeInfo",
     "BusinessPurposeProperties",

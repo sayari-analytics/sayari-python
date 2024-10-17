@@ -19,7 +19,7 @@ class SupplierSearchResponse(PaginatedResponse):
     Examples
     --------
     from sayari.base_types import QualifiedCount
-    from sayari.shared_types import Identifier, RiskData, SourceCountInfo
+    from sayari.shared_types import Identifier, RiskData, SourceCountInfo, Status
     from sayari.trade import (
         HsCode,
         SupplierMetadata,
@@ -46,6 +46,13 @@ class SupplierSearchResponse(PaginatedResponse):
                 psa_count=1,
                 sanctioned=False,
                 closed=False,
+                company_type="Foreign entity",
+                registration_date="Registered 1965-07-20",
+                latest_status=Status(
+                    status="active",
+                    date="2015-01-07",
+                ),
+                trade_count={"sent": 6278, "received": 5},
                 type="company",
                 identifiers=[
                     Identifier(
@@ -58,22 +65,54 @@ class SupplierSearchResponse(PaginatedResponse):
                         type="bra_cnpj",
                         label="Bra Cnpj",
                     ),
+                    Identifier(
+                        value="B8534_HRB380137",
+                        type="deu_registernummer",
+                        label="Deu Registernummer",
+                    ),
+                    Identifier(
+                        value="0507.995.037",
+                        type="bel_enterprise_number",
+                        label="Bel Enterprise Number",
+                    ),
+                    Identifier(
+                        value="LBB853438013700000",
+                        type="validatis_number",
+                        label="Validatis Number",
+                    ),
                 ],
                 addresses=[
                     "WALDHOERNLESTRASSE 17 72072 TUEBINGEN 0 GERMANY",
                     "72072, , TUEBINGEN, WALDHOERNLESTRASSE 17,",
+                    "WALDHÖRNLESTRAßE 17",
                 ],
-                countries=["USA", "SWE", "BEL", "MEX", "ITA", "DEU"],
+                countries=[
+                    "USA",
+                    "SWE",
+                    "BEL",
+                    "MEX",
+                    "ITA",
+                    "SGP",
+                    "ECU",
+                    "DEU",
+                    "BRA",
+                    "CAN",
+                ],
                 relationship_count={
                     "linked_to": 2,
                     "officer_of": 1,
                     "has_officer": 5,
                     "shareholder_of": 3,
                     "has_shareholder": 1,
+                    "has_director": 1,
+                    "has_lawyer": 1,
+                    "owner_of": 20,
                     "ships_to": 30,
                     "receives_from": 3,
+                    "subsidiary_of": 1,
+                    "has_subsidiary": 1,
+                    "has_legal_representative": 5,
                 },
-                trade_count={"sent": 6278, "received": 5},
                 source_count={
                     "ee100f9b5dfdae8991ba43f5de6e1854": SourceCountInfo(
                         count=8,
@@ -82,6 +121,138 @@ class SupplierSearchResponse(PaginatedResponse):
                     "26a8072830039f470287902c1530ef79": SourceCountInfo(
                         count=6,
                         label="Belgium Crossroads Bank for Enterprises",
+                    ),
+                    "c7c2684a1a28cce25025c6b7c6a97bf1": SourceCountInfo(
+                        count=24,
+                        label="Colombia Imports & Exports (2008-2020)",
+                    ),
+                    "d302aa0d7153d87aeaa4406f9a3b28fa": SourceCountInfo(
+                        count=109,
+                        label="Colombia Imports & Exports (January 2022 - Present)",
+                    ),
+                    "9615bab28dddcc89548c928ab192ee7c": SourceCountInfo(
+                        count=11,
+                        label="Sri Lanka Imports & Exports (January 2023 - Present)",
+                    ),
+                    "c22aabd1653affa3d007fb01dcc66b72": SourceCountInfo(
+                        count=3,
+                        label="Singapore Handshakes Shareholder Profiles (3rd Party Data)",
+                    ),
+                    "33ce74530696fdc957af6e05194905a2": SourceCountInfo(
+                        count=1,
+                        label="Nicaragua Imports & Exports (January 2024 - Present)",
+                    ),
+                    "16279c76cf40cfb1f5ad0809e6a76fd7": SourceCountInfo(
+                        count=2,
+                        label="Italy Company Registry (3rd Party Data)",
+                    ),
+                    "4a34a8375e7041cf8661fa82366c60ea": SourceCountInfo(
+                        count=161,
+                        label="Ecuador Imports & Exports (January 2022 - Present)",
+                    ),
+                    "8511f57f6098dcc36e3a814c3ea5bdd7": SourceCountInfo(
+                        count=3,
+                        label="Uzbekistan Imports & Exports (January 2022 - Present)",
+                    ),
+                    "b812677c0a32a1746b3ac741c7b97ae0": SourceCountInfo(
+                        count=58,
+                        label="Legal Entity Identifier (LEI) Registry (3rd Party Data)",
+                    ),
+                    "ac1fa195f9cd4ccf657bca3c6db0bb19": SourceCountInfo(
+                        count=1,
+                        label="USA Patents and Trademark Office Trademark Applications",
+                    ),
+                    "7a92887d4f18fc21abe0d658b25364e7": SourceCountInfo(
+                        count=735,
+                        label="USA USASpending.gov Profiles Database",
+                    ),
+                    "a7829d9c8999fcaa78af55886da9be06": SourceCountInfo(
+                        count=42,
+                        label="Turkey Imports & Exports (January 2024 - Present)",
+                    ),
+                    "92fbab1cd3a92b583e0ec0ca5c48a254": SourceCountInfo(
+                        count=1,
+                        label="Germany Handelsregister Announcements",
+                    ),
+                    "ce462e9deea545cce35df38c48512a0c": SourceCountInfo(
+                        count=5243,
+                        label="India Imports & Exports (January 2023 - Present)",
+                    ),
+                    "66dfefb726ae00fde8f09f34c5578d35": SourceCountInfo(
+                        count=227,
+                        label="Russia Imports & Exports (January 2023 - Present)",
+                    ),
+                    "83ffee6075e54030397fa4c499a5a7ba": SourceCountInfo(
+                        count=4,
+                        label="Tanzania Imports & Exports (January 2023 - Present)",
+                    ),
+                    "5547652362cfeeb62963e058f95d6fdd": SourceCountInfo(
+                        count=66,
+                        label="Peru Imports & Exports (January 2023 - Present)",
+                    ),
+                    "e5de7b52cc88ef4cd1a10e201bdf46ee": SourceCountInfo(
+                        count=71,
+                        label="Vietnam Imports & Exports (January 2023 - Present)",
+                    ),
+                    "b9d809b02049993ba8dc2e4c5f7cceca": SourceCountInfo(
+                        count=152,
+                        label="Mexico Industrial Property Trademark Registry (MARCIA)",
+                    ),
+                    "31df3cc3a57cc4a39dcc29dd4b9ce5e5": SourceCountInfo(
+                        count=108,
+                        label="Mexico Imports & Exports (January 2022 - Present)",
+                    ),
+                    "31d2e44e0e61ae41a8a7d09b8499fd4e": SourceCountInfo(
+                        count=1,
+                        label="Belgium KBO Open Data (Active Entities)",
+                    ),
+                    "b2695e88b6f5b89ba1d9011e06dbcbc7": SourceCountInfo(
+                        count=4,
+                        label="Botswana Imports & Exports (January 2023 - Present)",
+                    ),
+                    "f5fdf9a3e7f4ae43eae3191eea1f3127": SourceCountInfo(
+                        count=1,
+                        label="Sweden Business Register (Statistics Sweden)",
+                    ),
+                    "9c66f2f4dc556f40ce096ebf4f0c97ac": SourceCountInfo(
+                        count=7,
+                        label="Germany Validatis Shareholder Lists (3rd Party Data)",
+                    ),
+                    "16a4cc2d0f467fa993b28587d542a25d": SourceCountInfo(
+                        count=398,
+                        label="USA Imports (2021 - Present)",
+                    ),
+                    "a4475601393f5a6a27154175556f7a85": SourceCountInfo(
+                        count=2,
+                        label="Canada Intellectual Property Office Trademarks Database",
+                    ),
+                    "fecea39fdc2bbbca36ed77ff68c8c89b": SourceCountInfo(
+                        count=32,
+                        label="Brazil Receita Federal",
+                    ),
+                    "96c06a5a03b61b91324c7e05b3114fb6": SourceCountInfo(
+                        count=3,
+                        label="Ukraine Imports & Exports (January 2023 - May 2023)",
+                    ),
+                    "0b325d9555f1011ae80446f3778bc3c8": SourceCountInfo(
+                        count=1,
+                        label="Paraguay Imports & Exports (January 2022 - Present)",
+                    ),
+                    "41c82cb8bda87edc819b7790081e1e26": SourceCountInfo(
+                        count=12,
+                        label="Ghana Imports (January 2023 - Present)",
+                    ),
+                    "9f22a5470e1faf82004e203d094cca29": SourceCountInfo(
+                        count=4,
+                        label="Kenya Imports (January 2024 - present)",
+                    ),
+                    "a6cd51a15ff02fb3ab273f3c90d2097c": SourceCountInfo(
+                        count=2,
+                        label="Italy Chambers of Commerce Registry",
+                    ),
+                    "b7593dcf982bcb9ca86f24ef369ed1e5": SourceCountInfo(
+                        count=145,
+                        label="Philippines Imports & Exports (January 2023 - Present)",
                     ),
                 },
                 risk={
@@ -95,18 +266,48 @@ class SupplierSearchResponse(PaginatedResponse):
                         metadata={"origin_shipment_product": ["854231"]},
                         level="high",
                     ),
+                    "cpi_score": RiskData(
+                        value=34.0,
+                        metadata={"country": ["ECU"]},
+                        level="relevant",
+                    ),
+                    "exports_bis_high_priority_items": RiskData(
+                        value=1.0,
+                        metadata={"origin_shipment_product": ["853669"]},
+                        level="elevated",
+                    ),
                 },
+                user_attribute_counts={},
                 user_attribute_count={},
                 user_record_count=0,
                 user_related_entities_count=0,
                 user_relationship_count={},
                 related_entities_count=6349,
+                attribute_counts={
+                    "company_type": 6,
+                    "name": 2,
+                    "business_purpose": 11,
+                    "identifier": 8,
+                    "additional_information": 2,
+                    "country": 22,
+                    "contact": 3,
+                    "status": 5,
+                    "address": 20,
+                    "financials": 1,
+                },
                 attribute_count={
                     "company_type": 6,
                     "name": 2,
                     "business_purpose": 11,
                     "identifier": 8,
+                    "additional_information": 2,
+                    "country": 22,
+                    "contact": 3,
+                    "status": 5,
+                    "address": 20,
+                    "financials": 1,
                 },
+                reference_id="fecea39fdc2bbbca36ed77ff68c8c89b/27709659/1566236147596:c14ee31028469ae2871467bb07abc96a",
                 metadata=SupplierMetadata(
                     latest_shipment_date="2024-07-10",
                     shipments=6,

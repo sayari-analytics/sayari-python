@@ -23,6 +23,10 @@ class Shipment(UniversalBaseModel):
     departure_date: typing.Optional[str] = None
     departure_address: typing.Optional[ShipmentAddress] = None
     arrival_address: typing.Optional[ShipmentAddress] = None
+    arrival_country: typing.List[Country]
+    departure_country: typing.List[Country]
+    transit_country: typing.List[Country]
+    countries: typing.List[Country]
     product_origin: typing.List[Country]
     monetary_value: typing.List[MonetaryValue]
     weight: typing.List[Weight]
