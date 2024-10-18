@@ -36,6 +36,7 @@ IdentifierType = typing.Union[
         "mdv_registration_number",
         "ind_director_id_number",
         "ind_permanent_account_number",
+        "ind_tin",
         "ind_corporate_id_number",
         "kaz_tin",
         "kaz_bin",
