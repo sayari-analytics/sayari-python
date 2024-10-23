@@ -3,11 +3,11 @@
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 from .source_id import SourceId
+import pydantic
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from ...generated_types.types.risk import Risk
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class FilterList(UniversalBaseModel):
@@ -15,13 +15,40 @@ class FilterList(UniversalBaseModel):
     Filter your search on the following attributes.
     """
 
-    source: typing.Optional[typing.List[SourceId]] = None
-    country: typing.Optional[typing.List[Country]] = None
-    state: typing.Optional[typing.List[str]] = None
-    city: typing.Optional[typing.List[str]] = None
-    entity_type: typing.Optional[typing.List[Entities]] = None
-    bounds: typing.Optional[typing.List[str]] = None
-    risk: typing.Optional[typing.List[Risk]] = None
+    source: typing.Optional[typing.List[SourceId]] = pydantic.Field(default=None)
+    """
+    List of source IDs to filter by.
+    """
+
+    country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    List of countries to filter by.
+    """
+
+    state: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    List of states or provinces to filter by.
+    """
+
+    city: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    List of cities to filter by.
+    """
+
+    entity_type: typing.Optional[typing.List[Entities]] = pydantic.Field(default=None)
+    """
+    List of entity types to filter by.
+    """
+
+    bounds: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Pipe-delimited bounding box coordinates (north,west,south,east). E.g., '"46.12|-76|45|-75"'.
+    """
+
+    risk: typing.Optional[typing.List[Risk]] = pydantic.Field(default=None)
+    """
+    List of risk factors to filter by.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
