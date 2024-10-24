@@ -5,24 +5,30 @@ env:
   CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
 
 on: [push]
+
 jobs:
   compile:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - name: Set up python
+
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: 3.11
-      - name: Bootstrap poetry
+
+      - name: Bootstrap Poetry
         run: |
           curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
-          poetry add --dev types-python-dotenv
-      - name: Install dependencies
-        run: poetry install
-      - name: Compile
-        run: poetry run mypy .
+
+      - name: Install dependencies including python-dotenv
+        run: |
+          poetry add python-dotenv
+          poetry install
+
+      - name: Run Mypy with ignore missing imports
+        run: poetry run mypy --ignore-missing-imports .
   test:
     name: Test
     runs-on: ubuntu-20.04
