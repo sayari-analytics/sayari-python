@@ -18,6 +18,7 @@ jobs:
       - name: Bootstrap poetry
         run: |
           curl -sSL https://install.python-poetry.org | python - -y --version 1.5.1
+          poetry add --dev types-python-dotenv
       - name: Install dependencies
         run: poetry install
       - name: Compile
