@@ -629,6 +629,7 @@ IdentifierType = typing.Union[
         "ind_society_registration_number",
         "ind_company_registration_number",
         "ind_coopsoc_registration_number",
+        "ind_ifsc",
         "ind_trademark_submission_ref",
     ],
     typing.Any,
