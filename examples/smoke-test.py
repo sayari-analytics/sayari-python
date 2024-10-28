@@ -1,97 +1,84 @@
-import os
-import sys
-from dotenv import load_dotenv # type: ignore
 from datetime import date, timedelta
-from sayari.client import Sayari
 from sayari.client import encode_record_id
-from sayari.environment import SayariEnvironment
+from env_loader import load_env_vars_and_authenticate
 
-# NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
-# it is recommended to use ENV variables
-# load ENV file if ENV vars are not set
-if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
-    load_dotenv()
 
-client_id = os.getenv('CLIENT_ID')
-client_secret = os.getenv('CLIENT_SECRET')
-if client_id is None or client_secret is None:
-    print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
-    sys.exit(1)
+def main():
+    # Load environment variables and authenticate
+    client = load_env_vars_and_authenticate()
 
-# Set ENV if provided (next 3 lines can be omitted if running in prod, as well as the env arg when creating the client.)
-env = SayariEnvironment.PRODUCTION
-if os.getenv('BASE_URL') is not None:
-    env = SayariEnvironment(os.getenv('BASE_URL'))
+    # List and fetch sources
+    sources = client.source.list_sources().data
+    print(f"Found {len(sources)} sources")
 
-# Create a client that is authed against the API
-client = Sayari(
-    client_id=client_id,
-    client_secret=client_secret,
-    environment=env
-)
+    first_source = client.source.get_source(sources[0].id)
+    print(f"First source is: {first_source.label}")
 
-# list sources
-sources = client.source.list_sources()
-print("Found", len(sources.data), "sources")
+    # Search for an entity
+    search_term = "victoria beckham limited"
+    entity_results = client.search.search_entity(q=search_term).data
+    print(f"Found {len(entity_results)} entity results for {search_term}")
 
-# get the first source
-firstSource = client.source.get_source(sources.data[0].id)
-print("First source is:", firstSource.label)
+    first_entity = entity_results[0].id
 
-# search for an entity
-search_term = "victoria beckham limited"
-entitySearchResults = client.search.search_entity(q=search_term)
-print("Found", len(entitySearchResults.data), "entity results for ", search_term)
+    # Get entity summary and details
+    entity_summary = client.entity.entity_summary(first_entity)
+    if entity_summary.addresses:
+        print(f"Has address: {entity_summary.addresses[0]}")
 
-firstEntityResult = entitySearchResults.data[0].id
+    entity_details = client.entity.get_entity(first_entity)
+    print(f"Is referenced by {len(entity_details.referenced_by.data)} sources")
 
-# get entity summary
-entitySummary = client.entity.entity_summary(firstEntityResult)
-print("Has address:", entitySummary.addresses[0])
+    # Entity resolution
+    resolution = client.resolution.resolution(name=search_term)
+    print(f"Resolved to {len(resolution.data)} entities")
 
-# get the full entity
-entityDetails = client.entity.get_entity(firstEntityResult)
-print("Is referenced by", len(entityDetails.referenced_by.data), "sources") # type: ignore
+    # Record search and retrieval
+    record_results = client.search.search_record(q=search_term).data
+    print(f"Found {len(record_results)} records")
 
-# resolve
-resolution = client.resolution.resolution(name=search_term)
-print("Resolved to", len(resolution.data), "entities")
+    record = client.record.get_record(encode_record_id(record_results[0].id))
+    print(f"Found record: {record.label}")
 
-# search for record
-recordSearch = client.search.search_record(q=search_term)
-print("Found", len(recordSearch.data), "records.")
+    # Traversal, UBO, and ownership
+    traversal = client.traversal.traversal(first_entity)
+    print(
+        f"Did traversal of entity {first_entity}, found {len(traversal.data)} related things"
+    )
 
-# get record
-record = client.record.get_record(encode_record_id(recordSearch.data[0].id))
-print("Found record:", record.label)
+    ubo = client.traversal.ubo(first_entity).data
+    print(f"Found {len(ubo)} beneficial owners")
 
-# do traversal
-traversal = client.traversal.traversal(firstEntityResult)
-print("Did traversal of entity", firstEntityResult, "Found", len(traversal.data), "related things.")
+    downstream = client.traversal.ownership(ubo[0].target.id)
+    print(
+        f"Found {len(downstream.data)} downstream things owned by the first UBO of {search_term}"
+    )
 
-# do UBO traversal
-ubo = client.traversal.ubo(firstEntityResult)
-print("Found", len(ubo.data), "beneficial owners")
+    # Watchlist check for Putin
+    putin_result = client.search.search_entity(q="putin").data
+    watchlist = client.traversal.watchlist(putin_result[0].id)
+    print(
+        f"Found {len(watchlist.data)} watchlist results for entity {putin_result[0].id}"
+    )
 
-# ownership
-downstream = client.traversal.ownership(ubo.data[0].target.id)
-print("Found", len(downstream.data), "downstream things owned by the first UBO of", search_term)
+    # Shortest path traversal
+    shortest_path = client.traversal.shortest_path(
+        entities=[first_entity, ubo[0].target.id]
+    )
+    print(f"Found path with {len(shortest_path.data[0].path)} hops")
 
-# Fetch an entity likely to be associated with watch lists
-putinResult = client.search.search_entity(q="putin")
-# Check watchlist
-watchlist = client.traversal.watchlist(putinResult.data[0].id)
-print("Found", len(watchlist.data), "watchlist results for entity", putinResult.data[0].id)
+    # Usage and history
+    usage = client.info.get_usage()
+    print(f"Entity summary usage: {usage.usage.entity_summary}")
 
-# shortest path
-shortestPath = client.traversal.shortest_path(entities=[firstEntityResult, ubo.data[0].target.id])
-print("Found path with", len(shortestPath.data[0].path), "hops")
+    today = date.today()
+    history = client.info.get_history(
+        size=10000, from_=today - timedelta(days=2), to=today - timedelta(days=1)
+    )
+    print(
+        f"Found {len(history.events)} events from {today - timedelta(days=2)} to {today - timedelta(days=1)}"
+    )
 
-# Usage
-usage = client.info.get_usage()
-print("Entity summary usage: ", usage.usage.entity_summary)
 
-# History
-today = date.today()
-history = client.info.get_history(size=10000, from_=today-timedelta(days=2), to=today-timedelta(days=1))
-print("Found", len(history.events), "events from", today-timedelta(days=2), "to", today-timedelta(days=1))
+if __name__ == "__main__":
+    main()

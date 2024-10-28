@@ -1,42 +1,49 @@
 import os
-import sys
-from dotenv import load_dotenv # type: ignore
-from sayari.client import Sayari
 from sayari.environment import SayariEnvironment
-
-# NOTE: To connect you must provide your client ID and client secret. To avoid accidentally checking these into git,
-# it is recommended to use ENV variables
-# load ENV file if ENV vars are not set
-if os.getenv('CLIENT_ID') is None or os.getenv('CLIENT_SECRET') is None:
-    load_dotenv()
+from env_loader import load_env_vars_and_authenticate
 
 
-client_id = os.getenv('CLIENT_ID')
-client_secret = os.getenv('CLIENT_SECRET')
-if client_id is None or client_secret is None:
-    print("The CLIENT_ID and CLIENT_SECRET environment variables are required to run this example.")
-    sys.exit(1)
+def main():
+    """
+    Main function to search for shipments, suppliers, and buyers related to 'microcenter'.
+    Default environment is set to PRODUCTION unless BASE_URL is set.
+    """
+    # Set environment, default to PRODUCTION unless BASE_URL is set
+    base_url = os.getenv("BASE_URL", SayariEnvironment.PRODUCTION)
+    env = SayariEnvironment(base_url)
 
-# Set ENV if provided (next 3 lines can be omitted if running in prod, as well as the env arg when creating the client.)
-env = SayariEnvironment.PRODUCTION
-if os.getenv('BASE_URL') is not None:
-    env = SayariEnvironment(os.getenv('BASE_URL'))
+    # Load environment variables and authenticate
+    client = load_env_vars_and_authenticate(env)
 
-# Create a client that is authed against the API
-client = Sayari(
-    client_id=client_id,
-    client_secret=client_secret,
-    environment=env
-)
+    resolution = client.resolution.resolution(name="microcenter")
+    entity_details = client.entity.get_entity(resolution.data[0].entity_id)
+    print(
+        f"**********************************************************************\n"
+        f"Name of Company : {entity_details.label}\n"               # Display the company name
+        f"Address         : {entity_details.addresses}\n"           # Display the company address
+        f"Company Type    : {entity_details.company_type}\n"        # Display the company type
+        f"**********************************************************************"
+    )
 
-# Search for shipments
-shipments = client.trade.search_shipments(q="microcenter")
-print("Found", len(shipments.data), "shipments.")
+    # Define the search queries and corresponding entity names.
+    # Each tuple in `queries` consists of:
+    # 1. A search call using `client.trade` API for different entities (shipments, suppliers, buyers).
+    # 2. A string that represents the entity name, which is used to label the search result.
 
-# Search for suppliers
-suppliers = client.trade.search_suppliers(q="microcenter")
-print("Found", len(suppliers.data), "suppliers.")
+    queries = [
+        (client.trade.search_shipments(q="microcenter"), "shipments"),  # Search for shipments containing 'microcenter'
+        (client.trade.search_suppliers(q="microcenter"), "suppliers"),  # Search for suppliers containing 'microcenter'
+        (client.trade.search_buyers(q="microcenter"), "buyers"),        # Search for buyers containing 'microcenter'
+    ]
 
-# Search for buyers
-buyers = client.trade.search_buyers(q="microcenter")
-print("Found", len(buyers.data), "buyers.")
+    # Loop through each entity search, process the search results, and print the count.
+    # `entity` represents the search result object, and `search_type` is the name label.
+
+    for entity, search_type in queries:
+        # `entity.data` holds the list of results for each query (e.g., all shipments matching "microcenter")
+        # Print the total count of found entities for each search_type (shipments, suppliers, or buyers).
+        print(f"Found {len(entity.data)} {search_type}.")
+
+
+if __name__ == "__main__":
+    main()
