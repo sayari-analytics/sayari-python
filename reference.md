@@ -2224,6 +2224,22 @@ client.resolution.resolution(
 <dl>
 <dd>
 
+**cutoff_threshold:** `typing.Optional[int]` — Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skip_post_process:** `typing.Optional[bool]` — Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
