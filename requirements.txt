@@ -1,2 +1,0 @@
-python-dotenv==1.0.1
-sayari>=0.1.21
