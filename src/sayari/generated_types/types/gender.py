@@ -2,4 +2,4 @@
 
 import typing
 
-Gender = typing.Union[typing.Literal["male", "female", "other"], typing.Any]
+Gender = typing.Union[typing.Literal["female", "male", "other"], typing.Any]
