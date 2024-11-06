@@ -54,6 +54,8 @@ class ResolutionClient:
         name_min_tokens: typing.Optional[int] = None,
         minimum_score_threshold: typing.Optional[int] = None,
         search_fallback: typing.Optional[bool] = None,
+        cutoff_threshold: typing.Optional[int] = None,
+        skip_post_process: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -109,6 +111,12 @@ class ResolutionClient:
         search_fallback : typing.Optional[bool]
             Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to true.
 
+        cutoff_threshold : typing.Optional[int]
+            Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
+
+        skip_post_process : typing.Optional[bool]
+            Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -150,6 +158,8 @@ class ResolutionClient:
                 "name_min_tokens": name_min_tokens,
                 "minimum_score_threshold": minimum_score_threshold,
                 "search_fallback": search_fallback,
+                "cutoff_threshold": cutoff_threshold,
+                "skip_post_process": skip_post_process,
             },
             request_options=request_options,
         )
@@ -382,6 +392,8 @@ class AsyncResolutionClient:
         name_min_tokens: typing.Optional[int] = None,
         minimum_score_threshold: typing.Optional[int] = None,
         search_fallback: typing.Optional[bool] = None,
+        cutoff_threshold: typing.Optional[int] = None,
+        skip_post_process: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -437,6 +449,12 @@ class AsyncResolutionClient:
         search_fallback : typing.Optional[bool]
             Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to true.
 
+        cutoff_threshold : typing.Optional[int]
+            Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
+
+        skip_post_process : typing.Optional[bool]
+            Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -486,6 +504,8 @@ class AsyncResolutionClient:
                 "name_min_tokens": name_min_tokens,
                 "minimum_score_threshold": minimum_score_threshold,
                 "search_fallback": search_fallback,
+                "cutoff_threshold": cutoff_threshold,
+                "skip_post_process": skip_post_process,
             },
             request_options=request_options,
         )

@@ -81,6 +81,16 @@ class ResolutionBody(UniversalBaseModel):
     Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to true.
     """
 
+    cutoff_threshold: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
+    """
+
+    skip_post_process: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
