@@ -3,6 +3,6 @@
 import typing
 
 NameContext = typing.Union[
-    typing.Literal["alias", "family", "given", "machine_translation", "primary", "trade_name", "transliteration"],
+    typing.Literal["primary", "given", "family", "alias", "machine_translation", "transliteration", "trade_name"],
     typing.Any,
 ]

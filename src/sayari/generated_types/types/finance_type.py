@@ -4,11 +4,11 @@ import typing
 
 FinanceType = typing.Union[
     typing.Literal[
-        "authorized_capital",
-        "paid_up_capital",
-        "registered_capital",
-        "share_amount",
         "share_percentage",
+        "share_amount",
+        "registered_capital",
+        "paid_up_capital",
+        "authorized_capital",
         "subscribed_capital",
     ],
     typing.Any,

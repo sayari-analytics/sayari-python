@@ -3,5 +3,5 @@
 import typing
 
 TranslationContext = typing.Union[
-    typing.Literal["google_translate", "pinyin", "sayari_machine_translation"], typing.Any
+    typing.Literal["sayari_machine_translation", "pinyin", "google_translate"], typing.Any
 ]

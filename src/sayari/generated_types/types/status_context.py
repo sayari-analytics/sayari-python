@@ -5,10 +5,10 @@ import typing
 StatusContext = typing.Union[
     typing.Literal[
         "broker_license",
-        "general_partnership_status",
         "investment_advisor_license",
-        "limited_liability_partnership_status",
         "sole_proprietorship_status",
+        "general_partnership_status",
+        "limited_liability_partnership_status",
     ],
     typing.Any,
 ]
