@@ -4,19 +4,19 @@ import typing
 
 CountryContext = typing.Union[
     typing.Literal[
-        "activity_in",
-        "address",
         "citizenship",
-        "domicile",
         "incorporation",
-        "mentioned_in",
-        "nationality",
-        "product_origin",
         "residence",
-        "shipment_arrival",
-        "shipment_departure",
-        "shipment_transit",
+        "nationality",
+        "address",
         "vessel_flag",
+        "domicile",
+        "shipment_departure",
+        "shipment_arrival",
+        "shipment_transit",
+        "activity_in",
+        "mentioned_in",
+        "product_origin",
     ],
     typing.Any,
 ]

@@ -2,4 +2,4 @@
 
 import typing
 
-Unit = typing.Union[typing.Literal["kilogram", "metre", "unit"], typing.Any]
+Unit = typing.Union[typing.Literal["metre", "kilogram", "unit"], typing.Any]
