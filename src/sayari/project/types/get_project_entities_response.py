@@ -52,6 +52,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 },
                 received_hs_codes=["271290", "271220"],
                 shipped_hs_codes=[],
+                combined_hs_codes=["271290", "271220"],
                 trade_count_incl_mg=TradeCount(
                     receiver_of=5,
                     shipper_of=0,
@@ -71,6 +72,8 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     risk=[],
                     countries=[],
                     entities=0,
+                    match_has_upstream={"FyI9lrlmA-7z_3enlTOhlw": False},
+                    match_products={"FyI9lrlmA-7z_3enlTOhlw": []},
                 ),
                 psa=PsaSummary(
                     risk=[
@@ -374,6 +377,29 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     doc_count_error_upper_bound=0,
                     sum_other_doc_count=0,
                     buckets=[],
+                ),
+            ),
+            combined_hs_codes=HsCodeAgg(
+                doc_count=2,
+                hs_code_terms=HsCodeAggTerms(
+                    doc_count_error_upper_bound=0,
+                    sum_other_doc_count=0,
+                    buckets=[
+                        HsCodeAggBucket(
+                            key="271290",
+                            doc_count=1,
+                            hs_code_sums=IntKeyValue(
+                                value=4,
+                            ),
+                        ),
+                        HsCodeAggBucket(
+                            key="271220",
+                            doc_count=1,
+                            hs_code_sums=IntKeyValue(
+                                value=1,
+                            ),
+                        ),
+                    ],
                 ),
             ),
         ),

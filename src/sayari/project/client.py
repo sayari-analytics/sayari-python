@@ -301,6 +301,7 @@ class ProjectClient:
         hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        combined_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         translation: typing.Optional[str] = None,
         sort: typing.Optional[SortField] = None,
         filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]] = None,
@@ -343,6 +344,9 @@ class ProjectClient:
 
         shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return entities that shipped the specified HS code(s).
+
+        combined_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that have shipped or received the specified HS code(s).
 
         translation : typing.Optional[str]
             The language code to translate the entity labels to. Defaults to the user's preferred language.
@@ -387,6 +391,7 @@ class ProjectClient:
                 "hs_codes": hs_codes,
                 "received_hs_codes": received_hs_codes,
                 "shipped_hs_codes": shipped_hs_codes,
+                "combined_hs_codes": combined_hs_codes,
                 "translation": translation,
                 "sort": sort,
                 "filters": convert_and_respect_annotation_metadata(
@@ -861,6 +866,7 @@ class AsyncProjectClient:
         hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        combined_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         translation: typing.Optional[str] = None,
         sort: typing.Optional[SortField] = None,
         filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]] = None,
@@ -903,6 +909,9 @@ class AsyncProjectClient:
 
         shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return entities that shipped the specified HS code(s).
+
+        combined_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return entities that have shipped or received the specified HS code(s).
 
         translation : typing.Optional[str]
             The language code to translate the entity labels to. Defaults to the user's preferred language.
@@ -955,6 +964,7 @@ class AsyncProjectClient:
                 "hs_codes": hs_codes,
                 "received_hs_codes": received_hs_codes,
                 "shipped_hs_codes": shipped_hs_codes,
+                "combined_hs_codes": combined_hs_codes,
                 "translation": translation,
                 "sort": sort,
                 "filters": convert_and_respect_annotation_metadata(

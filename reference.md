@@ -1831,6 +1831,14 @@ client.project.get_project_entities(
 <dl>
 <dd>
 
+**combined_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that have shipped or received the specified HS code(s).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **translation:** `typing.Optional[str]` — The language code to translate the entity labels to. Defaults to the user's preferred language.
     
 </dd>
