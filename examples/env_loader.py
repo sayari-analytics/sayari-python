@@ -2,6 +2,7 @@ import os
 from sys import exit, version_info
 from dotenv import load_dotenv
 from sayari.client import Sayari
+from sayari.environment import SayariEnvironment
 
 
 def load_env_vars_and_authenticate(environment=None):
@@ -36,6 +37,11 @@ def load_env_vars_and_authenticate(environment=None):
     client_secret = os.getenv("CLIENT_SECRET")
     if not client_secret:
         exit("CLIENT_SECRET is required - Please refer to Sayari documentation")
+
+    if not environment:
+        base_url = os.getenv("BASE_URL")
+        if base_url:
+            environment = SayariEnvironment(os.getenv('BASE_URL'))
 
     # Create the Sayari client using the provided environment or default settings
     client = (
