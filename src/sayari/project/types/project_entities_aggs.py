@@ -29,6 +29,7 @@ class ProjectEntitiesAggs(UniversalBaseModel):
     shipment_counts: typing.Optional[typing.List[BucketAgg]] = None
     shipped_hs_codes: typing.Optional[HsCodeAgg] = None
     received_hs_codes: typing.Optional[HsCodeAgg] = None
+    combined_hs_codes: typing.Optional[HsCodeAgg] = None
     match_results: typing.Optional[typing.List[BucketAgg]] = None
     custom_fields: typing.Optional[typing.List[BucketAgg]] = None
     custom_fields_count: typing.Optional[IntKeyValue] = None

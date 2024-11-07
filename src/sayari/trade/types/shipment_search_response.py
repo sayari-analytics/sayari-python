@@ -371,12 +371,13 @@ class ShipmentSearchResponse(PaginatedResponse):
                         ],
                     )
                 ],
-                arrival_date="2024-05-14",
-                arrival_country=["RUS"],
-                departure_country=["DEU"],
                 arrival_address=ShipmentAddress(
-                    country="RUS",
+                    country="RUS - BRB",
                 ),
+                arrival_date="2022-05-25",
+                arrival_country=[],
+                departure_date="2022-05",
+                departure_country=["USA"],
                 departure_address=ShipmentAddress(
                     country="DEU",
                 ),

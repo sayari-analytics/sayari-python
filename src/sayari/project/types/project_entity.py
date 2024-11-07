@@ -50,6 +50,11 @@ class ProjectEntity(UniversalBaseModel):
     HS codes received by the entity.
     """
 
+    combined_hs_codes: typing.List[str] = pydantic.Field()
+    """
+    HS codes shipped or received by the entity.
+    """
+
     trade_count_incl_mg: TradeCount = pydantic.Field()
     """
     Counts of sent and received shipments for this entity and its match group.
