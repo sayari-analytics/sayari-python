@@ -97,6 +97,16 @@ class EmbeddedEntity(UniversalBaseModel):
     Count of user-created attributes for a given [attribute type](/sayari-library/ontology/attributes)
     """
 
+    attribute_counts: typing.Optional[typing.Dict[Attributes, int]] = pydantic.Field(default=None)
+    """
+    Count of attributes for a given [attribute type](/sayari-library/ontology/attributes)
+    """
+
+    user_attribute_counts: typing.Optional[typing.Dict[Attributes, int]] = pydantic.Field(default=None)
+    """
+    Count of user-created attributes for a given [attribute type](/sayari-library/ontology/attributes)
+    """
+
     related_entities_count: int
     user_related_entities_count: int
     user_record_count: int

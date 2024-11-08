@@ -80,7 +80,7 @@ class AddressProperties(UniversalBaseModel):
     Phrases like "in", "near", etc. used after a category phrase, to help with parsing queries like "restaurants in Brooklyn"
     """
 
-    normalized: str
+    normalized: typing.Optional[str] = None
     po_box: typing.Optional[str] = pydantic.Field(default=None)
     """
     Typically found in non-physical (mail-only) addresses
