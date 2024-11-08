@@ -58,20 +58,20 @@ class EntitySummaryResponse(EntityDetails):
     EntitySummaryResponse(
         id="mGq1lpuqKssNWTjIokuPeA",
         label="VICTORIA BECKHAM LIMITED",
-        degree=67,
+        degree=114,
         entity_url="/entity/mGq1lpuqKssNWTjIokuPeA",
         pep=False,
-        psa_id="695785012897",
-        psa_count=3,
+        psa_id="65455301594691",
+        psa_count=4,
         sanctioned=False,
         closed=False,
-        company_type="Stock Corporation - Out of State - Stock",
+        company_type="LADIES FASHION",
         registration_date="Incorporated 2008-02-28",
         latest_status=Status(
             status="active",
             date="2023-08-29",
         ),
-        trade_count={"sent": 41, "received": 0},
+        trade_count={"sent": 82, "received": 2},
         type="company",
         identifiers=[
             Identifier(
@@ -93,7 +93,7 @@ class EntitySummaryResponse(EntityDetails):
         addresses=[
             "202 HAMMERSMITH ROAD , LONDON , , UNITED KINGDOM , W6 7DN , GB",
             "Unit 33, Ransomes Dock Business Centre, 35-37 Parkgate Road, London SW11 4NP",
-            "SAUNDERS BUILDING, 202 HAMMERSMITH ROAD, HAMMERSMITH, LONDON",
+            "Hammersmith Road, London, W6 7DN",
         ],
         countries=["GBR", "USA"],
         relationship_count={
@@ -102,11 +102,11 @@ class EntitySummaryResponse(EntityDetails):
             "shareholder_of": 1,
             "has_shareholder": 2,
             "has_registered_agent": 5,
-            "shipper_of": 41,
             "has_director": 11,
             "owner_of": 3,
             "has_founder": 1,
-            "ships_to": 1,
+            "ships_to": 5,
+            "receives_from": 1,
         },
         source_count={
             "2b618f1996252fe537a6d998ae14c9b2": SourceCountInfo(
@@ -114,15 +114,19 @@ class EntitySummaryResponse(EntityDetails):
                 label="UK Corporate Registry Confirmation Statements",
             ),
             "2b788dbdf9194ed5a5c309386a6516b1": SourceCountInfo(
-                count=28,
+                count=37,
                 label="UK HM Revenue & Customs Traders Database",
             ),
             "a447a7b622c4ead6e1caf94983dc2337": SourceCountInfo(
-                count=6,
+                count=8,
                 label="USA California Secretary of State",
             ),
+            "a7829d9c8999fcaa78af55886da9be06": SourceCountInfo(
+                count=43,
+                label="Turkey Imports & Exports (January 2024 - Present)",
+            ),
             "ecdfb3f2ecc8c3797e77d5795a8066ef": SourceCountInfo(
-                count=35,
+                count=40,
                 label="UK Corporate Registry",
             ),
             "e5de7b52cc88ef4cd1a10e201bdf46ee": SourceCountInfo(
@@ -130,40 +134,51 @@ class EntitySummaryResponse(EntityDetails):
                 label="Vietnam Imports & Exports (January 2023 - Present)",
             ),
             "2a4fe9a14e332c8f9ded1f8a457c2b89": SourceCountInfo(
-                count=36,
+                count=42,
                 label="UK Land Commercial and Corporate Ownership Data (CCOD)",
             ),
             "4ea8bac1bed868e1510ffd21842e9551": SourceCountInfo(
-                count=69,
+                count=86,
                 label="UK Persons with Significant Control",
             ),
         },
         risk={
             "basel_aml": RiskData(
-                value=4.63,
+                value=4.28,
                 metadata={"country": ["USA"]},
                 level="relevant",
             ),
             "cpi_score": RiskData(
-                value=67.0,
+                value=69.0,
                 metadata={"country": ["USA"]},
                 level="relevant",
             ),
         },
+        user_attribute_counts={},
         user_attribute_count={},
         user_record_count=0,
         user_related_entities_count=0,
         user_relationship_count={},
-        related_entities_count=67,
-        attribute_count={
-            "company_type": 2,
+        related_entities_count=114,
+        attribute_counts={
+            "company_type": 3,
             "name": 2,
             "business_purpose": 4,
             "identifier": 3,
             "additional_information": 106,
-            "country": 8,
+            "country": 7,
             "status": 5,
-            "address": 7,
+            "address": 6,
+        },
+        attribute_count={
+            "company_type": 3,
+            "name": 2,
+            "business_purpose": 4,
+            "identifier": 3,
+            "additional_information": 106,
+            "country": 7,
+            "status": 5,
+            "address": 6,
         },
         reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000:4a34442eccf1622995130b194a5d50e7",
         attributes=AttributeDetails(
@@ -185,7 +200,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "2a4fe9a14e332c8f9ded1f8a457c2b89/NGL944625/1560779151522"
                         ],
-                        record_count=30,
+                        record_count=34,
                     ),
                     NameData(
                         properties=NameProperties(
@@ -195,7 +210,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000"
                         ],
-                        record_count=157,
+                        record_count=226,
                     ),
                 ],
             ),
@@ -204,25 +219,43 @@ class EntitySummaryResponse(EntityDetails):
                 limit=50,
                 next=False,
                 size=QualifiedCount(
-                    count=7,
+                    count=6,
                     qualifier="eq",
                 ),
                 data=[
                     AddressData(
                         properties=AddressProperties(
-                            value="202 HAMMERSMITH ROAD UNITED KINGDOM",
+                            value="202 HAMMERSMITH ROAD , LONDON , , UNITED KINGDOM , W6 7DN , GB",
+                            house="Saunders Building",
                             house_number="202",
                             road="Hammersmith Road",
-                            country="United Kingdom",
-                            x=-0.22579,
-                            y=51.49291,
-                            precision_code="G3",
-                            normalized="202 HAMMERSMITH KINGDOM RD UNITED",
+                            suburb="Hammersmith",
+                            city="London",
+                            postcode="W6 7DN",
+                            country="GBR",
+                            x=-0.2220315859755715,
+                            y=51.49322001798694,
+                            precision_code="1",
                         ),
                         record=[
-                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1678752000000"
+                            "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=5,
+                        record_count=98,
+                    ),
+                    AddressData(
+                        properties=AddressProperties(
+                            value="202 HAMMERSMITH ROAD BRITISH ISLES",
+                            house_number="202",
+                            road="Hammersmith Road British Isles",
+                            country="GBR",
+                            x=-0.2455951217808129,
+                            y=51.490490045109766,
+                            precision_code="5",
+                        ),
+                        record=[
+                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
+                        ],
+                        record_count=1,
                     ),
                     AddressData(
                         properties=AddressProperties(
@@ -233,82 +266,41 @@ class EntitySummaryResponse(EntityDetails):
                             road="Parkgate Road",
                             city="London",
                             postcode="Sw11 4np",
-                            x=-0.16859,
-                            y=51.47943,
-                            precision_code="S8HPNTSCZA",
-                            normalized="33 35 37 4NP BUSINESS CTR DOCK LONDON PARKGATE RANSOMES RD SW11 UNIT",
-                        ),
-                        record=[
-                            "2a4fe9a14e332c8f9ded1f8a457c2b89/BGL137643/1560779151522"
-                        ],
-                        record_count=36,
-                    ),
-                    AddressData(
-                        properties=AddressProperties(
-                            value="202 HAMMERSMITH ROAD BRITISH ISLES",
-                            house_number="202",
-                            road="Hammersmith Road British Isles",
-                            normalized="202 BRITISH HAMMERSMITH ISLE RD",
-                        ),
-                        record=[
-                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
-                        ],
-                        record_count=1,
-                    ),
-                    AddressData(
-                        properties=AddressProperties(
-                            value="SAUNDERS BUILDING, 202 HAMMERSMITH ROAD, HAMMERSMITH, LONDON",
-                            house="Saunders Building",
-                            house_number="202",
-                            road="Hammersmith Road",
-                            suburb="Hammersmith",
-                            city="London",
-                            postcode="W6 7DN",
-                            x=-0.22207,
-                            y=51.49323,
-                            precision_code="S8HPNTSC-A",
-                            normalized="202 BUILDING HAMMERSMITH HAMMERSMITH LONDON RD SAUNDERS",
-                        ),
-                        record=[
-                            "2b788dbdf9194ed5a5c309386a6516b1/213bcb98d1409787c3b3f668794fd233/1672444800000"
-                        ],
-                        record_count=28,
-                    ),
-                    AddressData(
-                        properties=AddressProperties(
-                            value="Ransome's Dock, 35-37 Parkgate Road, London, SW11 4NP",
-                            house="Ransome's Dock",
-                            house_number="35-37",
-                            road="Parkgate Road",
-                            city="London",
-                            postcode="SW11 4NP",
-                            x=-0.16784,
-                            y=51.47898,
-                            precision_code="S8HPNTSC-A",
-                            normalized="35 37 4NP DOCK LONDON PARKGATE RANSOMES RD SW11",
+                            country="GBR",
+                            x=-0.16811097048599777,
+                            y=51.47911101182882,
+                            precision_code="1",
                         ),
                         record=[
                             "4ea8bac1bed868e1510ffd21842e9551/08661308/1560176240192"
                         ],
-                        record_count=15,
+                        record_count=57,
                     ),
                     AddressData(
                         properties=AddressProperties(
-                            value="202 HAMMERSMITH ROAD , LONDON , , UNITED KINGDOM , W6 7DN , GB",
+                            value="202 HAMMERSMITH ROAD UNITED KINGDOM",
                             house_number="202",
                             road="Hammersmith Road",
-                            city="London",
-                            postcode="W6 7dn",
-                            country="Gb",
-                            x=-0.22207,
-                            y=51.49323,
-                            precision_code="S8HPNTSCZA",
-                            normalized="202 7DN GB HAMMERSMITH KINGDOM LONDON RD UNITED W6",
+                            country="GBR",
+                            x=-1.4104778399999418,
+                            y=53.06030545100003,
+                            precision_code="10",
                         ),
                         record=[
-                            "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
+                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1678752000000"
                         ],
-                        record_count=59,
+                        record_count=5,
+                    ),
+                    AddressData(
+                        properties=AddressProperties(
+                            value="202 HAMMERSMITH ROAD",
+                            house_number="202",
+                            road="Hammersmith Road",
+                        ),
+                        record=[
+                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1717545600000"
+                        ],
+                        record_count=2,
                     ),
                     AddressData(
                         properties=AddressProperties(
@@ -316,15 +308,15 @@ class EntitySummaryResponse(EntityDetails):
                             road="Hammersmith Road",
                             city="London",
                             postcode="W6 7DN",
-                            x=-0.22138000000000002,
-                            y=51.493080000000006,
-                            precision_code="S4-PNTSCZA",
-                            normalized="7DN HAMMERSMITH LONDON RD W6",
+                            country="GBR",
+                            x=-0.21932487497451175,
+                            y=51.493835014595135,
+                            precision_code="5",
                         ),
                         record=[
                             "4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1694476800000"
                         ],
-                        record_count=8,
+                        record_count=14,
                     ),
                 ],
             ),
@@ -345,7 +337,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                     IdentifierData(
                         properties=IdentifierProperties(
@@ -355,7 +347,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000"
                         ],
-                        record_count=126,
+                        record_count=154,
                     ),
                     IdentifierData(
                         properties=IdentifierProperties(
@@ -385,7 +377,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                     StatusData(
                         properties=StatusProperties(
@@ -395,7 +387,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=18,
+                        record_count=20,
                     ),
                     StatusData(
                         properties=StatusProperties(
@@ -404,7 +396,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                     StatusData(
                         properties=StatusProperties(
@@ -415,7 +407,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=24,
+                        record_count=28,
                     ),
                     StatusData(
                         properties=StatusProperties(
@@ -426,7 +418,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                 ],
             ),
@@ -435,10 +427,19 @@ class EntitySummaryResponse(EntityDetails):
                 limit=50,
                 next=False,
                 size=QualifiedCount(
-                    count=2,
+                    count=3,
                     qualifier="eq",
                 ),
                 data=[
+                    CompanyTypeData(
+                        properties=CompanyTypeProperties(
+                            value="LADIES FASHION",
+                        ),
+                        record=[
+                            "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1717545600000"
+                        ],
+                        record_count=2,
+                    ),
                     CompanyTypeData(
                         properties=CompanyTypeProperties(
                             value="Stock Corporation - Out of State - Stock",
@@ -446,7 +447,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                     CompanyTypeData(
                         properties=CompanyTypeProperties(
@@ -455,7 +456,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "4ea8bac1bed868e1510ffd21842e9551/08661308/1560176240192"
                         ],
-                        record_count=41,
+                        record_count=49,
                     ),
                 ],
             ),
@@ -477,7 +478,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=18,
+                        record_count=20,
                     ),
                     BusinessPurposeData(
                         properties=BusinessPurposeProperties(
@@ -496,7 +497,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=18,
+                        record_count=20,
                     ),
                     BusinessPurposeData(
                         properties=BusinessPurposeProperties(
@@ -507,7 +508,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
                         ],
-                        record_count=18,
+                        record_count=20,
                     ),
                 ],
             ),
@@ -516,7 +517,7 @@ class EntitySummaryResponse(EntityDetails):
                 limit=50,
                 next=False,
                 size=QualifiedCount(
-                    count=8,
+                    count=7,
                     qualifier="eq",
                 ),
                 data=[
@@ -526,9 +527,9 @@ class EntitySummaryResponse(EntityDetails):
                             context="address",
                         ),
                         record=[
-                            "9aef3a56aa0ea25404b498dbd8bb447f/06517802/1579014552807"
+                            "4ea8bac1bed868e1510ffd21842e9551/08661308/1560176240192"
                         ],
-                        record_count=23,
+                        record_count=195,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -538,7 +539,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000"
                         ],
-                        record_count=82,
+                        record_count=139,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -548,7 +549,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "4ea8bac1bed868e1510ffd21842e9551/ef8cbb3fcc71d09f098f00728df231e8/1694476800000"
                         ],
-                        record_count=8,
+                        record_count=14,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -559,17 +560,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
-                    ),
-                    CountryData(
-                        properties=CountryProperties(
-                            value="GBR",
-                            context="address",
-                        ),
-                        record=[
-                            "e5de7b52cc88ef4cd1a10e201bdf46ee/{4DC73DBC-FC75-42F3-8A4AAED3254239E1}/1690329600000"
-                        ],
-                        record_count=41,
+                        record_count=8,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -579,7 +570,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -589,7 +580,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000"
                         ],
-                        record_count=141,
+                        record_count=169,
                     ),
                     CountryData(
                         properties=CountryProperties(
@@ -599,7 +590,7 @@ class EntitySummaryResponse(EntityDetails):
                         record=[
                             "9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000"
                         ],
-                        record_count=6,
+                        record_count=8,
                     ),
                 ],
             ),
@@ -607,7 +598,7 @@ class EntitySummaryResponse(EntityDetails):
         possibly_same_as=PossiblySameAs(
             limit=50,
             size=QualifiedCount(
-                count=3,
+                count=4,
                 qualifier="eq",
             ),
             offset=0,
@@ -615,13 +606,77 @@ class EntitySummaryResponse(EntityDetails):
             data=[
                 PossiblySameAsData(
                     entity=PsaEntity(
+                        id="N_TYxQ9tFgAkcQ1GFA9x6Q",
+                        label="VICTORIA BECKHAM",
+                        degree=1,
+                        entity_url="/entity/N_TYxQ9tFgAkcQ1GFA9x6Q",
+                        pep=False,
+                        psa_id="~Yw2PEg",
+                        psa_count=10,
+                        sanctioned=False,
+                        closed=False,
+                        trade_count={"sent": 0, "received": 0},
+                        type="intellectual_property",
+                        identifiers=[
+                            Identifier(
+                                value="RM201601838935",
+                                type="mex_tm_no",
+                                label="Mex Tm No",
+                            ),
+                            Identifier(
+                                value="1838935",
+                                type="mex_tm_app_no",
+                                label="Mex Tm App No",
+                            ),
+                            Identifier(
+                                value="1932015",
+                                type="mex_tm_reg_no",
+                                label="Mex Tm Reg No",
+                            ),
+                        ],
+                        addresses=[],
+                        countries=["MEX"],
+                        relationship_count={"has_owner": 1},
+                        source_count={
+                            "b9d809b02049993ba8dc2e4c5f7cceca": SourceCountInfo(
+                                count=5,
+                                label="Mexico Industrial Property Trademark Registry (MARCIA)",
+                            )
+                        },
+                        risk={},
+                        user_attribute_counts={},
+                        user_attribute_count={},
+                        user_record_count=0,
+                        user_related_entities_count=0,
+                        user_relationship_count={},
+                        related_entities_count=1,
+                        attribute_counts={
+                            "name": 1,
+                            "identifier": 3,
+                            "additional_information": 3,
+                            "country": 2,
+                            "status": 1,
+                        },
+                        attribute_count={
+                            "name": 1,
+                            "identifier": 3,
+                            "additional_information": 3,
+                            "country": 2,
+                            "status": 1,
+                        },
+                        reference_id="b9d809b02049993ba8dc2e4c5f7cceca/RM201601838935/1590327027286:74e256656669aa44a5671d4f8898917b",
+                    ),
+                    matches={},
+                ),
+                PossiblySameAsData(
+                    entity=PsaEntity(
                         id="NGUTEUTI4YZ6R5d56vgNIw",
                         label="BECKHAM VENTURES INC.",
                         degree=3,
                         entity_url="/entity/NGUTEUTI4YZ6R5d56vgNIw",
                         pep=False,
-                        psa_id="695785012897",
-                        psa_count=3,
+                        psa_id="~Yw2PEg",
+                        psa_count=14,
                         sanctioned=False,
                         closed=False,
                         company_type="FOREIGN BUSINESS CORPORATION",
@@ -646,42 +701,128 @@ class EntitySummaryResponse(EntityDetails):
                         ],
                         countries=["USA"],
                         relationship_count={
+                            "linked_to": 2,
                             "has_officer": 1,
                             "has_registered_agent": 2,
-                            "linked_to": 2,
                         },
                         source_count={
                             "b4d06d4b77f51fab3c77c9653aabdda4": SourceCountInfo(
-                                count=8,
+                                count=10,
                                 label="USA New York Corporate Registry (Active Entities)",
                             )
                         },
                         risk={
                             "basel_aml": RiskData(
-                                value=4.63,
+                                value=4.28,
                                 metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                             "cpi_score": RiskData(
-                                value=67.0,
+                                value=69.0,
                                 metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                         },
+                        user_attribute_counts={},
                         user_attribute_count={},
                         user_record_count=0,
                         user_related_entities_count=0,
                         user_relationship_count={},
                         related_entities_count=3,
+                        attribute_counts={
+                            "company_type": 1,
+                            "name": 1,
+                            "identifier": 1,
+                            "country": 4,
+                            "status": 1,
+                            "address": 4,
+                        },
                         attribute_count={
                             "company_type": 1,
                             "name": 1,
                             "identifier": 1,
-                            "country": 3,
+                            "country": 4,
                             "status": 1,
-                            "address": 3,
+                            "address": 4,
                         },
                         reference_id="b4d06d4b77f51fab3c77c9653aabdda4/a80e7f4c-c219-437b-9941-32d89ea5885a/1560542045043:15d813b260619393762864f22d3c5b2d",
+                    ),
+                    matches={},
+                ),
+                PossiblySameAsData(
+                    entity=PsaEntity(
+                        id="j0jZ36AOCjyAEu2_6wbETw",
+                        label="VICTORIA BECKHAM LTD",
+                        degree=0,
+                        entity_url="/entity/j0jZ36AOCjyAEu2_6wbETw",
+                        pep=False,
+                        psa_id="~Yw2PEg",
+                        psa_count=14,
+                        sanctioned=False,
+                        closed=False,
+                        company_type="Société étrangère non immatriculée au RCS ",
+                        registration_date=" 2017-04-01",
+                        latest_status=Status(
+                            status="active",
+                            date="2017-04-01",
+                        ),
+                        trade_count={"sent": 0, "received": 0},
+                        type="company",
+                        identifiers=[
+                            Identifier(
+                                value="829 099 316",
+                                type="fra_siren",
+                                label="Fra Siren",
+                            )
+                        ],
+                        addresses=["35-37 PARKGATE ROAD"],
+                        countries=["FRA", "GBR"],
+                        relationship_count={},
+                        source_count={
+                            "b67ab545f3ddc960d272d11ec5952665": SourceCountInfo(
+                                count=4,
+                                label="France Sirene/Infogreffe Commercial Registries",
+                            )
+                        },
+                        risk={
+                            "basel_aml": RiskData(
+                                value=3.67,
+                                metadata={"country": ["GBR"]},
+                                level="relevant",
+                            ),
+                            "cpi_score": RiskData(
+                                value=71.0,
+                                metadata={"country": ["GBR"]},
+                                level="relevant",
+                            ),
+                        },
+                        user_attribute_counts={},
+                        user_attribute_count={},
+                        user_record_count=0,
+                        user_related_entities_count=0,
+                        user_relationship_count={},
+                        related_entities_count=0,
+                        attribute_counts={
+                            "company_type": 1,
+                            "name": 1,
+                            "business_purpose": 2,
+                            "identifier": 1,
+                            "additional_information": 1,
+                            "country": 3,
+                            "status": 2,
+                            "address": 1,
+                        },
+                        attribute_count={
+                            "company_type": 1,
+                            "name": 1,
+                            "business_purpose": 2,
+                            "identifier": 1,
+                            "additional_information": 1,
+                            "country": 3,
+                            "status": 2,
+                            "address": 1,
+                        },
+                        reference_id="b67ab545f3ddc960d272d11ec5952665/829099316/1591105044949:7d86f50bb976ee542fcfac7bd17b6cca",
                     ),
                     matches={},
                 ),
@@ -692,8 +833,8 @@ class EntitySummaryResponse(EntityDetails):
                         degree=1,
                         entity_url="/entity/Fv6k3Wmcq8fKdLoDLQM_Xw",
                         pep=False,
-                        psa_id="695785012897",
-                        psa_count=3,
+                        psa_id="~Yw2PEg",
+                        psa_count=14,
                         sanctioned=False,
                         closed=False,
                         company_type="GENERAL",
@@ -718,21 +859,29 @@ class EntitySummaryResponse(EntityDetails):
                         },
                         risk={
                             "basel_aml": RiskData(
-                                value=4.63,
+                                value=4.28,
                                 metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                             "cpi_score": RiskData(
-                                value=67.0,
+                                value=69.0,
                                 metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                         },
+                        user_attribute_counts={},
                         user_attribute_count={},
                         user_record_count=0,
                         user_related_entities_count=0,
                         user_relationship_count={},
                         related_entities_count=1,
+                        attribute_counts={
+                            "company_type": 1,
+                            "name": 1,
+                            "identifier": 1,
+                            "country": 2,
+                            "status": 1,
+                        },
                         attribute_count={
                             "company_type": 1,
                             "name": 1,
@@ -746,48 +895,210 @@ class EntitySummaryResponse(EntityDetails):
                 ),
                 PossiblySameAsData(
                     entity=PsaEntity(
-                        id="EINtsur0kjyyS7w7ObvhBA",
-                        label="VICTORIA BECKHAM LIMITED",
-                        degree=1,
-                        entity_url="/entity/EINtsur0kjyyS7w7ObvhBA",
+                        id="ds5rQ3rMIeoN3xZUzVyVNQ",
+                        label="VICTORIA BECKHAM",
+                        degree=3,
+                        entity_url="/entity/ds5rQ3rMIeoN3xZUzVyVNQ",
                         pep=False,
-                        psa_id="695785012897",
-                        psa_count=3,
+                        psa_id="~Yw2PEg",
+                        psa_count=10,
                         sanctioned=False,
                         closed=False,
                         trade_count={"sent": 0, "received": 0},
-                        type="company",
+                        type="person",
                         identifiers=[],
                         addresses=[
-                            "ST CHRISTOPHER'S PLACE   NUM. EXT. 4 GEE'S COURT NUM. INT. C/O LEE & THOMPSON LLP"
+                            "C/O LEE & THOMPSON LLP, 4 GEE'S COURT, ST-CHRISTOPHER'S PLACE"
                         ],
-                        countries=["GBR", "MEX"],
-                        relationship_count={"owner_of": 1},
+                        countries=["MEX", "USA"],
+                        relationship_count={"owner_of": 3},
                         source_count={
                             "b9d809b02049993ba8dc2e4c5f7cceca": SourceCountInfo(
-                                count=16,
+                                count=8,
                                 label="Mexico Industrial Property Trademark Registry (MARCIA)",
                             )
                         },
                         risk={
                             "basel_aml": RiskData(
-                                value=3.99,
-                                metadata={"country": ["GBR"]},
+                                value=4.28,
+                                metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                             "cpi_score": RiskData(
-                                value=78.0,
-                                metadata={"country": ["GBR"]},
+                                value=69.0,
+                                metadata={"country": ["USA"]},
                                 level="relevant",
                             ),
                         },
+                        user_attribute_counts={},
+                        user_attribute_count={},
+                        user_record_count=0,
+                        user_related_entities_count=0,
+                        user_relationship_count={},
+                        related_entities_count=3,
+                        attribute_counts={"name": 1, "country": 2, "address": 1},
+                        attribute_count={"name": 1, "country": 2, "address": 1},
+                        reference_id="b9d809b02049993ba8dc2e4c5f7cceca/RM201601838933/1590326996292:e8a8042f374e3dc41f62621f66357db2",
+                    ),
+                    matches={},
+                ),
+                PossiblySameAsData(
+                    entity=PsaEntity(
+                        id="cEvJAm9mwH9QICXrkx_Cdg",
+                        label="VICTORIA BECKHAM",
+                        degree=1,
+                        entity_url="/entity/cEvJAm9mwH9QICXrkx_Cdg",
+                        pep=False,
+                        psa_id="~Yw2PEg",
+                        psa_count=10,
+                        sanctioned=False,
+                        closed=False,
+                        trade_count={"sent": 0, "received": 0},
+                        type="intellectual_property",
+                        identifiers=[
+                            Identifier(
+                                value="RM200901021433",
+                                type="mex_tm_no",
+                                label="Mex Tm No",
+                            ),
+                            Identifier(
+                                value="1021433",
+                                type="mex_tm_app_no",
+                                label="Mex Tm App No",
+                            ),
+                        ],
+                        addresses=[],
+                        countries=["MEX"],
+                        relationship_count={"has_owner": 1},
+                        source_count={
+                            "b9d809b02049993ba8dc2e4c5f7cceca": SourceCountInfo(
+                                count=4,
+                                label="Mexico Industrial Property Trademark Registry (MARCIA)",
+                            )
+                        },
+                        risk={},
+                        user_attribute_counts={},
                         user_attribute_count={},
                         user_record_count=0,
                         user_related_entities_count=0,
                         user_relationship_count={},
                         related_entities_count=1,
-                        attribute_count={"name": 1, "address": 1, "country": 2},
-                        reference_id="b9d809b02049993ba8dc2e4c5f7cceca/RM201902324751/1590507065822:5289443ba2cdf59a7c656b77584a49fc",
+                        attribute_counts={
+                            "name": 1,
+                            "country": 2,
+                            "identifier": 2,
+                            "additional_information": 3,
+                        },
+                        attribute_count={
+                            "name": 1,
+                            "country": 2,
+                            "identifier": 2,
+                            "additional_information": 3,
+                        },
+                        reference_id="b9d809b02049993ba8dc2e4c5f7cceca/RM200901021433/1589580993652:90376816c6039ba02628d4db100fc79f",
+                    ),
+                    matches={},
+                ),
+                PossiblySameAsData(
+                    entity=PsaEntity(
+                        id="b7MxKFvXVzwmGsRiCtbpyA",
+                        label="VICTORIA BECKHAM",
+                        degree=1,
+                        entity_url="/entity/b7MxKFvXVzwmGsRiCtbpyA",
+                        pep=False,
+                        psa_id="~Yw2PEg",
+                        psa_count=10,
+                        sanctioned=False,
+                        closed=False,
+                        trade_count={"sent": 0, "received": 0},
+                        type="intellectual_property",
+                        identifiers=[
+                            Identifier(
+                                value="RM201601838934",
+                                type="mex_tm_no",
+                                label="Mex Tm No",
+                            ),
+                            Identifier(
+                                value="1838934",
+                                type="mex_tm_app_no",
+                                label="Mex Tm App No",
+                            ),
+                            Identifier(
+                                value="1932014",
+                                type="mex_tm_reg_no",
+                                label="Mex Tm Reg No",
+                            ),
+                        ],
+                        addresses=[],
+                        countries=["MEX"],
+                        relationship_count={"has_owner": 1},
+                        source_count={
+                            "b9d809b02049993ba8dc2e4c5f7cceca": SourceCountInfo(
+                                count=5,
+                                label="Mexico Industrial Property Trademark Registry (MARCIA)",
+                            )
+                        },
+                        risk={},
+                        user_attribute_counts={},
+                        user_attribute_count={},
+                        user_record_count=0,
+                        user_related_entities_count=0,
+                        user_relationship_count={},
+                        related_entities_count=1,
+                        attribute_counts={
+                            "name": 1,
+                            "identifier": 3,
+                            "additional_information": 3,
+                            "country": 2,
+                            "status": 1,
+                        },
+                        attribute_count={
+                            "name": 1,
+                            "identifier": 3,
+                            "additional_information": 3,
+                            "country": 2,
+                            "status": 1,
+                        },
+                        reference_id="b9d809b02049993ba8dc2e4c5f7cceca/RM201601838934/1590327029874:8bbf00ad8adcb3f371a01e15dea7a1ff",
+                    ),
+                    matches={},
+                ),
+                PossiblySameAsData(
+                    entity=PsaEntity(
+                        id="4xZqQ4O_vwd8eP-CmRA8XA",
+                        label="Victoria Beckham Limited",
+                        degree=3,
+                        entity_url="/entity/4xZqQ4O_vwd8eP-CmRA8XA",
+                        pep=False,
+                        psa_id="~Yw2PEg",
+                        psa_count=14,
+                        sanctioned=False,
+                        closed=False,
+                        trade_count={"sent": 0, "received": 0},
+                        type="company",
+                        identifiers=[],
+                        addresses=[],
+                        countries=["GBR"],
+                        relationship_count={
+                            "has_legal_representative": 1,
+                            "owner_of": 2,
+                        },
+                        source_count={
+                            "542ad2352af9ce07202a2f34d402d5bf": SourceCountInfo(
+                                count=2,
+                                label="UK Intellectual Property Office Trademark Journal",
+                            )
+                        },
+                        risk={},
+                        user_attribute_counts={},
+                        user_attribute_count={},
+                        user_record_count=0,
+                        user_related_entities_count=0,
+                        user_relationship_count={},
+                        related_entities_count=3,
+                        attribute_counts={"name": 1, "country": 1},
+                        attribute_count={"name": 1, "country": 1},
+                        reference_id="542ad2352af9ce07202a2f34d402d5bf/UK00004079756/1723420800000:b2ae9158c53ea711278ce72cccb2c8b2",
                     ),
                     matches={},
                 ),
@@ -796,7 +1107,7 @@ class EntitySummaryResponse(EntityDetails):
         referenced_by=ReferencedBy(
             limit=50,
             size=QualifiedCount(
-                count=216,
+                count=298,
                 qualifier="eq",
             ),
             offset=0,
@@ -804,495 +1115,521 @@ class EntitySummaryResponse(EntityDetails):
             data=[
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D634B9B1-39E2-4273-8F35AE81130E18D7}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D634B9B1-39E2-4273-8F35AE81130E18D7}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD634B9B1-39E2-4273-8F35AE81130E18D7%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD634B9B1-39E2-4273-8F35AE81130E18D7%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{BFC9056E-9711-49CC-AC6B4F3D19809ABC}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{BFC9056E-9711-49CC-AC6B4F3D19809ABC}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BBFC9056E-9711-49CC-AC6B4F3D19809ABC%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BBFC9056E-9711-49CC-AC6B4F3D19809ABC%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{B6BE3A73-D320-44B8-875BC573F54210FD}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{B6BE3A73-D320-44B8-875BC573F54210FD}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BB6BE3A73-D320-44B8-875BC573F54210FD%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BB6BE3A73-D320-44B8-875BC573F54210FD%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{8A7A08E2-123B-4FAE-94BF66C6F3BA6BEA}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{8A7A08E2-123B-4FAE-94BF66C6F3BA6BEA}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B8A7A08E2-123B-4FAE-94BF66C6F3BA6BEA%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B8A7A08E2-123B-4FAE-94BF66C6F3BA6BEA%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{5A8089A5-891D-43C4-BEA50DCB4D32401E}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{5A8089A5-891D-43C4-BEA50DCB4D32401E}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B5A8089A5-891D-43C4-BEA50DCB4D32401E%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B5A8089A5-891D-43C4-BEA50DCB4D32401E%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{596910C7-D648-4A2C-BFFA77F966A8962D}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{596910C7-D648-4A2C-BFFA77F966A8962D}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B596910C7-D648-4A2C-BFFA77F966A8962D%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B596910C7-D648-4A2C-BFFA77F966A8962D%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4756305B-2033-40A4-9BD867B6EFA8C9B2}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4756305B-2033-40A4-9BD867B6EFA8C9B2}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4756305B-2033-40A4-9BD867B6EFA8C9B2%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4756305B-2033-40A4-9BD867B6EFA8C9B2%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{32A66456-B070-4F55-8D117D740BED2ECF}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{32A66456-B070-4F55-8D117D740BED2ECF}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B32A66456-B070-4F55-8D117D740BED2ECF%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B32A66456-B070-4F55-8D117D740BED2ECF%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{22B19094-CEDF-4100-BDC2CA091A4FF5A9}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{22B19094-CEDF-4100-BDC2CA091A4FF5A9}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B22B19094-CEDF-4100-BDC2CA091A4FF5A9%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B22B19094-CEDF-4100-BDC2CA091A4FF5A9%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{1AD11C10-D7D6-4504-B5CC9E6177795A0E}/1704240000000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{1AD11C10-D7D6-4504-B5CC9E6177795A0E}/1696118400000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2024-01-03",
-                        acquisition_date="2024-01-03",
+                        publication_date="2023-10-01",
+                        acquisition_date="2023-10-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B1AD11C10-D7D6-4504-B5CC9E6177795A0E%7D%2F1704240000000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B1AD11C10-D7D6-4504-B5CC9E6177795A0E%7D%2F1696118400000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F71CAC67-4F08-48D5-A15EFCA682205705}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F71CAC67-4F08-48D5-A15EFCA682205705}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF71CAC67-4F08-48D5-A15EFCA682205705%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF71CAC67-4F08-48D5-A15EFCA682205705%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F450EB48-AF31-44EC-92D47886A3CEB625}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F450EB48-AF31-44EC-92D47886A3CEB625}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF450EB48-AF31-44EC-92D47886A3CEB625%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF450EB48-AF31-44EC-92D47886A3CEB625%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{B7F7DA58-63AF-461B-B708FC2C7514355F}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{B7F7DA58-63AF-461B-B708FC2C7514355F}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BB7F7DA58-63AF-461B-B708FC2C7514355F%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BB7F7DA58-63AF-461B-B708FC2C7514355F%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{968CEF6C-F2CA-4298-9D33475268924C3A}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{968CEF6C-F2CA-4298-9D33475268924C3A}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B968CEF6C-F2CA-4298-9D33475268924C3A%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B968CEF6C-F2CA-4298-9D33475268924C3A%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{952E6357-B36F-4802-A5B3E84AAA42CE8E}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{952E6357-B36F-4802-A5B3E84AAA42CE8E}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B952E6357-B36F-4802-A5B3E84AAA42CE8E%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B952E6357-B36F-4802-A5B3E84AAA42CE8E%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{72007C6B-740B-451A-BD4C61114679B8EF}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{72007C6B-740B-451A-BD4C61114679B8EF}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B72007C6B-740B-451A-BD4C61114679B8EF%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B72007C6B-740B-451A-BD4C61114679B8EF%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{70EEEDF9-BD5C-4770-8EF76D52CB6DC0EE}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{70EEEDF9-BD5C-4770-8EF76D52CB6DC0EE}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B70EEEDF9-BD5C-4770-8EF76D52CB6DC0EE%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B70EEEDF9-BD5C-4770-8EF76D52CB6DC0EE%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{5EBBA4A9-153C-4243-86675561CE321275}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{5EBBA4A9-153C-4243-86675561CE321275}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B5EBBA4A9-153C-4243-86675561CE321275%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B5EBBA4A9-153C-4243-86675561CE321275%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4D2F724B-B98C-4D5D-A98E8ADC8C2C46FF}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4D2F724B-B98C-4D5D-A98E8ADC8C2C46FF}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4D2F724B-B98C-4D5D-A98E8ADC8C2C46FF%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4D2F724B-B98C-4D5D-A98E8ADC8C2C46FF%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4B4E435B-3975-4345-8177CF444DCF7324}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4B4E435B-3975-4345-8177CF444DCF7324}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4B4E435B-3975-4345-8177CF444DCF7324%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4B4E435B-3975-4345-8177CF444DCF7324%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{44A3E2B5-901D-4360-9DEB8EF35019ED15}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{44A3E2B5-901D-4360-9DEB8EF35019ED15}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B44A3E2B5-901D-4360-9DEB8EF35019ED15%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B44A3E2B5-901D-4360-9DEB8EF35019ED15%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{428CEE8F-F33B-4598-97CE9C6CCDFBF8DD}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{428CEE8F-F33B-4598-97CE9C6CCDFBF8DD}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B428CEE8F-F33B-4598-97CE9C6CCDFBF8DD%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B428CEE8F-F33B-4598-97CE9C6CCDFBF8DD%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{2F726716-BED1-4AE0-A1A616900B61F1E3}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{2F726716-BED1-4AE0-A1A616900B61F1E3}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B2F726716-BED1-4AE0-A1A616900B61F1E3%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B2F726716-BED1-4AE0-A1A616900B61F1E3%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{247A2589-CDBF-47CD-9067FB972808C874}/1698969600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{247A2589-CDBF-47CD-9067FB972808C874}/1688169600000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-11-03",
-                        acquisition_date="2023-11-03",
+                        publication_date="2023-07-01",
+                        acquisition_date="2023-07-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B247A2589-CDBF-47CD-9067FB972808C874%7D%2F1698969600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B247A2589-CDBF-47CD-9067FB972808C874%7D%2F1688169600000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F5C41EC6-EE88-4121-BCAD5AA81E93C00B}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{F5C41EC6-EE88-4121-BCAD5AA81E93C00B}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF5C41EC6-EE88-4121-BCAD5AA81E93C00B%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BF5C41EC6-EE88-4121-BCAD5AA81E93C00B%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D6757BC6-2BCF-4D87-A3F53F99025121E8}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D6757BC6-2BCF-4D87-A3F53F99025121E8}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD6757BC6-2BCF-4D87-A3F53F99025121E8%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD6757BC6-2BCF-4D87-A3F53F99025121E8%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D0885822-D92D-42BE-8CDB4FA889F1E2B4}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{D0885822-D92D-42BE-8CDB4FA889F1E2B4}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD0885822-D92D-42BE-8CDB4FA889F1E2B4%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BD0885822-D92D-42BE-8CDB4FA889F1E2B4%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{C117BC85-81E6-40D1-A61DF66FD04694AF}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{C117BC85-81E6-40D1-A61DF66FD04694AF}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BC117BC85-81E6-40D1-A61DF66FD04694AF%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BC117BC85-81E6-40D1-A61DF66FD04694AF%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{AD48A141-FA80-4F09-B97229C9DBA3367D}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{AD48A141-FA80-4F09-B97229C9DBA3367D}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BAD48A141-FA80-4F09-B97229C9DBA3367D%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BAD48A141-FA80-4F09-B97229C9DBA3367D%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{A98A356D-E3EE-427D-9FE5E8481C2D5890}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{A98A356D-E3EE-427D-9FE5E8481C2D5890}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BA98A356D-E3EE-427D-9FE5E8481C2D5890%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7BA98A356D-E3EE-427D-9FE5E8481C2D5890%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{988597F4-E258-4342-983E7D7B38C539CB}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{988597F4-E258-4342-983E7D7B38C539CB}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B988597F4-E258-4342-983E7D7B38C539CB%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B988597F4-E258-4342-983E7D7B38C539CB%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{82552661-B818-48A7-BE6962B7C6E89DD2}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{82552661-B818-48A7-BE6962B7C6E89DD2}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B82552661-B818-48A7-BE6962B7C6E89DD2%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B82552661-B818-48A7-BE6962B7C6E89DD2%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{575FEE26-922F-401D-AE815061380066BB}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{575FEE26-922F-401D-AE815061380066BB}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B575FEE26-922F-401D-AE815061380066BB%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B575FEE26-922F-401D-AE815061380066BB%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4DC73DBC-FC75-42F3-8A4AAED3254239E1}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{4DC73DBC-FC75-42F3-8A4AAED3254239E1}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4DC73DBC-FC75-42F3-8A4AAED3254239E1%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B4DC73DBC-FC75-42F3-8A4AAED3254239E1%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3E4B4DE7-CFF4-43B2-831C9CE5D2B21D94}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3E4B4DE7-CFF4-43B2-831C9CE5D2B21D94}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3E4B4DE7-CFF4-43B2-831C9CE5D2B21D94%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3E4B4DE7-CFF4-43B2-831C9CE5D2B21D94%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3B5D2BEC-8F38-4DC0-86C2C4C20A37176E}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3B5D2BEC-8F38-4DC0-86C2C4C20A37176E}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3B5D2BEC-8F38-4DC0-86C2C4C20A37176E%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3B5D2BEC-8F38-4DC0-86C2C4C20A37176E%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3059B414-F15D-4D7C-A85D09A31FA0D600}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{3059B414-F15D-4D7C-A85D09A31FA0D600}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3059B414-F15D-4D7C-A85D09A31FA0D600%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B3059B414-F15D-4D7C-A85D09A31FA0D600%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{2D68218F-1C6A-4809-98AA6B06BB09EF74}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{2D68218F-1C6A-4809-98AA6B06BB09EF74}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B2D68218F-1C6A-4809-98AA6B06BB09EF74%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B2D68218F-1C6A-4809-98AA6B06BB09EF74%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{24036F32-7BD0-4E22-8DB93CAFDD940917}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{24036F32-7BD0-4E22-8DB93CAFDD940917}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B24036F32-7BD0-4E22-8DB93CAFDD940917%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B24036F32-7BD0-4E22-8DB93CAFDD940917%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{186A7E83-88B9-4D9D-B9B7B5E2E41FF046}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{186A7E83-88B9-4D9D-B9B7B5E2E41FF046}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B186A7E83-88B9-4D9D-B9B7B5E2E41FF046%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B186A7E83-88B9-4D9D-B9B7B5E2E41FF046%7D%2F1680307200000",
                     ),
                     type="mentions",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{1263162D-9752-4A73-86224B2242C245F5}/1690329600000",
+                        id="e5de7b52cc88ef4cd1a10e201bdf46ee/{1263162D-9752-4A73-86224B2242C245F5}/1680307200000",
                         label="Trade Record from Vietnam Imports & Exports (January 2023 - Present)",
                         source="e5de7b52cc88ef4cd1a10e201bdf46ee",
-                        publication_date="2023-07-26",
-                        acquisition_date="2023-07-26",
+                        publication_date="2023-04-01",
+                        acquisition_date="2023-04-01",
                         references_count=3,
-                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B1263162D-9752-4A73-86224B2242C245F5%7D%2F1690329600000",
+                        record_url="/record/e5de7b52cc88ef4cd1a10e201bdf46ee%2F%7B1263162D-9752-4A73-86224B2242C245F5%7D%2F1680307200000",
                     ),
                     type="mentions",
+                ),
+                ReferencedByData(
+                    record=RecordDetails(
+                        id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1725408000000",
+                        label="Company Record from USA California Secretary of State",
+                        source="a447a7b622c4ead6e1caf94983dc2337",
+                        publication_date="2024-09-04",
+                        acquisition_date="2024-09-04",
+                        references_count=5,
+                        record_url="/record/9139b58de1bdb0157a1a1e54e56df6d3%2F4781466%2F1725408000000",
+                        source_url="https://bizfileonline.sos.ca.gov/search/business",
+                    ),
+                    type="about",
+                ),
+                ReferencedByData(
+                    record=RecordDetails(
+                        id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1717545600000",
+                        label="Company Record from USA California Secretary of State",
+                        source="a447a7b622c4ead6e1caf94983dc2337",
+                        publication_date="2024-06-05",
+                        acquisition_date="2024-06-05",
+                        references_count=5,
+                        record_url="/record/9139b58de1bdb0157a1a1e54e56df6d3%2F4781466%2F1717545600000",
+                        source_url="https://bizfileonline.sos.ca.gov/search/business",
+                    ),
+                    type="about",
                 ),
                 ReferencedByData(
                     record=RecordDetails(
@@ -1374,42 +1711,14 @@ class EntitySummaryResponse(EntityDetails):
                 ),
                 ReferencedByData(
                     record=RecordDetails(
-                        id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1706054400000",
-                        label="Company Record from UK Corporate Registry",
-                        source="ecdfb3f2ecc8c3797e77d5795a8066ef",
-                        publication_date="2024-01-24",
-                        acquisition_date="2024-01-24",
-                        references_count=16,
-                        record_url="/record/ecdfb3f2ecc8c3797e77d5795a8066ef%2F06517802%2F1706054400000",
-                        source_url="https://beta.companieshouse.gov.uk/company/",
+                        id="a7829d9c8999fcaa78af55886da9be06/24341453IM001784101/1721606400000",
+                        label="Trade Record from Turkey Imports & Exports (January 2024 - Present)",
+                        source="a7829d9c8999fcaa78af55886da9be06",
+                        acquisition_date="2024-07-22",
+                        references_count=3,
+                        record_url="/record/a7829d9c8999fcaa78af55886da9be06%2F24341453IM001784101%2F1721606400000",
                     ),
-                    type="about",
-                ),
-                ReferencedByData(
-                    record=RecordDetails(
-                        id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1680566400000",
-                        label="Company Record from UK Corporate Registry",
-                        source="ecdfb3f2ecc8c3797e77d5795a8066ef",
-                        publication_date="2023-04-04",
-                        acquisition_date="2023-04-04",
-                        references_count=9,
-                        record_url="/record/ecdfb3f2ecc8c3797e77d5795a8066ef%2F06517802%2F1680566400000",
-                        source_url="https://beta.companieshouse.gov.uk/company/",
-                    ),
-                    type="about",
-                ),
-                ReferencedByData(
-                    record=RecordDetails(
-                        id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1677542400000",
-                        label="Company Record from UK Corporate Registry",
-                        source="ecdfb3f2ecc8c3797e77d5795a8066ef",
-                        publication_date="2023-02-28",
-                        acquisition_date="2023-02-28",
-                        references_count=9,
-                        record_url="/record/ecdfb3f2ecc8c3797e77d5795a8066ef%2F06517802%2F1677542400000",
-                        source_url="https://beta.companieshouse.gov.uk/company/",
-                    ),
-                    type="about",
+                    type="mentions",
                 ),
             ],
         ),

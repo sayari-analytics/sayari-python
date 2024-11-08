@@ -19,8 +19,8 @@ class Shipment(UniversalBaseModel):
     type: str
     buyer: typing.List[SourceOrDestinationEntity]
     supplier: typing.List[SourceOrDestinationEntity]
-    arrival_date: typing.Optional[str] = None
-    departure_date: typing.Optional[str] = None
+    arrival_date: typing.Optional[typing.List[str]] = None
+    departure_date: typing.Optional[typing.List[str]] = None
     departure_address: typing.Optional[ShipmentAddress] = None
     arrival_address: typing.Optional[ShipmentAddress] = None
     arrival_country: typing.List[Country]
