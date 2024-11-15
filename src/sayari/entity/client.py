@@ -87,7 +87,7 @@ class EntityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetEntityResponse:
         """
-        Retrieve an entity from the database based on the ID
+        <Note>To retrieve a L1 Due Dilligence PDF Report. Include 'Accept: application/pdf' in request headers.</Note> Retrieve an entity profile from the database based on the entity ID. This endpoint returns the full profile, entity_summary returns the same payload minus relationships.
 
         Parameters
         ----------
@@ -403,7 +403,7 @@ class EntityClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> EntitySummaryResponse:
         """
-        The Entity Summary endpoint returns a smaller entity payload
+        The Entity Summary endpoint returns a similar payload, minus relationships.
 
         Parameters
         ----------
@@ -568,7 +568,7 @@ class AsyncEntityClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetEntityResponse:
         """
-        Retrieve an entity from the database based on the ID
+        <Note>To retrieve a L1 Due Dilligence PDF Report. Include 'Accept: application/pdf' in request headers.</Note> Retrieve an entity profile from the database based on the entity ID. This endpoint returns the full profile, entity_summary returns the same payload minus relationships.
 
         Parameters
         ----------
@@ -892,7 +892,7 @@ class AsyncEntityClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> EntitySummaryResponse:
         """
-        The Entity Summary endpoint returns a smaller entity payload
+        The Entity Summary endpoint returns a similar payload, minus relationships.
 
         Parameters
         ----------
