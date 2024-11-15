@@ -342,7 +342,7 @@ client.auth.get_token(
 <dl>
 <dd>
 
-Retrieve an entity from the database based on the ID
+<Note>To retrieve a L1 Due Dilligence PDF Report. Include 'Accept: application/pdf' in request headers.</Note> Retrieve an entity profile from the database based on the entity ID. This endpoint returns the full profile, entity_summary returns the same payload minus relationships.
 </dd>
 </dl>
 </dd>
@@ -808,7 +808,7 @@ client.entity.get_entity(
 <dl>
 <dd>
 
-The Entity Summary endpoint returns a smaller entity payload
+The Entity Summary endpoint returns a similar payload, minus relationships.
 </dd>
 </dl>
 </dd>
@@ -2224,7 +2224,7 @@ client.resolution.resolution(
 <dl>
 <dd>
 
-**search_fallback:** `typing.Optional[bool]` — Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to true.
+**search_fallback:** `typing.Optional[bool]` — Enables a name search fallback when either the corporate or supplier profiles fails to find a match. When invoked, the fallback will make a call similar to /search/entity on name only. By default set to false.
     
 </dd>
 </dl>
