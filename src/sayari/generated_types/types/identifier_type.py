@@ -254,6 +254,7 @@ IdentifierType = typing.Union[
         "esp_borme_reg_id",
         "mex_tm_no",
         "mus_file_no",
+        "mex_yucatan_folio",
         "col_nit_no",
         "jpn_corporate_no",
         "usa_cgac_agency_code",
@@ -631,6 +632,7 @@ IdentifierType = typing.Union[
         "ind_coopsoc_registration_number",
         "ind_ifsc",
         "ind_trademark_submission_ref",
+        "idn_trade_internal_shipment_id",
     ],
     typing.Any,
 ]
