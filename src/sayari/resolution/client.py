@@ -55,6 +55,7 @@ class ResolutionClient:
         minimum_score_threshold: typing.Optional[int] = None,
         search_fallback: typing.Optional[bool] = None,
         cutoff_threshold: typing.Optional[int] = None,
+        candidate_pool_size: typing.Optional[int] = None,
         skip_post_process: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
@@ -114,6 +115,9 @@ class ResolutionClient:
         cutoff_threshold : typing.Optional[int]
             Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
 
+        candidate_pool_size : typing.Optional[int]
+            Specifies the maximum number of entity candidates considered during search. Default is 50. Higher values increase match pool size but also increase latency.
+
         skip_post_process : typing.Optional[bool]
             Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
 
@@ -159,6 +163,7 @@ class ResolutionClient:
                 "minimum_score_threshold": minimum_score_threshold,
                 "search_fallback": search_fallback,
                 "cutoff_threshold": cutoff_threshold,
+                "candidate_pool_size": candidate_pool_size,
                 "skip_post_process": skip_post_process,
             },
             request_options=request_options,
@@ -393,6 +398,7 @@ class AsyncResolutionClient:
         minimum_score_threshold: typing.Optional[int] = None,
         search_fallback: typing.Optional[bool] = None,
         cutoff_threshold: typing.Optional[int] = None,
+        candidate_pool_size: typing.Optional[int] = None,
         skip_post_process: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
@@ -452,6 +458,9 @@ class AsyncResolutionClient:
         cutoff_threshold : typing.Optional[int]
             Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
 
+        candidate_pool_size : typing.Optional[int]
+            Specifies the maximum number of entity candidates considered during search. Default is 50. Higher values increase match pool size but also increase latency.
+
         skip_post_process : typing.Optional[bool]
             Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
 
@@ -505,6 +514,7 @@ class AsyncResolutionClient:
                 "minimum_score_threshold": minimum_score_threshold,
                 "search_fallback": search_fallback,
                 "cutoff_threshold": cutoff_threshold,
+                "candidate_pool_size": candidate_pool_size,
                 "skip_post_process": skip_post_process,
             },
             request_options=request_options,
