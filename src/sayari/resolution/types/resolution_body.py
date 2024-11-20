@@ -86,6 +86,11 @@ class ResolutionBody(UniversalBaseModel):
     Specifies the window of similar results returned in the match group. Increase for fewer multiple matches, decrease to open the aperture and allow for more matches. Default is .8
     """
 
+    candidate_pool_size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Specifies the maximum number of entity candidates considered during search. Default is 50. Higher values increase match pool size but also increase latency.
+    """
+
     skip_post_process: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.

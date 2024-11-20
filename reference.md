@@ -2240,6 +2240,14 @@ client.resolution.resolution(
 <dl>
 <dd>
 
+**candidate_pool_size:** `typing.Optional[int]` — Specifies the maximum number of entity candidates considered during search. Default is 50. Higher values increase match pool size but also increase latency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **skip_post_process:** `typing.Optional[bool]` — Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
     
 </dd>
