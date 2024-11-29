@@ -2,4 +2,4 @@
 
 import typing
 
-ContactType = typing.Union[typing.Literal["phone_number", "fax", "email", "url"], typing.Any]
+ContactType = typing.Union[typing.Literal["email", "fax", "phone_number", "url"], typing.Any]

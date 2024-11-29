@@ -67,6 +67,7 @@ Risk = typing.Union[
         "meu_list_contractors",
         "military_civil_fusion",
         "military_civil_fusion_50_percent_rule",
+        "ndaa_889_covered_entities",
         "ofac_50_percent_rule",
         "ofac_minority_ownership",
         "ofac_sdn",

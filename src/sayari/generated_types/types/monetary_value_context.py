@@ -3,5 +3,5 @@
 import typing
 
 MonetaryValueContext = typing.Union[
-    typing.Literal["cost_insurance_and_freight", "free_on_board", "assessed_value"], typing.Any
+    typing.Literal["assessed_value", "cost_insurance_and_freight", "free_on_board"], typing.Any
 ]
