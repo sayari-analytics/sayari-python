@@ -8,12 +8,13 @@ import pydantic
 
 class UsageInfo(UniversalBaseModel):
     entity: typing.Optional[int] = None
-    entity_summary: typing.Optional[int] = None
     record: typing.Optional[int] = None
     resolve: typing.Optional[int] = None
+    search: typing.Optional[int] = None
     search_entities: typing.Optional[int] = None
     search_records: typing.Optional[int] = None
     search_trade: typing.Optional[int] = None
+    trade_traversal: typing.Optional[int] = None
     traversal: typing.Optional[int] = None
 
     if IS_PYDANTIC_V2:
