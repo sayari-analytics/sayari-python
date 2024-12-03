@@ -69,7 +69,7 @@ def main():
 
     # Usage and history
     usage = client.info.get_usage()
-    print(f"Entity summary usage: {usage.usage.entity_summary}")
+    print(f"Entity summary usage: {usage.usage.entity}")
 
     today = date.today()
     history = client.info.get_history(
