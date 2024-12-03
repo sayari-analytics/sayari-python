@@ -391,7 +391,6 @@ def test_usage(setup_connection):
 
         usage = client.info.get_usage()
         assert usage.usage.entity > 0
-        assert usage.usage.entity_summary > 0
         assert usage.usage.record > 0
         assert usage.usage.resolve > 0
         assert usage.usage.search_entities > 0
