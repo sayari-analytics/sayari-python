@@ -393,9 +393,11 @@ def test_usage(setup_connection):
         assert usage.usage.entity > 0
         assert usage.usage.record > 0
         assert usage.usage.resolve > 0
+        assert usage.usage.search > 0
         assert usage.usage.search_entities > 0
         assert usage.usage.search_records > 0
         assert usage.usage.search_trade > 0
+        assert usage.usage.trade_traversal > 0
         assert usage.usage.traversal > 0
 
 
