@@ -418,6 +418,7 @@ class ShipmentSearchResponse(PaginatedResponse):
                     HsCodeInfo(
                         code="854231",
                         description="Electronic integrated circuits; processors and controllers, whether or not combined with memories, converters, logic circuits, amplifiers, clock and timing circuits, or other circuits",
+                        imputed=False,
                     )
                 ],
                 product_descriptions=[

@@ -2,14 +2,14 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
+from .resolution_body import ResolutionBody
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class HsCodeInfo(UniversalBaseModel):
-    code: str
-    description: str
-    imputed: typing.Optional[bool] = None
+class ResolutionUploadBody(UniversalBaseModel):
+    filename: str
+    data: typing.List[ResolutionBody]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

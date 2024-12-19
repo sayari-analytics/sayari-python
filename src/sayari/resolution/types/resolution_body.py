@@ -71,6 +71,11 @@ class ResolutionBody(UniversalBaseModel):
     Adding this param enables an alternative matching logic. It sets the minimum number of matching tokens the resolved hits need to have in common with the user input to be considered a "hit". Accepts non-negative integers.
     """
 
+    tags: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    An array of tag labels to associate with each resolved entity
+    """
+
     minimum_score_threshold: typing.Optional[int] = pydantic.Field(default=None)
     """
     Specifies the minimum score required to pass, which controls the strictness of the matching threshold. The default value is 77, and tuned for general use-case accuracy. Increase the value for stricter matching, reduce to loosen.

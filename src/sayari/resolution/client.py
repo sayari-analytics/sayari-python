@@ -25,6 +25,10 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from .types.resolution_body import ResolutionBody
 from ..core.serialization import convert_and_respect_annotation_metadata
+from .types.resolution_persisted_response import ResolutionPersistedResponse
+from ..core.jsonable_encoder import jsonable_encoder
+from .types.resolution_upload_body import ResolutionUploadBody
+from .types.resolution_upload_response import ResolutionUploadResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -305,6 +309,265 @@ class ResolutionClient:
                     ResolutionResponse,
                     parse_obj_as(
                         type_=ResolutionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def resolution_persisted(
+        self,
+        project_id: str,
+        *,
+        request: ResolutionBody,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResolutionPersistedResponse:
+        """
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+
+        Parameters
+        ----------
+        project_id : str
+            Unique identifier of the project
+
+        request : ResolutionBody
+
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10 inclusive. Defaults to 10.
+
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionPersistedResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+        from sayari.resolution import ResolutionBody
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.resolution.resolution_persisted(
+            project_id="V03eYM",
+            limit=1,
+            request=ResolutionBody(
+                name=["victoria beckham limited"],
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/resolution/persisted/{jsonable_encoder(project_id)}",
+            method="POST",
+            params={
+                "limit": limit,
+                "offset": offset,
+            },
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ResolutionPersistedResponse,
+                    parse_obj_as(
+                        type_=ResolutionPersistedResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def resolution_upload(
+        self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> ResolutionUploadResponse:
+        """
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> This endpoint allows you to upload entities in bulk.
+
+        Parameters
+        ----------
+        project_id : str
+            Unique identifier of the project
+
+        request : ResolutionUploadBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionUploadResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+        from sayari.resolution import ResolutionBody, ResolutionUploadBody
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.resolution.resolution_upload(
+            project_id="V03eYM",
+            request=ResolutionUploadBody(
+                filename="vbeck.json",
+                data=[
+                    ResolutionBody(
+                        name=["victoria beckham limited"],
+                        tags=["spice girls"],
+                    )
+                ],
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/v1/projects/{jsonable_encoder(project_id)}/resolutions",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ResolutionUploadBody, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ResolutionUploadResponse,
+                    parse_obj_as(
+                        type_=ResolutionUploadResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -664,6 +927,281 @@ class AsyncResolutionClient:
                     ResolutionResponse,
                     parse_obj_as(
                         type_=ResolutionResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def resolution_persisted(
+        self,
+        project_id: str,
+        *,
+        request: ResolutionBody,
+        limit: typing.Optional[int] = None,
+        offset: typing.Optional[int] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ResolutionPersistedResponse:
+        """
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+
+        Parameters
+        ----------
+        project_id : str
+            Unique identifier of the project
+
+        request : ResolutionBody
+
+        limit : typing.Optional[int]
+            A limit on the number of objects to be returned with a range between 1 and 10 inclusive. Defaults to 10.
+
+        offset : typing.Optional[int]
+            Number of results to skip before returning response. Defaults to 0.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionPersistedResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+        from sayari.resolution import ResolutionBody
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.resolution.resolution_persisted(
+                project_id="V03eYM",
+                limit=1,
+                request=ResolutionBody(
+                    name=["victoria beckham limited"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/resolution/persisted/{jsonable_encoder(project_id)}",
+            method="POST",
+            params={
+                "limit": limit,
+                "offset": offset,
+            },
+            json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ResolutionPersistedResponse,
+                    parse_obj_as(
+                        type_=ResolutionPersistedResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def resolution_upload(
+        self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
+    ) -> ResolutionUploadResponse:
+        """
+        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> This endpoint allows you to upload entities in bulk.
+
+        Parameters
+        ----------
+        project_id : str
+            Unique identifier of the project
+
+        request : ResolutionUploadBody
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResolutionUploadResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+        from sayari.resolution import ResolutionBody, ResolutionUploadBody
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.resolution.resolution_upload(
+                project_id="V03eYM",
+                request=ResolutionUploadBody(
+                    filename="vbeck.json",
+                    data=[
+                        ResolutionBody(
+                            name=["victoria beckham limited"],
+                            tags=["spice girls"],
+                        )
+                    ],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/v1/projects/{jsonable_encoder(project_id)}/resolutions",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=ResolutionUploadBody, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ResolutionUploadResponse,
+                    parse_obj_as(
+                        type_=ResolutionUploadResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
