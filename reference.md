@@ -2360,6 +2360,196 @@ client.resolution.resolution_post(
 </dl>
 </details>
 
+<details><summary><code>client.resolution.<a href="src/sayari/resolution/client.py">resolution_persisted</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.resolution import ResolutionBody
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.resolution.resolution_persisted(
+    project_id="6GaxYn",
+    limit=1,
+    request=ResolutionBody(
+        name=["victoria beckham limited"],
+        profile="suppliers",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — Unique identifier of the project
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `ResolutionBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10 inclusive. Defaults to 10.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.resolution.<a href="src/sayari/resolution/client.py">resolution_upload</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> This endpoint allows you to upload entities in bulk.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.resolution import ResolutionBody, ResolutionUploadBody
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.resolution.resolution_upload(
+    project_id="V03eYM",
+    request=ResolutionUploadBody(
+        filename="vbeck.json",
+        data=[
+            ResolutionBody(
+                name=["victoria beckham limited"],
+                tags=["spice girls"],
+            )
+        ],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — Unique identifier of the project
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `ResolutionUploadBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Resource
 <details><summary><code>client.resource.<a href="src/sayari/resource/client.py">save_entity</a>(...)</code></summary>
 <dl>

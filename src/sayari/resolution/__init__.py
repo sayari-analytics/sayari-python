@@ -6,9 +6,14 @@ from .types import (
     MatchStrength,
     ProfileEnum,
     ResolutionBody,
+    ResolutionPersistedResponse,
+    ResolutionPersistedResponseFields,
+    ResolutionPersistedResult,
     ResolutionResponse,
     ResolutionResponseFields,
     ResolutionResult,
+    ResolutionUploadBody,
+    ResolutionUploadResponse,
 )
 
 __all__ = [
@@ -17,7 +22,12 @@ __all__ = [
     "MatchStrength",
     "ProfileEnum",
     "ResolutionBody",
+    "ResolutionPersistedResponse",
+    "ResolutionPersistedResponseFields",
+    "ResolutionPersistedResult",
     "ResolutionResponse",
     "ResolutionResponseFields",
     "ResolutionResult",
+    "ResolutionUploadBody",
+    "ResolutionUploadResponse",
 ]
