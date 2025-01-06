@@ -6,3 +6,4 @@ Makefile
 README.md
 src/sayari/client.py
 tests/custom/test_sdk.py
+pyproject.toml
