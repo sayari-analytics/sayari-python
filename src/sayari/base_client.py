@@ -10,6 +10,7 @@ from .auth.client import AuthClient
 from .entity.client import EntityClient
 from .info.client import InfoClient
 from .metadata.client import MetadataClient
+from .negative_news.client import NegativeNewsClient
 from .notifications.client import NotificationsClient
 from .project.client import ProjectClient
 from .record.client import RecordClient
@@ -26,6 +27,7 @@ from .auth.client import AsyncAuthClient
 from .entity.client import AsyncEntityClient
 from .info.client import AsyncInfoClient
 from .metadata.client import AsyncMetadataClient
+from .negative_news.client import AsyncNegativeNewsClient
 from .notifications.client import AsyncNotificationsClient
 from .project.client import AsyncProjectClient
 from .record.client import AsyncRecordClient
@@ -117,6 +119,7 @@ class BaseClient:
         self.entity = EntityClient(client_wrapper=self._client_wrapper)
         self.info = InfoClient(client_wrapper=self._client_wrapper)
         self.metadata = MetadataClient(client_wrapper=self._client_wrapper)
+        self.negative_news = NegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = NotificationsClient(client_wrapper=self._client_wrapper)
         self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
@@ -208,6 +211,7 @@ class AsyncBaseClient:
         self.entity = AsyncEntityClient(client_wrapper=self._client_wrapper)
         self.info = AsyncInfoClient(client_wrapper=self._client_wrapper)
         self.metadata = AsyncMetadataClient(client_wrapper=self._client_wrapper)
+        self.negative_news = AsyncNegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
         self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)

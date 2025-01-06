@@ -1108,6 +1108,98 @@ client.metadata.metadata()
 </dl>
 </details>
 
+## NegativeNews
+<details><summary><code>client.negative_news.<a href="src/sayari/negative_news/client.py">negative_news</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+<Warning>This endpoint is in beta and subject to change</Warning>
+Screens entities against news articles and public records to identify risk-relevant content.
+Leverages machine learning to detect and classify risks across various domains.
+Provides detailed article metadata with risk assessments and direct source references.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.negative_news.negative_news(
+    name="Alameda Research",
+    topic="financial",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — Target entity name for adverse media screening.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**topic:** `typing.Optional[Topics]` — Risk category filter for targeted screening. Each topic represents a distinct risk domain (e.g., `environmental` for environmental violations, `financial` for financial misconduct).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**until:** `typing.Optional[dt.date]` — Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published before this date will be included in results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Notifications
 <details><summary><code>client.notifications.<a href="src/sayari/notifications/client.py">project_notifications</a>(...)</code></summary>
 <dl>

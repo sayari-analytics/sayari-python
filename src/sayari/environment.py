@@ -5,4 +5,11 @@ import enum
 
 class SayariEnvironment(enum.Enum):
     PRODUCTION = "https://api.sayari.com"
+    """
+    Sayari production - the default environment
+    """
+
     DEV = "https://api.internal.sayari.com"
+    """
+    Sayari development - utilized for internal testing before promotion to production
+    """
