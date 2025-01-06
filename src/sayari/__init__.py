@@ -8,6 +8,7 @@ from . import (
     generated_types,
     info,
     metadata,
+    negative_news,
     notifications,
     project,
     record,
@@ -124,6 +125,7 @@ from .generated_types import (
 )
 from .info import EventInfo, HistoryInfo, HistoryResponse, UsageInfo, UsageResponse
 from .metadata import MetadataResponse, UserInfo
+from .negative_news import Article, NegativeNewsResponse, Topics
 from .notifications import (
     Notification,
     NotificationAdditionalInformation,
@@ -291,6 +293,7 @@ __all__ = [
     "AddressInfo",
     "AddressProperties",
     "AddressType",
+    "Article",
     "AsyncSayari",
     "AttributeData",
     "AttributeDetails",
@@ -414,6 +417,7 @@ __all__ = [
     "NameData",
     "NameInfo",
     "NameProperties",
+    "NegativeNewsResponse",
     "NotAcceptable",
     "NotAcceptableResponse",
     "NotFound",
@@ -521,6 +525,7 @@ __all__ = [
     "TierCount",
     "TierCountAgg",
     "TierCountKeys",
+    "Topics",
     "TradeCount",
     "TradeFilterList",
     "TradeTraversalEntity",
@@ -557,6 +562,7 @@ __all__ = [
     "generated_types",
     "info",
     "metadata",
+    "negative_news",
     "notifications",
     "project",
     "record",
