@@ -1,3 +1,6 @@
+[project]
+name = "sayari"
+
 [tool.poetry]
 name = "sayari"
 version = "0.1.32"
@@ -63,6 +66,3 @@ line-length = 120
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[project]
-name = "sayari"
