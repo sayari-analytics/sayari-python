@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sayari"
-version = "0.1.31"
+version = "0.1.32"
 description = "A Python SDK for Sayari"
 readme = "README.md"
 authors = [
@@ -63,6 +63,3 @@ line-length = 120
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[project]
-name = "sayari"
