@@ -7,6 +7,7 @@ WeakIdentifierType = typing.Union[
         "arg_igj_number",
         "arg_import_export_id",
         "atg_corporate_registry_entity_num",
+        "aus_asic_disqualified_persons_number",
         "aus_state_reg_number",
         "aut_former_cr_no",
         "aut_natl_bank_no",
