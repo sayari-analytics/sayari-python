@@ -895,22 +895,13 @@ The usage endpoint provides a simple interface to retrieve information on usage 
 <dd>
 
 ```python
-import datetime
-
 from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
     client_secret="YOUR_CLIENT_SECRET",
 )
-client.info.get_usage(
-    from_=datetime.date.fromisoformat(
-        "2023-01-15",
-    ),
-    to=datetime.date.fromisoformat(
-        "2023-01-15",
-    ),
-)
+client.info.get_usage()
 
 ```
 </dd>
@@ -981,25 +972,13 @@ The history endpoint return a user's event history.
 <dd>
 
 ```python
-import datetime
-
 from sayari import Sayari
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
     client_secret="YOUR_CLIENT_SECRET",
 )
-client.info.get_history(
-    events="string",
-    from_=datetime.date.fromisoformat(
-        "2023-01-15",
-    ),
-    to=datetime.date.fromisoformat(
-        "2023-01-15",
-    ),
-    size=1,
-    token="string",
-)
+client.info.get_history()
 
 ```
 </dd>

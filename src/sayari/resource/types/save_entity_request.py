@@ -34,7 +34,7 @@ class SaveEntityRequest(UniversalBaseModel):
 
     custom_fields: typing.Optional[typing.Any] = pydantic.Field(default=None)
     """
-    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom\_" and value must be "string" type)
+    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom_" and value must be "string" type)
     """
 
     if IS_PYDANTIC_V2:

@@ -54,22 +54,13 @@ class InfoClient:
 
         Examples
         --------
-        import datetime
-
         from sayari import Sayari
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.info.get_usage(
-            from_=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            to=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-        )
+        client.info.get_usage()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/usage",
@@ -184,25 +175,13 @@ class InfoClient:
 
         Examples
         --------
-        import datetime
-
         from sayari import Sayari
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.info.get_history(
-            events="string",
-            from_=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            to=datetime.date.fromisoformat(
-                "2023-01-15",
-            ),
-            size=1,
-            token="string",
-        )
+        client.info.get_history()
         """
         _response = self._client_wrapper.httpx_client.request(
             "v1/history",
@@ -314,7 +293,6 @@ class AsyncInfoClient:
         Examples
         --------
         import asyncio
-        import datetime
 
         from sayari import AsyncSayari
 
@@ -325,14 +303,7 @@ class AsyncInfoClient:
 
 
         async def main() -> None:
-            await client.info.get_usage(
-                from_=datetime.date.fromisoformat(
-                    "2023-01-15",
-                ),
-                to=datetime.date.fromisoformat(
-                    "2023-01-15",
-                ),
-            )
+            await client.info.get_usage()
 
 
         asyncio.run(main())
@@ -451,7 +422,6 @@ class AsyncInfoClient:
         Examples
         --------
         import asyncio
-        import datetime
 
         from sayari import AsyncSayari
 
@@ -462,17 +432,7 @@ class AsyncInfoClient:
 
 
         async def main() -> None:
-            await client.info.get_history(
-                events="string",
-                from_=datetime.date.fromisoformat(
-                    "2023-01-15",
-                ),
-                to=datetime.date.fromisoformat(
-                    "2023-01-15",
-                ),
-                size=1,
-                token="string",
-            )
+            await client.info.get_history()
 
 
         asyncio.run(main())
