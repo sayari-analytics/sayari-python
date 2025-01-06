@@ -4,6 +4,7 @@ import typing
 
 Entities = typing.Union[
     typing.Literal[
+        "account",
         "aircraft",
         "company",
         "generic",
@@ -14,6 +15,7 @@ Entities = typing.Union[
         "security",
         "shipment",
         "tradename",
+        "transaction",
         "unknown",
         "vessel",
     ],
