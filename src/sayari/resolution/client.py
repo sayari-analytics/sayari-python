@@ -387,7 +387,7 @@ class ResolutionClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionPersistedResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+        The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
 
         Parameters
         ----------
@@ -515,7 +515,7 @@ class ResolutionClient:
         self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ResolutionUploadResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> This endpoint allows you to upload entities in bulk.
+        <Warning>This endpoint is in beta and subject to change</Warning> This endpoint allows you to upload entities in bulk.
 
         Parameters
         ----------
@@ -1005,7 +1005,7 @@ class AsyncResolutionClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionPersistedResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+        The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
 
         Parameters
         ----------
@@ -1141,7 +1141,7 @@ class AsyncResolutionClient:
         self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ResolutionUploadResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> This endpoint allows you to upload entities in bulk.
+        <Warning>This endpoint is in beta and subject to change</Warning> This endpoint allows you to upload entities in bulk.
 
         Parameters
         ----------

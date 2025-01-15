@@ -41,7 +41,7 @@ class AttributesClient:
         self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
+        Adds a new attribute to an entity in the project
 
         Parameters
         ----------
@@ -455,7 +455,7 @@ class AsyncAttributesClient:
         self, *, request: AddAttribute, request_options: typing.Optional[RequestOptions] = None
     ) -> AttributeResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Adds a new Attribute
+        Adds a new attribute to an entity in the project
 
         Parameters
         ----------
