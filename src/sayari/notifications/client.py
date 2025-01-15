@@ -43,7 +43,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters
         ----------
@@ -648,7 +648,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters
         ----------

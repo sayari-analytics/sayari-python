@@ -46,7 +46,7 @@ class ProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Create a new project.
+        Create a new project
 
         Parameters
         ----------
@@ -167,7 +167,7 @@ class ProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of projects including upload progress info.
+        Retrieve a list of projects including upload progress info.
 
         Parameters
         ----------
@@ -311,7 +311,7 @@ class ProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of entities in a project.
+        Retrieve a list of entities in a project.
 
         Parameters
         ----------
@@ -595,7 +595,7 @@ class AsyncProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Create a new project.
+        Create a new project
 
         Parameters
         ----------
@@ -724,7 +724,7 @@ class AsyncProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of projects including upload progress info.
+        Retrieve a list of projects including upload progress info.
 
         Parameters
         ----------
@@ -876,7 +876,7 @@ class AsyncProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Retrieve a list of entities in a project.
+        Retrieve a list of entities in a project.
 
         Parameters
         ----------

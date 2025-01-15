@@ -38,7 +38,7 @@ class ResourceClient:
         self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> SaveEntityResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
+        Save an entity to a project.
 
         Parameters
         ----------
@@ -272,7 +272,7 @@ class AsyncResourceClient:
         self, *, request: SaveEntityRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> SaveEntityResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> Save an entity to a project.
+        Save an entity to a project.
 
         Parameters
         ----------
