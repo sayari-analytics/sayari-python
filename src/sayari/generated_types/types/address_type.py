@@ -3,5 +3,5 @@
 import typing
 
 AddressType = typing.Union[
-    typing.Literal["arrival", "business", "departure", "mailing", "physical", "registered"], typing.Any
+    typing.Literal["arrival", "business", "departure", "mailing", "physical", "registered", "transit"], typing.Any
 ]

@@ -146,6 +146,7 @@ Risk = typing.Union[
         "psa_sheffield_hallam_university_intermediary_entity",
         "psa_sheffield_hallam_university_useful_resources",
         "psa_state_owned",
+        "psa_state_owned_ven",
         "psa_wro_entity",
         "regulatory_action",
         "reputational_risk_bribery_and_corruption",
