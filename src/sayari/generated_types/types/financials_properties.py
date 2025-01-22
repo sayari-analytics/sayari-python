@@ -20,7 +20,7 @@ class FinancialsProperties(UniversalBaseModel):
 
     date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    as-of date
+    as-of date of attribute
     """
 
     employees: typing.Optional[int] = pydantic.Field(default=None)
@@ -28,9 +28,14 @@ class FinancialsProperties(UniversalBaseModel):
     Total employees
     """
 
+    extra: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    """
+    extra information of attribute
+    """
+
     from_date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    start date
+    start date of attribute
     """
 
     liabilities: typing.Optional[float] = pydantic.Field(default=None)
@@ -60,7 +65,7 @@ class FinancialsProperties(UniversalBaseModel):
 
     to_date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    end date
+    end date of attribute
     """
 
     if IS_PYDANTIC_V2:

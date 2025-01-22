@@ -16,12 +16,17 @@ class CountryProperties(UniversalBaseModel):
 
     date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    as-of date
+    as-of date of attribute
+    """
+
+    extra: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
+    """
+    extra information of attribute
     """
 
     from_date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    start date
+    start date of attribute
     """
 
     state: typing.Optional[str] = pydantic.Field(default=None)
@@ -31,7 +36,7 @@ class CountryProperties(UniversalBaseModel):
 
     to_date: typing.Optional[str] = pydantic.Field(default=None)
     """
-    end date
+    end date of attribute
     """
 
     value: Country = pydantic.Field()
