@@ -173,7 +173,7 @@ class EntityClient:
             The pagination token for the previous page of relationship results
 
         relationships_limit : typing.Optional[int]
-            Limit total relationship values. Defaults to 50.
+            Limit total relationship values. Defaults to 200.
 
         relationships_type : typing.Optional[Relationships]
             Filter relationships to [relationship type](/sayari-library/ontology/relationships), e.g. director_of or has_shareholder
@@ -654,7 +654,7 @@ class AsyncEntityClient:
             The pagination token for the previous page of relationship results
 
         relationships_limit : typing.Optional[int]
-            Limit total relationship values. Defaults to 50.
+            Limit total relationship values. Defaults to 200.
 
         relationships_type : typing.Optional[Relationships]
             Filter relationships to [relationship type](/sayari-library/ontology/relationships), e.g. director_of or has_shareholder
