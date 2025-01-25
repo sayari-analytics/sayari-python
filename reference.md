@@ -608,7 +608,7 @@ client.entity.get_entity(
 <dl>
 <dd>
 
-**relationships_limit:** `typing.Optional[int]` — Limit total relationship values. Defaults to 50.
+**relationships_limit:** `typing.Optional[int]` — Limit total relationship values. Defaults to 200.
     
 </dd>
 </dl>
