@@ -554,7 +554,7 @@ class ResolutionClient:
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/v1/projects/{jsonable_encoder(project_id)}/resolutions",
+            f"v1/projects/{jsonable_encoder(project_id)}/resolutions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=ResolutionUploadBody, direction="write"
@@ -1188,7 +1188,7 @@ class AsyncResolutionClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/v1/projects/{jsonable_encoder(project_id)}/resolutions",
+            f"v1/projects/{jsonable_encoder(project_id)}/resolutions",
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=ResolutionUploadBody, direction="write"
