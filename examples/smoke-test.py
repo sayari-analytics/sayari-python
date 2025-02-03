@@ -62,8 +62,9 @@ def main():
     )
 
     # Shortest path traversal
+    # TODO: revert reversal of query once bug is fixed
     shortest_path = client.traversal.shortest_path(
-        entities=[first_entity, ubo[0].target.id]
+        entities=[ubo[0].target.id, first_entity]
     )
     print(f"Found path with {len(shortest_path.data[0].path)} hops")
 
