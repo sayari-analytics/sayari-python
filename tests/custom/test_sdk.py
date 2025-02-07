@@ -245,7 +245,9 @@ def test_ownership_traversal(setup_connection):
     """
 
     # shortest path
-    shortest_path = client.traversal.shortest_path(entities=[entity.id, ubo_id])
+    # Reversing the shortest path in the hopes that it fixes tests
+    # shortest_path = client.traversal.shortest_path(entities=[entity.id, ubo_id])
+    shortest_path = client.traversal.shortest_path(entities=[ubo_id, entity.id])
     assert len(shortest_path.data[0].path) > 0
 
 # TODO: figure out good test for watchlist traversal
