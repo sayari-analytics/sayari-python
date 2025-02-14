@@ -6,7 +6,7 @@ from .source_id import SourceId
 import pydantic
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
-from ...generated_types.types.risk import Risk
+from .risk_factor import RiskFactor
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -45,7 +45,7 @@ class FilterList(UniversalBaseModel):
     Pipe-delimited bounding box coordinates (north,west,south,east). E.g., '"46.12|-76|45|-75"'.
     """
 
-    risk: typing.Optional[typing.List[Risk]] = pydantic.Field(default=None)
+    risk: typing.Optional[RiskFactor] = pydantic.Field(default=None)
     """
     List of risk factors to filter by.
     """

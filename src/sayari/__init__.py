@@ -187,7 +187,15 @@ from .resolution import (
     ResolutionUploadResponse,
 )
 from .resource import DeleteResourceResponse, EntityResponseData, ResourceType, SaveEntityRequest, SaveEntityResponse
-from .search import Coordinates, EntitySearchResponse, FilterList, RecordSearchResponse, SearchResults, SourceId
+from .search import (
+    Coordinates,
+    EntitySearchResponse,
+    FilterList,
+    RecordSearchResponse,
+    RiskFactor,
+    SearchResults,
+    SourceId,
+)
 from .shared_errors import (
     BadGateway,
     BadGatewayResponse,
@@ -481,6 +489,7 @@ __all__ = [
     "ResourceType",
     "Risk",
     "RiskData",
+    "RiskFactor",
     "RiskIntelligenceData",
     "RiskIntelligenceInfo",
     "RiskIntelligenceProperties",

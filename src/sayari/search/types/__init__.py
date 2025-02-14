@@ -4,7 +4,16 @@ from .coordinates import Coordinates
 from .entity_search_response import EntitySearchResponse
 from .filter_list import FilterList
 from .record_search_response import RecordSearchResponse
+from .risk_factor import RiskFactor
 from .search_results import SearchResults
 from .source_id import SourceId
 
-__all__ = ["Coordinates", "EntitySearchResponse", "FilterList", "RecordSearchResponse", "SearchResults", "SourceId"]
+__all__ = [
+    "Coordinates",
+    "EntitySearchResponse",
+    "FilterList",
+    "RecordSearchResponse",
+    "RiskFactor",
+    "SearchResults",
+    "SourceId",
+]
