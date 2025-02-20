@@ -102,6 +102,7 @@ from .generated_types import (
     PositionProperties,
     Relationships,
     Risk,
+    RiskCategories,
     RiskIntelligenceData,
     RiskIntelligenceInfo,
     RiskIntelligenceProperties,
@@ -289,6 +290,7 @@ from .traversal import (
     TraversalPath,
     TraversalRelationshipData,
     TraversalResponse,
+    TraversalRiskCategory,
 )
 from .version import __version__
 
@@ -488,6 +490,7 @@ __all__ = [
     "ResourceNotificationsResponse",
     "ResourceType",
     "Risk",
+    "RiskCategories",
     "RiskData",
     "RiskFactor",
     "RiskIntelligenceData",
@@ -549,6 +552,7 @@ __all__ = [
     "TraversalPath",
     "TraversalRelationshipData",
     "TraversalResponse",
+    "TraversalRiskCategory",
     "Unauthorized",
     "UnauthorizedResponse",
     "Unit",

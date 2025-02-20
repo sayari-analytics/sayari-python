@@ -6,6 +6,7 @@ from .traversal_data import TraversalData
 from .traversal_path import TraversalPath
 from .traversal_relationship_data import TraversalRelationshipData
 from .traversal_response import TraversalResponse
+from .traversal_risk_category import TraversalRiskCategory
 
 __all__ = [
     "ShortestPathData",
@@ -14,4 +15,5 @@ __all__ = [
     "TraversalPath",
     "TraversalRelationshipData",
     "TraversalResponse",
+    "TraversalRiskCategory",
 ]
