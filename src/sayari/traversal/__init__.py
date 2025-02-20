@@ -7,6 +7,7 @@ from .types import (
     TraversalPath,
     TraversalRelationshipData,
     TraversalResponse,
+    TraversalRiskCategory,
 )
 
 __all__ = [
@@ -16,4 +17,5 @@ __all__ = [
     "TraversalPath",
     "TraversalRelationshipData",
     "TraversalResponse",
+    "TraversalRiskCategory",
 ]

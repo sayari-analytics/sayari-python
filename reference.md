@@ -4086,7 +4086,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
     
 </dd>
 </dl>
@@ -4094,7 +4094,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4102,7 +4102,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**state_owned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4110,7 +4110,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**state_owned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4118,7 +4118,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4126,7 +4126,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4134,7 +4134,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4142,7 +4142,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4150,7 +4150,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4158,7 +4158,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4166,7 +4166,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4174,7 +4174,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4182,7 +4182,15 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4374,7 +4382,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
     
 </dd>
 </dl>
@@ -4382,7 +4390,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4390,7 +4398,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**state_owned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4398,7 +4406,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**state_owned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4406,7 +4414,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4414,7 +4422,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4422,7 +4430,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4430,7 +4438,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4438,7 +4446,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4446,7 +4454,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4454,7 +4462,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4462,7 +4470,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4470,7 +4478,15 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4662,7 +4678,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
     
 </dd>
 </dl>
@@ -4670,7 +4686,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4678,7 +4694,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**state_owned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4686,7 +4702,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**state_owned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4694,7 +4710,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4702,7 +4718,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4710,7 +4726,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4718,7 +4734,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4726,7 +4742,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4734,7 +4750,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4742,7 +4758,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4750,7 +4766,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4758,7 +4774,15 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4950,7 +4974,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
     
 </dd>
 </dl>
@@ -4958,7 +4982,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4966,7 +4990,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**state_owned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4974,7 +4998,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**state_owned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4982,7 +5006,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4990,7 +5014,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -4998,7 +5022,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5006,7 +5030,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5014,7 +5038,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5022,7 +5046,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5030,7 +5054,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5038,7 +5062,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
@@ -5046,7 +5070,15 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that entity with an entity that we have flagged with this risk factor
+**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
     
 </dd>
 </dl>
