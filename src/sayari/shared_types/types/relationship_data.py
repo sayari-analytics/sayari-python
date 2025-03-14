@@ -37,6 +37,4 @@ class RelationshipData(UniversalBaseModel):
 from .entity_details import EntityDetails  # noqa: E402
 from .entity_relationships import EntityRelationships  # noqa: E402
 
-update_forward_refs(EntityDetails, RelationshipData=RelationshipData)
-update_forward_refs(EntityRelationships, RelationshipData=RelationshipData)
 update_forward_refs(RelationshipData)
