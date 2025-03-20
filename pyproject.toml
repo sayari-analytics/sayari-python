@@ -3,7 +3,7 @@ name = "sayari"
 
 [tool.poetry]
 name = "sayari"
-version = "0.1.39"
+version = "0.1.40"
 description = "A Python SDK for Sayari"
 readme = "README.md"
 authors = [

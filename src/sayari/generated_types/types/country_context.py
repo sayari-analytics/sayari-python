@@ -8,6 +8,8 @@ CountryContext = typing.Union[
         "address",
         "citizenship",
         "domicile",
+        "export_activity_in",
+        "import_activity_in",
         "incorporation",
         "mentioned_in",
         "nationality",
