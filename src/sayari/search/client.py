@@ -341,7 +341,6 @@ class SearchClient:
         q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -360,9 +359,6 @@ class SearchClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
-
-        fields : typing.Optional[typing.Sequence[SearchField]]
-            Record or entity fields to search against.
 
         filter : typing.Optional[FilterList]
             Filters to be applied to search query to limit the result-set.
@@ -402,7 +398,6 @@ class SearchClient:
             },
             json={
                 "q": q,
-                "fields": fields,
                 "filter": convert_and_respect_annotation_metadata(
                     object_=filter, annotation=FilterList, direction="write"
                 ),
@@ -492,7 +487,6 @@ class SearchClient:
         q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -510,9 +504,6 @@ class SearchClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
-
-        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
-            Record or entity fields to search against.
 
         facets : typing.Optional[bool]
             Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -547,7 +538,6 @@ class SearchClient:
                 "limit": limit,
                 "offset": offset,
                 "q": q,
-                "fields": fields,
                 "facets": facets,
                 "advanced": advanced,
             },
@@ -956,7 +946,6 @@ class AsyncSearchClient:
         q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        fields: typing.Optional[typing.Sequence[SearchField]] = OMIT,
         filter: typing.Optional[FilterList] = OMIT,
         facets: typing.Optional[bool] = OMIT,
         advanced: typing.Optional[bool] = OMIT,
@@ -975,9 +964,6 @@ class AsyncSearchClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
-
-        fields : typing.Optional[typing.Sequence[SearchField]]
-            Record or entity fields to search against.
 
         filter : typing.Optional[FilterList]
             Filters to be applied to search query to limit the result-set.
@@ -1025,7 +1011,6 @@ class AsyncSearchClient:
             },
             json={
                 "q": q,
-                "fields": fields,
                 "filter": convert_and_respect_annotation_metadata(
                     object_=filter, annotation=FilterList, direction="write"
                 ),
@@ -1115,7 +1100,6 @@ class AsyncSearchClient:
         q: str,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
-        fields: typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]] = None,
         facets: typing.Optional[bool] = None,
         advanced: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1133,9 +1117,6 @@ class AsyncSearchClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
-
-        fields : typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]
-            Record or entity fields to search against.
 
         facets : typing.Optional[bool]
             Whether or not to return search facets in results giving counts by field. Defaults to false.
@@ -1178,7 +1159,6 @@ class AsyncSearchClient:
                 "limit": limit,
                 "offset": offset,
                 "q": q,
-                "fields": fields,
                 "facets": facets,
                 "advanced": advanced,
             },

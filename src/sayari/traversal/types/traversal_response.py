@@ -7,9 +7,9 @@ from ...shared_types.types.relationship_data import RelationshipData
 import typing
 from ...generated_types.types.relationships import Relationships
 from ...generated_types.types.country import Country
+import pydantic
 from .traversal_data import TraversalData
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
-import pydantic
 
 
 class TraversalResponse(UniversalBaseModel):
@@ -193,7 +193,11 @@ class TraversalResponse(UniversalBaseModel):
     countries: typing.List[Country]
     types: typing.List[str]
     name: str
-    watchlist: bool
+    watchlist: bool = pydantic.Field()
+    """
+    <Warning>This field is deprecated.</Warning>
+    """
+
     psa: bool
     offset: int
     limit: int

@@ -3104,14 +3104,6 @@ client.search.search_record(
 <dl>
 <dd>
 
-**fields:** `typing.Optional[typing.Sequence[SearchField]]` — Record or entity fields to search against.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **filter:** `typing.Optional[FilterList]` — Filters to be applied to search query to limit the result-set.
     
 </dd>
@@ -3217,14 +3209,6 @@ client.search.search_record_get(
 <dd>
 
 **offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fields:** `typing.Optional[typing.Union[SearchField, typing.Sequence[SearchField]]]` — Record or entity fields to search against.
     
 </dd>
 </dl>
