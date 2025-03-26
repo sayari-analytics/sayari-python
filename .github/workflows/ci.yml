@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies including python-dotenv
         run: |
-          poetry add python-dotenv
           poetry install
 
       - name: Run Mypy with ignore missing imports
