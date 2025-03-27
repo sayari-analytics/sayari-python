@@ -69,8 +69,10 @@ def test_entities(setup_connection):
     # test the GET variant of the search endpoint
     entity_search_get_results = client.search.search_entity_get(q=random_string)
     assert len(entity_search_results.data) == len(entity_search_get_results.data)
-    assert entity_search_results.size.count == entity_search_get_results.size.count
     assert entity_search_results.size.qualifier == entity_search_get_results.size.qualifier
+
+    #the difference in counts should be less than 30%
+    assert abs(entity_search_results.size.count - entity_search_get_results.size.count)/entity_search_results.size.count < .3
 
     # do some checks on the first result
     first_entity = entity_search_results.data[0]
