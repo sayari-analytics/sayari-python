@@ -11,6 +11,7 @@ RiskCategories = typing.Union[
         "environmental_risk",
         "regulatory_action",
         "adverse_media",
+        "possibly_same_as_network_risk",
     ],
     typing.Any,
 ]
