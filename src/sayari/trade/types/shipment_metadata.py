@@ -18,6 +18,8 @@ class ShipmentMetadata(UniversalBaseModel):
     """
 
     departure_address: typing.Optional[AddressProperties] = None
+    shipper_address: typing.Optional[AddressProperties] = None
+    receiver_address: typing.Optional[AddressProperties] = None
     type: str
     sources: typing.List[str]
     departure_country: typing.List[Country]
