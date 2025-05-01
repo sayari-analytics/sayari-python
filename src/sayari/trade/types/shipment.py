@@ -23,6 +23,8 @@ class Shipment(UniversalBaseModel):
     departure_date: typing.Optional[typing.List[str]] = None
     departure_address: typing.Optional[ShipmentAddress] = None
     arrival_address: typing.Optional[ShipmentAddress] = None
+    shipper_address: typing.Optional[ShipmentAddress] = None
+    receiver_address: typing.Optional[ShipmentAddress] = None
     arrival_country: typing.List[Country]
     departure_country: typing.List[Country]
     transit_country: typing.List[Country]
