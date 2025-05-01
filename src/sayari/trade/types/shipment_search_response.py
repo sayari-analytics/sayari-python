@@ -381,6 +381,16 @@ class ShipmentSearchResponse(PaginatedResponse):
                 departure_address=ShipmentAddress(
                     country="DEU",
                 ),
+                shipper_address=ShipmentAddress(
+                    country="CAN",
+                    state="ON",
+                    city="Toronto",
+                ),
+                receiver_address=ShipmentAddress(
+                    country="RUS",
+                    state="Moscow",
+                    city="Moscow",
+                ),
                 product_origin=["DEU"],
                 transit_country=[],
                 countries=["DEU", "RUS"],
