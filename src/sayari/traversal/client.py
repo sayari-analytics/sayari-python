@@ -5,11 +5,10 @@ import typing
 from ..generated_types.types.relationships import Relationships
 from ..generated_types.types.country import Country
 from ..generated_types.types.entities import Entities
-from .types.traversal_risk_category import TraversalRiskCategory
+from ..generated_types.types.risk_category import RiskCategory
 from ..core.request_options import RequestOptions
 from .types.traversal_response import TraversalResponse
 from ..core.jsonable_encoder import jsonable_encoder
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -29,6 +28,8 @@ from ..shared_errors.errors.connection_error import ConnectionError
 from ..shared_errors.types.connection_error_response import ConnectionErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.traversal_risk_category import TraversalRiskCategory
+from ..core.serialization import convert_and_respect_annotation_metadata
 from .types.shortest_path_response import ShortestPathResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -55,7 +56,7 @@ class TraversalClient:
         include_unknown_shares: typing.Optional[bool] = None,
         exclude_former_relationships: typing.Optional[bool] = None,
         exclude_closed_entities: typing.Optional[bool] = None,
-        risk_categories: typing.Optional[TraversalRiskCategory] = None,
+        risk_categories: typing.Optional[typing.Sequence[RiskCategory]] = None,
         eu_high_risk_third: typing.Optional[bool] = None,
         reputational_risk_modern_slavery: typing.Optional[bool] = None,
         state_owned: typing.Optional[bool] = None,
@@ -121,8 +122,8 @@ class TraversalClient:
         exclude_closed_entities : typing.Optional[bool]
             Include entities that existed in the past but not at the present time. Defaults to false.
 
-        risk_categories : typing.Optional[TraversalRiskCategory]
-            Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
+        risk_categories : typing.Optional[typing.Sequence[RiskCategory]]
+            Filter paths to only those that include an entity associated with any risk factor belonging to one of the specified categories.
 
         eu_high_risk_third : typing.Optional[bool]
             Filter paths to only those that relate with an entity that we have flagged with this risk factor
@@ -201,9 +202,7 @@ class TraversalClient:
                 "include_unknown_shares": include_unknown_shares,
                 "exclude_former_relationships": exclude_former_relationships,
                 "exclude_closed_entities": exclude_closed_entities,
-                "risk_categories": convert_and_respect_annotation_metadata(
-                    object_=risk_categories, annotation=TraversalRiskCategory, direction="write"
-                ),
+                "risk_categories": risk_categories,
                 "eu_high_risk_third": eu_high_risk_third,
                 "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
                 "state_owned": state_owned,
@@ -1303,7 +1302,7 @@ class AsyncTraversalClient:
         include_unknown_shares: typing.Optional[bool] = None,
         exclude_former_relationships: typing.Optional[bool] = None,
         exclude_closed_entities: typing.Optional[bool] = None,
-        risk_categories: typing.Optional[TraversalRiskCategory] = None,
+        risk_categories: typing.Optional[typing.Sequence[RiskCategory]] = None,
         eu_high_risk_third: typing.Optional[bool] = None,
         reputational_risk_modern_slavery: typing.Optional[bool] = None,
         state_owned: typing.Optional[bool] = None,
@@ -1369,8 +1368,8 @@ class AsyncTraversalClient:
         exclude_closed_entities : typing.Optional[bool]
             Include entities that existed in the past but not at the present time. Defaults to false.
 
-        risk_categories : typing.Optional[TraversalRiskCategory]
-            Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
+        risk_categories : typing.Optional[typing.Sequence[RiskCategory]]
+            Filter paths to only those that include an entity associated with any risk factor belonging to one of the specified categories.
 
         eu_high_risk_third : typing.Optional[bool]
             Filter paths to only those that relate with an entity that we have flagged with this risk factor
@@ -1457,9 +1456,7 @@ class AsyncTraversalClient:
                 "include_unknown_shares": include_unknown_shares,
                 "exclude_former_relationships": exclude_former_relationships,
                 "exclude_closed_entities": exclude_closed_entities,
-                "risk_categories": convert_and_respect_annotation_metadata(
-                    object_=risk_categories, annotation=TraversalRiskCategory, direction="write"
-                ),
+                "risk_categories": risk_categories,
                 "eu_high_risk_third": eu_high_risk_third,
                 "reputational_risk_modern_slavery": reputational_risk_modern_slavery,
                 "state_owned": state_owned,

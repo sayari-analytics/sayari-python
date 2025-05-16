@@ -7,9 +7,9 @@ from ...shared_types.types.relationship_data import RelationshipData
 import typing
 from ...generated_types.types.relationships import Relationships
 from ...generated_types.types.country import Country
-import pydantic
 from .traversal_data import TraversalData
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
 class TraversalResponse(UniversalBaseModel):
@@ -38,13 +38,12 @@ class TraversalResponse(UniversalBaseModel):
         countries=[],
         types=[],
         name="",
-        watchlist=False,
         psa=True,
         offset=0,
         limit=1,
         partial_results=False,
         next=True,
-        explored_count=9999999,
+        explored_count=7022,
         data=[
             TraversalData(
                 source="mGq1lpuqKssNWTjIokuPeA",
@@ -193,20 +192,15 @@ class TraversalResponse(UniversalBaseModel):
     countries: typing.List[Country]
     types: typing.List[str]
     name: str
-    watchlist: bool = pydantic.Field()
-    """
-    <Warning>This field is deprecated.</Warning>
-    """
-
     psa: bool
     offset: int
     limit: int
     next: bool
-    partial_results: bool
     data: typing.List[TraversalData]
     sanctioned: typing.Optional[bool] = None
     pep: typing.Optional[bool] = None
     explored_count: int
+    partial_results: bool
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

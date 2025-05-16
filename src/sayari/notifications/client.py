@@ -43,7 +43,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        <Warning>This endpoint is deprecated.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters
         ----------
@@ -191,7 +191,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResourceNotificationsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
+        <Warning>This endpoint is deprecated.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
         Parameters
         ----------
@@ -331,7 +331,7 @@ class NotificationsClient:
         self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes all notifications from a project.
+        <Warning>This endpoint is deprecated.</Warning> Deletes all notifications from a project.
 
         Parameters
         ----------
@@ -433,7 +433,7 @@ class NotificationsClient:
         self, entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes notifications for saved resources of an entity.
+        <Warning>This endpoint is deprecated.</Warning> Deletes notifications for saved resources of an entity.
 
         Parameters
         ----------
@@ -535,7 +535,7 @@ class NotificationsClient:
         self, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes notifications for a saved resource.
+        <Warning>This endpoint is deprecated.</Warning> Deletes notifications for a saved resource.
 
         Parameters
         ----------
@@ -648,7 +648,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectNotificationsResponse:
         """
-        The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+        <Warning>This endpoint is deprecated.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 
         Parameters
         ----------
@@ -804,7 +804,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResourceNotificationsResponse:
         """
-        <Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
+        <Warning>This endpoint is deprecated.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 
         Parameters
         ----------
@@ -952,7 +952,7 @@ class AsyncNotificationsClient:
         self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes all notifications from a project.
+        <Warning>This endpoint is deprecated.</Warning> Deletes all notifications from a project.
 
         Parameters
         ----------
@@ -1062,7 +1062,7 @@ class AsyncNotificationsClient:
         self, entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes notifications for saved resources of an entity.
+        <Warning>This endpoint is deprecated.</Warning> Deletes notifications for saved resources of an entity.
 
         Parameters
         ----------
@@ -1172,7 +1172,7 @@ class AsyncNotificationsClient:
         self, resource_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> None:
         """
-        Deletes notifications for a saved resource.
+        <Warning>This endpoint is deprecated.</Warning> Deletes notifications for a saved resource.
 
         Parameters
         ----------
