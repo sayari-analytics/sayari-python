@@ -89,7 +89,7 @@ class SupplyChainClient:
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
         limit : typing.Optional[int]
-            The maximum number of results to return. Default and maximum values are 25,000.
+            The maximum number of results to return. Default is no limit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -271,7 +271,7 @@ class AsyncSupplyChainClient:
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
         limit : typing.Optional[int]
-            The maximum number of results to return. Default and maximum values are 25,000.
+            The maximum number of results to return. Default is no limit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
