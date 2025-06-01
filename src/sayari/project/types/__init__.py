@@ -18,6 +18,7 @@ from .project_entities_aggs import ProjectEntitiesAggs
 from .project_entities_aggs_definition import ProjectEntitiesAggsDefinition
 from .project_entities_filter import ProjectEntitiesFilter
 from .project_entity import ProjectEntity
+from .project_entity_supply_chain_response import ProjectEntitySupplyChainResponse
 from .project_entity_upstream import ProjectEntityUpstream
 from .project_share_on_create import ProjectShareOnCreate
 from .project_with_members import ProjectWithMembers
@@ -51,6 +52,7 @@ __all__ = [
     "ProjectEntitiesAggsDefinition",
     "ProjectEntitiesFilter",
     "ProjectEntity",
+    "ProjectEntitySupplyChainResponse",
     "ProjectEntityUpstream",
     "ProjectShareOnCreate",
     "ProjectWithMembers",

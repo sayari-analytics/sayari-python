@@ -43,6 +43,46 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     Filter by upstream (supply chain) tiers that has one or more countries
     """
 
+    shipment_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at any tier.
+    """
+
+    tier_0_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier0_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by [country](/sayari-library/ontology/enumerated-types#country) at tier 0.
+    """
+
+    tier_1_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier1_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 1.
+    """
+
+    tier_2_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier2_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 2.
+    """
+
+    tier_3_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier3_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 3.
+    """
+
+    tier_4_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier4_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 4.
+    """
+
     business_purpose: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
     Filter by HS code, HS code description, or business description.

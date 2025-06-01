@@ -2,9 +2,10 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.create_project_request import CreateProjectRequest
+from .types.create_resolved_project_entity_request import CreateResolvedProjectEntityRequest
 from ..core.request_options import RequestOptions
-from .types.create_project_response import CreateProjectResponse
+from .types.single_project_entity_response import SingleProjectEntityResponse
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
@@ -21,67 +22,70 @@ from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from .types.get_projects_response import GetProjectsResponse
-from .types.get_project_entities_accept_header import GetProjectEntitiesAcceptHeader
-from ..generated_types.types.entities import Entities
-from .types.sort_field import SortField
-from .types.project_entities_filter import ProjectEntitiesFilter
-from .types.project_entities_aggs_definition import ProjectEntitiesAggsDefinition
-from .types.get_project_entities_response import GetProjectEntitiesResponse
-from ..core.jsonable_encoder import jsonable_encoder
-from ..shared_errors.errors.not_acceptable import NotAcceptable
-from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
-from .types.delete_project_response import DeleteProjectResponse
+from .types.case_status import CaseStatus
+from .types.match_result import MatchResult
+from .types.match_strength_enum import MatchStrengthEnum
 from ..generated_types.types.risk import Risk
-from ..generated_types.types.country import Country
-from .types.project_entity_supply_chain_response import ProjectEntitySupplyChainResponse
+from ..generated_types.types.risk_category import RiskCategory
+from .types.project_entities_response import ProjectEntitiesResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class ProjectClient:
+class ProjectEntityClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def create_project(
-        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateProjectResponse:
+    def create_project_entity(
+        self,
+        project_id: str,
+        *,
+        request: CreateResolvedProjectEntityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SingleProjectEntityResponse:
         """
-        Create a new project.
+        The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters
         ----------
-        request : CreateProjectRequest
+        project_id : str
+
+        request : CreateResolvedProjectEntityRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateProjectResponse
+        SingleProjectEntityResponse
 
         Examples
         --------
         from sayari import Sayari
-        from sayari.project import CreateProjectRequest
+        from sayari.project_entity import CreateResolvedProjectEntityRequest
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.create_project(
-            request=CreateProjectRequest(
-                label="Project Alpha",
+        client.project_entity.create_project_entity(
+            project_id="YVB88Y",
+            request=CreateResolvedProjectEntityRequest(
+                name=["VTB Bank"],
+                country=["RUS"],
+                address=["Moscow"],
+                identifier=["253400V1H6ART1UQ0N98"],
+                profile="corporate",
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/projects",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/create",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateProjectRequest, direction="write"
+                object_=request, annotation=CreateResolvedProjectEntityRequest, direction="write"
             ),
             request_options=request_options,
             omit=OMIT,
@@ -89,140 +93,9 @@ class ProjectClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CreateProjectResponse,
+                    SingleProjectEntityResponse,
                     parse_obj_as(
-                        type_=CreateProjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequest(
-                    typing.cast(
-                        BadRequestResponse,
-                        parse_obj_as(
-                            type_=BadRequestResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise Unauthorized(
-                    typing.cast(
-                        UnauthorizedResponse,
-                        parse_obj_as(
-                            type_=UnauthorizedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 404:
-                raise NotFound(
-                    typing.cast(
-                        NotFoundResponse,
-                        parse_obj_as(
-                            type_=NotFoundResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 405:
-                raise MethodNotAllowed(
-                    typing.cast(
-                        MethodNotAllowedResponse,
-                        parse_obj_as(
-                            type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 429:
-                raise RateLimitExceeded(
-                    typing.cast(
-                        RateLimitResponse,
-                        parse_obj_as(
-                            type_=RateLimitResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        InternalServerErrorResponse,
-                        parse_obj_as(
-                            type_=InternalServerErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def get_projects(
-        self,
-        *,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        archived: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectsResponse:
-        """
-        Retrieve a list of projects including upload progress info.
-
-        Parameters
-        ----------
-        next : typing.Optional[str]
-            The pagination token for the next page of projects.
-
-        prev : typing.Optional[str]
-            The pagination token for the previous page of projects.
-
-        limit : typing.Optional[int]
-            Limit total values returned for projects. Defaults to 100. Max 100.
-
-        archived : typing.Optional[bool]
-            Toggle between projects that have been archived (true) or not (false). Defaults to false.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetProjectsResponse
-
-        Examples
-        --------
-        from sayari import Sayari
-
-        client = Sayari(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-        client.project.get_projects(
-            archived=False,
-            limit=8,
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/projects",
-            method="GET",
-            params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
-                "archived": archived,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetProjectsResponse,
-                    parse_obj_as(
-                        type_=GetProjectsResponse,  # type: ignore
+                        type_=SingleProjectEntityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -293,81 +166,103 @@ class ProjectClient:
 
     def get_project_entities(
         self,
-        id: str,
+        project_id: str,
         *,
-        accept: GetProjectEntitiesAcceptHeader,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
+        entity_id: typing.Optional[typing.Sequence[str]] = None,
+        uploads: typing.Optional[typing.Sequence[str]] = None,
+        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
+        tags: typing.Optional[typing.Sequence[str]] = None,
+        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
+        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        entity_types: typing.Optional[typing.Sequence[str]] = None,
         geo_facets: typing.Optional[bool] = None,
-        hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        combined_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        translation: typing.Optional[str] = None,
-        sort: typing.Optional[SortField] = None,
-        filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]] = None,
-        aggregations: typing.Optional[
-            typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]
-        ] = None,
+        exact_match: typing.Optional[bool] = None,
+        hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        received_hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        shipped_hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        upstream_product: typing.Optional[typing.Sequence[str]] = None,
+        limit: typing.Optional[int] = None,
+        token: typing.Optional[str] = None,
+        sort: typing.Optional[typing.Sequence[str]] = None,
+        aggregations: typing.Optional[typing.Sequence[str]] = None,
+        num_aggregation_buckets: typing.Optional[int] = None,
+        risk: typing.Optional[typing.Sequence[Risk]] = None,
+        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectEntitiesResponse:
+    ) -> ProjectEntitiesResponse:
         """
-        <Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
+        Retrieves a list of entities for a specific project with pagination support.
 
         Parameters
         ----------
-        id : str
-            The project identifier.
+        project_id : str
 
-        accept : GetProjectEntitiesAcceptHeader
-            The response format. Defaults to application/json.
+        entity_id : typing.Optional[typing.Sequence[str]]
+            Filter by entity IDs
 
-        next : typing.Optional[str]
-            The pagination token for the next page of entities.
+        uploads : typing.Optional[typing.Sequence[str]]
+            Filter by upload IDs
 
-        prev : typing.Optional[str]
-            The pagination token for the previous page of entities.
+        case_status : typing.Optional[typing.Sequence[CaseStatus]]
+            Filter by case status
 
-        limit : typing.Optional[int]
-            Limit total entities returned. Defaults to 1,000. Max 10,000.
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter by tag IDs
 
-        entity_types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
-            Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
+        match_result : typing.Optional[typing.Sequence[MatchResult]]
+            Filter by match result
+
+        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+            Filter by match strength
+
+        entity_types : typing.Optional[typing.Sequence[str]]
+            Filter by entity types
 
         geo_facets : typing.Optional[bool]
-            Whether to include geo facets in the response. Defaults to false.
+            Include geo facets
 
-        hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities with the specified HS code(s) in their supply chain.
+        exact_match : typing.Optional[bool]
+            Use exact matching
 
-        received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that received the specified HS code(s).
+        hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by HS codes
 
-        shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that shipped the specified HS code(s).
+        received_hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by received HS codes
 
-        combined_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that have shipped or received the specified HS code(s).
+        shipped_hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by shipped HS codes
 
-        translation : typing.Optional[str]
-            The language code to translate the entity labels to. Defaults to the user's preferred language.
+        upstream_product : typing.Optional[typing.Sequence[str]]
+            Filter by upstream product
 
-        sort : typing.Optional[SortField]
+        limit : typing.Optional[int]
+            Maximum number of results to return
 
-        filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
-            Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
+        token : typing.Optional[str]
+            Pagination token
 
-        aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
-            Aggregations that should be returned for entities in the project.
+        sort : typing.Optional[typing.Sequence[str]]
+            Sort fields
+
+        aggregations : typing.Optional[typing.Sequence[str]]
+            Fields to aggregate
+
+        num_aggregation_buckets : typing.Optional[int]
+            Number of aggregation buckets
+
+        risk : typing.Optional[typing.Sequence[Risk]]
+            List of risk factors to filter by
+
+        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
+            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetProjectEntitiesResponse
+        ProjectEntitiesResponse
 
         Examples
         --------
@@ -377,42 +272,43 @@ class ProjectClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.get_project_entities(
-            id="gPq6EY",
-            accept="application/json",
+        client.project_entity.get_project_entities(
+            project_id="YVB88Y",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(id)}/contents/entity",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities",
             method="GET",
             params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
+                "entity_id": entity_id,
+                "uploads": uploads,
+                "case_status": case_status,
+                "tags": tags,
+                "match_result": match_result,
+                "match_strength_v1": match_strength_v_1,
                 "entity_types": entity_types,
                 "geo_facets": geo_facets,
+                "exact_match": exact_match,
                 "hs_codes": hs_codes,
                 "received_hs_codes": received_hs_codes,
                 "shipped_hs_codes": shipped_hs_codes,
-                "combined_hs_codes": combined_hs_codes,
-                "translation": translation,
+                "upstream_product": upstream_product,
+                "limit": limit,
+                "token": token,
                 "sort": sort,
-                "filters": convert_and_respect_annotation_metadata(
-                    object_=filters, annotation=ProjectEntitiesFilter, direction="write"
-                ),
                 "aggregations": aggregations,
-            },
-            headers={
-                "Accept": str(accept) if accept is not None else None,
+                "num_aggregation_buckets": num_aggregation_buckets,
+                "risk": risk,
+                "risk_category": risk_category,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    GetProjectEntitiesResponse,
+                    ProjectEntitiesResponse,
                     parse_obj_as(
-                        type_=GetProjectEntitiesResponse,  # type: ignore
+                        type_=ProjectEntitiesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -436,22 +332,22 @@ class ProjectClient:
                         ),
                     )
                 )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
             if _response.status_code == 405:
                 raise MethodNotAllowed(
                     typing.cast(
                         MethodNotAllowedResponse,
                         parse_obj_as(
                             type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 406:
-                raise NotAcceptable(
-                    typing.cast(
-                        NotAcceptableResponse,
-                        parse_obj_as(
-                            type_=NotAcceptableResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -481,22 +377,64 @@ class ProjectClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def delete_project(
-        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteProjectResponse:
+    def get_project_entity(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        entity_id: typing.Optional[typing.Sequence[str]] = None,
+        uploads: typing.Optional[typing.Sequence[str]] = None,
+        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
+        tags: typing.Optional[typing.Sequence[str]] = None,
+        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
+        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        entity_types: typing.Optional[typing.Sequence[str]] = None,
+        risk: typing.Optional[typing.Sequence[Risk]] = None,
+        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SingleProjectEntityResponse:
         """
-        Deletes an existing project.
+        Retrieves a specific entity in a project.
 
         Parameters
         ----------
         project_id : str
+
+        project_entity_id : str
+
+        entity_id : typing.Optional[typing.Sequence[str]]
+            Filter by entity IDs
+
+        uploads : typing.Optional[typing.Sequence[str]]
+            Filter by upload IDs
+
+        case_status : typing.Optional[typing.Sequence[CaseStatus]]
+            Filter by case status
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter by tag IDs
+
+        match_result : typing.Optional[typing.Sequence[MatchResult]]
+            Filter by match result
+
+        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+            Filter by match strength
+
+        entity_types : typing.Optional[typing.Sequence[str]]
+            Filter by entity types
+
+        risk : typing.Optional[typing.Sequence[Risk]]
+            List of risk factors to filter by
+
+        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
+            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteProjectResponse
+        SingleProjectEntityResponse
 
         Examples
         --------
@@ -506,24 +444,141 @@ class ProjectClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.delete_project(
-            project_id="Gam5qG",
+        client.project_entity.get_project_entity(
+            project_id="project_id",
+            project_entity_id="project_entity_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
+            method="GET",
+            params={
+                "entity_id": entity_id,
+                "uploads": uploads,
+                "case_status": case_status,
+                "tags": tags,
+                "match_result": match_result,
+                "match_strength_v1": match_strength_v_1,
+                "entity_types": entity_types,
+                "risk": risk,
+                "risk_category": risk_category,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    SingleProjectEntityResponse,
+                    parse_obj_as(
+                        type_=SingleProjectEntityResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def delete_project_entity(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from sayari import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity.delete_project_entity(
+            project_id="project_id",
+            project_entity_id="project_entity_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
             method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    DeleteProjectResponse,
-                    parse_obj_as(
-                        type_=DeleteProjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(
@@ -589,78 +644,31 @@ class ProjectClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def project_entity_supply_chain(
+    def delete_project_entity_match(
         self,
         project_id: str,
         project_entity_id: str,
+        match_id: str,
         *,
-        risk: typing.Optional[typing.Sequence[Risk]] = None,
-        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
-        countries: typing.Optional[typing.Sequence[Country]] = None,
-        not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
-        component: typing.Optional[typing.Sequence[str]] = None,
-        not_component: typing.Optional[typing.Sequence[str]] = None,
-        min_date: typing.Optional[str] = None,
-        max_date: typing.Optional[str] = None,
-        max_depth: typing.Optional[int] = None,
-        limit: typing.Optional[int] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ProjectEntitySupplyChainResponse:
+    ) -> None:
         """
-        Execute a traversal of the upstream trade network (supply chain) for all matched entities of a project entity, returning a set of entities and edges between them.
+        Deletes a specific project entity match.
 
         Parameters
         ----------
         project_id : str
-            The project Identifier
 
         project_entity_id : str
-            The project entity Identifier
 
-        risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
-
-        not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
-
-        countries : typing.Optional[typing.Sequence[Country]]
-            Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
-
-        not_countries : typing.Optional[typing.Sequence[Country]]
-            Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
-
-        component : typing.Optional[typing.Sequence[str]]
-            Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
-
-        not_component : typing.Optional[typing.Sequence[str]]
-            Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
-
-        min_date : typing.Optional[str]
-            Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
-
-        max_date : typing.Optional[str]
-            Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
-
-        max_depth : typing.Optional[int]
-            The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
-
-        limit : typing.Optional[int]
-            The maximum number of results to return. Default is no limit.
+        match_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ProjectEntitySupplyChainResponse
+        None
 
         Examples
         --------
@@ -670,42 +678,20 @@ class ProjectClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.project_entity_supply_chain(
-            project_id="Gam5qG",
-            project_entity_id="GOeOE8",
-            min_date="2023-03-15",
-            product=["3204"],
-            risk=["forced_labor_xinjiang_origin_subtier"],
+        client.project_entity.delete_project_entity_match(
+            project_id="project_id",
+            project_entity_id="project_entity_id",
+            match_id="match_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
-            method="GET",
-            params={
-                "risk": risk,
-                "-risk": not_risk,
-                "countries": countries,
-                "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
-                "component": component,
-                "-component": not_component,
-                "min_date": min_date,
-                "max_date": max_date,
-                "max_depth": max_depth,
-                "limit": limit,
-            },
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/matches/{jsonable_encoder(match_id)}",
+            method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    ProjectEntitySupplyChainResponse,
-                    parse_obj_as(
-                        type_=ProjectEntitySupplyChainResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(
@@ -772,33 +758,39 @@ class ProjectClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncProjectClient:
+class AsyncProjectEntityClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def create_project(
-        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateProjectResponse:
+    async def create_project_entity(
+        self,
+        project_id: str,
+        *,
+        request: CreateResolvedProjectEntityRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SingleProjectEntityResponse:
         """
-        Create a new project.
+        The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
 
         Parameters
         ----------
-        request : CreateProjectRequest
+        project_id : str
+
+        request : CreateResolvedProjectEntityRequest
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateProjectResponse
+        SingleProjectEntityResponse
 
         Examples
         --------
         import asyncio
 
         from sayari import AsyncSayari
-        from sayari.project import CreateProjectRequest
+        from sayari.project_entity import CreateResolvedProjectEntityRequest
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
@@ -807,9 +799,14 @@ class AsyncProjectClient:
 
 
         async def main() -> None:
-            await client.project.create_project(
-                request=CreateProjectRequest(
-                    label="Project Alpha",
+            await client.project_entity.create_project_entity(
+                project_id="YVB88Y",
+                request=CreateResolvedProjectEntityRequest(
+                    name=["VTB Bank"],
+                    country=["RUS"],
+                    address=["Moscow"],
+                    identifier=["253400V1H6ART1UQ0N98"],
+                    profile="corporate",
                 ),
             )
 
@@ -817,10 +814,10 @@ class AsyncProjectClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/projects",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/create",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateProjectRequest, direction="write"
+                object_=request, annotation=CreateResolvedProjectEntityRequest, direction="write"
             ),
             request_options=request_options,
             omit=OMIT,
@@ -828,148 +825,9 @@ class AsyncProjectClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CreateProjectResponse,
+                    SingleProjectEntityResponse,
                     parse_obj_as(
-                        type_=CreateProjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequest(
-                    typing.cast(
-                        BadRequestResponse,
-                        parse_obj_as(
-                            type_=BadRequestResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise Unauthorized(
-                    typing.cast(
-                        UnauthorizedResponse,
-                        parse_obj_as(
-                            type_=UnauthorizedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 404:
-                raise NotFound(
-                    typing.cast(
-                        NotFoundResponse,
-                        parse_obj_as(
-                            type_=NotFoundResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 405:
-                raise MethodNotAllowed(
-                    typing.cast(
-                        MethodNotAllowedResponse,
-                        parse_obj_as(
-                            type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 429:
-                raise RateLimitExceeded(
-                    typing.cast(
-                        RateLimitResponse,
-                        parse_obj_as(
-                            type_=RateLimitResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        InternalServerErrorResponse,
-                        parse_obj_as(
-                            type_=InternalServerErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def get_projects(
-        self,
-        *,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        archived: typing.Optional[bool] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectsResponse:
-        """
-        Retrieve a list of projects including upload progress info.
-
-        Parameters
-        ----------
-        next : typing.Optional[str]
-            The pagination token for the next page of projects.
-
-        prev : typing.Optional[str]
-            The pagination token for the previous page of projects.
-
-        limit : typing.Optional[int]
-            Limit total values returned for projects. Defaults to 100. Max 100.
-
-        archived : typing.Optional[bool]
-            Toggle between projects that have been archived (true) or not (false). Defaults to false.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetProjectsResponse
-
-        Examples
-        --------
-        import asyncio
-
-        from sayari import AsyncSayari
-
-        client = AsyncSayari(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-
-
-        async def main() -> None:
-            await client.project.get_projects(
-                archived=False,
-                limit=8,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/projects",
-            method="GET",
-            params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
-                "archived": archived,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetProjectsResponse,
-                    parse_obj_as(
-                        type_=GetProjectsResponse,  # type: ignore
+                        type_=SingleProjectEntityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1040,218 +898,103 @@ class AsyncProjectClient:
 
     async def get_project_entities(
         self,
-        id: str,
+        project_id: str,
         *,
-        accept: GetProjectEntitiesAcceptHeader,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        entity_types: typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]] = None,
+        entity_id: typing.Optional[typing.Sequence[str]] = None,
+        uploads: typing.Optional[typing.Sequence[str]] = None,
+        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
+        tags: typing.Optional[typing.Sequence[str]] = None,
+        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
+        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        entity_types: typing.Optional[typing.Sequence[str]] = None,
         geo_facets: typing.Optional[bool] = None,
-        hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        received_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        shipped_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        combined_hs_codes: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        translation: typing.Optional[str] = None,
-        sort: typing.Optional[SortField] = None,
-        filters: typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]] = None,
-        aggregations: typing.Optional[
-            typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]
-        ] = None,
+        exact_match: typing.Optional[bool] = None,
+        hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        received_hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        shipped_hs_codes: typing.Optional[typing.Sequence[str]] = None,
+        upstream_product: typing.Optional[typing.Sequence[str]] = None,
+        limit: typing.Optional[int] = None,
+        token: typing.Optional[str] = None,
+        sort: typing.Optional[typing.Sequence[str]] = None,
+        aggregations: typing.Optional[typing.Sequence[str]] = None,
+        num_aggregation_buckets: typing.Optional[int] = None,
+        risk: typing.Optional[typing.Sequence[Risk]] = None,
+        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectEntitiesResponse:
+    ) -> ProjectEntitiesResponse:
         """
-        <Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
-
-        Parameters
-        ----------
-        id : str
-            The project identifier.
-
-        accept : GetProjectEntitiesAcceptHeader
-            The response format. Defaults to application/json.
-
-        next : typing.Optional[str]
-            The pagination token for the next page of entities.
-
-        prev : typing.Optional[str]
-            The pagination token for the previous page of entities.
-
-        limit : typing.Optional[int]
-            Limit total entities returned. Defaults to 1,000. Max 10,000.
-
-        entity_types : typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]
-            Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
-
-        geo_facets : typing.Optional[bool]
-            Whether to include geo facets in the response. Defaults to false.
-
-        hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities with the specified HS code(s) in their supply chain.
-
-        received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that received the specified HS code(s).
-
-        shipped_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that shipped the specified HS code(s).
-
-        combined_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities that have shipped or received the specified HS code(s).
-
-        translation : typing.Optional[str]
-            The language code to translate the entity labels to. Defaults to the user's preferred language.
-
-        sort : typing.Optional[SortField]
-
-        filters : typing.Optional[typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]]
-            Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
-
-        aggregations : typing.Optional[typing.Union[ProjectEntitiesAggsDefinition, typing.Sequence[ProjectEntitiesAggsDefinition]]]
-            Aggregations that should be returned for entities in the project.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetProjectEntitiesResponse
-
-        Examples
-        --------
-        import asyncio
-
-        from sayari import AsyncSayari
-
-        client = AsyncSayari(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-
-
-        async def main() -> None:
-            await client.project.get_project_entities(
-                id="gPq6EY",
-                accept="application/json",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(id)}/contents/entity",
-            method="GET",
-            params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
-                "entity_types": entity_types,
-                "geo_facets": geo_facets,
-                "hs_codes": hs_codes,
-                "received_hs_codes": received_hs_codes,
-                "shipped_hs_codes": shipped_hs_codes,
-                "combined_hs_codes": combined_hs_codes,
-                "translation": translation,
-                "sort": sort,
-                "filters": convert_and_respect_annotation_metadata(
-                    object_=filters, annotation=ProjectEntitiesFilter, direction="write"
-                ),
-                "aggregations": aggregations,
-            },
-            headers={
-                "Accept": str(accept) if accept is not None else None,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetProjectEntitiesResponse,
-                    parse_obj_as(
-                        type_=GetProjectEntitiesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequest(
-                    typing.cast(
-                        BadRequestResponse,
-                        parse_obj_as(
-                            type_=BadRequestResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise Unauthorized(
-                    typing.cast(
-                        UnauthorizedResponse,
-                        parse_obj_as(
-                            type_=UnauthorizedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 405:
-                raise MethodNotAllowed(
-                    typing.cast(
-                        MethodNotAllowedResponse,
-                        parse_obj_as(
-                            type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 406:
-                raise NotAcceptable(
-                    typing.cast(
-                        NotAcceptableResponse,
-                        parse_obj_as(
-                            type_=NotAcceptableResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 429:
-                raise RateLimitExceeded(
-                    typing.cast(
-                        RateLimitResponse,
-                        parse_obj_as(
-                            type_=RateLimitResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        InternalServerErrorResponse,
-                        parse_obj_as(
-                            type_=InternalServerErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def delete_project(
-        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteProjectResponse:
-        """
-        Deletes an existing project.
+        Retrieves a list of entities for a specific project with pagination support.
 
         Parameters
         ----------
         project_id : str
 
+        entity_id : typing.Optional[typing.Sequence[str]]
+            Filter by entity IDs
+
+        uploads : typing.Optional[typing.Sequence[str]]
+            Filter by upload IDs
+
+        case_status : typing.Optional[typing.Sequence[CaseStatus]]
+            Filter by case status
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter by tag IDs
+
+        match_result : typing.Optional[typing.Sequence[MatchResult]]
+            Filter by match result
+
+        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+            Filter by match strength
+
+        entity_types : typing.Optional[typing.Sequence[str]]
+            Filter by entity types
+
+        geo_facets : typing.Optional[bool]
+            Include geo facets
+
+        exact_match : typing.Optional[bool]
+            Use exact matching
+
+        hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by HS codes
+
+        received_hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by received HS codes
+
+        shipped_hs_codes : typing.Optional[typing.Sequence[str]]
+            Filter by shipped HS codes
+
+        upstream_product : typing.Optional[typing.Sequence[str]]
+            Filter by upstream product
+
+        limit : typing.Optional[int]
+            Maximum number of results to return
+
+        token : typing.Optional[str]
+            Pagination token
+
+        sort : typing.Optional[typing.Sequence[str]]
+            Sort fields
+
+        aggregations : typing.Optional[typing.Sequence[str]]
+            Fields to aggregate
+
+        num_aggregation_buckets : typing.Optional[int]
+            Number of aggregation buckets
+
+        risk : typing.Optional[typing.Sequence[Risk]]
+            List of risk factors to filter by
+
+        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
+            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteProjectResponse
+        ProjectEntitiesResponse
 
         Examples
         --------
@@ -1266,24 +1009,46 @@ class AsyncProjectClient:
 
 
         async def main() -> None:
-            await client.project.delete_project(
-                project_id="Gam5qG",
+            await client.project_entity.get_project_entities(
+                project_id="YVB88Y",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}",
-            method="DELETE",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities",
+            method="GET",
+            params={
+                "entity_id": entity_id,
+                "uploads": uploads,
+                "case_status": case_status,
+                "tags": tags,
+                "match_result": match_result,
+                "match_strength_v1": match_strength_v_1,
+                "entity_types": entity_types,
+                "geo_facets": geo_facets,
+                "exact_match": exact_match,
+                "hs_codes": hs_codes,
+                "received_hs_codes": received_hs_codes,
+                "shipped_hs_codes": shipped_hs_codes,
+                "upstream_product": upstream_product,
+                "limit": limit,
+                "token": token,
+                "sort": sort,
+                "aggregations": aggregations,
+                "num_aggregation_buckets": num_aggregation_buckets,
+                "risk": risk,
+                "risk_category": risk_category,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    DeleteProjectResponse,
+                    ProjectEntitiesResponse,
                     parse_obj_as(
-                        type_=DeleteProjectResponse,  # type: ignore
+                        type_=ProjectEntitiesResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1352,78 +1117,64 @@ class AsyncProjectClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def project_entity_supply_chain(
+    async def get_project_entity(
         self,
         project_id: str,
         project_entity_id: str,
         *,
+        entity_id: typing.Optional[typing.Sequence[str]] = None,
+        uploads: typing.Optional[typing.Sequence[str]] = None,
+        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
+        tags: typing.Optional[typing.Sequence[str]] = None,
+        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
+        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        entity_types: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
-        not_risk: typing.Optional[typing.Sequence[Risk]] = None,
-        countries: typing.Optional[typing.Sequence[Country]] = None,
-        not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
-        component: typing.Optional[typing.Sequence[str]] = None,
-        not_component: typing.Optional[typing.Sequence[str]] = None,
-        min_date: typing.Optional[str] = None,
-        max_date: typing.Optional[str] = None,
-        max_depth: typing.Optional[int] = None,
-        limit: typing.Optional[int] = None,
+        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ProjectEntitySupplyChainResponse:
+    ) -> SingleProjectEntityResponse:
         """
-        Execute a traversal of the upstream trade network (supply chain) for all matched entities of a project entity, returning a set of entities and edges between them.
+        Retrieves a specific entity in a project.
 
         Parameters
         ----------
         project_id : str
-            The project Identifier
 
         project_entity_id : str
-            The project entity Identifier
+
+        entity_id : typing.Optional[typing.Sequence[str]]
+            Filter by entity IDs
+
+        uploads : typing.Optional[typing.Sequence[str]]
+            Filter by upload IDs
+
+        case_status : typing.Optional[typing.Sequence[CaseStatus]]
+            Filter by case status
+
+        tags : typing.Optional[typing.Sequence[str]]
+            Filter by tag IDs
+
+        match_result : typing.Optional[typing.Sequence[MatchResult]]
+            Filter by match result
+
+        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+            Filter by match strength
+
+        entity_types : typing.Optional[typing.Sequence[str]]
+            Filter by entity types
 
         risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
+            List of risk factors to filter by
 
-        not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
-
-        countries : typing.Optional[typing.Sequence[Country]]
-            Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
-
-        not_countries : typing.Optional[typing.Sequence[Country]]
-            Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
-
-        component : typing.Optional[typing.Sequence[str]]
-            Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
-
-        not_component : typing.Optional[typing.Sequence[str]]
-            Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
-
-        min_date : typing.Optional[str]
-            Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
-
-        max_date : typing.Optional[str]
-            Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
-
-        max_depth : typing.Optional[int]
-            The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
-
-        limit : typing.Optional[int]
-            The maximum number of results to return. Default is no limit.
+        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
+            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        ProjectEntitySupplyChainResponse
+        SingleProjectEntityResponse
 
         Examples
         --------
@@ -1438,45 +1189,273 @@ class AsyncProjectClient:
 
 
         async def main() -> None:
-            await client.project.project_entity_supply_chain(
-                project_id="Gam5qG",
-                project_entity_id="GOeOE8",
-                min_date="2023-03-15",
-                product=["3204"],
-                risk=["forced_labor_xinjiang_origin_subtier"],
+            await client.project_entity.get_project_entity(
+                project_id="project_id",
+                project_entity_id="project_entity_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
             method="GET",
             params={
+                "entity_id": entity_id,
+                "uploads": uploads,
+                "case_status": case_status,
+                "tags": tags,
+                "match_result": match_result,
+                "match_strength_v1": match_strength_v_1,
+                "entity_types": entity_types,
                 "risk": risk,
-                "-risk": not_risk,
-                "countries": countries,
-                "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
-                "component": component,
-                "-component": not_component,
-                "min_date": min_date,
-                "max_date": max_date,
-                "max_depth": max_depth,
-                "limit": limit,
+                "risk_category": risk_category,
             },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    ProjectEntitySupplyChainResponse,
+                    SingleProjectEntityResponse,
                     parse_obj_as(
-                        type_=ProjectEntitySupplyChainResponse,  # type: ignore
+                        type_=SingleProjectEntityResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_project_entity(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> None:
+        """
+        Deletes a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity.delete_project_entity(
+                project_id="project_id",
+                project_entity_id="project_entity_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_project_entity_match(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        match_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Deletes a specific project entity match.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        match_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity.delete_project_entity_match(
+                project_id="project_id",
+                project_entity_id="project_entity_id",
+                match_id="match_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/matches/{jsonable_encoder(match_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(

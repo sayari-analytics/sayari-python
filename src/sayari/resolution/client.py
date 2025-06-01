@@ -387,7 +387,7 @@ class ResolutionClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionPersistedResponse:
         """
-        The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+        <Warning>This endpoint is deprecated.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
 
         Parameters
         ----------
@@ -515,7 +515,7 @@ class ResolutionClient:
         self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ResolutionUploadResponse:
         """
-        <Warning>This endpoint is in beta and subject to change</Warning> This endpoint allows you to upload entities in bulk.
+        <Warning>This endpoint is deprecated.</Warning> This endpoint allows you to upload entities in bulk.
 
         Parameters
         ----------
@@ -1005,7 +1005,7 @@ class AsyncResolutionClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionPersistedResponse:
         """
-        The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+        <Warning>This endpoint is deprecated.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
 
         Parameters
         ----------
@@ -1141,7 +1141,7 @@ class AsyncResolutionClient:
         self, project_id: str, *, request: ResolutionUploadBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ResolutionUploadResponse:
         """
-        <Warning>This endpoint is in beta and subject to change</Warning> This endpoint allows you to upload entities in bulk.
+        <Warning>This endpoint is deprecated.</Warning> This endpoint allows you to upload entities in bulk.
 
         Parameters
         ----------
