@@ -12,6 +12,7 @@ from .info.client import InfoClient
 from .metadata.client import MetadataClient
 from .negative_news.client import NegativeNewsClient
 from .notifications.client import NotificationsClient
+from .project_entity.client import ProjectEntityClient
 from .project.client import ProjectClient
 from .record.client import RecordClient
 from .resolution.client import ResolutionClient
@@ -29,6 +30,7 @@ from .info.client import AsyncInfoClient
 from .metadata.client import AsyncMetadataClient
 from .negative_news.client import AsyncNegativeNewsClient
 from .notifications.client import AsyncNotificationsClient
+from .project_entity.client import AsyncProjectEntityClient
 from .project.client import AsyncProjectClient
 from .record.client import AsyncRecordClient
 from .resolution.client import AsyncResolutionClient
@@ -121,6 +123,7 @@ class BaseClient:
         self.metadata = MetadataClient(client_wrapper=self._client_wrapper)
         self.negative_news = NegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = NotificationsClient(client_wrapper=self._client_wrapper)
+        self.project_entity = ProjectEntityClient(client_wrapper=self._client_wrapper)
         self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
@@ -213,6 +216,7 @@ class AsyncBaseClient:
         self.metadata = AsyncMetadataClient(client_wrapper=self._client_wrapper)
         self.negative_news = AsyncNegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
+        self.project_entity = AsyncProjectEntityClient(client_wrapper=self._client_wrapper)
         self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)

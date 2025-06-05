@@ -48,7 +48,7 @@ class SupplyChainClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
-        Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them
+        Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
 
         Parameters
         ----------
@@ -56,10 +56,10 @@ class SupplyChainClient:
             The root entity identifier.
 
         risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified [risk factors](/sayari-library/ontology/risk-factors).
+            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
         not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified [risk factors](/sayari-library/ontology/risk-factors).
+            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
 
         countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
@@ -74,22 +74,22 @@ class SupplyChainClient:
             Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
-            Component node filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
+            Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
 
         not_component : typing.Optional[typing.Sequence[str]]
-            Component node filter. Only return supply chains that contain no edges with any of the specified HS codes.
+            Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
 
         min_date : typing.Optional[str]
-            Minimum date edge filter. Only return supply chains with edge dates that are greater than or equal to this date.
+            Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
 
         max_date : typing.Optional[str]
-            Maximum date edge filter. Only return supply chains with edge dates that are less than or equal to this date.
+            Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
 
         max_depth : typing.Optional[int]
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
         limit : typing.Optional[int]
-            The maximum number of results to return. Default and maximum values are 25,000.
+            The maximum number of results to return. Default is no limit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -230,7 +230,7 @@ class AsyncSupplyChainClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpstreamTradeTraversalResponse:
         """
-        Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them
+        Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
 
         Parameters
         ----------
@@ -238,10 +238,10 @@ class AsyncSupplyChainClient:
             The root entity identifier.
 
         risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified [risk factors](/sayari-library/ontology/risk-factors).
+            Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
         not_risk : typing.Optional[typing.Sequence[Risk]]
-            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified [risk factors](/sayari-library/ontology/risk-factors).
+            Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
 
         countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
@@ -256,22 +256,22 @@ class AsyncSupplyChainClient:
             Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
-            Component node filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
+            Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
 
         not_component : typing.Optional[typing.Sequence[str]]
-            Component node filter. Only return supply chains that contain no edges with any of the specified HS codes.
+            Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
 
         min_date : typing.Optional[str]
-            Minimum date edge filter. Only return supply chains with edge dates that are greater than or equal to this date.
+            Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
 
         max_date : typing.Optional[str]
-            Maximum date edge filter. Only return supply chains with edge dates that are less than or equal to this date.
+            Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
 
         max_depth : typing.Optional[int]
             The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
 
         limit : typing.Optional[int]
-            The maximum number of results to return. Default and maximum values are 25,000.
+            The maximum number of results to return. Default is no limit.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
