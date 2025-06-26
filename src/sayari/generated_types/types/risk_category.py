@@ -2,16 +2,16 @@
 
 import typing
 
-RiskCategories = typing.Union[
+RiskCategory = typing.Union[
     typing.Literal[
-        "forced_labor",
-        "export_controls",
-        "sanctions",
-        "political_exposure",
-        "environmental_risk",
-        "regulatory_action",
         "adverse_media",
-        "possibly_same_as_network_risk",
+        "environmental_risk",
+        "export_controls",
+        "forced_labor",
+        "political_exposure",
+        "regulatory_action",
+        "sanctions",
+        "sanctions_and_export_control_lists",
     ],
     typing.Any,
 ]
