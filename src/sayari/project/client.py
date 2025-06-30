@@ -46,7 +46,7 @@ class ProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        Create a new project
+        Create a new project.
 
         Parameters
         ----------
@@ -311,7 +311,7 @@ class ProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        Retrieve a list of entities in a project.
+        <Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
 
         Parameters
         ----------
@@ -337,7 +337,7 @@ class ProjectClient:
             Whether to include geo facets in the response. Defaults to false.
 
         hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities with the specified HS code(s).
+            Only return entities with the specified HS code(s) in their supply chain.
 
         received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return entities that received the specified HS code(s).
@@ -595,7 +595,7 @@ class AsyncProjectClient:
         self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateProjectResponse:
         """
-        Create a new project
+        Create a new project.
 
         Parameters
         ----------
@@ -876,7 +876,7 @@ class AsyncProjectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectEntitiesResponse:
         """
-        Retrieve a list of entities in a project.
+        <Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
 
         Parameters
         ----------
@@ -902,7 +902,7 @@ class AsyncProjectClient:
             Whether to include geo facets in the response. Defaults to false.
 
         hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return entities with the specified HS code(s).
+            Only return entities with the specified HS code(s) in their supply chain.
 
         received_hs_codes : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return entities that received the specified HS code(s).

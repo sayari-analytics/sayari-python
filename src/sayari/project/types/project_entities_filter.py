@@ -9,6 +9,7 @@ from ...generated_types.types.country import Country
 import typing_extensions
 from ...core.serialization import FieldMetadata
 from ...generated_types.types.company_status import CompanyStatus
+from ...base_types.types.custom_field_value import CustomFieldValue
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -35,12 +36,52 @@ class ProjectEntitiesFilter(UniversalBaseModel):
 
     upstream_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
     """
-    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country).
+    <Warning>This filter is deprecated.</Warning> Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country).
     """
 
     upstream_country_tiers: typing.Optional[typing.List[UpstreamTiers]] = pydantic.Field(default=None)
     """
-    Filter by upstream (supply chain) tiers that has one or more countries
+    <Warning>This filter is deprecated.</Warning> Filter by upstream (supply chain) tiers that has one or more countries
+    """
+
+    shipment_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at any tier.
+    """
+
+    tier_0_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier0_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by [country](/sayari-library/ontology/enumerated-types#country) at tier 0.
+    """
+
+    tier_1_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier1_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 1.
+    """
+
+    tier_2_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier2_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 2.
+    """
+
+    tier_3_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier3_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 3.
+    """
+
+    tier_4_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier4_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 4.
     """
 
     business_purpose: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
@@ -101,11 +142,8 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     """
 
     custom_field_name: typing_extensions.Annotated[
-        typing.Optional[typing.List[str]], FieldMetadata(alias="custom_{field name}")
-    ] = pydantic.Field(default=None)
-    """
-    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom_" and value must be "string" type)
-    """
+        typing.Optional[CustomFieldValue], FieldMetadata(alias="custom_{field name}")
+    ] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
