@@ -1213,7 +1213,7 @@ client.negative_news.negative_news(
 <dl>
 <dd>
 
-The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
+<Warning>Legacy endpoint. New integrations should contact Sayari for best practices.</Warning> The Project Notifications endpoint returns a list of notifications on all entities saved to a project.
 </dd>
 </dl>
 </dd>
@@ -1310,7 +1310,7 @@ client.notifications.project_notifications(
 <dl>
 <dd>
 
-<Warning>This endpoint is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
+<Warning>Legacy endpoint. New integrations should contact Sayari for best practices.</Warning> The Resource Notifications endpoint returns a list of notifications for a saved entity.
 </dd>
 </dl>
 </dd>
@@ -1398,7 +1398,7 @@ client.notifications.resource_notifications(
 <dl>
 <dd>
 
-Deletes all notifications from a project.
+<Warning>Legacy endpoint. New integrations should contact Sayari for best practices.</Warning> Deletes all notifications from a project.
 </dd>
 </dl>
 </dd>
@@ -1469,7 +1469,7 @@ client.notifications.delete_project_notifications(
 <dl>
 <dd>
 
-Deletes notifications for saved resources of an entity.
+<Warning>Legacy endpoint. New integrations should contact Sayari for best practices.</Warning> Deletes notifications for saved resources of an entity.
 </dd>
 </dl>
 </dd>
@@ -1540,7 +1540,7 @@ client.notifications.delete_entity_notifications(
 <dl>
 <dd>
 
-Deletes notifications for a saved resource.
+<Warning>Legacy endpoint. New integrations should contact Sayari for best practices.</Warning> Deletes notifications for a saved resource.
 </dd>
 </dl>
 </dd>
@@ -1599,6 +1599,2286 @@ client.notifications.delete_resource_notifications(
 </dl>
 </details>
 
+## Ontology
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_ontology</a>()</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get ontology data for all resource types.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_ontology()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_attributes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get attributes from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_attributes(
+    id=["additional_information"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Attributes]]` — Attribute Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_countries</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get countries from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_countries(
+    id=["USA"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Country]]` — Country Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_currencies</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get currencies from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_currencies(
+    id=["USD"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Currency]]` — Currency Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_entity_types</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get entity types from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_entity_types(
+    id=["aircraft"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Entities]]` — Entity type Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_enums</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get enums from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_enums(
+    id=["address_type"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[str]]` — Enum Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_hs_codes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get HS codes from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_hs_codes(
+    code=["1503"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**code:** `typing.Optional[typing.Sequence[str]]` — HS code filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_identifiers</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get identifiers from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_identifiers(
+    id=["aer_free_zone_license"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[IdentifierType]]` — Identifier Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_languages</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get languages from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_languages(
+    id=["en"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Language]]` — Language Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_regions</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get regions from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_regions(
+    id=["usa_&_canada"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[str]]` — Region Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_relationships</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get relationships from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_relationships(
+    id=["auditor_of"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Relationships]]` — Relationship Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_risk_factors</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get risk factors from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_risk_factors(
+    id=["psa_owner_of_ofac_fto_sanctioned"],
+    risk_category=["sanctions"],
+    level=["high"],
+    risk_type=["network"],
+    enabled=True,
+    visible=True,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[Risk]]` — Risk factor Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_category:** `typing.Optional[typing.Sequence[RiskCategory]]` — Risk category filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `typing.Optional[typing.Sequence[RiskLevel]]` — Risk level filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_type:** `typing.Optional[typing.Sequence[str]]` — Risk type filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enabled:** `typing.Optional[bool]` — Risk enabled filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visible:** `typing.Optional[bool]` — Risk visible filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_sources</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get sources from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_sources(
+    id=["e85d865943ee6d8369307569d2ad9de0"],
+    country=["XXX"],
+    source_type=["adverse_media_/_negative_news_data"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[str]]` — Source Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[typing.Sequence[Country]]` — Source country filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_type:** `typing.Optional[typing.Sequence[str]]` — Source type filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ontology.<a href="src/sayari/ontology/client.py">get_source_types</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get source types from ontology data.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.ontology.get_source_types(
+    id=["adverse_media_/_negative_news_data"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `typing.Optional[typing.Sequence[str]]` — Source type Id filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ProjectEntity
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">create_project_entity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the search endpoint, except it's tuned to only return the best match so the client doesn't need to do as much or any post-processing work to filter down results.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import CreateResolvedProjectEntityRequest
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.create_project_entity(
+    project_id="YVB88Y",
+    request=CreateResolvedProjectEntityRequest(
+        name=["VTB Bank"],
+        country=["RUS"],
+        address=["Moscow"],
+        identifier=["253400V1H6ART1UQ0N98"],
+        profile="corporate",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateResolvedProjectEntityRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">get_project_entities</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a list of entities for a specific project with pagination support.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.get_project_entities(
+    project_id="YVB88Y",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_id:** `typing.Optional[typing.Sequence[str]]` — Filter by entity IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**uploads:** `typing.Optional[typing.Sequence[str]]` — Filter by upload IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**case_status:** `typing.Optional[typing.Sequence[CaseStatus]]` — Filter by case status
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — Filter by tag IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_result:** `typing.Optional[typing.Sequence[MatchResult]]` — Filter by match result
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_strength_v_1:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_types:** `typing.Optional[typing.Sequence[str]]` — Filter by entity types
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**geo_facets:** `typing.Optional[bool]` — Include geo facets
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exact_match:** `typing.Optional[bool]` — Use exact matching
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by HS codes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**received_hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by received HS codes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shipped_hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by shipped HS codes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**upstream_product:** `typing.Optional[typing.Sequence[str]]` — Filter by upstream product
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Maximum number of results to return
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**token:** `typing.Optional[str]` — Pagination token
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `typing.Optional[typing.Sequence[str]]` — Sort fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**aggregations:** `typing.Optional[typing.Sequence[str]]` — Fields to aggregate
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**num_aggregation_buckets:** `typing.Optional[int]` — Number of aggregation buckets
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk:** `typing.Optional[typing.Sequence[Risk]]` — List of risk factors to filter by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_category:** `typing.Optional[typing.Sequence[RiskCategory]]` — List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">get_project_entity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific entity in a project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.get_project_entity(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_id:** `typing.Optional[typing.Sequence[str]]` — Filter by entity IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**uploads:** `typing.Optional[typing.Sequence[str]]` — Filter by upload IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**case_status:** `typing.Optional[typing.Sequence[CaseStatus]]` — Filter by case status
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tags:** `typing.Optional[typing.Sequence[str]]` — Filter by tag IDs
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_result:** `typing.Optional[typing.Sequence[MatchResult]]` — Filter by match result
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_strength_v_1:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**entity_types:** `typing.Optional[typing.Sequence[str]]` — Filter by entity types
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk:** `typing.Optional[typing.Sequence[Risk]]` — List of risk factors to filter by
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_category:** `typing.Optional[typing.Sequence[RiskCategory]]` — List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">delete_project_entity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.delete_project_entity(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">delete_project_entity_match</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a specific project entity match.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.delete_project_entity_match(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    match_id="match_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**match_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">project_entity_exists</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks if a project entity with the given attributes already exists.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import ResolutionAttributes
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.project_entity_exists(
+    project_id="YVB88Y",
+    request=ResolutionAttributes(
+        name=["Example Company"],
+        country=["USA"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `ResolutionAttributes` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">save_project_entity</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Stores a project entity given entity IDs and a list of attributes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import ResolutionAttributes, SaveProjectEntityBody
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.save_project_entity(
+    project_id="YVB88Y",
+    request=SaveProjectEntityBody(
+        entity_ids=["entity_id_1", "entity_id_2"],
+        attributes=ResolutionAttributes(
+            name=["Example Company"],
+            country=["USA"],
+        ),
+        profile="corporate",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `SaveProjectEntityBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">project_entity_supply_chain</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a traversal of the upstream trade network (supply chain) for all matched entities of a project entity, returning a set of entities and edges between them.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.project_entity_supply_chain(
+    project_id="Gam5qG",
+    project_entity_id="GOeOE8",
+    min_date="2023-03-15",
+    product=["3204"],
+    risk=["forced_labor_xinjiang_origin_subtier"],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — The project Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` — The project entity Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from any tier matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where none of the shipment countries from any tier matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_1_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 1 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_2_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 2 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_3_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 3 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_4_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 4 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_5_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**min_date:** `typing.Optional[str]` — Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_date:** `typing.Optional[str]` — Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — The maximum number of results to return. Default is no limit.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">project_entity_supply_chain_summary</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Execute a traversal of the upstream trade network (supply chain) for all matched entities of a project entity, returning a summary of countries, risks, and components.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.project_entity_supply_chain_summary(
+    project_id="Gam5qG",
+    project_entity_id="GOeOE8",
+    min_date="2023-03-15",
+    product=["8536", "8544", "4016"],
+    risk_factors=[
+        "forced_labor_xinjiang_name",
+        "forced_labor_xinjiang_uflpa",
+        "forced_labor_uflpa_origin_direct",
+        "exports_russian_gold",
+        "export_to_sanctioned",
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — The project Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` — The project entity Identifier
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_factors:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in 1+ of the specified countries.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**min_date:** `typing.Optional[str]` — Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_date:** `typing.Optional[str]` — Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — The maximum number of results to return. Default is no limit.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Project
 <details><summary><code>client.project.<a href="src/sayari/project/client.py">create_project</a>(...)</code></summary>
 <dl>
@@ -1612,7 +3892,7 @@ client.notifications.delete_resource_notifications(
 <dl>
 <dd>
 
-Create a new project
+Create a new project.
 </dd>
 </dl>
 </dd>
@@ -1782,7 +4062,7 @@ client.project.get_projects(
 <dl>
 <dd>
 
-Retrieve a list of entities in a project.
+<Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
 </dd>
 </dl>
 </dd>
@@ -1878,7 +4158,7 @@ client.project.get_project_entities(
 <dl>
 <dd>
 
-**hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities with the specified HS code(s).
+**hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities with the specified HS code(s) in their supply chain.
     
 </dd>
 </dl>
@@ -2443,7 +4723,7 @@ client.resolution.resolution_post(
 <dl>
 <dd>
 
-The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
+<Warning>This endpoint is deprecated.</Warning> The persisted resolution endpoints allow users to search for matching entities against a provided list of attributes. The endpoint is similar to the resolution endpoint, except it also stores matched entities into user's project.
 </dd>
 </dl>
 </dd>
@@ -2544,7 +4824,7 @@ client.resolution.resolution_persisted(
 <dl>
 <dd>
 
-<Warning>This endpoint is in beta and subject to change</Warning> This endpoint allows you to upload entities in bulk.
+<Warning>This endpoint is deprecated.</Warning> This endpoint allows you to upload entities in bulk.
 </dd>
 </dl>
 </dd>
@@ -3257,7 +5537,7 @@ client.search.search_record_get(
 <dl>
 <dd>
 
-Returns metadata for all sources that Sayari collects data from
+<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for all sources that Sayari collects data from
 </dd>
 </dl>
 </dd>
@@ -3336,7 +5616,7 @@ client.source.list_sources(
 <dl>
 <dd>
 
-Returns metadata for a source that Sayari collects data from
+<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for a source that Sayari collects data from
 </dd>
 </dl>
 </dd>
@@ -3408,7 +5688,7 @@ client.source.get_source(
 <dl>
 <dd>
 
-Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them
+Execute a traversal of the upstream trade network (supply chain) of an entity, returning a set of entities and edges between them.
 </dd>
 </dl>
 </dd>
@@ -3458,7 +5738,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified [risk factors](/sayari-library/ontology/risk-factors).
+**risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
 </dl>
@@ -3466,7 +5746,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**not_risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified [risk factors](/sayari-library/ontology/risk-factors).
+**not_risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has none of the specified risk factors.
     
 </dd>
 </dl>
@@ -3490,6 +5770,62 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
+**shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from any tier matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where none of the shipment countries from any tier matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_1_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 1 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_2_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 2 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_3_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 3 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_4_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 4 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tier_5_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
     
 </dd>
@@ -3506,7 +5842,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**component:** `typing.Optional[typing.Sequence[str]]` — Component node filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
+**component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
     
 </dd>
 </dl>
@@ -3514,7 +5850,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**not_component:** `typing.Optional[typing.Sequence[str]]` — Component node filter. Only return supply chains that contain no edges with any of the specified HS codes.
+**not_component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain no edges with any of the specified HS codes.
     
 </dd>
 </dl>
@@ -3522,7 +5858,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**min_date:** `typing.Optional[str]` — Minimum date edge filter. Only return supply chains with edge dates that are greater than or equal to this date.
+**min_date:** `typing.Optional[str]` — Minimum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are greater than or equal to this date.
     
 </dd>
 </dl>
@@ -3530,7 +5866,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**max_date:** `typing.Optional[str]` — Maximum date edge filter. Only return supply chains with edge dates that are less than or equal to this date.
+**max_date:** `typing.Optional[str]` — Maximum date edge filter in <YYYY-MM-DD> format. Only return supply chains with edge dates that are less than or equal to this date.
     
 </dd>
 </dl>
@@ -3546,7 +5882,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — The maximum number of results to return. Default and maximum values are 25,000.
+**limit:** `typing.Optional[int]` — The maximum number of results to return. Default is no limit.
     
 </dd>
 </dl>
@@ -4070,7 +6406,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
+**risk_categories:** `typing.Optional[typing.Sequence[RiskCategory]]` — Filter paths to only those that include an entity associated with any risk factor belonging to one of the specified categories.
     
 </dd>
 </dl>
@@ -4784,3 +7120,372 @@ client.traversal.ownership(
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.traversal.<a href="src/sayari/traversal/client.py">watchlist</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Watchlist endpoint returns paths from a single target entity to up to 50 other entities that appear on a watchlist. The endpoint is a shorthand for the equivalent traversal query.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.traversal.watchlist(
+    id="mGq1lpuqKssNWTjIokuPeA",
+    limit=1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Unique identifier of the entity
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — Limit total values for traversal. Defaults to 10. Max of 50.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offset:** `typing.Optional[int]` — Offset values for traversal. Defaults to 0. Max of 1000.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 4.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**relationships:** `typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]` — Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**psa:** `typing.Optional[bool]` — Also traverse relationships from entities that are possibly the same as any entity that appears in the path. Defaults to traversing possibly same as relationships.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**countries:** `typing.Optional[typing.Union[Country, typing.Sequence[Country]]]` — Filter paths to only those that end at an entity associated with the specified country(ies). Defaults to returning paths that end in any country.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**types:** `typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]` — Filter paths to only those that end at an entity of the specified type(s). Defaults to returning paths that end at any type.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sanctioned:** `typing.Optional[bool]` — Filter paths to only those that end at an entity appearing on a watchlist. Defaults to not filtering paths by sanctioned status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pep:** `typing.Optional[bool]` — Filter paths to only those that end at an entity appearing on a pep list. Defaults to not filtering paths by pep status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**min_shares:** `typing.Optional[int]` — Set minimum percentage of share ownership for traversal. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_unknown_shares:** `typing.Optional[bool]` — Also traverse relationships when share percentages are unknown. Only useful when min_shares is set greater than 0. Defaults to true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_former_relationships:** `typing.Optional[bool]` — Include relationships that were valid in the past but not at the present time. Defaults to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**exclude_closed_entities:** `typing.Optional[bool]` — Include entities that existed in the past but not at the present time. Defaults to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**risk_categories:** `typing.Optional[TraversalRiskCategory]` — Filter paths to only those that relate with an entity that we have flagged with any risk factor of these categories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**eu_high_risk_third:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_modern_slavery:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**state_owned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**formerly_sanctioned:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_terrorism:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_organized_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_financial_crime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_bribery_and_corruption:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_other:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reputational_risk_cybercrime:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**regulatory_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**law_enforcement_action:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**xinjiang_geospatial:** `typing.Optional[bool]` — Filter paths to only those that relate with an entity that we have flagged with this risk factor
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traversal.<a href="src/sayari/traversal/client.py">shortest_path</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Shortest Path endpoint returns a response identifying the shortest traversal path connecting each pair of entities.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.traversal.shortest_path(
+    entities="H1y25N5ymnFyZ-q9Lpwm_g&entities=xthsA_jQuKn3GW8-9ILQqg",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**entities:** `typing.Union[str, typing.Sequence[str]]` — A list of Sayari entity IDs specifying the source and target entities for the shortest path calculation. The list must contain exactly two entity IDs The first entity ID represents the source.The second entity ID represents the target.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+

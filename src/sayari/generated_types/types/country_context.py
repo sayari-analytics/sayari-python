@@ -6,6 +6,7 @@ CountryContext = typing.Union[
     typing.Literal[
         "activity_in",
         "address",
+        "awarding_country",
         "citizenship",
         "domicile",
         "export_activity_in",

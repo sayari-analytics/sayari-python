@@ -6,6 +6,7 @@ Tag = typing.Union[
     typing.Literal[
         "aspi_uyghur_forced_labor_report_entity",
         "bis_boycott_requester_list",
+        "esg_score",
         "export_controls",
         "export_controls_bis_entity",
         "forced_labor_xinjiang_contractors",

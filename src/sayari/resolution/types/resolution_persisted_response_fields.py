@@ -3,19 +3,16 @@
 from .resolution_response_fields import ResolutionResponseFields
 import typing_extensions
 import typing
+from ...base_types.types.custom_field_value import CustomFieldValue
 from ...core.serialization import FieldMetadata
-import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
 class ResolutionPersistedResponseFields(ResolutionResponseFields):
-    custom_field_name: typing_extensions.Annotated[typing.Optional[str], FieldMetadata(alias="custom_{field name}")] = (
-        pydantic.Field(default=None)
-    )
-    """
-    <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom_" and value must be "string" type)
-    """
-
+    custom_field_name: typing_extensions.Annotated[
+        typing.Optional[CustomFieldValue], FieldMetadata(alias="custom_{field name}")
+    ] = None
     custom_name: typing.Optional[str] = None
     custom_identifier: typing.Optional[str] = None
 

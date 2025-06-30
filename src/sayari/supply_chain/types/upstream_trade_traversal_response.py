@@ -2,9 +2,10 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .trade_traversal_path import TradeTraversalPath
-from ...core.pydantic_utilities import IS_PYDANTIC_V2
+from .trade_traversal_filters import TradeTraversalFilters
+from .trade_traversal_data import TradeTraversalData
 import pydantic
+from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class UpstreamTradeTraversalResponse(UniversalBaseModel):
@@ -12,82 +13,168 @@ class UpstreamTradeTraversalResponse(UniversalBaseModel):
     Examples
     --------
     from sayari.supply_chain import (
-        HsCodeWithDescription,
+        TradeTraversalComponent,
+        TradeTraversalData,
         TradeTraversalEntity,
+        TradeTraversalFilters,
         TradeTraversalPath,
         TradeTraversalPathSegment,
-        TradeTraversalProduct,
         UpstreamTradeTraversalResponse,
     )
 
     UpstreamTradeTraversalResponse(
-        data=[
-            TradeTraversalPath(
-                source="ESkH7J-UCRfY5t0_JXIH3w",
-                target=TradeTraversalEntity(
-                    id="BAQGiWn9riAG10h4NuK_9w",
-                    type="company",
-                    label="TEXMARK CHEMICALS INC",
-                    countries=["USA"],
-                    risk=["forced_labor_xinjiang_origin_subtier"],
-                ),
-                path=[
-                    TradeTraversalPathSegment(
-                        entity=TradeTraversalEntity(
-                            id="ESkH7J-UCRfY5t0_JXIH3w",
-                            type="company",
-                            label="ACUMEN HOUSEWARE INDUSTRY VIETNAM CO LTD",
-                            countries=["VNM"],
-                            risk=[],
-                        ),
-                        products=[
-                            TradeTraversalProduct(
-                                hs_code=HsCodeWithDescription(
-                                    code="3204",
-                                    description="Synthetic dyes & agents",
-                                ),
-                                min_date="2023-04-01",
-                                max_date="2024-03-27",
-                                arrival_countries=["VNM"],
-                                departure_countries=["IND"],
-                            )
-                        ],
-                    ),
-                    TradeTraversalPathSegment(
-                        entity=TradeTraversalEntity(
-                            id="A84F35yJ_3FT_hVzD9EzAw",
-                            type="company",
-                            label="TOYO INK INDIA PRIVATE LIMITED",
-                            countries=["IND"],
-                            risk=[
-                                "forced_labor_sheffield_hallam_university_reports_origin_subtier",
-                                "forced_labor_uflpa_origin_subtier",
-                                "forced_labor_xinjiang_origin_subtier",
+        filters=TradeTraversalFilters(
+            product=["7616"],
+        ),
+        data=TradeTraversalData(
+            paths=[
+                TradeTraversalPath(
+                    source_entity_id="aGhVqFtVmSjbXqH6oBX6IA",
+                    path=[
+                        TradeTraversalPathSegment(
+                            tier=2,
+                            entity_id="Tdge30S7idW8cJHRaTABtg",
+                            components=[
+                                TradeTraversalComponent(
+                                    hs_code="2818",
+                                    arrival_countries=["VNM"],
+                                    departure_countries=["TWN"],
+                                    max_date="2023-03-01",
+                                )
                             ],
-                        ),
-                        products=[
-                            TradeTraversalProduct(
-                                hs_code=HsCodeWithDescription(
-                                    code="3206",
-                                    description="Other dyes & colorants",
-                                ),
-                                min_date="2023-03-01",
-                                max_date="2024-02-12",
-                                arrival_countries=["IND"],
-                                departure_countries=["CHN"],
-                            )
-                        ],
-                    ),
-                ],
-            )
-        ],
+                        )
+                    ],
+                ),
+                TradeTraversalPath(
+                    source_entity_id="aGhVqFtVmSjbXqH6oBX6IA",
+                    path=[
+                        TradeTraversalPathSegment(
+                            tier=2,
+                            entity_id="s7rRJAvSAW8YWuGPGzDb_w",
+                            components=[
+                                TradeTraversalComponent(
+                                    hs_code="7609",
+                                    arrival_countries=["VNM"],
+                                    departure_countries=["CHN"],
+                                    max_date="2023-06-01",
+                                )
+                            ],
+                        )
+                    ],
+                ),
+                TradeTraversalPath(
+                    source_entity_id="aGhVqFtVmSjbXqH6oBX6IA",
+                    path=[
+                        TradeTraversalPathSegment(
+                            tier=2,
+                            entity_id="9QIh3SU3TDipp80ibWMYfg",
+                            components=[
+                                TradeTraversalComponent(
+                                    hs_code="7616",
+                                    arrival_countries=["VNM"],
+                                    departure_countries=["TWN"],
+                                    max_date="2023-12-01",
+                                )
+                            ],
+                        )
+                    ],
+                ),
+                TradeTraversalPath(
+                    source_entity_id="aGhVqFtVmSjbXqH6oBX6IA",
+                    path=[
+                        TradeTraversalPathSegment(
+                            tier=2,
+                            entity_id="s7rRJAvSAW8YWuGPGzDb_w",
+                            components=[
+                                TradeTraversalComponent(
+                                    hs_code="7616",
+                                    arrival_countries=["VNM"],
+                                    departure_countries=["CHN"],
+                                    max_date="2023-06-01",
+                                )
+                            ],
+                        )
+                    ],
+                ),
+            ],
+            entities={
+                "9QIh3SU3TDipp80ibWMYfg": TradeTraversalEntity(
+                    id="9QIh3SU3TDipp80ibWMYfg",
+                    type="company",
+                    label="ZITAI PRECISION MACHINERY CO LTD",
+                    risk_factors=[],
+                    countries=["BRA", "CHN", "DEU", "GBR", "JPN", "MEX", "TWN"],
+                ),
+                "s7rRJAvSAW8YWuGPGzDb_w": TradeTraversalEntity(
+                    id="s7rRJAvSAW8YWuGPGzDb_w",
+                    type="company",
+                    label="EQUIPMENT AND MACHINE CO LTD",
+                    risk_factors=[
+                        "exports_ilab_forced_labor",
+                        "psa_imports_ilab_forced_labor",
+                        "psa_exports_ilab_child_labor",
+                        "exports_ilab_child_labor",
+                        "psa_exports_ilab_forced_labor",
+                        "imports_ilab_forced_labor",
+                    ],
+                    countries=[
+                        "AUS",
+                        "BLZ",
+                        "CHE",
+                        "CHN",
+                        "CZE",
+                        "DEU",
+                        "DNK",
+                        "GBR",
+                        "HKG",
+                        "ISR",
+                        "ITA",
+                        "JPN",
+                        "KOR",
+                        "MYS",
+                        "NLD",
+                        "POL",
+                        "ROU",
+                        "SGP",
+                        "TWN",
+                        "USA",
+                    ],
+                ),
+                "Tdge30S7idW8cJHRaTABtg": TradeTraversalEntity(
+                    id="Tdge30S7idW8cJHRaTABtg",
+                    type="company",
+                    label="TIEN YEOU TRADING CO LTD",
+                    risk_factors=[],
+                    countries=["ITA", "TWN"],
+                ),
+                "aGhVqFtVmSjbXqH6oBX6IA": TradeTraversalEntity(
+                    id="aGhVqFtVmSjbXqH6oBX6IA",
+                    type="company",
+                    label="Công ty TNHH KRICO",
+                    risk_factors=[],
+                    countries=["VNM"],
+                ),
+            },
+        ),
+        explored_count=98,
+        partial_results=False,
     )
     """
 
     status: typing.Optional[int] = None
     success: typing.Optional[bool] = None
     message: typing.Optional[str] = None
-    data: typing.List[TradeTraversalPath]
+    filters: TradeTraversalFilters
+    data: TradeTraversalData
+    explored_count: int = pydantic.Field()
+    """
+    Number of hops explored in the traversal
+    """
+
+    partial_results: bool = pydantic.Field()
+    """
+    True if the traversal returned partial results
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
