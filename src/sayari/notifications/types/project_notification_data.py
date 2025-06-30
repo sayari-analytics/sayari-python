@@ -9,11 +9,6 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class ProjectNotificationData(UniversalBaseModel):
-    id: str = pydantic.Field()
-    """
-    The ID of the entity
-    """
-
     resource_id: str = pydantic.Field()
     """
     The ID of the saved resource
@@ -25,7 +20,7 @@ class ProjectNotificationData(UniversalBaseModel):
     """
 
     notifications: typing.List[Notification]
-    custom_fields: typing.Optional[typing.Optional[typing.Any]] = pydantic.Field(default=None)
+    custom_fields: typing.Optional[typing.Dict[str, typing.Optional[typing.Any]]] = pydantic.Field(default=None)
     """
     <Warning>This property is in beta and is subject to change. It is provided for early access and testing purposes only.</Warning> custom user key/value pairs (key must be prefixed with "custom_" and value must be "string" type)
     """
