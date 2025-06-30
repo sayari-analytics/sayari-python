@@ -130,12 +130,14 @@ class TradeFilterList(UniversalBaseModel):
 
     arrival_date: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    The arrival date is within the provided range.
+    The arrival date is within the provided range. Supports exact dates (YYYY-MM-DD) 
+    or date ranges (YYYY-MM TO YYYY-MM). Example: ["2024-01 TO 2024-10"] or ["2024-01-30"].
     """
 
     departure_date: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    The departure date is within the provided range.
+    The departure date is within the provided range. Supports exact dates (YYYY-MM-DD) 
+    or date ranges (YYYY-MM TO YYYY-MM). Example: ["2024-01 TO 2024-10"] or ["2024-01-30"].
     """
 
     shipment_identifier: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
