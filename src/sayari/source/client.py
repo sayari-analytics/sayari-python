@@ -36,7 +36,7 @@ class SourceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSourcesResponse:
         """
-        Returns metadata for all sources that Sayari collects data from
+        <Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for all sources that Sayari collects data from
 
         Parameters
         ----------
@@ -140,7 +140,7 @@ class SourceClient:
 
     def get_source(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> GetSourceResponse:
         """
-        Returns metadata for a source that Sayari collects data from
+        <Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for a source that Sayari collects data from
 
         Parameters
         ----------
@@ -258,7 +258,7 @@ class AsyncSourceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListSourcesResponse:
         """
-        Returns metadata for all sources that Sayari collects data from
+        <Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for all sources that Sayari collects data from
 
         Parameters
         ----------
@@ -372,7 +372,7 @@ class AsyncSourceClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> GetSourceResponse:
         """
-        Returns metadata for a source that Sayari collects data from
+        <Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for a source that Sayari collects data from
 
         Parameters
         ----------

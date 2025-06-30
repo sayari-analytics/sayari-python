@@ -259,7 +259,7 @@ class SupplierSearchResponse(PaginatedResponse):
                         metadata={"country": ["ECU"]},
                         level="relevant",
                     ),
-                    "exports_bis_high_priority_items_critical_components": RiskData(
+                    "exports_bis_high_priority_items_critical_components_direct": RiskData(
                         value=1.0,
                         metadata={"origin_shipment_product": ["854231"]},
                         level="high",
@@ -269,7 +269,7 @@ class SupplierSearchResponse(PaginatedResponse):
                         metadata={"country": ["ECU"]},
                         level="relevant",
                     ),
-                    "exports_bis_high_priority_items": RiskData(
+                    "exports_bis_high_priority_items_indirect": RiskData(
                         value=1.0,
                         metadata={"origin_shipment_product": ["853669"]},
                         level="elevated",

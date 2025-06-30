@@ -10,6 +10,7 @@ AddressType = typing.Union[
         "mailing",
         "operations",
         "physical",
+        "place_of_birth",
         "receiver_address",
         "registered",
         "shipper_address",

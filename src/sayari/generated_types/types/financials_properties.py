@@ -4,13 +4,69 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 import pydantic
 from .currency import Currency
+from .reporting_period_type import ReportingPeriodType
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class FinancialsProperties(UniversalBaseModel):
+    accounts_payable: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Trade payables for the purchase of materials and supplies to be used in the production of goods or in providing of services and are due in customary trade terms within one year or within the normal operating cycle of the company.
+    """
+
+    asset_writeoff: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Write-off of any intangible or tangible fixed assets by the company and includes any value charged towards restructuring of operations.
+    """
+
     assets: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total value of assets owned by a company
+    """
+
+    basic_eps: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Profitability metric that indicates how much profit a company generates for each outstanding share of common stock.
+    """
+
+    cash_and_equivalent: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total Cash and Equivalent
+    """
+
+    cash_financing: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Net cash used or generated in financing activities, during the stated period of time.
+    """
+
+    cash_investing: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Net cash used or generated in investing activities, during the stated period of time.
+    """
+
+    cash_operations: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Net cash used or generated in operating activities, during the stated period of time.
+    """
+
+    change_accounts_payable: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Increase or decrease in accounts payable by the company during the stated period.
+    """
+
+    change_accounts_receivable: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Increase or decrease in the accounts receivable of the company during the stated period.
+    """
+
+    change_inventory: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Change in the inventory of the company reflected in the operating section of cash flow statement.
+    """
+
+    common_stock: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total Common Stock
     """
 
     currency: typing.Optional[Currency] = pydantic.Field(default=None)
@@ -38,9 +94,39 @@ class FinancialsProperties(UniversalBaseModel):
     start date of attribute
     """
 
+    gross_profit: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total Gross Profit
+    """
+
+    interest_expense: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Interest expense (net of capitalized interest) incurred by the company on the debt taken. Also includes debt procurement costs, and dividend paid by parent company on the preferred stock of its subsidiary or on trust preferred securities reported in the income statement.
+    """
+
+    inventory: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total Inventory
+    """
+
+    issued_common_stock: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The total cash inflow received from issuing new common shares during the reporting period.
+    """
+
+    legal_settlements: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Costs incurred in legal disputes or receipts from legal settlements received by the company and reflected on the income statement.
+    """
+
     liabilities: typing.Optional[float] = pydantic.Field(default=None)
     """
     Sum of the combined debts a company owes
+    """
+
+    net_change_cash: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Net increase or decrease in cash and cash equivalents during the stated period of time. Sum of cash flows from operating activities, investing activities and financing activities plus foreign exchange rate adjustments and other miscellaneous cash flows.
     """
 
     net_income: typing.Optional[float] = pydantic.Field(default=None)
@@ -48,9 +134,19 @@ class FinancialsProperties(UniversalBaseModel):
     Company's earnings for a period after subtracting operating costs, taxes, and interest
     """
 
+    operating_income: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Reported Operating Income
+    """
+
     paid_up_capital: typing.Optional[float] = pydantic.Field(default=None)
     """
     Paid-up capital is the capital already held by the company
+    """
+
+    rd_expenses: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Costs incurred by a company on the development of a new product, innovation relating to technology formulation, process development, or on the process undertaken in upgrading the existing product or service line.
     """
 
     registered_capital: typing.Optional[float] = pydantic.Field(default=None)
@@ -58,14 +154,79 @@ class FinancialsProperties(UniversalBaseModel):
     Registered capital is the maximum amount of share capital that a company is authorized to raise
     """
 
+    reporting_period_type: typing.Optional[ReportingPeriodType] = pydantic.Field(default=None)
+    """
+    Reporting period type
+    """
+
     revenue: typing.Optional[float] = pydantic.Field(default=None)
     """
     The total amount of income generated by the sale of goods or services related to the company's primary operations
     """
 
+    sale_ppe: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Cash flows obtained by the company through the sale of property, plant, and equipment.
+    """
+
     to_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     end date of attribute
+    """
+
+    total_capitalization: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The sum of total debt and all types of equity of a company.
+    """
+
+    total_current_assets: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Assets which are expected to be converted into cash or used in the production of revenue within a period of twelve months.
+    """
+
+    total_current_liabilities: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The total amount of a company’s short-term financial obligations that are due within one year, such as accounts payable, short-term loans, and wages payable
+    """
+
+    total_debt: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Total Debt
+    """
+
+    total_debt_issued: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Cash inflow from issuance of debt.
+    """
+
+    total_dividends: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Cash outflows towards dividends or distributions, either to common or preferred stockholders during the relevant period. The value paid may relate to pending dividend of earlier period also.
+    """
+
+    total_equity: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Equity as defined under the indicated accounting principles. Includes par value, paid in capital, retained earnings, and other adjustments to equity.
+    """
+
+    total_liabilities: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    All liabilities (current and long-term) as of the date indicated, as carried on the balance sheet.
+    """
+
+    total_operating_expenses: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The costs a business incurs to maintain its day-to-day operations, excluding the cost of goods sold.
+    """
+
+    total_receivables: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Summation of accounts receivable - trade, accounts receivable - other, and loans receivable current.
+    """
+
+    unusual_items: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Sum of all income or expenses that are deemed infrequent and not typical of a company's ordinary operations.
     """
 
     if IS_PYDANTIC_V2:

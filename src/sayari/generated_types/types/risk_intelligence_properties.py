@@ -45,6 +45,11 @@ class RiskIntelligenceProperties(UniversalBaseModel):
     Explanation or legal basis for the risk intelligence
     """
 
+    score: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    A value indicating the assessed level of a certain risk tied to an entity. Meaning and scale depend on the specific scoring model used.
+    """
+
     to_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     end date of attribute

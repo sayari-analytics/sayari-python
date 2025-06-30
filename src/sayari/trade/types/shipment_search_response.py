@@ -165,8 +165,8 @@ class ShipmentSearchResponse(PaginatedResponse):
                         type="shipper_of",
                         names=["ERBE ELEKTROMEDIZIN GMBH", "ERBE ELEKTROMED"],
                         risks={
-                            "exports_bis_high_priority_items_critical_components": 1,
-                            "exports_bis_high_priority_items": 1,
+                            "exports_bis_high_priority_items_critical_components_direct": 1,
+                            "exports_bis_high_priority_items_indirect": 1,
                         },
                         countries=[
                             "DEU",
@@ -374,12 +374,22 @@ class ShipmentSearchResponse(PaginatedResponse):
                 arrival_address=ShipmentAddress(
                     country="RUS - BRB",
                 ),
-                arrival_date=["2022-05-25"],
+                arrival_date=["2024-01-30"],
                 arrival_country=[],
                 departure_date=["2022-05"],
                 departure_country=["USA"],
                 departure_address=ShipmentAddress(
                     country="DEU",
+                ),
+                shipper_address=ShipmentAddress(
+                    country="CAN",
+                    state="ON",
+                    city="Toronto",
+                ),
+                receiver_address=ShipmentAddress(
+                    country="RUS",
+                    state="Moscow",
+                    city="Moscow",
                 ),
                 product_origin=["DEU"],
                 transit_country=[],
