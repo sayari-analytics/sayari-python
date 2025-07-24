@@ -33,6 +33,8 @@ class SupplyChainClient:
         self,
         id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -44,8 +46,6 @@ class SupplyChainClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -61,6 +61,12 @@ class SupplyChainClient:
         ----------
         id : str
             The root entity identifier.
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -94,12 +100,6 @@ class SupplyChainClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -145,6 +145,8 @@ class SupplyChainClient:
             f"v1/supply_chain/upstream/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -156,8 +158,6 @@ class SupplyChainClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -250,6 +250,8 @@ class AsyncSupplyChainClient:
         self,
         id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -261,8 +263,6 @@ class AsyncSupplyChainClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -278,6 +278,12 @@ class AsyncSupplyChainClient:
         ----------
         id : str
             The root entity identifier.
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -311,12 +317,6 @@ class AsyncSupplyChainClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -370,6 +370,8 @@ class AsyncSupplyChainClient:
             f"v1/supply_chain/upstream/{jsonable_encoder(id)}",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -381,8 +383,6 @@ class AsyncSupplyChainClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
