@@ -87,10 +87,10 @@ class TraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
@@ -362,10 +362,10 @@ class TraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_partner, subsidiary_of, and branch_of.
@@ -639,10 +639,10 @@ class TraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, partner_of, has_subsidiary, and has_branch.
@@ -916,10 +916,10 @@ class TraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.
@@ -1333,10 +1333,10 @@ class AsyncTraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to following all relationship types.
@@ -1616,10 +1616,10 @@ class AsyncTraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to has_shareholder, has_beneficial_owner, has_partner, subsidiary_of, and branch_of.
@@ -1901,10 +1901,10 @@ class AsyncTraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to shareholder_of, beneficial_owner_of, partner_of, has_subsidiary, and has_branch.
@@ -2186,10 +2186,10 @@ class AsyncTraversalClient:
             Offset values for traversal. Defaults to 0. Max of 1000.
 
         min_depth : typing.Optional[int]
-            Set minimum depth for traversal. Defaults to 1.
+            Set minimum depth for traversal. Defaults to 2.
 
         max_depth : typing.Optional[int]
-            Set maximum depth for traversal. Defaults to 4.
+            Set maximum depth for traversal. Defaults to 5.
 
         relationships : typing.Optional[typing.Union[Relationships, typing.Sequence[Relationships]]]
             Set relationship type(s) to follow when traversing related entities. Defaults to following 31 relevant relationship types covering ownership, control, and trade.

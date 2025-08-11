@@ -49,13 +49,6 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at any tier.
     """
 
-    tier_0_shipment_country: typing_extensions.Annotated[
-        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier0_shipment_country")
-    ] = pydantic.Field(default=None)
-    """
-    Filter by [country](/sayari-library/ontology/enumerated-types#country) at tier 0.
-    """
-
     tier_1_shipment_country: typing_extensions.Annotated[
         typing.Optional[typing.List[Country]], FieldMetadata(alias="tier1_shipment_country")
     ] = pydantic.Field(default=None)
@@ -82,6 +75,13 @@ class ProjectEntitiesFilter(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 4.
+    """
+
+    tier_5_shipment_country: typing_extensions.Annotated[
+        typing.Optional[typing.List[Country]], FieldMetadata(alias="tier5_shipment_country")
+    ] = pydantic.Field(default=None)
+    """
+    Filter by upstream (supply chain) [country](/sayari-library/ontology/enumerated-types#country) at tier 5.
     """
 
     business_purpose: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

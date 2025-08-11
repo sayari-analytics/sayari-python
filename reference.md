@@ -3530,6 +3530,22 @@ client.project_entity.project_entity_supply_chain(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -3618,22 +3634,6 @@ client.project_entity.project_entity_supply_chain(
 <dl>
 <dd>
 
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
     
 </dd>
@@ -3666,7 +3666,7 @@ client.project_entity.project_entity_supply_chain(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 2 to 5 inclusive. Default is 5. Reduce if query is timing out.
     
 </dd>
 </dl>
@@ -3771,6 +3771,22 @@ client.project_entity.project_entity_supply_chain_summary(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk_factors:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -3796,22 +3812,6 @@ client.project_entity.project_entity_supply_chain_summary(
 <dd>
 
 **not_countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
     
 </dd>
 </dl>
@@ -3851,7 +3851,7 @@ client.project_entity.project_entity_supply_chain_summary(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 2 to 5 inclusive. Default is 5. Reduce if query is timing out.
     
 </dd>
 </dl>
@@ -4031,197 +4031,6 @@ client.project.get_projects(
 <dd>
 
 **archived:** `typing.Optional[bool]` — Toggle between projects that have been archived (true) or not (false). Defaults to false.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.project.<a href="src/sayari/project/client.py">get_project_entities</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.project.get_project_entities(
-    id="gPq6EY",
-    accept="application/json",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The project identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**accept:** `GetProjectEntitiesAcceptHeader` — The response format. Defaults to application/json.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next:** `typing.Optional[str]` — The pagination token for the next page of entities.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prev:** `typing.Optional[str]` — The pagination token for the previous page of entities.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Limit total entities returned. Defaults to 1,000. Max 10,000.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_types:** `typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]` — Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**geo_facets:** `typing.Optional[bool]` — Whether to include geo facets in the response. Defaults to false.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities with the specified HS code(s) in their supply chain.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**received_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that received the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipped_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that shipped the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**combined_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that have shipped or received the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**translation:** `typing.Optional[str]` — The language code to translate the entity labels to. Defaults to the user's preferred language.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sort:** `typing.Optional[SortField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filters:** `typing.Optional[
-    typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]
-]` — Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**aggregations:** `typing.Optional[
-    typing.Union[
-        ProjectEntitiesAggsDefinition,
-        typing.Sequence[ProjectEntitiesAggsDefinition],
-    ]
-]` — Aggregations that should be returned for entities in the project.
     
 </dd>
 </dl>
@@ -5738,6 +5547,22 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -5826,22 +5651,6 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **component:** `typing.Optional[typing.Sequence[str]]` — Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
     
 </dd>
@@ -5874,7 +5683,7 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+**max_depth:** `typing.Optional[int]` — The maximum depth of the traversal, from 2 to 5 inclusive. Default is 5. Reduce if query is timing out.
     
 </dd>
 </dl>
@@ -6310,7 +6119,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 1.
+**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 2.
     
 </dd>
 </dl>
@@ -6318,7 +6127,7 @@ client.traversal.traversal(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 4.
+**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 5.
     
 </dd>
 </dl>
@@ -6606,7 +6415,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 1.
+**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 2.
     
 </dd>
 </dl>
@@ -6614,7 +6423,7 @@ client.traversal.ubo(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 4.
+**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 5.
     
 </dd>
 </dl>
@@ -6902,7 +6711,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 1.
+**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 2.
     
 </dd>
 </dl>
@@ -6910,7 +6719,7 @@ client.traversal.ownership(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 4.
+**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 5.
     
 </dd>
 </dl>
@@ -7198,7 +7007,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 1.
+**min_depth:** `typing.Optional[int]` — Set minimum depth for traversal. Defaults to 2.
     
 </dd>
 </dl>
@@ -7206,7 +7015,7 @@ client.traversal.watchlist(
 <dl>
 <dd>
 
-**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 4.
+**max_depth:** `typing.Optional[int]` — Set maximum depth for traversal. Defaults to 5.
     
 </dd>
 </dl>
