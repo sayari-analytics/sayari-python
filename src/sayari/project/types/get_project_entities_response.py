@@ -16,9 +16,6 @@ class GetProjectEntitiesResponse(PaginatedResponse):
     from sayari.project import (
         BucketAgg,
         GetProjectEntitiesResponse,
-        HsCodeAgg,
-        HsCodeAggBucket,
-        HsCodeAggTerms,
         IntKeyValue,
         ProjectEntitiesAggs,
         ProjectEntity,
@@ -321,29 +318,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                     doc_count=3,
                 ),
             ],
-            received_hs_codes=HsCodeAgg(
-                doc_count=2,
-                hs_code_terms=HsCodeAggTerms(
-                    doc_count_error_upper_bound=0,
-                    sum_other_doc_count=0,
-                    buckets=[
-                        HsCodeAggBucket(
-                            key="271290",
-                            doc_count=1,
-                            hs_code_sums=IntKeyValue(
-                                value=4,
-                            ),
-                        ),
-                        HsCodeAggBucket(
-                            key="271220",
-                            doc_count=1,
-                            hs_code_sums=IntKeyValue(
-                                value=1,
-                            ),
-                        ),
-                    ],
-                ),
-            ),
+            received_hs_codes=["271290", "271220"],
             custom_fields=[
                 BucketAgg(
                     key="custom_id1",
@@ -371,37 +346,7 @@ class GetProjectEntitiesResponse(PaginatedResponse):
                 "eu_high_risk_third": {"tier4": 1},
                 "export_to_soe": {"tier1": 1, "tier3": 1, "tier4": 2},
             },
-            shipped_hs_codes=HsCodeAgg(
-                doc_count=0,
-                hs_code_terms=HsCodeAggTerms(
-                    doc_count_error_upper_bound=0,
-                    sum_other_doc_count=0,
-                    buckets=[],
-                ),
-            ),
-            combined_hs_codes=HsCodeAgg(
-                doc_count=2,
-                hs_code_terms=HsCodeAggTerms(
-                    doc_count_error_upper_bound=0,
-                    sum_other_doc_count=0,
-                    buckets=[
-                        HsCodeAggBucket(
-                            key="271290",
-                            doc_count=1,
-                            hs_code_sums=IntKeyValue(
-                                value=4,
-                            ),
-                        ),
-                        HsCodeAggBucket(
-                            key="271220",
-                            doc_count=1,
-                            hs_code_sums=IntKeyValue(
-                                value=1,
-                            ),
-                        ),
-                    ],
-                ),
-            ),
+            combined_hs_codes=["271290", "271220"],
         ),
     )
     """

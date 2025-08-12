@@ -71,7 +71,7 @@ class TradeTraversalFilters(UniversalBaseModel):
 
     max_depth: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The maximum depth of the traversal, from 1 to 4 inclusive. Default is 4. Reduce if query is timing out.
+    The maximum depth of the traversal, from 2 to 5 inclusive. Default is 5. Reduce if query is timing out.
     """
 
     limit: typing.Optional[int] = pydantic.Field(default=None)

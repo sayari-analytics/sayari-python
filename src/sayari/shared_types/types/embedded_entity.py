@@ -111,6 +111,7 @@ class EmbeddedEntity(UniversalBaseModel):
     user_related_entities_count: int
     user_record_count: int
     reference_id: typing.Optional[str] = None
+    logistics_entity: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
