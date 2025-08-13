@@ -2,7 +2,6 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .int_key_value import IntKeyValue
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -16,7 +15,6 @@ class BucketAgg(UniversalBaseModel):
     doc_count: int
     label: typing.Optional[str] = None
     comment: typing.Optional[str] = None
-    hs_code_sums: typing.Optional[IntKeyValue] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

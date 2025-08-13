@@ -8,6 +8,7 @@ from .business_purpose import BusinessPurpose
 from .upstream_info import UpstreamInfo
 from .source_field import SourceField
 from .address import Address
+from .match_profile_enum import MatchProfileEnum
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -27,7 +28,7 @@ class ProjectEntityMatchResponse(UniversalBaseModel):
     hs_codes: typing.List[str]
     created_at: str
     updated_at: typing.Optional[str] = None
-    resolution_profile: typing.Optional[str] = None
+    match_profile: typing.Optional[MatchProfileEnum] = None
     deleted_at: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

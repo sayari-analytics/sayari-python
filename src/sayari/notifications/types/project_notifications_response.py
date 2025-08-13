@@ -23,95 +23,139 @@ class ProjectNotificationsResponse(UniversalBaseModel):
     )
 
     ProjectNotificationsResponse(
-        offset=0,
-        limit=20,
         next=False,
         size=QualifiedCount(
-            count=3,
+            count=73,
             qualifier="eq",
         ),
         data=[
             ProjectNotificationData(
-                id="dlOL1cZzEkIEZcRUcrBZCQ",
-                entity_id="dlOL1cZzEkIEZcRUcrBZCQ",
-                resource_id="0eZQ43",
+                resource_id="olxQPZ",
+                entity_id="IoKwj2-82wwzZRlFA1htGQ",
                 notifications=[
+                    Notification(
+                        type="risk",
+                        field="exports_ilab_child_labor",
+                        values=["false"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="exports_ilab_forced_labor",
+                        values=["false"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
                     Notification(
                         type="risk",
                         field="forced_labor_xinjiang_origin_subtier",
+                        values=["3"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="psa_exports_ilab_child_labor",
                         values=["false"],
-                        date="2024-02-06T00:00:00.000Z",
-                    )
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="psa_exports_ilab_forced_labor",
+                        values=["false"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
                 ],
-                custom_fields={"properties": {"custom_name": "Victoria Beckham"}},
+                custom_fields={},
                 risk_notifications=ProjectNotificationRiskData(
-                    added=["forced_labor_xinjiang_origin_subtier"],
-                    removed=[],
-                    date="2024-02-06T00:00:00.000Z",
+                    added=[
+                        "exports_ilab_child_labor",
+                        "exports_ilab_forced_labor",
+                        "psa_exports_ilab_child_labor",
+                        "psa_exports_ilab_forced_labor",
+                    ],
+                    removed=["forced_labor_xinjiang_origin_subtier"],
+                    date="2025-06-04T00:00:00.000Z",
                 ),
             ),
             ProjectNotificationData(
-                id="wxwqZshCF4trlrmOa2eu9w",
-                entity_id="wxwqZshCF4trlrmOa2eu9w",
-                resource_id="03ePyj",
+                resource_id="Kx1w34",
+                entity_id="3oKp0fp1UE-W8BG5crAFIw",
                 notifications=[
                     Notification(
                         type="risk",
-                        field="forced_labor_sheffield_hallam_university_reports_origin_subtier",
-                        values=["3"],
-                        date="2024-02-15T00:00:00.000Z",
-                    )
+                        field="exports_ilab_child_labor",
+                        values=["true"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="exports_ilab_forced_labor",
+                        values=["true"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="psa_exports_ilab_child_labor",
+                        values=["true"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
+                    Notification(
+                        type="risk",
+                        field="psa_exports_ilab_forced_labor",
+                        values=["true"],
+                        date="2025-06-04T00:00:00.000Z",
+                    ),
                 ],
+                custom_fields={},
                 risk_notifications=ProjectNotificationRiskData(
                     added=[],
                     removed=[
-                        "forced_labor_sheffield_hallam_university_reports_origin_subtier"
+                        "exports_ilab_child_labor",
+                        "exports_ilab_forced_labor",
+                        "psa_exports_ilab_child_labor",
+                        "psa_exports_ilab_forced_labor",
                     ],
-                    date="2024-02-15T00:00:00.000Z",
+                    date="2025-06-04T00:00:00.000Z",
                 ),
             ),
             ProjectNotificationData(
-                id="dX9cfM3FPefIp8VAuBKgIQ",
-                entity_id="dX9cfM3FPefIp8VAuBKgIQ",
-                resource_id="0XEQaX",
+                resource_id="BOMrB9",
+                entity_id="PF0ehzmptuJ2VJr2J5u0nw",
                 notifications=[
                     Notification(
                         type="risk",
-                        field="owner_of_regulatory_action_entity",
-                        values=["1"],
-                        date="2024-02-06T00:00:00.000Z",
+                        field="export_controls_adjacent",
+                        values=["true"],
+                        date="2025-06-14T00:00:00.000Z",
                     ),
                     Notification(
                         type="risk",
-                        field="forced_labor_sheffield_hallam_university_reports_origin_direct",
-                        values=["1"],
-                        date="2024-02-15T00:00:00.000Z",
-                    ),
-                    Notification(
-                        type="risk",
-                        field="forced_labor_sheffield_hallam_university_reports_origin_subtier",
-                        values=["false"],
-                        date="2024-02-15T00:00:00.000Z",
+                        field="exports_bis_high_priority_items_critical_components_indirect",
+                        values=["3"],
+                        date="2025-06-14T00:00:00.000Z",
                     ),
                 ],
-                custom_fields={"properties": {"custom_identifier": "abc123"}},
+                custom_fields={},
                 risk_notifications=ProjectNotificationRiskData(
                     added=[
-                        "forced_labor_sheffield_hallam_university_reports_origin_subtier"
+                        "exports_ilab_child_labor",
+                        "exports_ilab_forced_labor",
+                        "psa_exports_ilab_child_labor",
+                        "psa_exports_ilab_forced_labor",
                     ],
                     removed=[
-                        "owner_of_regulatory_action_entity",
-                        "forced_labor_sheffield_hallam_university_reports_origin_direct",
+                        "export_controls_adjacent",
+                        "exports_bis_high_priority_items_critical_components_indirect",
+                        "psa_exports_bis_high_priority_items_critical_components_indirect",
+                        "psa_forced_labor_uflpa_origin_subtier",
+                        "psa_regulatory_action",
                     ],
-                    date="2024-02-15T00:00:00.000Z",
+                    date="2025-06-04T00:00:00.000Z",
                 ),
             ),
         ],
     )
     """
 
-    offset: int
-    limit: int
     next: bool
     data: typing.List[ProjectNotificationData]
     size: QualifiedCount

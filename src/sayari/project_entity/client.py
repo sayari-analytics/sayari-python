@@ -1014,6 +1014,8 @@ class ProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -1025,8 +1027,6 @@ class ProjectEntityClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -1045,6 +1045,12 @@ class ProjectEntityClient:
 
         project_entity_id : str
             The project entity Identifier
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -1078,12 +1084,6 @@ class ProjectEntityClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -1130,6 +1130,8 @@ class ProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -1141,8 +1143,6 @@ class ProjectEntityClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -1231,12 +1231,12 @@ class ProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk_factors: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -1256,6 +1256,12 @@ class ProjectEntityClient:
         project_entity_id : str
             The project entity Identifier
 
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
         risk_factors : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
@@ -1267,12 +1273,6 @@ class ProjectEntityClient:
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -1325,12 +1325,12 @@ class ProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream_summary",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk_factors": risk_factors,
                 "-risk_factors": not_risk,
                 "countries": countries,
                 "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -2445,6 +2445,8 @@ class AsyncProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -2456,8 +2458,6 @@ class AsyncProjectEntityClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -2476,6 +2476,12 @@ class AsyncProjectEntityClient:
 
         project_entity_id : str
             The project entity Identifier
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -2509,12 +2515,6 @@ class AsyncProjectEntityClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -2569,6 +2569,8 @@ class AsyncProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -2580,8 +2582,6 @@ class AsyncProjectEntityClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -2670,12 +2670,12 @@ class AsyncProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk_factors: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -2695,6 +2695,12 @@ class AsyncProjectEntityClient:
         project_entity_id : str
             The project entity Identifier
 
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
         risk_factors : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
@@ -2706,12 +2712,6 @@ class AsyncProjectEntityClient:
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -2772,12 +2772,12 @@ class AsyncProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream_summary",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk_factors": risk_factors,
                 "-risk_factors": not_risk,
                 "countries": countries,
                 "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
