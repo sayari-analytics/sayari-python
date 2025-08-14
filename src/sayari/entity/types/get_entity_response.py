@@ -171,6 +171,7 @@ class GetEntityResponse(EntityDetails):
             "address": 7,
         },
         reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000:4a34442eccf1622995130b194a5d50e7",
+        logistics_entity=False,
         attributes=AttributeDetails(
             additional_information=AdditionalInformationInfo(
                 limit=1,
@@ -433,6 +434,7 @@ class GetEntityResponse(EntityDetails):
                             "address": 3,
                         },
                         reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/11043864/1540252800000:40ec7b0310d308ebf9006148b53a2802",
+                        logistics_entity=False,
                     ),
                     types={
                         "has_shareholder": [
@@ -564,6 +566,7 @@ class GetEntityResponse(EntityDetails):
                             "address": 3,
                         },
                         reference_id="b4d06d4b77f51fab3c77c9653aabdda4/a80e7f4c-c219-437b-9941-32d89ea5885a/1560542045043:15d813b260619393762864f22d3c5b2d",
+                        logistics_entity=False,
                     ),
                     editable=False,
                     matches={},

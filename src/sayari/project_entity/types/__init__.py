@@ -4,13 +4,17 @@ from .address import Address
 from .attribute_type import AttributeType
 from .attribute_types_response import AttributeTypesResponse
 from .attribute_values import AttributeValues
+from .attributes_response import AttributesResponse
 from .business_purpose import BusinessPurpose
 from .case_status import CaseStatus
 from .count_type import CountType
 from .create_resolved_project_entity_request import CreateResolvedProjectEntityRequest
 from .facet_bucket import FacetBucket
 from .facets_response import FacetsResponse
+from .grouped_attribute import GroupedAttribute
+from .grouped_attribute_value import GroupedAttributeValue
 from .location import Location
+from .match_profile_enum import MatchProfileEnum
 from .match_result import MatchResult
 from .match_strength_enum import MatchStrengthEnum
 from .matched_attributes import MatchedAttributes
@@ -48,13 +52,17 @@ __all__ = [
     "AttributeType",
     "AttributeTypesResponse",
     "AttributeValues",
+    "AttributesResponse",
     "BusinessPurpose",
     "CaseStatus",
     "CountType",
     "CreateResolvedProjectEntityRequest",
     "FacetBucket",
     "FacetsResponse",
+    "GroupedAttribute",
+    "GroupedAttributeValue",
     "Location",
+    "MatchProfileEnum",
     "MatchResult",
     "MatchStrengthEnum",
     "MatchedAttributes",
