@@ -2,15 +2,13 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .int_key_value import IntKeyValue
+from .grouped_attribute import GroupedAttribute
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class HsCodeAggBucket(UniversalBaseModel):
-    key: str
-    doc_count: int
-    hs_code_sums: typing.Optional[IntKeyValue] = None
+class AttributesResponse(UniversalBaseModel):
+    data: typing.List[GroupedAttribute]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
