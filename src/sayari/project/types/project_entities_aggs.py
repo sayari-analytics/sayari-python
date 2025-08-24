@@ -4,7 +4,6 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 from .bucket_agg import BucketAgg
 from .tier_count_agg import TierCountAgg
-from .hs_code_agg import HsCodeAgg
 from .int_key_value import IntKeyValue
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -27,9 +26,9 @@ class ProjectEntitiesAggs(UniversalBaseModel):
     tag_ids: typing.Optional[typing.List[BucketAgg]] = None
     case_statuses: typing.Optional[typing.List[BucketAgg]] = None
     shipment_counts: typing.Optional[typing.List[BucketAgg]] = None
-    shipped_hs_codes: typing.Optional[HsCodeAgg] = None
-    received_hs_codes: typing.Optional[HsCodeAgg] = None
-    combined_hs_codes: typing.Optional[HsCodeAgg] = None
+    shipped_hs_codes: typing.Optional[typing.List[str]] = None
+    received_hs_codes: typing.Optional[typing.List[str]] = None
+    combined_hs_codes: typing.Optional[typing.List[str]] = None
     match_results: typing.Optional[typing.List[BucketAgg]] = None
     custom_fields: typing.Optional[typing.List[BucketAgg]] = None
     custom_fields_count: typing.Optional[IntKeyValue] = None

@@ -90,6 +90,7 @@ class TraversalResponse(UniversalBaseModel):
                     related_entities_count=1,
                     attribute_count={"name": 1, "address": 2, "country": 2},
                     reference_id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000:0ce01cbfaa586fcfb82164f0e5a010d5",
+                    logistics_entity=False,
                 ),
                 path=[
                     TraversalPath(
@@ -137,6 +138,7 @@ class TraversalResponse(UniversalBaseModel):
                             related_entities_count=1,
                             attribute_count={"name": 1, "address": 2, "country": 2},
                             reference_id="9139b58de1bdb0157a1a1e54e56df6d3/4781466/1649116800000:0ce01cbfaa586fcfb82164f0e5a010d5",
+                            logistics_entity=False,
                         ),
                         relationships={
                             "has_officer": TraversalRelationshipData(

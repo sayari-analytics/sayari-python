@@ -16,9 +16,9 @@ class SingleProjectEntityResponse(UniversalBaseModel):
         AttributeValues,
         BusinessPurpose,
         MatchedAttributes,
-        ProductMapping,
         ProjectEntityMatchResponse,
         ProjectEntityResponse,
+        ProjectRiskCategory,
         ProjectRiskFactor,
         SingleProjectEntityResponse,
         SourceField,
@@ -52,10 +52,89 @@ class SingleProjectEntityResponse(UniversalBaseModel):
                     values=["253400V1H6ART1UQ0N98"],
                 ),
             },
-            product_mapping=ProductMapping(
-                state="unmapped",
+            countries=[
+                "USA",
+                "CYP",
+                "ITA",
+                "CHN",
+                "RUS",
+                "UKR",
+                "IND",
+                "IRL",
+                "KAZ",
+                "DEU",
+            ],
+            risk_categories=[
+                ProjectRiskCategory(
+                    id="regulatory_action",
+                    label="Regulatory action",
+                    risk_factors=["regulatory_action"],
+                ),
+                ProjectRiskCategory(
+                    id="export_controls",
+                    label="Export controls",
+                    risk_factors=["meu_list_contractors", "export_controls"],
+                ),
+                ProjectRiskCategory(
+                    id="political_exposure",
+                    label="Political exposure",
+                    risk_factors=["soe_adjacent", "pep_adjacent"],
+                ),
+                ProjectRiskCategory(
+                    id="sanctions",
+                    label="Sanctions",
+                    risk_factors=["sanctioned", "formerly_sanctioned"],
+                ),
+                ProjectRiskCategory(
+                    id="adverse_media",
+                    label="Adverse media",
+                    risk_factors=["reputational_risk_other"],
+                ),
+            ],
+            risk_factors=[
+                ProjectRiskFactor(
+                    id="regulatory_action",
+                ),
+                ProjectRiskFactor(
+                    id="sanctioned",
+                ),
+                ProjectRiskFactor(
+                    id="meu_list_contractors",
+                ),
+                ProjectRiskFactor(
+                    id="reputational_risk_other",
+                ),
+                ProjectRiskFactor(
+                    id="pep_adjacent",
+                ),
+                ProjectRiskFactor(
+                    id="state_owned",
+                ),
+                ProjectRiskFactor(
+                    id="export_controls",
+                ),
+                ProjectRiskFactor(
+                    id="formerly_sanctioned",
+                ),
+                ProjectRiskFactor(
+                    id="basel_aml",
+                ),
+                ProjectRiskFactor(
+                    id="cpi_score",
+                ),
+            ],
+            upstream=UpstreamInfo(
+                risk_factors=[],
+                countries=[],
+                trade_counts=TradeCounts(
+                    shipper_of=56,
+                    receiver_of=2,
+                ),
+                has_upstream=False,
                 products=[],
             ),
+            tags=[],
+            case="not_assigned",
             matches=[
                 ProjectEntityMatchResponse(
                     match_id="52z4Wa:dy-rh2g0QtzUN_jC_e9S_A",
@@ -94,6 +173,36 @@ class SingleProjectEntityResponse(UniversalBaseModel):
                         "IRL",
                         "KAZ",
                         "DEU",
+                    ],
+                    risk_categories=[
+                        ProjectRiskCategory(
+                            id="regulatory_action",
+                            label="Regulatory action",
+                            risk_factors=["regulatory_action"],
+                        ),
+                        ProjectRiskCategory(
+                            id="export_controls",
+                            label="Export controls",
+                            risk_factors=[
+                                "meu_list_contractors",
+                                "export_controls",
+                            ],
+                        ),
+                        ProjectRiskCategory(
+                            id="political_exposure",
+                            label="Political exposure",
+                            risk_factors=["soe_adjacent", "pep_adjacent"],
+                        ),
+                        ProjectRiskCategory(
+                            id="sanctions",
+                            label="Sanctions",
+                            risk_factors=["sanctioned", "formerly_sanctioned"],
+                        ),
+                        ProjectRiskCategory(
+                            id="adverse_media",
+                            label="Adverse media",
+                            risk_factors=["reputational_risk_other"],
+                        ),
                     ],
                     risk_factors=[
                         ProjectRiskFactor(
@@ -369,8 +478,6 @@ class SingleProjectEntityResponse(UniversalBaseModel):
                     updated_at="2025-04-22 22:54:00.913586+00",
                 )
             ],
-            tags=[],
-            case="not_assigned",
         ),
     )
     """

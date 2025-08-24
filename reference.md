@@ -2647,6 +2647,463 @@ client.ontology.get_source_types(
 </dl>
 </details>
 
+## ProjectEntityAttributes
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">update_project_entity_attribute</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a specific attribute for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity_attributes import UpdateProjectEntityAttributeRequest
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.update_project_entity_attribute(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+    attribute_id="xG8wYP",
+    request=UpdateProjectEntityAttributeRequest(
+        field="name",
+        value="updated name",
+        match_resolution=True,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attribute_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateProjectEntityAttributeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ProjectEntitySupplyChainSnapshots
+<details><summary><code>client.project_entity_supply_chain_snapshots.<a href="src/sayari/project_entity_supply_chain_snapshots/client.py">get_project_entity_supply_chain_snapshots</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all supply chain snapshots for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshots(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_supply_chain_snapshots.<a href="src/sayari/project_entity_supply_chain_snapshots/client.py">get_project_entity_supply_chain_snapshot_by_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a specific supply chain snapshot by ID for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshot_by_id(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+    snapshot_id="sN4p2K",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**snapshot_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_supply_chain_snapshots.<a href="src/sayari/project_entity_supply_chain_snapshots/client.py">create_project_entity_supply_chain_snapshot</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new supply chain snapshot for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity_supply_chain_snapshots import (
+    CreateProjectEntitySupplyChainSnapshotRequest,
+)
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_supply_chain_snapshots.create_project_entity_supply_chain_snapshot(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+    request=CreateProjectEntitySupplyChainSnapshotRequest(
+        label="Q1 2024 Supply Chain Analysis",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateProjectEntitySupplyChainSnapshotRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_supply_chain_snapshots.<a href="src/sayari/project_entity_supply_chain_snapshots/client.py">delete_project_entity_supply_chain_snapshot_by_id</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a specific supply chain snapshot by ID for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_supply_chain_snapshots.delete_project_entity_supply_chain_snapshot_by_id(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    snapshot_id="snapshot_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**snapshot_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## ProjectEntity
 <details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">create_project_entity</a>(...)</code></summary>
 <dl>
@@ -2826,7 +3283,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**match_result:** `typing.Optional[typing.Sequence[MatchResult]]` — Filter by match result
+**match_count:** `typing.Optional[MatchCount]` — Filter by match count
     
 </dd>
 </dl>
@@ -2834,7 +3291,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**match_strength_v_1:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
+**match_strength:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
     
 </dd>
 </dl>
@@ -3066,7 +3523,7 @@ client.project_entity.get_project_entity(
 <dl>
 <dd>
 
-**match_result:** `typing.Optional[typing.Sequence[MatchResult]]` — Filter by match result
+**match_count:** `typing.Optional[MatchCount]` — Filter by match count
     
 </dd>
 </dl>
@@ -3074,7 +3531,7 @@ client.project_entity.get_project_entity(
 <dl>
 <dd>
 
-**match_strength_v_1:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
+**match_strength:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
     
 </dd>
 </dl>
@@ -3530,6 +3987,22 @@ client.project_entity.project_entity_supply_chain(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -3611,22 +4084,6 @@ client.project_entity.project_entity_supply_chain(
 <dd>
 
 **tier_5_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
     
 </dd>
 </dl>
@@ -3771,6 +4228,22 @@ client.project_entity.project_entity_supply_chain_summary(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk_factors:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -3796,22 +4269,6 @@ client.project_entity.project_entity_supply_chain_summary(
 <dd>
 
 **not_countries:** `typing.Optional[typing.Sequence[Country]]` — Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
     
 </dd>
 </dl>
@@ -4031,197 +4488,6 @@ client.project.get_projects(
 <dd>
 
 **archived:** `typing.Optional[bool]` — Toggle between projects that have been archived (true) or not (false). Defaults to false.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.project.<a href="src/sayari/project/client.py">get_project_entities</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated.</Warning> Retrieve a list of entities in a project.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.project.get_project_entities(
-    id="gPq6EY",
-    accept="application/json",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The project identifier.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**accept:** `GetProjectEntitiesAcceptHeader` — The response format. Defaults to application/json.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**next:** `typing.Optional[str]` — The pagination token for the next page of entities.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**prev:** `typing.Optional[str]` — The pagination token for the previous page of entities.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Limit total entities returned. Defaults to 1,000. Max 10,000.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_types:** `typing.Optional[typing.Union[Entities, typing.Sequence[Entities]]]` — Only return entities of the specified [entity type(s)](/sayari-library/ontology/entities). Defaults to all types.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**geo_facets:** `typing.Optional[bool]` — Whether to include geo facets in the response. Defaults to false.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities with the specified HS code(s) in their supply chain.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**received_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that received the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipped_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that shipped the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**combined_hs_codes:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return entities that have shipped or received the specified HS code(s).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**translation:** `typing.Optional[str]` — The language code to translate the entity labels to. Defaults to the user's preferred language.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sort:** `typing.Optional[SortField]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**filters:** `typing.Optional[
-    typing.Union[ProjectEntitiesFilter, typing.Sequence[ProjectEntitiesFilter]]
-]` — Filter for entities in a project. The format is `field=value`, where the equal sign is encoded as `%3D`. Supported fields are as follows
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**aggregations:** `typing.Optional[
-    typing.Union[
-        ProjectEntitiesAggsDefinition,
-        typing.Sequence[ProjectEntitiesAggsDefinition],
-    ]
-]` — Aggregations that should be returned for entities in the project.
     
 </dd>
 </dl>
@@ -5738,6 +6004,22 @@ client.supply_chain.upstream_trade_traversal(
 <dl>
 <dd>
 
+**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **risk:** `typing.Optional[typing.Sequence[Risk]]` — Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
     
 </dd>
@@ -5819,22 +6101,6 @@ client.supply_chain.upstream_trade_traversal(
 <dd>
 
 **tier_5_shipment_country:** `typing.Optional[typing.Sequence[Country]]` — Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**not_product:** `typing.Optional[typing.Sequence[str]]` — Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
     
 </dd>
 </dl>

@@ -2,10 +2,9 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.create_project_request import CreateProjectRequest
 from ..core.request_options import RequestOptions
-from .types.create_project_response import CreateProjectResponse
-from ..core.serialization import convert_and_respect_annotation_metadata
+from .types.project_entity_supply_chain_snapshots_response import ProjectEntitySupplyChainSnapshotsResponse
+from ..core.jsonable_encoder import jsonable_encoder
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -21,56 +20,300 @@ from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from .types.get_projects_response import GetProjectsResponse
-from .types.delete_project_response import DeleteProjectResponse
-from ..core.jsonable_encoder import jsonable_encoder
+from .types.project_entity_supply_chain_snapshot_by_id_response import ProjectEntitySupplyChainSnapshotByIdResponse
+from .types.create_project_entity_supply_chain_snapshot_request import CreateProjectEntitySupplyChainSnapshotRequest
+from .types.create_project_entity_supply_chain_snapshot_response import CreateProjectEntitySupplyChainSnapshotResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
 
-class ProjectClient:
+class ProjectEntitySupplyChainSnapshotsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def create_project(
-        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateProjectResponse:
+    def get_project_entity_supply_chain_snapshots(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ProjectEntitySupplyChainSnapshotsResponse:
         """
-        Create a new project.
+        Retrieves all supply chain snapshots for a project entity.
 
         Parameters
         ----------
-        request : CreateProjectRequest
+        project_id : str
+
+        project_entity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateProjectResponse
+        ProjectEntitySupplyChainSnapshotsResponse
 
         Examples
         --------
         from sayari import Sayari
-        from sayari.project import CreateProjectRequest
 
         client = Sayari(
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.create_project(
-            request=CreateProjectRequest(
-                label="Project Alpha",
+        client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshots(
+            project_id="V03eYM",
+            project_entity_id="BG72YW",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntitySupplyChainSnapshotsResponse,
+                    parse_obj_as(
+                        type_=ProjectEntitySupplyChainSnapshotsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def get_project_entity_supply_chain_snapshot_by_id(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        snapshot_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ProjectEntitySupplyChainSnapshotByIdResponse:
+        """
+        Retrieves a specific supply chain snapshot by ID for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        snapshot_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntitySupplyChainSnapshotByIdResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshot_by_id(
+            project_id="V03eYM",
+            project_entity_id="BG72YW",
+            snapshot_id="sN4p2K",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots/{jsonable_encoder(snapshot_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntitySupplyChainSnapshotByIdResponse,
+                    parse_obj_as(
+                        type_=ProjectEntitySupplyChainSnapshotByIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_project_entity_supply_chain_snapshot(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        request: CreateProjectEntitySupplyChainSnapshotRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateProjectEntitySupplyChainSnapshotResponse:
+        """
+        Creates a new supply chain snapshot for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request : CreateProjectEntitySupplyChainSnapshotRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectEntitySupplyChainSnapshotResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+        from sayari.project_entity_supply_chain_snapshots import (
+            CreateProjectEntitySupplyChainSnapshotRequest,
+        )
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity_supply_chain_snapshots.create_project_entity_supply_chain_snapshot(
+            project_id="V03eYM",
+            project_entity_id="BG72YW",
+            request=CreateProjectEntitySupplyChainSnapshotRequest(
+                label="Q1 2024 Supply Chain Analysis",
             ),
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "v1/projects",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateProjectRequest, direction="write"
+                object_=request, annotation=CreateProjectEntitySupplyChainSnapshotRequest, direction="write"
             ),
             request_options=request_options,
             omit=OMIT,
@@ -78,9 +321,9 @@ class ProjectClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CreateProjectResponse,
+                    CreateProjectEntitySupplyChainSnapshotResponse,
                     parse_obj_as(
-                        type_=CreateProjectResponse,  # type: ignore
+                        type_=CreateProjectEntitySupplyChainSnapshotResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -149,153 +392,31 @@ class ProjectClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_projects(
+    def delete_project_entity_supply_chain_snapshot_by_id(
         self,
+        project_id: str,
+        project_entity_id: str,
+        snapshot_id: str,
         *,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        archived: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectsResponse:
+    ) -> None:
         """
-        Retrieve a list of projects including upload progress info.
-
-        Parameters
-        ----------
-        next : typing.Optional[str]
-            The pagination token for the next page of projects.
-
-        prev : typing.Optional[str]
-            The pagination token for the previous page of projects.
-
-        limit : typing.Optional[int]
-            Limit total values returned for projects. Defaults to 100. Max 100.
-
-        archived : typing.Optional[bool]
-            Toggle between projects that have been archived (true) or not (false). Defaults to false.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetProjectsResponse
-
-        Examples
-        --------
-        from sayari import Sayari
-
-        client = Sayari(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-        client.project.get_projects(
-            archived=False,
-            limit=8,
-        )
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "v1/projects",
-            method="GET",
-            params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
-                "archived": archived,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetProjectsResponse,
-                    parse_obj_as(
-                        type_=GetProjectsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequest(
-                    typing.cast(
-                        BadRequestResponse,
-                        parse_obj_as(
-                            type_=BadRequestResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise Unauthorized(
-                    typing.cast(
-                        UnauthorizedResponse,
-                        parse_obj_as(
-                            type_=UnauthorizedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 404:
-                raise NotFound(
-                    typing.cast(
-                        NotFoundResponse,
-                        parse_obj_as(
-                            type_=NotFoundResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 405:
-                raise MethodNotAllowed(
-                    typing.cast(
-                        MethodNotAllowedResponse,
-                        parse_obj_as(
-                            type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 429:
-                raise RateLimitExceeded(
-                    typing.cast(
-                        RateLimitResponse,
-                        parse_obj_as(
-                            type_=RateLimitResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        InternalServerErrorResponse,
-                        parse_obj_as(
-                            type_=InternalServerErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    def delete_project(
-        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteProjectResponse:
-        """
-        Deletes an existing project.
+        Deletes a specific supply chain snapshot by ID for a project entity.
 
         Parameters
         ----------
         project_id : str
 
+        project_entity_id : str
+
+        snapshot_id : str
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteProjectResponse
+        None
 
         Examples
         --------
@@ -305,24 +426,20 @@ class ProjectClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.project.delete_project(
-            project_id="Gam5qG",
+        client.project_entity_supply_chain_snapshots.delete_project_entity_supply_chain_snapshot_by_id(
+            project_id="project_id",
+            project_entity_id="project_entity_id",
+            snapshot_id="snapshot_id",
         )
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots/{jsonable_encoder(snapshot_id)}",
             method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    DeleteProjectResponse,
-                    parse_obj_as(
-                        type_=DeleteProjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(
@@ -389,33 +506,34 @@ class ProjectClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncProjectClient:
+class AsyncProjectEntitySupplyChainSnapshotsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def create_project(
-        self, *, request: CreateProjectRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateProjectResponse:
+    async def get_project_entity_supply_chain_snapshots(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ProjectEntitySupplyChainSnapshotsResponse:
         """
-        Create a new project.
+        Retrieves all supply chain snapshots for a project entity.
 
         Parameters
         ----------
-        request : CreateProjectRequest
+        project_id : str
+
+        project_entity_id : str
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        CreateProjectResponse
+        ProjectEntitySupplyChainSnapshotsResponse
 
         Examples
         --------
         import asyncio
 
         from sayari import AsyncSayari
-        from sayari.project import CreateProjectRequest
 
         client = AsyncSayari(
             client_id="YOUR_CLIENT_ID",
@@ -424,9 +542,267 @@ class AsyncProjectClient:
 
 
         async def main() -> None:
-            await client.project.create_project(
-                request=CreateProjectRequest(
-                    label="Project Alpha",
+            await client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshots(
+                project_id="V03eYM",
+                project_entity_id="BG72YW",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntitySupplyChainSnapshotsResponse,
+                    parse_obj_as(
+                        type_=ProjectEntitySupplyChainSnapshotsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_project_entity_supply_chain_snapshot_by_id(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        snapshot_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ProjectEntitySupplyChainSnapshotByIdResponse:
+        """
+        Retrieves a specific supply chain snapshot by ID for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        snapshot_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntitySupplyChainSnapshotByIdResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity_supply_chain_snapshots.get_project_entity_supply_chain_snapshot_by_id(
+                project_id="V03eYM",
+                project_entity_id="BG72YW",
+                snapshot_id="sN4p2K",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots/{jsonable_encoder(snapshot_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntitySupplyChainSnapshotByIdResponse,
+                    parse_obj_as(
+                        type_=ProjectEntitySupplyChainSnapshotByIdResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_project_entity_supply_chain_snapshot(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        request: CreateProjectEntitySupplyChainSnapshotRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateProjectEntitySupplyChainSnapshotResponse:
+        """
+        Creates a new supply chain snapshot for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request : CreateProjectEntitySupplyChainSnapshotRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectEntitySupplyChainSnapshotResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+        from sayari.project_entity_supply_chain_snapshots import (
+            CreateProjectEntitySupplyChainSnapshotRequest,
+        )
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity_supply_chain_snapshots.create_project_entity_supply_chain_snapshot(
+                project_id="V03eYM",
+                project_entity_id="BG72YW",
+                request=CreateProjectEntitySupplyChainSnapshotRequest(
+                    label="Q1 2024 Supply Chain Analysis",
                 ),
             )
 
@@ -434,10 +810,10 @@ class AsyncProjectClient:
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "v1/projects",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots",
             method="POST",
             json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateProjectRequest, direction="write"
+                object_=request, annotation=CreateProjectEntitySupplyChainSnapshotRequest, direction="write"
             ),
             request_options=request_options,
             omit=OMIT,
@@ -445,9 +821,9 @@ class AsyncProjectClient:
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    CreateProjectResponse,
+                    CreateProjectEntitySupplyChainSnapshotResponse,
                     parse_obj_as(
-                        type_=CreateProjectResponse,  # type: ignore
+                        type_=CreateProjectEntitySupplyChainSnapshotResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -516,161 +892,31 @@ class AsyncProjectClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_projects(
+    async def delete_project_entity_supply_chain_snapshot_by_id(
         self,
+        project_id: str,
+        project_entity_id: str,
+        snapshot_id: str,
         *,
-        next: typing.Optional[str] = None,
-        prev: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        archived: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetProjectsResponse:
+    ) -> None:
         """
-        Retrieve a list of projects including upload progress info.
-
-        Parameters
-        ----------
-        next : typing.Optional[str]
-            The pagination token for the next page of projects.
-
-        prev : typing.Optional[str]
-            The pagination token for the previous page of projects.
-
-        limit : typing.Optional[int]
-            Limit total values returned for projects. Defaults to 100. Max 100.
-
-        archived : typing.Optional[bool]
-            Toggle between projects that have been archived (true) or not (false). Defaults to false.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        GetProjectsResponse
-
-        Examples
-        --------
-        import asyncio
-
-        from sayari import AsyncSayari
-
-        client = AsyncSayari(
-            client_id="YOUR_CLIENT_ID",
-            client_secret="YOUR_CLIENT_SECRET",
-        )
-
-
-        async def main() -> None:
-            await client.project.get_projects(
-                archived=False,
-                limit=8,
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "v1/projects",
-            method="GET",
-            params={
-                "next": next,
-                "prev": prev,
-                "limit": limit,
-                "archived": archived,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    GetProjectsResponse,
-                    parse_obj_as(
-                        type_=GetProjectsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-            if _response.status_code == 400:
-                raise BadRequest(
-                    typing.cast(
-                        BadRequestResponse,
-                        parse_obj_as(
-                            type_=BadRequestResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 401:
-                raise Unauthorized(
-                    typing.cast(
-                        UnauthorizedResponse,
-                        parse_obj_as(
-                            type_=UnauthorizedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 404:
-                raise NotFound(
-                    typing.cast(
-                        NotFoundResponse,
-                        parse_obj_as(
-                            type_=NotFoundResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 405:
-                raise MethodNotAllowed(
-                    typing.cast(
-                        MethodNotAllowedResponse,
-                        parse_obj_as(
-                            type_=MethodNotAllowedResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 429:
-                raise RateLimitExceeded(
-                    typing.cast(
-                        RateLimitResponse,
-                        parse_obj_as(
-                            type_=RateLimitResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    typing.cast(
-                        InternalServerErrorResponse,
-                        parse_obj_as(
-                            type_=InternalServerErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    )
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def delete_project(
-        self, project_id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DeleteProjectResponse:
-        """
-        Deletes an existing project.
+        Deletes a specific supply chain snapshot by ID for a project entity.
 
         Parameters
         ----------
         project_id : str
 
+        project_entity_id : str
+
+        snapshot_id : str
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        DeleteProjectResponse
+        None
 
         Examples
         --------
@@ -685,27 +931,23 @@ class AsyncProjectClient:
 
 
         async def main() -> None:
-            await client.project.delete_project(
-                project_id="Gam5qG",
+            await client.project_entity_supply_chain_snapshots.delete_project_entity_supply_chain_snapshot_by_id(
+                project_id="project_id",
+                project_entity_id="project_entity_id",
+                snapshot_id="snapshot_id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"v1/projects/{jsonable_encoder(project_id)}",
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/snapshots/{jsonable_encoder(snapshot_id)}",
             method="DELETE",
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                return typing.cast(
-                    DeleteProjectResponse,
-                    parse_obj_as(
-                        type_=DeleteProjectResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(
