@@ -6,15 +6,13 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class BucketAgg(UniversalBaseModel):
-    """
-    Aggregation buckets for entities in a project.
-    """
-
-    key: str
-    doc_count: int
-    label: typing.Optional[str] = None
-    comment: typing.Optional[str] = None
+class SupplyChainNode(UniversalBaseModel):
+    id: str
+    entity_id: str
+    label: str
+    type: str
+    risk_factors: typing.List[str]
+    countries: typing.List[str]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

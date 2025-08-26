@@ -21,6 +21,11 @@ class FilterList(UniversalBaseModel):
     List of source IDs to filter by.
     """
 
+    source_country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
+    """
+    List of source countries to filter by. Must be specified as trigrams, e.g. ATF.
+    """
+
     country: typing.Optional[typing.List[Country]] = pydantic.Field(default=None)
     """
     List of countries to filter by.

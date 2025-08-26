@@ -8,9 +8,6 @@ from .doc_count import DocCount
 from .get_project_entities_accept_header import GetProjectEntitiesAcceptHeader
 from .get_project_entities_response import GetProjectEntitiesResponse
 from .get_projects_response import GetProjectsResponse
-from .hs_code_agg import HsCodeAgg
-from .hs_code_agg_bucket import HsCodeAggBucket
-from .hs_code_agg_terms import HsCodeAggTerms
 from .int_key_value import IntKeyValue
 from .project import Project
 from .project_counts import ProjectCounts
@@ -41,9 +38,6 @@ __all__ = [
     "GetProjectEntitiesAcceptHeader",
     "GetProjectEntitiesResponse",
     "GetProjectsResponse",
-    "HsCodeAgg",
-    "HsCodeAggBucket",
-    "HsCodeAggTerms",
     "IntKeyValue",
     "Project",
     "ProjectCounts",

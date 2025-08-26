@@ -106,6 +106,7 @@ class ShortestPathResponse(UniversalBaseModel):
                         "address": 5,
                     },
                     reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/03389614/1540252800000:9030330caf25555c42c0bc0d84ea4aa1",
+                    logistics_entity=False,
                 ),
                 path=[
                     TraversalPath(
@@ -143,6 +144,7 @@ class ShortestPathResponse(UniversalBaseModel):
                             related_entities_count=179,
                             attribute_count={"country": 1, "address": 5, "name": 1},
                             reference_id="ac1fa195f9cd4ccf657bca3c6db0bb19/76232419/1717632000000:6d0f0edbd065319df4be58c3bc7909f5",
+                            logistics_entity=False,
                         ),
                         relationships={
                             "has_lawyer": TraversalRelationshipData(
