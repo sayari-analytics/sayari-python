@@ -13,6 +13,8 @@ from .metadata.client import MetadataClient
 from .negative_news.client import NegativeNewsClient
 from .notifications.client import NotificationsClient
 from .ontology.client import OntologyClient
+from .project_entity_attributes.client import ProjectEntityAttributesClient
+from .project_entity_supply_chain_snapshots.client import ProjectEntitySupplyChainSnapshotsClient
 from .project_entity.client import ProjectEntityClient
 from .project.client import ProjectClient
 from .record.client import RecordClient
@@ -32,6 +34,8 @@ from .metadata.client import AsyncMetadataClient
 from .negative_news.client import AsyncNegativeNewsClient
 from .notifications.client import AsyncNotificationsClient
 from .ontology.client import AsyncOntologyClient
+from .project_entity_attributes.client import AsyncProjectEntityAttributesClient
+from .project_entity_supply_chain_snapshots.client import AsyncProjectEntitySupplyChainSnapshotsClient
 from .project_entity.client import AsyncProjectEntityClient
 from .project.client import AsyncProjectClient
 from .record.client import AsyncRecordClient
@@ -126,6 +130,10 @@ class BaseClient:
         self.negative_news = NegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = NotificationsClient(client_wrapper=self._client_wrapper)
         self.ontology = OntologyClient(client_wrapper=self._client_wrapper)
+        self.project_entity_attributes = ProjectEntityAttributesClient(client_wrapper=self._client_wrapper)
+        self.project_entity_supply_chain_snapshots = ProjectEntitySupplyChainSnapshotsClient(
+            client_wrapper=self._client_wrapper
+        )
         self.project_entity = ProjectEntityClient(client_wrapper=self._client_wrapper)
         self.project = ProjectClient(client_wrapper=self._client_wrapper)
         self.record = RecordClient(client_wrapper=self._client_wrapper)
@@ -220,6 +228,10 @@ class AsyncBaseClient:
         self.negative_news = AsyncNegativeNewsClient(client_wrapper=self._client_wrapper)
         self.notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
         self.ontology = AsyncOntologyClient(client_wrapper=self._client_wrapper)
+        self.project_entity_attributes = AsyncProjectEntityAttributesClient(client_wrapper=self._client_wrapper)
+        self.project_entity_supply_chain_snapshots = AsyncProjectEntitySupplyChainSnapshotsClient(
+            client_wrapper=self._client_wrapper
+        )
         self.project_entity = AsyncProjectEntityClient(client_wrapper=self._client_wrapper)
         self.project = AsyncProjectClient(client_wrapper=self._client_wrapper)
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
