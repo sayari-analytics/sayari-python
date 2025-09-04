@@ -22,7 +22,7 @@ class OntologySource(UniversalBaseModel):
     source_type: str
     record_type: str
     structure: str
-    source_url: typing.Optional[str] = None
+    source_url: str
     pep: bool
     watchlist: bool
 
