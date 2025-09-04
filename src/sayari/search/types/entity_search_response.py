@@ -155,6 +155,7 @@ class EntitySearchResponse(PaginatedResponse):
                     "address": 6,
                 },
                 reference_id="ecdfb3f2ecc8c3797e77d5795a8066ef/06517802/1540252800000:4a34442eccf1622995130b194a5d50e7",
+                logistics_entity=False,
                 coordinates=[
                     Coordinates(
                         lat=51.49322001798694,

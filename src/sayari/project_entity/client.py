@@ -23,7 +23,7 @@ from ..shared_errors.types.internal_server_error_response import InternalServerE
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from .types.case_status import CaseStatus
-from .types.match_result import MatchResult
+from .types.match_count import MatchCount
 from .types.match_strength_enum import MatchStrengthEnum
 from ..generated_types.types.risk import Risk
 from ..generated_types.types.risk_category import RiskCategory
@@ -178,8 +178,8 @@ class ProjectEntityClient:
         uploads: typing.Optional[typing.Sequence[str]] = None,
         case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
         tags: typing.Optional[typing.Sequence[str]] = None,
-        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
-        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        match_count: typing.Optional[MatchCount] = None,
+        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
         entity_types: typing.Optional[typing.Sequence[str]] = None,
         geo_facets: typing.Optional[bool] = None,
         exact_match: typing.Optional[bool] = None,
@@ -215,10 +215,10 @@ class ProjectEntityClient:
         tags : typing.Optional[typing.Sequence[str]]
             Filter by tag IDs
 
-        match_result : typing.Optional[typing.Sequence[MatchResult]]
-            Filter by match result
+        match_count : typing.Optional[MatchCount]
+            Filter by match count
 
-        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
             Filter by match strength
 
         entity_types : typing.Optional[typing.Sequence[str]]
@@ -290,8 +290,8 @@ class ProjectEntityClient:
                 "uploads": uploads,
                 "case_status": case_status,
                 "tags": tags,
-                "match_result": match_result,
-                "match_strength_v1": match_strength_v_1,
+                "match_count": match_count,
+                "match_strength": match_strength,
                 "entity_types": entity_types,
                 "geo_facets": geo_facets,
                 "exact_match": exact_match,
@@ -392,8 +392,8 @@ class ProjectEntityClient:
         uploads: typing.Optional[typing.Sequence[str]] = None,
         case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
         tags: typing.Optional[typing.Sequence[str]] = None,
-        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
-        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        match_count: typing.Optional[MatchCount] = None,
+        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
         entity_types: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
@@ -420,10 +420,10 @@ class ProjectEntityClient:
         tags : typing.Optional[typing.Sequence[str]]
             Filter by tag IDs
 
-        match_result : typing.Optional[typing.Sequence[MatchResult]]
-            Filter by match result
+        match_count : typing.Optional[MatchCount]
+            Filter by match count
 
-        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
             Filter by match strength
 
         entity_types : typing.Optional[typing.Sequence[str]]
@@ -463,8 +463,8 @@ class ProjectEntityClient:
                 "uploads": uploads,
                 "case_status": case_status,
                 "tags": tags,
-                "match_result": match_result,
-                "match_strength_v1": match_strength_v_1,
+                "match_count": match_count,
+                "match_strength": match_strength,
                 "entity_types": entity_types,
                 "risk": risk,
                 "risk_category": risk_category,
@@ -1014,6 +1014,8 @@ class ProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -1025,8 +1027,6 @@ class ProjectEntityClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -1045,6 +1045,12 @@ class ProjectEntityClient:
 
         project_entity_id : str
             The project entity Identifier
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -1078,12 +1084,6 @@ class ProjectEntityClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -1119,17 +1119,18 @@ class ProjectEntityClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.project_entity.project_entity_supply_chain(
-            project_id="Gam5qG",
-            project_entity_id="GOeOE8",
-            min_date="2023-03-15",
-            product=["3204"],
-            risk=["forced_labor_xinjiang_origin_subtier"],
+            project_id="0n4473",
+            project_entity_id="yebNPJ",
+            product=["6004"],
+            limit=1,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -1141,8 +1142,6 @@ class ProjectEntityClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -1231,12 +1230,12 @@ class ProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk_factors: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -1256,6 +1255,12 @@ class ProjectEntityClient:
         project_entity_id : str
             The project entity Identifier
 
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
         risk_factors : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
@@ -1267,12 +1272,6 @@ class ProjectEntityClient:
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -1308,29 +1307,21 @@ class ProjectEntityClient:
             client_secret="YOUR_CLIENT_SECRET",
         )
         client.project_entity.project_entity_supply_chain_summary(
-            project_id="Gam5qG",
-            project_entity_id="GOeOE8",
-            min_date="2023-03-15",
-            product=["8536", "8544", "4016"],
-            risk_factors=[
-                "forced_labor_xinjiang_name",
-                "forced_labor_xinjiang_uflpa",
-                "forced_labor_uflpa_origin_direct",
-                "exports_russian_gold",
-                "export_to_sanctioned",
-            ],
+            project_id="0n4473",
+            project_entity_id="yebNPJ",
+            max_depth=4,
         )
         """
         _response = self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream_summary",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk_factors": risk_factors,
                 "-risk_factors": not_risk,
                 "countries": countries,
                 "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -1561,8 +1552,8 @@ class AsyncProjectEntityClient:
         uploads: typing.Optional[typing.Sequence[str]] = None,
         case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
         tags: typing.Optional[typing.Sequence[str]] = None,
-        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
-        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        match_count: typing.Optional[MatchCount] = None,
+        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
         entity_types: typing.Optional[typing.Sequence[str]] = None,
         geo_facets: typing.Optional[bool] = None,
         exact_match: typing.Optional[bool] = None,
@@ -1598,10 +1589,10 @@ class AsyncProjectEntityClient:
         tags : typing.Optional[typing.Sequence[str]]
             Filter by tag IDs
 
-        match_result : typing.Optional[typing.Sequence[MatchResult]]
-            Filter by match result
+        match_count : typing.Optional[MatchCount]
+            Filter by match count
 
-        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
             Filter by match strength
 
         entity_types : typing.Optional[typing.Sequence[str]]
@@ -1681,8 +1672,8 @@ class AsyncProjectEntityClient:
                 "uploads": uploads,
                 "case_status": case_status,
                 "tags": tags,
-                "match_result": match_result,
-                "match_strength_v1": match_strength_v_1,
+                "match_count": match_count,
+                "match_strength": match_strength,
                 "entity_types": entity_types,
                 "geo_facets": geo_facets,
                 "exact_match": exact_match,
@@ -1783,8 +1774,8 @@ class AsyncProjectEntityClient:
         uploads: typing.Optional[typing.Sequence[str]] = None,
         case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
         tags: typing.Optional[typing.Sequence[str]] = None,
-        match_result: typing.Optional[typing.Sequence[MatchResult]] = None,
-        match_strength_v_1: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
+        match_count: typing.Optional[MatchCount] = None,
+        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
         entity_types: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
@@ -1811,10 +1802,10 @@ class AsyncProjectEntityClient:
         tags : typing.Optional[typing.Sequence[str]]
             Filter by tag IDs
 
-        match_result : typing.Optional[typing.Sequence[MatchResult]]
-            Filter by match result
+        match_count : typing.Optional[MatchCount]
+            Filter by match count
 
-        match_strength_v_1 : typing.Optional[typing.Sequence[MatchStrengthEnum]]
+        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
             Filter by match strength
 
         entity_types : typing.Optional[typing.Sequence[str]]
@@ -1862,8 +1853,8 @@ class AsyncProjectEntityClient:
                 "uploads": uploads,
                 "case_status": case_status,
                 "tags": tags,
-                "match_result": match_result,
-                "match_strength_v1": match_strength_v_1,
+                "match_count": match_count,
+                "match_strength": match_strength,
                 "entity_types": entity_types,
                 "risk": risk,
                 "risk_category": risk_category,
@@ -2445,6 +2436,8 @@ class AsyncProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
@@ -2456,8 +2449,6 @@ class AsyncProjectEntityClient:
         tier_3_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_4_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
         tier_5_shipment_country: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -2476,6 +2467,12 @@ class AsyncProjectEntityClient:
 
         project_entity_id : str
             The project entity Identifier
+
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
 
         risk : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
@@ -2509,12 +2506,6 @@ class AsyncProjectEntityClient:
 
         tier_5_shipment_country : typing.Optional[typing.Sequence[Country]]
             Filters supply chain paths where 1+ shipment country from tier 5 matches the provided values.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -2555,11 +2546,10 @@ class AsyncProjectEntityClient:
 
         async def main() -> None:
             await client.project_entity.project_entity_supply_chain(
-                project_id="Gam5qG",
-                project_entity_id="GOeOE8",
-                min_date="2023-03-15",
-                product=["3204"],
-                risk=["forced_labor_xinjiang_origin_subtier"],
+                project_id="0n4473",
+                project_entity_id="yebNPJ",
+                product=["6004"],
+                limit=1,
             )
 
 
@@ -2569,6 +2559,8 @@ class AsyncProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk": risk,
                 "-risk": not_risk,
                 "countries": countries,
@@ -2580,8 +2572,6 @@ class AsyncProjectEntityClient:
                 "tier3_shipment_country": tier_3_shipment_country,
                 "tier4_shipment_country": tier_4_shipment_country,
                 "tier5_shipment_country": tier_5_shipment_country,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,
@@ -2670,12 +2660,12 @@ class AsyncProjectEntityClient:
         project_id: str,
         project_entity_id: str,
         *,
+        product: typing.Optional[typing.Sequence[str]] = None,
+        not_product: typing.Optional[typing.Sequence[str]] = None,
         risk_factors: typing.Optional[typing.Sequence[Risk]] = None,
         not_risk: typing.Optional[typing.Sequence[Risk]] = None,
         countries: typing.Optional[typing.Sequence[Country]] = None,
         not_countries: typing.Optional[typing.Sequence[Country]] = None,
-        product: typing.Optional[typing.Sequence[str]] = None,
-        not_product: typing.Optional[typing.Sequence[str]] = None,
         component: typing.Optional[typing.Sequence[str]] = None,
         not_component: typing.Optional[typing.Sequence[str]] = None,
         min_date: typing.Optional[str] = None,
@@ -2695,6 +2685,12 @@ class AsyncProjectEntityClient:
         project_entity_id : str
             The project entity Identifier
 
+        product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to include only trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
+        not_product : typing.Optional[typing.Sequence[str]]
+            Product root edge filter. Filters results to exclude any trade relationships where the associated component is part of the specified product's blueprint or is a sub-component of that product.
+
         risk_factors : typing.Optional[typing.Sequence[Risk]]
             Risk leaf node filter. Only return supply chains that end with a supplier that has 1+ of the specified risk factors.
 
@@ -2706,12 +2702,6 @@ class AsyncProjectEntityClient:
 
         not_countries : typing.Optional[typing.Sequence[Country]]
             Country leaf node filter. Only return supply chains that end with a supplier in none of the specified countries.
-
-        product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has 1+ of the specified HS codes.
-
-        not_product : typing.Optional[typing.Sequence[str]]
-            Product root edge filter. Only return supply chains that start with an edge that has none of the specified HS codes.
 
         component : typing.Optional[typing.Sequence[str]]
             Component edge filter. Only return supply chains that contain at least one edge with 1+ of the specified HS codes.
@@ -2752,17 +2742,9 @@ class AsyncProjectEntityClient:
 
         async def main() -> None:
             await client.project_entity.project_entity_supply_chain_summary(
-                project_id="Gam5qG",
-                project_entity_id="GOeOE8",
-                min_date="2023-03-15",
-                product=["8536", "8544", "4016"],
-                risk_factors=[
-                    "forced_labor_xinjiang_name",
-                    "forced_labor_xinjiang_uflpa",
-                    "forced_labor_uflpa_origin_direct",
-                    "exports_russian_gold",
-                    "export_to_sanctioned",
-                ],
+                project_id="0n4473",
+                project_entity_id="yebNPJ",
+                max_depth=4,
             )
 
 
@@ -2772,12 +2754,12 @@ class AsyncProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/supply_chain/upstream_summary",
             method="GET",
             params={
+                "product": product,
+                "-product": not_product,
                 "risk_factors": risk_factors,
                 "-risk_factors": not_risk,
                 "countries": countries,
                 "-countries": not_countries,
-                "product": product,
-                "-product": not_product,
                 "component": component,
                 "-component": not_component,
                 "min_date": min_date,

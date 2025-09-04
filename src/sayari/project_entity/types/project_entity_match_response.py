@@ -3,11 +3,13 @@
 from ...core.pydantic_utilities import UniversalBaseModel
 from .matched_attributes import MatchedAttributes
 import typing
+from .project_risk_category import ProjectRiskCategory
 from .project_risk_factor import ProjectRiskFactor
 from .business_purpose import BusinessPurpose
 from .upstream_info import UpstreamInfo
 from .source_field import SourceField
 from .address import Address
+from .match_profile_enum import MatchProfileEnum
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -19,6 +21,7 @@ class ProjectEntityMatchResponse(UniversalBaseModel):
     label: str
     matched_attributes: MatchedAttributes
     countries: typing.List[str]
+    risk_categories: typing.List[ProjectRiskCategory]
     risk_factors: typing.List[ProjectRiskFactor]
     business_purpose: typing.List[BusinessPurpose]
     upstream: UpstreamInfo
@@ -27,7 +30,7 @@ class ProjectEntityMatchResponse(UniversalBaseModel):
     hs_codes: typing.List[str]
     created_at: str
     updated_at: typing.Optional[str] = None
-    resolution_profile: typing.Optional[str] = None
+    match_profile: typing.Optional[MatchProfileEnum] = None
     deleted_at: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:

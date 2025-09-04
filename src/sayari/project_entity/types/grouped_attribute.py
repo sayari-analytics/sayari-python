@@ -2,19 +2,15 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
+from .grouped_attribute_value import GroupedAttributeValue
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class BucketAgg(UniversalBaseModel):
-    """
-    Aggregation buckets for entities in a project.
-    """
-
-    key: str
-    doc_count: int
-    label: typing.Optional[str] = None
-    comment: typing.Optional[str] = None
+class GroupedAttribute(UniversalBaseModel):
+    field: str
+    match_resolution: bool
+    values: typing.List[GroupedAttributeValue]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
