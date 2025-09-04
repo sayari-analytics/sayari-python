@@ -11,10 +11,13 @@ class CreateProjectRequest(UniversalBaseModel):
     """
     Examples
     --------
-    from sayari.project import CreateProjectRequest
+    from sayari.project import CreateProjectRequest, ProjectShareOnCreate
 
     CreateProjectRequest(
-        label="Project Alpha",
+        label="My First Project",
+        share=ProjectShareOnCreate(
+            org="admin",
+        ),
     )
     """
 

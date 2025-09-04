@@ -2,15 +2,22 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .hs_code_agg_bucket import HsCodeAggBucket
+from .supply_chain_node import SupplyChainNode
+from .supply_chain_edge import SupplyChainEdge
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class HsCodeAggTerms(UniversalBaseModel):
-    doc_count_error_upper_bound: int
-    sum_other_doc_count: int
-    buckets: typing.List[HsCodeAggBucket]
+class ProjectEntitySupplyChainSnapshotDetailData(UniversalBaseModel):
+    snapshot_id: str
+    label: str
+    release_tag: str
+    partial_results: bool
+    explored_count: int
+    created_at: str
+    updated_at: str
+    nodes: typing.List[SupplyChainNode]
+    edges: typing.List[SupplyChainEdge]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

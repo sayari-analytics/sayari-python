@@ -4,10 +4,12 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import typing
 from .match_strength_enum import MatchStrengthEnum
 from .attribute_values import AttributeValues
-from .product_mapping import ProductMapping
-from .project_entity_match_response import ProjectEntityMatchResponse
+from .project_risk_category import ProjectRiskCategory
+from .project_risk_factor import ProjectRiskFactor
+from .upstream_info import UpstreamInfo
 from .tag_response import TagResponse
 from .case_status import CaseStatus
+from .project_entity_match_response import ProjectEntityMatchResponse
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
@@ -20,10 +22,13 @@ class ProjectEntityResponse(UniversalBaseModel):
     strength: MatchStrengthEnum
     created_at: str
     attributes: typing.Dict[str, AttributeValues]
-    product_mapping: typing.Optional[ProductMapping] = None
-    matches: typing.List[ProjectEntityMatchResponse]
+    countries: typing.List[str]
+    risk_categories: typing.List[ProjectRiskCategory]
+    risk_factors: typing.List[ProjectRiskFactor]
+    upstream: UpstreamInfo
     tags: typing.List[TagResponse]
     case: typing.Optional[CaseStatus] = None
+    matches: typing.List[ProjectEntityMatchResponse]
     updated_at: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
