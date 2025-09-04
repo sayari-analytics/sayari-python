@@ -45,7 +45,7 @@ def test_sources(setup_connection):
     client = setup_connection
 
     # list sources
-    sources = client.source.list_sources()
+    sources = client.ontology.get_sources()
 
     # We should have 250 sources as of 12/19/2023
     assert len(sources.data) >= 250

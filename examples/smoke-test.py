@@ -8,11 +8,14 @@ def main():
     client = load_env_vars_and_authenticate()
 
     # List and fetch sources
-    sources = client.source.list_sources().data
+    sources = client.ontology.get_sources().data
     print(f"Found {len(sources)} sources")
 
-    first_source = client.source.get_source(sources[0].id)
+    # Get first two sources by ID (using multiple IDs works correctly)
+    filtered_sources = client.ontology.get_sources(id=[sources[0].id, sources[1].id])
+    first_source = filtered_sources.data[0]
     print(f"First source is: {first_source.label}")
+    print(f"Retrieved {len(filtered_sources.data)} sources via filtered API call")
 
     # Search for an entity
     search_term = "victoria beckham limited"
