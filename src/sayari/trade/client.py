@@ -47,7 +47,7 @@ class TradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -83,7 +83,7 @@ class TradeClient:
                 departure_country=["DEU"],
                 arrival_country=["RUS"],
                 hs_code=["854231"],
-                arrival_date=["2024-01 TO 2024-10"],
+                arrival_date="2024-01|2024-10",
             ),
         )
         """
@@ -184,7 +184,7 @@ class TradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -220,7 +220,7 @@ class TradeClient:
                 departure_country=["DEU"],
                 arrival_country=["RUS"],
                 hs_code=["854231"],
-                arrival_date=["2024-01 TO 2024-10"],
+                arrival_date="2024-01|2024-10",
             ),
         )
         """
@@ -321,7 +321,7 @@ class TradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -357,7 +357,7 @@ class TradeClient:
                 departure_country=["DEU"],
                 arrival_country=["RUS"],
                 hs_code=["854231"],
-                arrival_date=["2024-01 TO 2024-10"],
+                arrival_date="2024-01|2024-10",
             ),
         )
         """
@@ -463,7 +463,7 @@ class AsyncTradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -504,7 +504,7 @@ class AsyncTradeClient:
                     departure_country=["DEU"],
                     arrival_country=["RUS"],
                     hs_code=["854231"],
-                    arrival_date=["2024-01 TO 2024-10"],
+                    arrival_date="2024-01|2024-10",
                 ),
             )
 
@@ -608,7 +608,7 @@ class AsyncTradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -649,7 +649,7 @@ class AsyncTradeClient:
                     departure_country=["DEU"],
                     arrival_country=["RUS"],
                     hs_code=["854231"],
-                    arrival_date=["2024-01 TO 2024-10"],
+                    arrival_date="2024-01|2024-10",
                 ),
             )
 
@@ -753,7 +753,7 @@ class AsyncTradeClient:
         Parameters
         ----------
         limit : typing.Optional[int]
-            A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+            A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
@@ -794,7 +794,7 @@ class AsyncTradeClient:
                     departure_country=["DEU"],
                     arrival_country=["RUS"],
                     hs_code=["854231"],
-                    arrival_date=["2024-01 TO 2024-10"],
+                    arrival_date="2024-01|2024-10",
                 ),
             )
 

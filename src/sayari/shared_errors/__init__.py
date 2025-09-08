@@ -10,6 +10,7 @@ from .types import (
     NotFoundResponse,
     RateLimitResponse,
     UnauthorizedResponse,
+    UnprocessableContentResponse,
 )
 from .errors import (
     BadGateway,
@@ -21,6 +22,7 @@ from .errors import (
     NotFound,
     RateLimitExceeded,
     Unauthorized,
+    UnprocessableContent,
 )
 
 __all__ = [
@@ -42,4 +44,6 @@ __all__ = [
     "RateLimitResponse",
     "Unauthorized",
     "UnauthorizedResponse",
+    "UnprocessableContent",
+    "UnprocessableContentResponse",
 ]

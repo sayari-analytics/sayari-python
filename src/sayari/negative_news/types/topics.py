@@ -4,20 +4,17 @@ import typing
 
 Topics = typing.Union[
     typing.Literal[
-        "basic",
-        "environmental",
-        "social",
+        "overview",
+        "environmental_and_social",
         "cybersecurity",
         "disruption",
         "criminal",
         "reputational",
         "financial",
-        "regulatory",
+        "sanctions_and_regulatory",
         "legal",
-        "misconduct",
+        "political",
         "terrorism",
-        "sanctions",
-        "all",
     ],
     typing.Any,
 ]

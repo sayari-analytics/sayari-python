@@ -1180,7 +1180,7 @@ client.negative_news.negative_news(
 <dl>
 <dd>
 
-**until:** `typing.Optional[dt.date]` — Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published before this date will be included in results.
+**until:** `typing.Optional[dt.date]` — Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published after this date will be included in results.
     
 </dd>
 </dl>
@@ -2648,6 +2648,180 @@ client.ontology.get_source_types(
 </details>
 
 ## ProjectEntityAttributes
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">get_project_entity_attributes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all attributes for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.get_project_entity_attributes(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">create_project_entity_attribute</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new attribute for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity_attributes import CreateProjectEntityAttributeRequest
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.create_project_entity_attribute(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+    request=CreateProjectEntityAttributeRequest(
+        field="custom_phone",
+        value="+1-555-123-4567",
+        match_resolution=False,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateProjectEntityAttributeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">update_project_entity_attribute</a>(...)</code></summary>
 <dl>
 <dd>
@@ -2732,6 +2906,95 @@ client.project_entity_attributes.update_project_entity_attribute(
 <dd>
 
 **request:** `UpdateProjectEntityAttributeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">delete_project_entity_attribute</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a specific attribute for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.delete_project_entity_attribute(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    attribute_id="attribute_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attribute_id:** `str` 
     
 </dd>
 </dl>
@@ -5793,157 +6056,6 @@ client.search.search_record_get(
 </dl>
 </details>
 
-## Source
-<details><summary><code>client.source.<a href="src/sayari/source/client.py">list_sources</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for all sources that Sayari collects data from
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.source.list_sources(
-    limit=2,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.source.<a href="src/sayari/source/client.py">get_source</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for a source that Sayari collects data from
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.source.get_source(
-    id="f4396e4b8a41d1fd9f09ea94d2ebedb9",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier for a source in the database
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## SupplyChain
 <details><summary><code>client.supply_chain.<a href="src/sayari/supply_chain/client.py">upstream_trade_traversal</a>(...)</code></summary>
 <dl>
@@ -6212,7 +6324,7 @@ client.trade.search_shipments(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6230,7 +6342,7 @@ client.trade.search_shipments(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>
@@ -6322,7 +6434,7 @@ client.trade.search_suppliers(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6340,7 +6452,7 @@ client.trade.search_suppliers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>
@@ -6432,7 +6544,7 @@ client.trade.search_buyers(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6450,7 +6562,7 @@ client.trade.search_buyers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>

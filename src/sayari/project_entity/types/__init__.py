@@ -11,19 +11,20 @@ from .count_type import CountType
 from .create_resolved_project_entity_request import CreateResolvedProjectEntityRequest
 from .facet_bucket import FacetBucket
 from .facets_response import FacetsResponse
+from .field_match_quality import FieldMatchQuality
 from .grouped_attribute import GroupedAttribute
 from .grouped_attribute_value import GroupedAttributeValue
 from .location import Location
 from .match_count import MatchCount
 from .match_profile_enum import MatchProfileEnum
 from .match_strength_enum import MatchStrengthEnum
-from .matched_attributes import MatchedAttributes
 from .product_bucket import ProductBucket
 from .product_count import ProductCount
 from .product_mapping import ProductMapping
 from .project_entities_response import ProjectEntitiesResponse
 from .project_entity_exists_response_data import ProjectEntityExistsResponseData
 from .project_entity_id_response import ProjectEntityIdResponse
+from .project_entity_match_explanation import ProjectEntityMatchExplanation
 from .project_entity_match_response import ProjectEntityMatchResponse
 from .project_entity_response import ProjectEntityResponse
 from .project_entity_supply_chain_summary_response import ProjectEntitySupplyChainSummaryResponse
@@ -60,19 +61,20 @@ __all__ = [
     "CreateResolvedProjectEntityRequest",
     "FacetBucket",
     "FacetsResponse",
+    "FieldMatchQuality",
     "GroupedAttribute",
     "GroupedAttributeValue",
     "Location",
     "MatchCount",
     "MatchProfileEnum",
     "MatchStrengthEnum",
-    "MatchedAttributes",
     "ProductBucket",
     "ProductCount",
     "ProductMapping",
     "ProjectEntitiesResponse",
     "ProjectEntityExistsResponseData",
     "ProjectEntityIdResponse",
+    "ProjectEntityMatchExplanation",
     "ProjectEntityMatchResponse",
     "ProjectEntityResponse",
     "ProjectEntitySupplyChainSummaryResponse",

@@ -2,18 +2,15 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
+from .project_entity_attribute_value import ProjectEntityAttributeValue
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class NotAcceptableResponse(UniversalBaseModel):
-    """
-    Request made in an unacceptable state due to an invalid Accept header.
-    """
-
-    status: int
-    message: typing.List[str]
-    success: bool
+class ProjectEntityAttribute(UniversalBaseModel):
+    field: str
+    match_resolution: bool
+    values: typing.List[ProjectEntityAttributeValue]
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
