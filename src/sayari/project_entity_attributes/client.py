@@ -2,11 +2,9 @@
 
 import typing
 from ..core.client_wrapper import SyncClientWrapper
-from .types.update_project_entity_attribute_request import UpdateProjectEntityAttributeRequest
 from ..core.request_options import RequestOptions
-from .types.update_project_entity_attribute_response import UpdateProjectEntityAttributeResponse
+from .types.project_entity_attributes_response import ProjectEntityAttributesResponse
 from ..core.jsonable_encoder import jsonable_encoder
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
@@ -22,6 +20,11 @@ from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.create_project_entity_attribute_request import CreateProjectEntityAttributeRequest
+from .types.create_project_entity_attribute_response import CreateProjectEntityAttributeResponse
+from ..core.serialization import convert_and_respect_annotation_metadata
+from .types.update_project_entity_attribute_request import UpdateProjectEntityAttributeRequest
+from .types.update_project_entity_attribute_response import UpdateProjectEntityAttributeResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
 # this is used as the default value for optional parameters
@@ -31,6 +34,245 @@ OMIT = typing.cast(typing.Any, ...)
 class ProjectEntityAttributesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def get_project_entity_attributes(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ProjectEntityAttributesResponse:
+        """
+        Retrieves all attributes for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntityAttributesResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity_attributes.get_project_entity_attributes(
+            project_id="V03eYM",
+            project_entity_id="BG72YW",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntityAttributesResponse,
+                    parse_obj_as(
+                        type_=ProjectEntityAttributesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    def create_project_entity_attribute(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        request: CreateProjectEntityAttributeRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateProjectEntityAttributeResponse:
+        """
+        Creates a new attribute for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request : CreateProjectEntityAttributeRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectEntityAttributeResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+        from sayari.project_entity_attributes import CreateProjectEntityAttributeRequest
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity_attributes.create_project_entity_attribute(
+            project_id="V03eYM",
+            project_entity_id="BG72YW",
+            request=CreateProjectEntityAttributeRequest(
+                field="custom_phone",
+                value="+1-555-123-4567",
+                match_resolution=False,
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateProjectEntityAttributeRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    CreateProjectEntityAttributeResponse,
+                    parse_obj_as(
+                        type_=CreateProjectEntityAttributeResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def update_project_entity_attribute(
         self,
@@ -164,10 +406,378 @@ class ProjectEntityAttributesClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def delete_project_entity_attribute(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        attribute_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Deletes a specific attribute for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        attribute_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        from sayari import Sayari
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity_attributes.delete_project_entity_attribute(
+            project_id="project_id",
+            project_entity_id="project_entity_id",
+            attribute_id="attribute_id",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes/{jsonable_encoder(attribute_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncProjectEntityAttributesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def get_project_entity_attributes(
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ProjectEntityAttributesResponse:
+        """
+        Retrieves all attributes for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntityAttributesResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity_attributes.get_project_entity_attributes(
+                project_id="V03eYM",
+                project_entity_id="BG72YW",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntityAttributesResponse,
+                    parse_obj_as(
+                        type_=ProjectEntityAttributesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def create_project_entity_attribute(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        request: CreateProjectEntityAttributeRequest,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CreateProjectEntityAttributeResponse:
+        """
+        Creates a new attribute for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        request : CreateProjectEntityAttributeRequest
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CreateProjectEntityAttributeResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+        from sayari.project_entity_attributes import CreateProjectEntityAttributeRequest
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity_attributes.create_project_entity_attribute(
+                project_id="V03eYM",
+                project_entity_id="BG72YW",
+                request=CreateProjectEntityAttributeRequest(
+                    field="custom_phone",
+                    value="+1-555-123-4567",
+                    match_resolution=False,
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes",
+            method="POST",
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateProjectEntityAttributeRequest, direction="write"
+            ),
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    CreateProjectEntityAttributeResponse,
+                    parse_obj_as(
+                        type_=CreateProjectEntityAttributeResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def update_project_entity_attribute(
         self,
@@ -244,6 +854,127 @@ class AsyncProjectEntityAttributesClient:
                         object_=_response.json(),
                     ),
                 )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def delete_project_entity_attribute(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        attribute_id: str,
+        *,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> None:
+        """
+        Deletes a specific attribute for a project entity.
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        attribute_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity_attributes.delete_project_entity_attribute(
+                project_id="project_id",
+                project_entity_id="project_entity_id",
+                attribute_id="attribute_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/attributes/{jsonable_encoder(attribute_id)}",
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return
             if _response.status_code == 400:
                 raise BadRequest(
                     typing.cast(

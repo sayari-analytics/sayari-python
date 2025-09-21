@@ -8,7 +8,7 @@ import pydantic
 
 class NotAcceptableResponse(UniversalBaseModel):
     """
-    Request made in an unacceptable state. This is most commonly due to parameter validation errors.
+    Request made in an unacceptable state due to an invalid Accept header.
     """
 
     status: int
