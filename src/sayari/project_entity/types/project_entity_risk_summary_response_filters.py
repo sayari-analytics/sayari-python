@@ -2,19 +2,13 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-import pydantic
-from .resolution_body import ResolutionBody
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
+import pydantic
 
 
-class ResolutionUploadBody(UniversalBaseModel):
-    filename: str
-    enable_llm_clean: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
-    """
-
-    data: typing.List[ResolutionBody]
+class ProjectEntityRiskSummaryResponseFilters(UniversalBaseModel):
+    risk_factor: typing.Optional[typing.List[str]] = None
+    risk_category: typing.Optional[typing.List[str]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

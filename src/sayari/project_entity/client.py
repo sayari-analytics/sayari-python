@@ -22,17 +22,16 @@ from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
-from .types.case_status import CaseStatus
-from .types.match_count import MatchCount
-from .types.match_strength_enum import MatchStrengthEnum
-from ..generated_types.types.risk import Risk
-from ..generated_types.types.risk_category import RiskCategory
+from .types.project_entities_filter import ProjectEntitiesFilter
 from .types.project_entities_response import ProjectEntitiesResponse
 from .types.resolution_attributes import ResolutionAttributes
 from .types.project_entity_id_response import ProjectEntityIdResponse
 from .types.save_project_entity_body import SaveProjectEntityBody
+from ..generated_types.types.risk import Risk
 from ..generated_types.types.country import Country
 from ..supply_chain.types.upstream_trade_traversal_response import UpstreamTradeTraversalResponse
+from .types.project_entity_risk_summary_filters import ProjectEntityRiskSummaryFilters
+from .types.project_entity_risk_summary_response import ProjectEntityRiskSummaryResponse
 from .types.project_entity_supply_chain_summary_response import ProjectEntitySupplyChainSummaryResponse
 from ..core.client_wrapper import AsyncClientWrapper
 
@@ -49,6 +48,7 @@ class ProjectEntityClient:
         project_id: str,
         *,
         request: CreateResolvedProjectEntityRequest,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SingleProjectEntityResponse:
         """
@@ -59,6 +59,9 @@ class ProjectEntityClient:
         project_id : str
 
         request : CreateResolvedProjectEntityRequest
+
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -90,6 +93,9 @@ class ProjectEntityClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/create",
             method="POST",
+            params={
+                "enable_llm_clean": enable_llm_clean,
+            },
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateResolvedProjectEntityRequest, direction="write"
             ),
@@ -174,94 +180,42 @@ class ProjectEntityClient:
         self,
         project_id: str,
         *,
-        entity_id: typing.Optional[typing.Sequence[str]] = None,
-        uploads: typing.Optional[typing.Sequence[str]] = None,
-        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
-        tags: typing.Optional[typing.Sequence[str]] = None,
-        match_count: typing.Optional[MatchCount] = None,
-        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
-        entity_types: typing.Optional[typing.Sequence[str]] = None,
-        geo_facets: typing.Optional[bool] = None,
-        exact_match: typing.Optional[bool] = None,
-        hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        received_hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        shipped_hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        upstream_product: typing.Optional[typing.Sequence[str]] = None,
+        next: typing.Optional[str] = None,
+        prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        token: typing.Optional[str] = None,
-        sort: typing.Optional[typing.Sequence[str]] = None,
-        aggregations: typing.Optional[typing.Sequence[str]] = None,
-        num_aggregation_buckets: typing.Optional[int] = None,
-        risk: typing.Optional[typing.Sequence[Risk]] = None,
-        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
+        filter: typing.Optional[ProjectEntitiesFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectEntitiesResponse:
         """
         Retrieves a list of entities for a specific project with pagination support.
 
+        **Response Formats:**
+        - **JSON** (default): Returns structured data with nested objects
+        - **CSV**: Returns tabular data with dynamic columns for attributes and risk categories
+
+        **CSV Format:**
+        The CSV response includes dynamic columns based on the data:
+        - `attribute_{field_name}`: Dynamic columns for each attribute field found in the data
+        - `risk_category_{category_id}`: Dynamic columns for each risk category found in the data
+        - Standard columns: project_id, project_entity_id, label, project_entity_url, upload_ids, strength, countries, tags, case_status, created_at, match_count, upstream_products, upstream_risk_factors, upstream_countries
+
+        Use the `Accept: text/csv` header to request CSV format.
+
         Parameters
         ----------
         project_id : str
 
-        entity_id : typing.Optional[typing.Sequence[str]]
-            Filter by entity IDs
+        next : typing.Optional[str]
+            The pagination token for the next page of projects.
 
-        uploads : typing.Optional[typing.Sequence[str]]
-            Filter by upload IDs
-
-        case_status : typing.Optional[typing.Sequence[CaseStatus]]
-            Filter by case status
-
-        tags : typing.Optional[typing.Sequence[str]]
-            Filter by tag IDs
-
-        match_count : typing.Optional[MatchCount]
-            Filter by match count
-
-        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
-            Filter by match strength
-
-        entity_types : typing.Optional[typing.Sequence[str]]
-            Filter by entity types
-
-        geo_facets : typing.Optional[bool]
-            Include geo facets
-
-        exact_match : typing.Optional[bool]
-            Use exact matching
-
-        hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by HS codes
-
-        received_hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by received HS codes
-
-        shipped_hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by shipped HS codes
-
-        upstream_product : typing.Optional[typing.Sequence[str]]
-            Filter by upstream product
+        prev : typing.Optional[str]
+            The pagination token for the previous page of projects.
 
         limit : typing.Optional[int]
-            Maximum number of results to return
+            Limit total values returned for projects. Defaults to 100. Max 100.
 
-        token : typing.Optional[str]
-            Pagination token
-
-        sort : typing.Optional[typing.Sequence[str]]
-            Sort fields
-
-        aggregations : typing.Optional[typing.Sequence[str]]
-            Fields to aggregate
-
-        num_aggregation_buckets : typing.Optional[int]
-            Number of aggregation buckets
-
-        risk : typing.Optional[typing.Sequence[Risk]]
-            List of risk factors to filter by
-
-        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
-            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+        filter : typing.Optional[ProjectEntitiesFilter]
+            Filter the project entities. Supports both dot notation (e.g., 'filter.attribute.name') and bracket notation (e.g., 'filter[attribute][name]') for nested field filtering.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -286,26 +240,12 @@ class ProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities",
             method="GET",
             params={
-                "entity_id": entity_id,
-                "uploads": uploads,
-                "case_status": case_status,
-                "tags": tags,
-                "match_count": match_count,
-                "match_strength": match_strength,
-                "entity_types": entity_types,
-                "geo_facets": geo_facets,
-                "exact_match": exact_match,
-                "hs_codes": hs_codes,
-                "received_hs_codes": received_hs_codes,
-                "shipped_hs_codes": shipped_hs_codes,
-                "upstream_product": upstream_product,
+                "next": next,
+                "prev": prev,
                 "limit": limit,
-                "token": token,
-                "sort": sort,
-                "aggregations": aggregations,
-                "num_aggregation_buckets": num_aggregation_buckets,
-                "risk": risk,
-                "risk_category": risk_category,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=ProjectEntitiesFilter, direction="write"
+                ),
             },
             request_options=request_options,
         )
@@ -384,20 +324,7 @@ class ProjectEntityClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     def get_project_entity(
-        self,
-        project_id: str,
-        project_entity_id: str,
-        *,
-        entity_id: typing.Optional[typing.Sequence[str]] = None,
-        uploads: typing.Optional[typing.Sequence[str]] = None,
-        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
-        tags: typing.Optional[typing.Sequence[str]] = None,
-        match_count: typing.Optional[MatchCount] = None,
-        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
-        entity_types: typing.Optional[typing.Sequence[str]] = None,
-        risk: typing.Optional[typing.Sequence[Risk]] = None,
-        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> SingleProjectEntityResponse:
         """
         Retrieves a specific entity in a project.
@@ -407,33 +334,6 @@ class ProjectEntityClient:
         project_id : str
 
         project_entity_id : str
-
-        entity_id : typing.Optional[typing.Sequence[str]]
-            Filter by entity IDs
-
-        uploads : typing.Optional[typing.Sequence[str]]
-            Filter by upload IDs
-
-        case_status : typing.Optional[typing.Sequence[CaseStatus]]
-            Filter by case status
-
-        tags : typing.Optional[typing.Sequence[str]]
-            Filter by tag IDs
-
-        match_count : typing.Optional[MatchCount]
-            Filter by match count
-
-        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
-            Filter by match strength
-
-        entity_types : typing.Optional[typing.Sequence[str]]
-            Filter by entity types
-
-        risk : typing.Optional[typing.Sequence[Risk]]
-            List of risk factors to filter by
-
-        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
-            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -458,17 +358,6 @@ class ProjectEntityClient:
         _response = self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
             method="GET",
-            params={
-                "entity_id": entity_id,
-                "uploads": uploads,
-                "case_status": case_status,
-                "tags": tags,
-                "match_count": match_count,
-                "match_strength": match_strength,
-                "entity_types": entity_types,
-                "risk": risk,
-                "risk_category": risk_category,
-            },
             request_options=request_options,
         )
         try:
@@ -1225,6 +1114,141 @@ class ProjectEntityClient:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def get_project_entity_risk_summary(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        filter: ProjectEntityRiskSummaryFilters,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ProjectEntityRiskSummaryResponse:
+        """
+        Retrieves a risk summary for a specific project entity, including risk factors with network paths and risk intelligence data.
+
+        **Response includes:**
+        - Risk factors with their levels (elevated, high, critical)
+        - Network paths showing relationships between entities
+        - Risk intelligence scores and metadata
+        - Risk categories and source entity information
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        filter : ProjectEntityRiskSummaryFilters
+            Filter risk factors by risk factor IDs and risk categories
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntityRiskSummaryResponse
+
+        Examples
+        --------
+        from sayari import Sayari
+        from sayari.project_entity import ProjectEntityRiskSummaryFilters
+
+        client = Sayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+        client.project_entity.get_project_entity_risk_summary(
+            project_id="YVB88Y",
+            project_entity_id="52z4Wa",
+            filter=ProjectEntityRiskSummaryFilters(
+                risk_factor=["sanctioned", "regulatory_action"],
+                risk_category=["sanctions", "export_controls"],
+            ),
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/risk_summary",
+            method="GET",
+            params={
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=ProjectEntityRiskSummaryFilters, direction="write"
+                ),
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntityRiskSummaryResponse,
+                    parse_obj_as(
+                        type_=ProjectEntityRiskSummaryResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
     def project_entity_supply_chain_summary(
         self,
         project_id: str,
@@ -1415,6 +1439,7 @@ class AsyncProjectEntityClient:
         project_id: str,
         *,
         request: CreateResolvedProjectEntityRequest,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SingleProjectEntityResponse:
         """
@@ -1425,6 +1450,9 @@ class AsyncProjectEntityClient:
         project_id : str
 
         request : CreateResolvedProjectEntityRequest
+
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1464,6 +1492,9 @@ class AsyncProjectEntityClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/create",
             method="POST",
+            params={
+                "enable_llm_clean": enable_llm_clean,
+            },
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateResolvedProjectEntityRequest, direction="write"
             ),
@@ -1548,94 +1579,42 @@ class AsyncProjectEntityClient:
         self,
         project_id: str,
         *,
-        entity_id: typing.Optional[typing.Sequence[str]] = None,
-        uploads: typing.Optional[typing.Sequence[str]] = None,
-        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
-        tags: typing.Optional[typing.Sequence[str]] = None,
-        match_count: typing.Optional[MatchCount] = None,
-        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
-        entity_types: typing.Optional[typing.Sequence[str]] = None,
-        geo_facets: typing.Optional[bool] = None,
-        exact_match: typing.Optional[bool] = None,
-        hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        received_hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        shipped_hs_codes: typing.Optional[typing.Sequence[str]] = None,
-        upstream_product: typing.Optional[typing.Sequence[str]] = None,
+        next: typing.Optional[str] = None,
+        prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
-        token: typing.Optional[str] = None,
-        sort: typing.Optional[typing.Sequence[str]] = None,
-        aggregations: typing.Optional[typing.Sequence[str]] = None,
-        num_aggregation_buckets: typing.Optional[int] = None,
-        risk: typing.Optional[typing.Sequence[Risk]] = None,
-        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
+        filter: typing.Optional[ProjectEntitiesFilter] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ProjectEntitiesResponse:
         """
         Retrieves a list of entities for a specific project with pagination support.
 
+        **Response Formats:**
+        - **JSON** (default): Returns structured data with nested objects
+        - **CSV**: Returns tabular data with dynamic columns for attributes and risk categories
+
+        **CSV Format:**
+        The CSV response includes dynamic columns based on the data:
+        - `attribute_{field_name}`: Dynamic columns for each attribute field found in the data
+        - `risk_category_{category_id}`: Dynamic columns for each risk category found in the data
+        - Standard columns: project_id, project_entity_id, label, project_entity_url, upload_ids, strength, countries, tags, case_status, created_at, match_count, upstream_products, upstream_risk_factors, upstream_countries
+
+        Use the `Accept: text/csv` header to request CSV format.
+
         Parameters
         ----------
         project_id : str
 
-        entity_id : typing.Optional[typing.Sequence[str]]
-            Filter by entity IDs
+        next : typing.Optional[str]
+            The pagination token for the next page of projects.
 
-        uploads : typing.Optional[typing.Sequence[str]]
-            Filter by upload IDs
-
-        case_status : typing.Optional[typing.Sequence[CaseStatus]]
-            Filter by case status
-
-        tags : typing.Optional[typing.Sequence[str]]
-            Filter by tag IDs
-
-        match_count : typing.Optional[MatchCount]
-            Filter by match count
-
-        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
-            Filter by match strength
-
-        entity_types : typing.Optional[typing.Sequence[str]]
-            Filter by entity types
-
-        geo_facets : typing.Optional[bool]
-            Include geo facets
-
-        exact_match : typing.Optional[bool]
-            Use exact matching
-
-        hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by HS codes
-
-        received_hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by received HS codes
-
-        shipped_hs_codes : typing.Optional[typing.Sequence[str]]
-            Filter by shipped HS codes
-
-        upstream_product : typing.Optional[typing.Sequence[str]]
-            Filter by upstream product
+        prev : typing.Optional[str]
+            The pagination token for the previous page of projects.
 
         limit : typing.Optional[int]
-            Maximum number of results to return
+            Limit total values returned for projects. Defaults to 100. Max 100.
 
-        token : typing.Optional[str]
-            Pagination token
-
-        sort : typing.Optional[typing.Sequence[str]]
-            Sort fields
-
-        aggregations : typing.Optional[typing.Sequence[str]]
-            Fields to aggregate
-
-        num_aggregation_buckets : typing.Optional[int]
-            Number of aggregation buckets
-
-        risk : typing.Optional[typing.Sequence[Risk]]
-            List of risk factors to filter by
-
-        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
-            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+        filter : typing.Optional[ProjectEntitiesFilter]
+            Filter the project entities. Supports both dot notation (e.g., 'filter.attribute.name') and bracket notation (e.g., 'filter[attribute][name]') for nested field filtering.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1668,26 +1647,12 @@ class AsyncProjectEntityClient:
             f"v1/projects/{jsonable_encoder(project_id)}/entities",
             method="GET",
             params={
-                "entity_id": entity_id,
-                "uploads": uploads,
-                "case_status": case_status,
-                "tags": tags,
-                "match_count": match_count,
-                "match_strength": match_strength,
-                "entity_types": entity_types,
-                "geo_facets": geo_facets,
-                "exact_match": exact_match,
-                "hs_codes": hs_codes,
-                "received_hs_codes": received_hs_codes,
-                "shipped_hs_codes": shipped_hs_codes,
-                "upstream_product": upstream_product,
+                "next": next,
+                "prev": prev,
                 "limit": limit,
-                "token": token,
-                "sort": sort,
-                "aggregations": aggregations,
-                "num_aggregation_buckets": num_aggregation_buckets,
-                "risk": risk,
-                "risk_category": risk_category,
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=ProjectEntitiesFilter, direction="write"
+                ),
             },
             request_options=request_options,
         )
@@ -1766,20 +1731,7 @@ class AsyncProjectEntityClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
     async def get_project_entity(
-        self,
-        project_id: str,
-        project_entity_id: str,
-        *,
-        entity_id: typing.Optional[typing.Sequence[str]] = None,
-        uploads: typing.Optional[typing.Sequence[str]] = None,
-        case_status: typing.Optional[typing.Sequence[CaseStatus]] = None,
-        tags: typing.Optional[typing.Sequence[str]] = None,
-        match_count: typing.Optional[MatchCount] = None,
-        match_strength: typing.Optional[typing.Sequence[MatchStrengthEnum]] = None,
-        entity_types: typing.Optional[typing.Sequence[str]] = None,
-        risk: typing.Optional[typing.Sequence[Risk]] = None,
-        risk_category: typing.Optional[typing.Sequence[RiskCategory]] = None,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, project_id: str, project_entity_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> SingleProjectEntityResponse:
         """
         Retrieves a specific entity in a project.
@@ -1789,33 +1741,6 @@ class AsyncProjectEntityClient:
         project_id : str
 
         project_entity_id : str
-
-        entity_id : typing.Optional[typing.Sequence[str]]
-            Filter by entity IDs
-
-        uploads : typing.Optional[typing.Sequence[str]]
-            Filter by upload IDs
-
-        case_status : typing.Optional[typing.Sequence[CaseStatus]]
-            Filter by case status
-
-        tags : typing.Optional[typing.Sequence[str]]
-            Filter by tag IDs
-
-        match_count : typing.Optional[MatchCount]
-            Filter by match count
-
-        match_strength : typing.Optional[typing.Sequence[MatchStrengthEnum]]
-            Filter by match strength
-
-        entity_types : typing.Optional[typing.Sequence[str]]
-            Filter by entity types
-
-        risk : typing.Optional[typing.Sequence[Risk]]
-            List of risk factors to filter by
-
-        risk_category : typing.Optional[typing.Sequence[RiskCategory]]
-            List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1848,17 +1773,6 @@ class AsyncProjectEntityClient:
         _response = await self._client_wrapper.httpx_client.request(
             f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}",
             method="GET",
-            params={
-                "entity_id": entity_id,
-                "uploads": uploads,
-                "case_status": case_status,
-                "tags": tags,
-                "match_count": match_count,
-                "match_strength": match_strength,
-                "entity_types": entity_types,
-                "risk": risk,
-                "risk_category": risk_category,
-            },
             request_options=request_options,
         )
         try:
@@ -2587,6 +2501,149 @@ class AsyncProjectEntityClient:
                     UpstreamTradeTraversalResponse,
                     parse_obj_as(
                         type_=UpstreamTradeTraversalResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+            if _response.status_code == 400:
+                raise BadRequest(
+                    typing.cast(
+                        BadRequestResponse,
+                        parse_obj_as(
+                            type_=BadRequestResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 401:
+                raise Unauthorized(
+                    typing.cast(
+                        UnauthorizedResponse,
+                        parse_obj_as(
+                            type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 404:
+                raise NotFound(
+                    typing.cast(
+                        NotFoundResponse,
+                        parse_obj_as(
+                            type_=NotFoundResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 429:
+                raise RateLimitExceeded(
+                    typing.cast(
+                        RateLimitResponse,
+                        parse_obj_as(
+                            type_=RateLimitResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 500:
+                raise InternalServerError(
+                    typing.cast(
+                        InternalServerErrorResponse,
+                        parse_obj_as(
+                            type_=InternalServerErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_project_entity_risk_summary(
+        self,
+        project_id: str,
+        project_entity_id: str,
+        *,
+        filter: ProjectEntityRiskSummaryFilters,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ProjectEntityRiskSummaryResponse:
+        """
+        Retrieves a risk summary for a specific project entity, including risk factors with network paths and risk intelligence data.
+
+        **Response includes:**
+        - Risk factors with their levels (elevated, high, critical)
+        - Network paths showing relationships between entities
+        - Risk intelligence scores and metadata
+        - Risk categories and source entity information
+
+        Parameters
+        ----------
+        project_id : str
+
+        project_entity_id : str
+
+        filter : ProjectEntityRiskSummaryFilters
+            Filter risk factors by risk factor IDs and risk categories
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ProjectEntityRiskSummaryResponse
+
+        Examples
+        --------
+        import asyncio
+
+        from sayari import AsyncSayari
+        from sayari.project_entity import ProjectEntityRiskSummaryFilters
+
+        client = AsyncSayari(
+            client_id="YOUR_CLIENT_ID",
+            client_secret="YOUR_CLIENT_SECRET",
+        )
+
+
+        async def main() -> None:
+            await client.project_entity.get_project_entity_risk_summary(
+                project_id="YVB88Y",
+                project_entity_id="52z4Wa",
+                filter=ProjectEntityRiskSummaryFilters(
+                    risk_factor=["sanctioned", "regulatory_action"],
+                    risk_category=["sanctions", "export_controls"],
+                ),
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v1/projects/{jsonable_encoder(project_id)}/entities/{jsonable_encoder(project_entity_id)}/risk_summary",
+            method="GET",
+            params={
+                "filter": convert_and_respect_annotation_metadata(
+                    object_=filter, annotation=ProjectEntityRiskSummaryFilters, direction="write"
+                ),
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                return typing.cast(
+                    ProjectEntityRiskSummaryResponse,
+                    parse_obj_as(
+                        type_=ProjectEntityRiskSummaryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

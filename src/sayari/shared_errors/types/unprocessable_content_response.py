@@ -6,12 +6,14 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
 
 
-class MatchedAttributes(UniversalBaseModel):
-    name: typing.Optional[typing.List[str]] = None
-    address: typing.Optional[typing.List[str]] = None
-    contact: typing.Optional[typing.List[str]] = None
-    country: typing.Optional[typing.List[str]] = None
-    identifier: typing.Optional[typing.List[str]] = None
+class UnprocessableContentResponse(UniversalBaseModel):
+    """
+    Request made with an invalid body. This is most commonly due to parameter validation errors.
+    """
+
+    status: int
+    message: typing.List[str]
+    success: bool
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

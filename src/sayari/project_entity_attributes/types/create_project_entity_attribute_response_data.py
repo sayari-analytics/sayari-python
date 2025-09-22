@@ -6,8 +6,10 @@ import typing
 import pydantic
 
 
-class AttributeType(UniversalBaseModel):
+class CreateProjectEntityAttributeResponseData(UniversalBaseModel):
+    id: str
     field: str
+    value: str
     match_resolution: bool
 
     if IS_PYDANTIC_V2:

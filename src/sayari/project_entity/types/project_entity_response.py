@@ -2,13 +2,13 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .match_strength_enum import MatchStrengthEnum
+from ...shared_types.types.match_strength_enum import MatchStrengthEnum
 from .attribute_values import AttributeValues
 from .project_risk_category import ProjectRiskCategory
 from .project_risk_factor import ProjectRiskFactor
 from .upstream_info import UpstreamInfo
 from .tag_response import TagResponse
-from .case_status import CaseStatus
+from ...shared_types.types.case_status import CaseStatus
 from .project_entity_match_response import ProjectEntityMatchResponse
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic

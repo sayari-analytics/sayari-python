@@ -13,7 +13,6 @@ from .project import Project
 from .project_counts import ProjectCounts
 from .project_entities_aggs import ProjectEntitiesAggs
 from .project_entities_aggs_definition import ProjectEntitiesAggsDefinition
-from .project_entities_filter import ProjectEntitiesFilter
 from .project_entity import ProjectEntity
 from .project_entity_upstream import ProjectEntityUpstream
 from .project_share_on_create import ProjectShareOnCreate
@@ -43,7 +42,6 @@ __all__ = [
     "ProjectCounts",
     "ProjectEntitiesAggs",
     "ProjectEntitiesAggsDefinition",
-    "ProjectEntitiesFilter",
     "ProjectEntity",
     "ProjectEntityUpstream",
     "ProjectShareOnCreate",

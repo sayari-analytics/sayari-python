@@ -2,4 +2,6 @@
 
 import typing
 
-MeasurementType = typing.Union[typing.Literal["gross_weight", "net_weight", "quantity"], typing.Any]
+MeasurementType = typing.Union[
+    typing.Literal["built_area", "gross_weight", "land_area", "net_weight", "quantity"], typing.Any
+]

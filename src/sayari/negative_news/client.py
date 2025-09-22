@@ -49,7 +49,7 @@ class NegativeNewsClient:
             Risk category filter for targeted screening. Each topic represents a distinct risk domain (e.g., `environmental` for environmental violations, `financial` for financial misconduct).
 
         until : typing.Optional[dt.date]
-            Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published before this date will be included in results.
+            Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published after this date will be included in results.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -70,7 +70,7 @@ class NegativeNewsClient:
         )
         client.negative_news.negative_news(
             name="Gazprom",
-            topic="sanctions",
+            topic="sanctions_and_regulatory",
             until=datetime.date.fromisoformat(
                 "2024-10-01",
             ),
@@ -178,7 +178,7 @@ class AsyncNegativeNewsClient:
             Risk category filter for targeted screening. Each topic represents a distinct risk domain (e.g., `environmental` for environmental violations, `financial` for financial misconduct).
 
         until : typing.Optional[dt.date]
-            Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published before this date will be included in results.
+            Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published after this date will be included in results.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -203,7 +203,7 @@ class AsyncNegativeNewsClient:
         async def main() -> None:
             await client.negative_news.negative_news(
                 name="Gazprom",
-                topic="sanctions",
+                topic="sanctions_and_regulatory",
                 until=datetime.date.fromisoformat(
                     "2024-10-01",
                 ),

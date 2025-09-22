@@ -9,6 +9,7 @@ from .not_acceptable_response import NotAcceptableResponse
 from .not_found_response import NotFoundResponse
 from .rate_limit_response import RateLimitResponse
 from .unauthorized_response import UnauthorizedResponse
+from .unprocessable_content_response import UnprocessableContentResponse
 
 __all__ = [
     "BadGatewayResponse",
@@ -20,4 +21,5 @@ __all__ = [
     "NotFoundResponse",
     "RateLimitResponse",
     "UnauthorizedResponse",
+    "UnprocessableContentResponse",
 ]
