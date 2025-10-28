@@ -61,6 +61,7 @@ class ResolutionClient:
         cutoff_threshold: typing.Optional[int] = None,
         candidate_pool_size: typing.Optional[int] = None,
         skip_post_process: typing.Optional[bool] = None,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -125,6 +126,9 @@ class ResolutionClient:
         skip_post_process : typing.Optional[bool]
             Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
 
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -169,6 +173,7 @@ class ResolutionClient:
                 "cutoff_threshold": cutoff_threshold,
                 "candidate_pool_size": candidate_pool_size,
                 "skip_post_process": skip_post_process,
+                "enable_llm_clean": enable_llm_clean,
             },
             request_options=request_options,
         )
@@ -252,6 +257,7 @@ class ResolutionClient:
         request: ResolutionBody,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -266,6 +272,9 @@ class ResolutionClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -298,6 +307,7 @@ class ResolutionClient:
             params={
                 "limit": limit,
                 "offset": offset,
+                "enable_llm_clean": enable_llm_clean,
             },
             json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,
@@ -663,6 +673,7 @@ class AsyncResolutionClient:
         cutoff_threshold: typing.Optional[int] = None,
         candidate_pool_size: typing.Optional[int] = None,
         skip_post_process: typing.Optional[bool] = None,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -727,6 +738,9 @@ class AsyncResolutionClient:
         skip_post_process : typing.Optional[bool]
             Bypasses the post-processing setps and re-ranking. Useful for debugging. By default set to false, set to true to enable.
 
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -779,6 +793,7 @@ class AsyncResolutionClient:
                 "cutoff_threshold": cutoff_threshold,
                 "candidate_pool_size": candidate_pool_size,
                 "skip_post_process": skip_post_process,
+                "enable_llm_clean": enable_llm_clean,
             },
             request_options=request_options,
         )
@@ -862,6 +877,7 @@ class AsyncResolutionClient:
         request: ResolutionBody,
         limit: typing.Optional[int] = None,
         offset: typing.Optional[int] = None,
+        enable_llm_clean: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ResolutionResponse:
         """
@@ -876,6 +892,9 @@ class AsyncResolutionClient:
 
         offset : typing.Optional[int]
             Number of results to skip before returning response. Defaults to 0.
+
+        enable_llm_clean : typing.Optional[bool]
+            Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -916,6 +935,7 @@ class AsyncResolutionClient:
             params={
                 "limit": limit,
                 "offset": offset,
+                "enable_llm_clean": enable_llm_clean,
             },
             json=convert_and_respect_annotation_metadata(object_=request, annotation=ResolutionBody, direction="write"),
             request_options=request_options,

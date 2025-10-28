@@ -15,7 +15,7 @@ class SingleProjectEntityResponse(UniversalBaseModel):
         Address,
         AttributeValues,
         BusinessPurpose,
-        MatchedAttributes,
+        ProjectEntityMatchExplanation,
         ProjectEntityMatchResponse,
         ProjectEntityResponse,
         ProjectRiskCategory,
@@ -36,19 +36,19 @@ class SingleProjectEntityResponse(UniversalBaseModel):
             created_at="2025-04-22 22:54:00.913586+00",
             attributes={
                 "name": AttributeValues(
-                    resolve=True,
+                    match_resolution=True,
                     values=["VTB Bank"],
                 ),
                 "country": AttributeValues(
-                    resolve=True,
+                    match_resolution=True,
                     values=["RUS"],
                 ),
                 "address": AttributeValues(
-                    resolve=True,
+                    match_resolution=True,
                     values=["Moscow"],
                 ),
                 "identifier": AttributeValues(
-                    resolve=True,
+                    match_resolution=True,
                     values=["253400V1H6ART1UQ0N98"],
                 ),
             },
@@ -141,27 +141,40 @@ class SingleProjectEntityResponse(UniversalBaseModel):
                     sayari_entity_id="dy-rh2g0QtzUN_jC_e9S_A",
                     type="company",
                     label='ОТКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО "РОССИЙСКИЕ ЖЕЛЕЗНЫЕ ДОРОГИ"',
-                    matched_attributes=MatchedAttributes(
-                        name=[
-                            "<em>БАНК</em> <em>ВТБ</em> (ПАО)",
-                            "<em>VTB</em> <em>BANK</em> (PJSC)",
-                            "<em>БАНК</em> <em>ВТБ</em> (ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО)",
-                            "<em>VTB</em> <em>BANK</em> (PUBLIC JOINT STOCK COMPANY)",
-                            "<em>VTB</em> <em>Bank</em>",
-                        ],
-                        address=[
-                            "109147 <em>Moscow</em>, st. Vorontsovskaya, 43 building 1",
-                            "119121 <em>Moscow</em>, st. Plyushchikha, 37.",
-                            "Vorontsovskaya Str., 43 <em>Moscow</em> 109044 RUSSIAN FEDERATION",
-                            "37 Plyushchikha ul., <em>Moscow</em>, 119121, Russia",
-                            "Bashnya Zapad, Kompleks Federatsiya, 12, nab. Presnenskaya, <em>Moscow</em>, 123317, Russia",
-                        ],
-                        country=["<em>RUS</em>"],
-                        identifier=[
-                            "<em>253400V1H6ART1UQ0N98</em>",
-                            "<em>253400V1H6ART1UQ0N98</em>",
-                        ],
-                    ),
+                    match_explanation=[
+                        ProjectEntityMatchExplanation(
+                            field="name",
+                            quality="high",
+                            matches=[
+                                "<em>БАНК</em> <em>ВТБ</em> (ПАО)",
+                                "<em>VTB</em> <em>BANK</em> (PJSC)",
+                                "<em>БАНК</em> <em>ВТБ</em> (ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО)",
+                                "<em>VTB</em> <em>BANK</em> (PUBLIC JOINT STOCK COMPANY)",
+                                "<em>VTB</em> <em>Bank</em>",
+                            ],
+                        ),
+                        ProjectEntityMatchExplanation(
+                            field="address",
+                            quality="medium",
+                            matches=[
+                                "109147 <em>Moscow</em>, st. Vorontsovskaya, 43 building 1",
+                                "119121 <em>Moscow</em>, st. Plyushchikha, 37.",
+                                "Vorontsovskaya Str., 43 <em>Moscow</em> 109044 RUSSIAN FEDERATION",
+                                "37 Plyushchikha ul., <em>Moscow</em>, 119121, Russia",
+                                "Bashnya Zapad, Kompleks Federatsiya, 12, nab. Presnenskaya, <em>Moscow</em>, 123317, Russia",
+                            ],
+                        ),
+                        ProjectEntityMatchExplanation(
+                            field="country",
+                            quality="high",
+                            matches=["<em>RUS</em>"],
+                        ),
+                        ProjectEntityMatchExplanation(
+                            field="identifier",
+                            quality="high",
+                            matches=["<em>253400V1H6ART1UQ0N98</em>"],
+                        ),
+                    ],
                     countries=[
                         "USA",
                         "CYP",

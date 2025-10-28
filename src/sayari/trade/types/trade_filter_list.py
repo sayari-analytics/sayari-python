@@ -128,16 +128,18 @@ class TradeFilterList(UniversalBaseModel):
     The buyer purpose contains the provided string.
     """
 
-    arrival_date: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    arrival_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The arrival date is within the provided range. Supports exact dates (YYYY-MM-DD) 
-    or date ranges (YYYY-MM TO YYYY-MM). Example: ["2024-01 TO 2024-10"] or ["2024-01-30"].
+    or date ranges (YYYY-MM | YYYY-MM). If an exact date is used it will be treated as the minimum date, with no maximum date specified. 
+    Example: "2024-01|2024-10" or "2024-01-30".
     """
 
-    departure_date: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    departure_date: typing.Optional[str] = pydantic.Field(default=None)
     """
     The departure date is within the provided range. Supports exact dates (YYYY-MM-DD) 
-    or date ranges (YYYY-MM TO YYYY-MM). Example: ["2024-01 TO 2024-10"] or ["2024-01-30"].
+    If an exact date is used it will be treated as the minimum date, with no maximum date specified. 
+    or date ranges (YYYY-MM | YYYY-MM). Example: "2024-01|2024-10" or "2024-01-30".
     """
 
     shipment_identifier: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
