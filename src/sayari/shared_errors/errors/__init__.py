@@ -9,6 +9,7 @@ from .not_acceptable import NotAcceptable
 from .not_found import NotFound
 from .rate_limit_exceeded import RateLimitExceeded
 from .unauthorized import Unauthorized
+from .unprocessable_content import UnprocessableContent
 
 __all__ = [
     "BadGateway",
@@ -20,4 +21,5 @@ __all__ = [
     "NotFound",
     "RateLimitExceeded",
     "Unauthorized",
+    "UnprocessableContent",
 ]

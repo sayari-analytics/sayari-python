@@ -1180,7 +1180,7 @@ client.negative_news.negative_news(
 <dl>
 <dd>
 
-**until:** `typing.Optional[dt.date]` — Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published before this date will be included in results.
+**until:** `typing.Optional[dt.date]` — Date cutoff for article inclusion in `YYYY-MM-DD` format. If provided, only articles published after this date will be included in results.
     
 </dd>
 </dl>
@@ -2648,6 +2648,180 @@ client.ontology.get_source_types(
 </details>
 
 ## ProjectEntityAttributes
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">get_project_entity_attributes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves all attributes for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.get_project_entity_attributes(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">create_project_entity_attribute</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a new attribute for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity_attributes import CreateProjectEntityAttributeRequest
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.create_project_entity_attribute(
+    project_id="V03eYM",
+    project_entity_id="BG72YW",
+    request=CreateProjectEntityAttributeRequest(
+        field="custom_phone",
+        value="+1-555-123-4567",
+        match_resolution=False,
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CreateProjectEntityAttributeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">update_project_entity_attribute</a>(...)</code></summary>
 <dl>
 <dd>
@@ -2732,6 +2906,95 @@ client.project_entity_attributes.update_project_entity_attribute(
 <dd>
 
 **request:** `UpdateProjectEntityAttributeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity_attributes.<a href="src/sayari/project_entity_attributes/client.py">delete_project_entity_attribute</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a specific attribute for a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity_attributes.delete_project_entity_attribute(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    attribute_id="attribute_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attribute_id:** `str` 
     
 </dd>
 </dl>
@@ -3180,6 +3443,14 @@ client.project_entity.create_project_entity(
 <dl>
 <dd>
 
+**enable_llm_clean:** `typing.Optional[bool]` — Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -3205,6 +3476,18 @@ client.project_entity.create_project_entity(
 <dd>
 
 Retrieves a list of entities for a specific project with pagination support.
+
+**Response Formats:**
+- **JSON** (default): Returns structured data with nested objects
+- **CSV**: Returns tabular data with dynamic columns for attributes and risk categories
+
+**CSV Format:**
+The CSV response includes dynamic columns based on the data:
+- `attribute_{field_name}`: Dynamic columns for each attribute field found in the data
+- `risk_category_{category_id}`: Dynamic columns for each risk category found in the data
+- Standard columns: project_id, project_entity_id, label, project_entity_url, upload_ids, strength, countries, tags, case_status, created_at, match_count, upstream_products, upstream_risk_factors, upstream_countries
+
+Use the `Accept: text/csv` header to request CSV format.
 </dd>
 </dl>
 </dd>
@@ -3220,6 +3503,11 @@ Retrieves a list of entities for a specific project with pagination support.
 
 ```python
 from sayari import Sayari
+from sayari.project_entity import (
+    ProjectEntitiesExactFilter,
+    ProjectEntitiesFilter,
+    ProjectEntitiesFuzzyFilter,
+)
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3227,6 +3515,31 @@ client = Sayari(
 )
 client.project_entity.get_project_entities(
     project_id="YVB88Y",
+    limit=25,
+    filter=ProjectEntitiesFilter(
+        risk_category=["sanctions", "export_controls"],
+        upstream_product=["8536", "8544"],
+        shipment_country=["CHN", "VNM"],
+        tier_1_shipment_country=["CHN"],
+        city=ProjectEntitiesFuzzyFilter(
+            fuzzy=["moscow", "beijing"],
+        ),
+        identifier=ProjectEntitiesFuzzyFilter(
+            fuzzy=["253400V1H6ART1UQ0N98"],
+        ),
+        source=ProjectEntitiesExactFilter(
+            exact=[
+                "92edb8fe6615498f6e3e7b0e220f74e6",
+                "c10d482320f207d92aa814519c3bd686",
+            ],
+        ),
+        status=["active"],
+        bounds="55.680357237879136|-71.53607290158526|41.10876347746233|-40.963927098414736",
+        match_entity_id=["dy-rh2g0QtzUN_jC_e9S_A"],
+        entity_type=["company"],
+        upload=["upload_123"],
+        match_count="one",
+    ),
 )
 
 ```
@@ -3251,7 +3564,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**entity_id:** `typing.Optional[typing.Sequence[str]]` — Filter by entity IDs
+**next:** `typing.Optional[str]` — The pagination token for the next page of projects.
     
 </dd>
 </dl>
@@ -3259,7 +3572,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**uploads:** `typing.Optional[typing.Sequence[str]]` — Filter by upload IDs
+**prev:** `typing.Optional[str]` — The pagination token for the previous page of projects.
     
 </dd>
 </dl>
@@ -3267,7 +3580,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**case_status:** `typing.Optional[typing.Sequence[CaseStatus]]` — Filter by case status
+**limit:** `typing.Optional[int]` — Limit total values returned for projects. Defaults to 100. Max 100.
     
 </dd>
 </dl>
@@ -3275,135 +3588,7 @@ client.project_entity.get_project_entities(
 <dl>
 <dd>
 
-**tags:** `typing.Optional[typing.Sequence[str]]` — Filter by tag IDs
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match_count:** `typing.Optional[MatchCount]` — Filter by match count
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match_strength:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_types:** `typing.Optional[typing.Sequence[str]]` — Filter by entity types
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**geo_facets:** `typing.Optional[bool]` — Include geo facets
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**exact_match:** `typing.Optional[bool]` — Use exact matching
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by HS codes
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**received_hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by received HS codes
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**shipped_hs_codes:** `typing.Optional[typing.Sequence[str]]` — Filter by shipped HS codes
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**upstream_product:** `typing.Optional[typing.Sequence[str]]` — Filter by upstream product
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of results to return
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**token:** `typing.Optional[str]` — Pagination token
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**sort:** `typing.Optional[typing.Sequence[str]]` — Sort fields
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**aggregations:** `typing.Optional[typing.Sequence[str]]` — Fields to aggregate
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**num_aggregation_buckets:** `typing.Optional[int]` — Number of aggregation buckets
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**risk:** `typing.Optional[typing.Sequence[Risk]]` — List of risk factors to filter by
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**risk_category:** `typing.Optional[typing.Sequence[RiskCategory]]` — List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
+**filter:** `typing.Optional[ProjectEntitiesFilter]` — Filter the project entities. Supports both dot notation (e.g., 'filter.attribute.name') and bracket notation (e.g., 'filter[attribute][name]') for nested field filtering.
     
 </dd>
 </dl>
@@ -3484,78 +3669,6 @@ client.project_entity.get_project_entity(
 <dd>
 
 **project_entity_id:** `str` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_id:** `typing.Optional[typing.Sequence[str]]` — Filter by entity IDs
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**uploads:** `typing.Optional[typing.Sequence[str]]` — Filter by upload IDs
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**case_status:** `typing.Optional[typing.Sequence[CaseStatus]]` — Filter by case status
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tags:** `typing.Optional[typing.Sequence[str]]` — Filter by tag IDs
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match_count:** `typing.Optional[MatchCount]` — Filter by match count
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**match_strength:** `typing.Optional[typing.Sequence[MatchStrengthEnum]]` — Filter by match strength
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**entity_types:** `typing.Optional[typing.Sequence[str]]` — Filter by entity types
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**risk:** `typing.Optional[typing.Sequence[Risk]]` — List of risk factors to filter by
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**risk_category:** `typing.Optional[typing.Sequence[RiskCategory]]` — List of risk categories to filter by. An entity matches if it has any risk factor belonging to one of the specified categories
     
 </dd>
 </dl>
@@ -3916,6 +4029,436 @@ client.project_entity.save_project_entity(
 </dl>
 </details>
 
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">get_project_risk_changes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the risk changes for all project entities in a project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.get_project_risk_changes(
+    project_id="YVB88Y",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — The maximum number of risk changes to return. Default is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next:** `typing.Optional[str]` — Token to retrieve the next page of risk changes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prev:** `typing.Optional[str]` — Token to retrieve the previous page of risk changes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_date:** `typing.Optional[SortOrder]` — Sort by timestamp in ascending or descending order. Default is desc.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_from:** `typing.Optional[str]` — Filter risk changes from the provided date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_to:** `typing.Optional[str]` — Filter risk changes up to the provided date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_risk_factor:** `typing.Optional[typing.Sequence[str]]` — Filter risk changes for the provided risk factors
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_risk_category:** `typing.Optional[typing.Sequence[str]]` — Filter risk changes for risk factors from the provided risk categories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">get_project_entity_risk_changes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the risk changes for a single project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.get_project_entity_risk_changes(
+    project_id="YVB88Y",
+    project_entity_id="52z4Wa",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `typing.Optional[int]` — The maximum number of risk changes to return. Default is 100.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**next:** `typing.Optional[str]` — Token to retrieve the next page of risk changes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**prev:** `typing.Optional[str]` — Token to retrieve the previous page of risk changes
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort_date:** `typing.Optional[SortOrder]` — Sort by timestamp in ascending or descending order. Default is desc.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_from:** `typing.Optional[str]` — Filter risk changes from the provided date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_to:** `typing.Optional[str]` — Filter risk changes up to the provided date
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_risk_factor:** `typing.Optional[typing.Sequence[str]]` — Filter risk changes for the provided risk factors
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter_risk_category:** `typing.Optional[typing.Sequence[str]]` — Filter risk changes for risk factors from the provided risk categories
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">delete_project_risk_changes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Dismiss risk changes for all project entities in a project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.delete_project_risk_changes(
+    project_id="project_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">delete_project_entity_risk_changes</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Dismiss risk changes for a single project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.delete_project_entity_risk_changes(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">project_entity_supply_chain</a>(...)</code></summary>
 <dl>
 <dd>
@@ -4132,6 +4675,105 @@ client.project_entity.project_entity_supply_chain(
 <dd>
 
 **limit:** `typing.Optional[int]` — The maximum number of results to return. Default is no limit.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">get_project_entity_risk_summary</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a risk summary for a specific project entity, including risk factors with network paths and risk intelligence data.
+
+**Response includes:**
+- Risk factors with their levels (elevated, high, critical)
+- Network paths showing relationships between entities
+- Risk intelligence scores and metadata
+- Risk categories and source entity information
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import ProjectEntityRiskSummaryFilters
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.get_project_entity_risk_summary(
+    project_id="YVB88Y",
+    project_entity_id="52z4Wa",
+    filter=ProjectEntityRiskSummaryFilters(
+        risk_factor=["sanctioned", "regulatory_action"],
+        risk_category=["sanctions", "export_controls"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**filter:** `ProjectEntityRiskSummaryFilters` — Filter risk factors by risk factor IDs and risk categories
     
 </dd>
 </dl>
@@ -4876,6 +5518,14 @@ client.resolution.resolution(
 <dl>
 <dd>
 
+**enable_llm_clean:** `typing.Optional[bool]` — Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -4924,9 +5574,14 @@ client = Sayari(
 )
 client.resolution.resolution_post(
     limit=1,
+    enable_llm_clean=False,
     request=ResolutionBody(
-        name=["Oleg Deripaska"],
-        country=["RUS"],
+        name=["Chongqing Jingyou Zhicai New Materials Co."],
+        address=[
+            "4-2, Building B2, No. 5, Middle Mount Huangshan Avenue, Gaoxinyuan, Dazhulin Street, Liangjiang New District, Chongqing,Chongqing,continuation,CN"
+        ],
+        country=["CHN"],
+        enable_llm_clean=False,
     ),
 )
 
@@ -4961,6 +5616,14 @@ client.resolution.resolution_post(
 <dd>
 
 **offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_llm_clean:** `typing.Optional[bool]` — Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
     
 </dd>
 </dl>
@@ -5118,11 +5781,17 @@ client = Sayari(
 client.resolution.resolution_upload(
     project_id="V03eYM",
     request=ResolutionUploadBody(
-        filename="vbeck.json",
+        filename="testblah.csv",
+        enable_llm_clean=False,
         data=[
             ResolutionBody(
-                name=["victoria beckham limited"],
-                tags=["spice girls"],
+                name=[
+                    "Chongqing Jingyou Zhicai New Materials Co. ABC XYZ Blah Blah Nonsense 1 489 929 49492 1839 1848"
+                ],
+                address=[
+                    "4-2, Building B2, No. 5, Middle Mount Huangshan Avenue, Gaoxinyuan, Dazhulin Street, Liangjiang New District, Chongqing,Chongqing,continuation,CN"
+                ],
+                country=["CHN"],
             )
         ],
     ),
@@ -5793,157 +6462,6 @@ client.search.search_record_get(
 </dl>
 </details>
 
-## Source
-<details><summary><code>client.source.<a href="src/sayari/source/client.py">list_sources</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for all sources that Sayari collects data from
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.source.list_sources(
-    limit=2,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 100. Defaults to 100.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**offset:** `typing.Optional[int]` — Number of results to skip before returning response. Defaults to 0.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.source.<a href="src/sayari/source/client.py">get_source</a>(...)</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-<Warning>This endpoint is deprecated. Use /v1/ontology/sources instead.</Warning> Returns metadata for a source that Sayari collects data from
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from sayari import Sayari
-
-client = Sayari(
-    client_id="YOUR_CLIENT_ID",
-    client_secret="YOUR_CLIENT_SECRET",
-)
-client.source.get_source(
-    id="f4396e4b8a41d1fd9f09ea94d2ebedb9",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier for a source in the database
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## SupplyChain
 <details><summary><code>client.supply_chain.<a href="src/sayari/supply_chain/client.py">upstream_trade_traversal</a>(...)</code></summary>
 <dl>
@@ -6212,7 +6730,7 @@ client.trade.search_shipments(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6230,7 +6748,7 @@ client.trade.search_shipments(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>
@@ -6322,7 +6840,7 @@ client.trade.search_suppliers(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6340,7 +6858,7 @@ client.trade.search_suppliers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>
@@ -6432,7 +6950,7 @@ client.trade.search_buyers(
         departure_country=["DEU"],
         arrival_country=["RUS"],
         hs_code=["854231"],
-        arrival_date=["2024-01 TO 2024-10"],
+        arrival_date="2024-01|2024-10",
     ),
 )
 
@@ -6450,7 +6968,7 @@ client.trade.search_buyers(
 <dl>
 <dd>
 
-**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 10000. Defaults to 100.
+**limit:** `typing.Optional[int]` — A limit on the number of objects to be returned with a range between 1 and 3000. Defaults to 100.
     
 </dd>
 </dl>

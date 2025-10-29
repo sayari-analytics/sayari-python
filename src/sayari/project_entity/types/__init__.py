@@ -6,36 +6,54 @@ from .attribute_types_response import AttributeTypesResponse
 from .attribute_values import AttributeValues
 from .attributes_response import AttributesResponse
 from .business_purpose import BusinessPurpose
-from .case_status import CaseStatus
 from .count_type import CountType
 from .create_resolved_project_entity_request import CreateResolvedProjectEntityRequest
 from .facet_bucket import FacetBucket
 from .facets_response import FacetsResponse
+from .field_match_quality import FieldMatchQuality
 from .grouped_attribute import GroupedAttribute
 from .grouped_attribute_value import GroupedAttributeValue
 from .location import Location
-from .match_count import MatchCount
 from .match_profile_enum import MatchProfileEnum
-from .match_strength_enum import MatchStrengthEnum
-from .matched_attributes import MatchedAttributes
 from .product_bucket import ProductBucket
 from .product_count import ProductCount
 from .product_mapping import ProductMapping
+from .project_entities_custom_field_filter import ProjectEntitiesCustomFieldFilter
+from .project_entities_exact_filter import ProjectEntitiesExactFilter
+from .project_entities_filter import ProjectEntitiesFilter
+from .project_entities_fuzzy_filter import ProjectEntitiesFuzzyFilter
 from .project_entities_response import ProjectEntitiesResponse
 from .project_entity_exists_response_data import ProjectEntityExistsResponseData
 from .project_entity_id_response import ProjectEntityIdResponse
+from .project_entity_match_explanation import ProjectEntityMatchExplanation
 from .project_entity_match_response import ProjectEntityMatchResponse
 from .project_entity_response import ProjectEntityResponse
+from .project_entity_risk_changes_response import ProjectEntityRiskChangesResponse
+from .project_entity_risk_changes_response_data import ProjectEntityRiskChangesResponseData
+from .project_entity_risk_summary_data import ProjectEntityRiskSummaryData
+from .project_entity_risk_summary_filters import ProjectEntityRiskSummaryFilters
+from .project_entity_risk_summary_network_path import ProjectEntityRiskSummaryNetworkPath
+from .project_entity_risk_summary_response import ProjectEntityRiskSummaryResponse
+from .project_entity_risk_summary_response_filters import ProjectEntityRiskSummaryResponseFilters
+from .project_entity_risk_summary_risk_factor import ProjectEntityRiskSummaryRiskFactor
 from .project_entity_supply_chain_summary_response import ProjectEntitySupplyChainSummaryResponse
 from .project_entity_supply_chain_summary_response_data import ProjectEntitySupplyChainSummaryResponseData
 from .project_entity_supply_chain_upstream import ProjectEntitySupplyChainUpstream
 from .project_risk_category import ProjectRiskCategory
+from .project_risk_change import ProjectRiskChange
+from .project_risk_changes_response import ProjectRiskChangesResponse
+from .project_risk_changes_response_data import ProjectRiskChangesResponseData
 from .project_risk_factor import ProjectRiskFactor
 from .resolution_attributes import ResolutionAttributes
 from .resolution_profile import ResolutionProfile
 from .risk_categories_summary import RiskCategoriesSummary
+from .risk_change_factor import RiskChangeFactor
+from .risk_change_factor_change_type import RiskChangeFactorChangeType
+from .risk_change_filters import RiskChangeFilters
 from .save_project_entity_body import SaveProjectEntityBody
+from .share_information import ShareInformation
 from .single_project_entity_response import SingleProjectEntityResponse
+from .sort_order import SortOrder
 from .source_field import SourceField
 from .special_facet_bucket import SpecialFacetBucket
 from .special_facets_response import SpecialFacetsResponse
@@ -55,36 +73,54 @@ __all__ = [
     "AttributeValues",
     "AttributesResponse",
     "BusinessPurpose",
-    "CaseStatus",
     "CountType",
     "CreateResolvedProjectEntityRequest",
     "FacetBucket",
     "FacetsResponse",
+    "FieldMatchQuality",
     "GroupedAttribute",
     "GroupedAttributeValue",
     "Location",
-    "MatchCount",
     "MatchProfileEnum",
-    "MatchStrengthEnum",
-    "MatchedAttributes",
     "ProductBucket",
     "ProductCount",
     "ProductMapping",
+    "ProjectEntitiesCustomFieldFilter",
+    "ProjectEntitiesExactFilter",
+    "ProjectEntitiesFilter",
+    "ProjectEntitiesFuzzyFilter",
     "ProjectEntitiesResponse",
     "ProjectEntityExistsResponseData",
     "ProjectEntityIdResponse",
+    "ProjectEntityMatchExplanation",
     "ProjectEntityMatchResponse",
     "ProjectEntityResponse",
+    "ProjectEntityRiskChangesResponse",
+    "ProjectEntityRiskChangesResponseData",
+    "ProjectEntityRiskSummaryData",
+    "ProjectEntityRiskSummaryFilters",
+    "ProjectEntityRiskSummaryNetworkPath",
+    "ProjectEntityRiskSummaryResponse",
+    "ProjectEntityRiskSummaryResponseFilters",
+    "ProjectEntityRiskSummaryRiskFactor",
     "ProjectEntitySupplyChainSummaryResponse",
     "ProjectEntitySupplyChainSummaryResponseData",
     "ProjectEntitySupplyChainUpstream",
     "ProjectRiskCategory",
+    "ProjectRiskChange",
+    "ProjectRiskChangesResponse",
+    "ProjectRiskChangesResponseData",
     "ProjectRiskFactor",
     "ResolutionAttributes",
     "ResolutionProfile",
     "RiskCategoriesSummary",
+    "RiskChangeFactor",
+    "RiskChangeFactorChangeType",
+    "RiskChangeFilters",
     "SaveProjectEntityBody",
+    "ShareInformation",
     "SingleProjectEntityResponse",
+    "SortOrder",
     "SourceField",
     "SpecialFacetBucket",
     "SpecialFacetsResponse",

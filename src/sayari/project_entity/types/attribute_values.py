@@ -7,7 +7,7 @@ import pydantic
 
 
 class AttributeValues(UniversalBaseModel):
-    resolve: bool
+    match_resolution: bool
     values: typing.List[str]
 
     if IS_PYDANTIC_V2:

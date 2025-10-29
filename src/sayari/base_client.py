@@ -21,7 +21,6 @@ from .record.client import RecordClient
 from .resolution.client import ResolutionClient
 from .resource.client import ResourceClient
 from .search.client import SearchClient
-from .source.client import SourceClient
 from .supply_chain.client import SupplyChainClient
 from .trade.client import TradeClient
 from .traversal.client import TraversalClient
@@ -42,7 +41,6 @@ from .record.client import AsyncRecordClient
 from .resolution.client import AsyncResolutionClient
 from .resource.client import AsyncResourceClient
 from .search.client import AsyncSearchClient
-from .source.client import AsyncSourceClient
 from .supply_chain.client import AsyncSupplyChainClient
 from .trade.client import AsyncTradeClient
 from .traversal.client import AsyncTraversalClient
@@ -140,7 +138,6 @@ class BaseClient:
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.resource = ResourceClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
-        self.source = SourceClient(client_wrapper=self._client_wrapper)
         self.supply_chain = SupplyChainClient(client_wrapper=self._client_wrapper)
         self.trade = TradeClient(client_wrapper=self._client_wrapper)
         self.traversal = TraversalClient(client_wrapper=self._client_wrapper)
@@ -238,7 +235,6 @@ class AsyncBaseClient:
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.resource = AsyncResourceClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)
-        self.source = AsyncSourceClient(client_wrapper=self._client_wrapper)
         self.supply_chain = AsyncSupplyChainClient(client_wrapper=self._client_wrapper)
         self.trade = AsyncTradeClient(client_wrapper=self._client_wrapper)
         self.traversal = AsyncTraversalClient(client_wrapper=self._client_wrapper)

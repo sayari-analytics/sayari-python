@@ -9,6 +9,7 @@ Tag = typing.Union[
         "esg_score",
         "export_controls",
         "export_controls_bis_entity",
+        "financial_risk_score",
         "forced_labor_xinjiang_contractors",
         "former_soe",
         "formerly_sanctioned",

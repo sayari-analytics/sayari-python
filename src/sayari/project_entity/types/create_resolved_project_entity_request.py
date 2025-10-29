@@ -6,8 +6,8 @@ from .string_or_number import StringOrNumber
 from ...generated_types.types.country import Country
 from ...generated_types.types.entities import Entities
 from .resolution_profile import ResolutionProfile
-from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
+from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
 class CreateResolvedProjectEntityRequest(UniversalBaseModel):
@@ -35,6 +35,10 @@ class CreateResolvedProjectEntityRequest(UniversalBaseModel):
     city: typing.Optional[typing.List[str]] = None
     state: typing.Optional[typing.List[str]] = None
     profile: typing.Optional[ResolutionProfile] = None
+    enable_llm_clean: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

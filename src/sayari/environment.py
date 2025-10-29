@@ -13,3 +13,8 @@ class SayariEnvironment(enum.Enum):
     """
     Sayari development - utilized for internal testing before promotion to production
     """
+
+    PRODUCTION_UK = "https://api.uk.sayari.com"
+    """
+    Sayari production - UK environment
+    """
