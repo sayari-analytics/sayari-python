@@ -353,6 +353,7 @@ from .shared_errors import (
     UnprocessableContentResponse,
 )
 from .shared_types import (
+    CaseInfo,
     CaseStatus,
     ClientName,
     CompanyType,
@@ -467,6 +468,7 @@ __all__ = [
     "BusinessPurposeProperties",
     "BusinessPurposeStandard",
     "BuyerSearchResponse",
+    "CaseInfo",
     "CaseStatus",
     "ClientName",
     "CompanyStatus",

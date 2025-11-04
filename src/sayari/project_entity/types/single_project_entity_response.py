@@ -25,6 +25,7 @@ class SingleProjectEntityResponse(UniversalBaseModel):
         TradeCounts,
         UpstreamInfo,
     )
+    from sayari.shared_types import CaseInfo
 
     SingleProjectEntityResponse(
         data=ProjectEntityResponse(
@@ -134,7 +135,11 @@ class SingleProjectEntityResponse(UniversalBaseModel):
                 products=[],
             ),
             tags=[],
-            case="not_assigned",
+            case=CaseInfo(
+                id="YVB88Y",
+                status="not_assigned",
+                created_at="2025-10-02",
+            ),
             matches=[
                 ProjectEntityMatchResponse(
                     match_id="52z4Wa:dy-rh2g0QtzUN_jC_e9S_A",
