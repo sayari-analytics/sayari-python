@@ -29,6 +29,7 @@ class GetProjectsResponse(UniversalBaseModel):
                 archived=False,
                 created="2023-10-25 14:44:06.322117+00",
                 updated="2023-10-25 14:44:06.322117+00",
+                type="network",
                 counts=ProjectCounts(),
                 members=[
                     RoleMember(
@@ -46,6 +47,7 @@ class GetProjectsResponse(UniversalBaseModel):
                 archived=False,
                 created="2023-10-24 20:41:21.235451+00",
                 updated="2023-10-24 20:41:21.235451+00",
+                type="network",
                 counts=ProjectCounts(
                     graph=1,
                     entity=2530,
