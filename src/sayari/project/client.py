@@ -21,6 +21,7 @@ from ..shared_errors.errors.internal_server_error import InternalServerError
 from ..shared_errors.types.internal_server_error_response import InternalServerErrorResponse
 from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
+from .types.project_type import ProjectType
 from .types.get_projects_response import GetProjectsResponse
 from .types.delete_project_response import DeleteProjectResponse
 from ..core.jsonable_encoder import jsonable_encoder
@@ -63,6 +64,7 @@ class ProjectClient:
         client.project.create_project(
             request=CreateProjectRequest(
                 label="My First Project",
+                type="network",
                 share=ProjectShareOnCreate(
                     org="admin",
                 ),
@@ -159,6 +161,7 @@ class ProjectClient:
         prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         archived: typing.Optional[bool] = None,
+        type: typing.Optional[ProjectType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
@@ -177,6 +180,9 @@ class ProjectClient:
 
         archived : typing.Optional[bool]
             Toggle between projects that have been archived (true) or not (false). Defaults to false.
+
+        type : typing.Optional[ProjectType]
+            Which project types to return
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -206,6 +212,7 @@ class ProjectClient:
                 "prev": prev,
                 "limit": limit,
                 "archived": archived,
+                "type": type,
             },
             request_options=request_options,
         )
@@ -430,6 +437,7 @@ class AsyncProjectClient:
             await client.project.create_project(
                 request=CreateProjectRequest(
                     label="My First Project",
+                    type="network",
                     share=ProjectShareOnCreate(
                         org="admin",
                     ),
@@ -529,6 +537,7 @@ class AsyncProjectClient:
         prev: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
         archived: typing.Optional[bool] = None,
+        type: typing.Optional[ProjectType] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> GetProjectsResponse:
         """
@@ -547,6 +556,9 @@ class AsyncProjectClient:
 
         archived : typing.Optional[bool]
             Toggle between projects that have been archived (true) or not (false). Defaults to false.
+
+        type : typing.Optional[ProjectType]
+            Which project types to return
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -584,6 +596,7 @@ class AsyncProjectClient:
                 "prev": prev,
                 "limit": limit,
                 "archived": archived,
+                "type": type,
             },
             request_options=request_options,
         )

@@ -62,6 +62,8 @@ from .tag_response import TagResponse
 from .trade_counts import TradeCounts
 from .translation import Translation
 from .update_entity_tags_response import UpdateEntityTagsResponse
+from .update_project_entity_matches_body import UpdateProjectEntityMatchesBody
+from .update_project_entity_matches_response import UpdateProjectEntityMatchesResponse
 from .update_project_entity_tags_body import UpdateProjectEntityTagsBody
 from .upstream_count import UpstreamCount
 from .upstream_info import UpstreamInfo
@@ -129,6 +131,8 @@ __all__ = [
     "TradeCounts",
     "Translation",
     "UpdateEntityTagsResponse",
+    "UpdateProjectEntityMatchesBody",
+    "UpdateProjectEntityMatchesResponse",
     "UpdateProjectEntityTagsBody",
     "UpstreamCount",
     "UpstreamInfo",
