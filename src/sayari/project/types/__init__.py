@@ -16,6 +16,7 @@ from .project_entities_aggs_definition import ProjectEntitiesAggsDefinition
 from .project_entity import ProjectEntity
 from .project_entity_upstream import ProjectEntityUpstream
 from .project_share_on_create import ProjectShareOnCreate
+from .project_type import ProjectType
 from .project_with_members import ProjectWithMembers
 from .psa_summary import PsaSummary
 from .role import Role
@@ -45,6 +46,7 @@ __all__ = [
     "ProjectEntity",
     "ProjectEntityUpstream",
     "ProjectShareOnCreate",
+    "ProjectType",
     "ProjectWithMembers",
     "PsaSummary",
     "Role",

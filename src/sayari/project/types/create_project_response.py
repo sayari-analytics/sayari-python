@@ -27,6 +27,7 @@ class CreateProjectResponse(UniversalBaseModel):
                 search=0,
             ),
             is_scrm=False,
+            type="network",
         ),
     )
     """
