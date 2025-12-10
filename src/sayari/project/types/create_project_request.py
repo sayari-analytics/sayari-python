@@ -2,8 +2,9 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .project_share_on_create import ProjectShareOnCreate
+from .project_type import ProjectType
 import pydantic
+from .project_share_on_create import ProjectShareOnCreate
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -15,6 +16,7 @@ class CreateProjectRequest(UniversalBaseModel):
 
     CreateProjectRequest(
         label="My First Project",
+        type="network",
         share=ProjectShareOnCreate(
             org="admin",
         ),
@@ -22,6 +24,11 @@ class CreateProjectRequest(UniversalBaseModel):
     """
 
     label: str
+    type: typing.Optional[ProjectType] = pydantic.Field(default=None)
+    """
+    Specifies which type of project to create. Defaults to 'network'
+    """
+
     share: typing.Optional[ProjectShareOnCreate] = pydantic.Field(default=None)
     """
     Specifies access levels available to users in a project within an organization. For comprehensive access, the admin role is recommended.

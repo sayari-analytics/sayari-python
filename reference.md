@@ -3688,6 +3688,190 @@ client.project_entity.get_project_entity(
 </dl>
 </details>
 
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">add_project_entity_matches</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds matches to a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import UpdateProjectEntityMatchesBody
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.add_project_entity_matches(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    request=UpdateProjectEntityMatchesBody(
+        entity_ids=["entity_ids", "entity_ids"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateProjectEntityMatchesBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">replace_project_entity_matches</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace matches in a project entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+from sayari.project_entity import UpdateProjectEntityMatchesBody
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.project_entity.replace_project_entity_matches(
+    project_id="project_id",
+    project_entity_id="project_entity_id",
+    request=UpdateProjectEntityMatchesBody(
+        entity_ids=["entity_ids", "entity_ids"],
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateProjectEntityMatchesBody` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.project_entity.<a href="src/sayari/project_entity/client.py">delete_project_entity</a>(...)</code></summary>
 <dl>
 <dd>
@@ -5016,6 +5200,7 @@ client = Sayari(
 client.project.create_project(
     request=CreateProjectRequest(
         label="My First Project",
+        type="network",
         share=ProjectShareOnCreate(
             org="admin",
         ),
@@ -5133,6 +5318,14 @@ client.project.get_projects(
 <dd>
 
 **archived:** `typing.Optional[bool]` — Toggle between projects that have been archived (true) or not (false). Defaults to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[ProjectType]` — Which project types to return
     
 </dd>
 </dl>
