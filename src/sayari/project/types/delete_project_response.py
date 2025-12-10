@@ -20,6 +20,7 @@ class DeleteProjectResponse(UniversalBaseModel):
             archived=False,
             created="2024-04-24 13:43:56.546705+00",
             updated="2024-04-24 13:43:56.546705+00",
+            type="network",
             counts=ProjectCounts(
                 entity=2,
                 graph=0,

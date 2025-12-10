@@ -9,7 +9,7 @@ import pydantic
 
 class PossiblySameAs(PaginatedResponse):
     """
-    List of entities that are Possibly the Same As (PSA) the entity.
+    <Warning>This property is deprecated.</Warning> List of entities that are Possibly the Same As (PSA) the entity.
     """
 
     offset: typing.Optional[int] = None

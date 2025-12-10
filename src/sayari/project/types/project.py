@@ -4,6 +4,7 @@ from ...core.pydantic_utilities import UniversalBaseModel
 import pydantic
 from .project_counts import ProjectCounts
 import typing
+from .project_type import ProjectType
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 
 
@@ -26,7 +27,12 @@ class Project(UniversalBaseModel):
     created: str
     updated: str
     counts: ProjectCounts
-    is_scrm: typing.Optional[bool] = None
+    is_scrm: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    **Deprecated.** Use `type == 'supply_chain'` instead.
+    """
+
+    type: ProjectType
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

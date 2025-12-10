@@ -8,7 +8,7 @@ from .project_risk_category import ProjectRiskCategory
 from .project_risk_factor import ProjectRiskFactor
 from .upstream_info import UpstreamInfo
 from .tag_response import TagResponse
-from ...shared_types.types.case_status import CaseStatus
+from ...shared_types.types.case_info import CaseInfo
 from .project_entity_match_response import ProjectEntityMatchResponse
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -27,9 +27,10 @@ class ProjectEntityResponse(UniversalBaseModel):
     risk_factors: typing.List[ProjectRiskFactor]
     upstream: UpstreamInfo
     tags: typing.List[TagResponse]
-    case: typing.Optional[CaseStatus] = None
+    case: typing.Optional[CaseInfo] = None
     matches: typing.List[ProjectEntityMatchResponse]
     updated_at: typing.Optional[str] = None
+    updated_by: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
