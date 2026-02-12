@@ -1059,7 +1059,7 @@ client.info.get_history()
 <dl>
 <dd>
 
-Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
+Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
 </dd>
 </dl>
 </dd>
@@ -3396,7 +3396,10 @@ The resolution endpoints allow users to search for matching entities against a p
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import CreateResolvedProjectEntityRequest
+from sayari.project_entity import (
+    CreateResolvedProjectEntityRequest,
+    ResolutionAttrSchema,
+)
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3405,11 +3408,15 @@ client = Sayari(
 client.project_entity.create_project_entity(
     project_id="0n4473",
     request=CreateResolvedProjectEntityRequest(
-        name=["Marvel Garment"],
-        country=["KHM"],
-        address=[
-            "Beung Thom 3 Village, Sangkat Beung Thom, Posenchey, Phnom Penh"
-        ],
+        limit=25,
+        profile="suppliers",
+        attributes=ResolutionAttrSchema(
+            name=["Marvel Garment"],
+            country=["KHM"],
+            address=[
+                "Beung Thom 3 Village, Sangkat Beung Thom, Posenchey, Phnom Penh"
+            ],
+        ),
     ),
 )
 
@@ -4069,7 +4076,7 @@ Checks if a project entity with the given attributes already exists.
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import ResolutionAttributes
+from sayari.project_entity import ResolutionAttributes, ResolutionAttrSchema
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4078,8 +4085,10 @@ client = Sayari(
 client.project_entity.project_entity_exists(
     project_id="YVB88Y",
     request=ResolutionAttributes(
-        name=["Example Company"],
-        country=["USA"],
+        attributes=ResolutionAttrSchema(
+            name=["Example Company"],
+            country=["USA"],
+        ),
     ),
 )
 
@@ -4153,7 +4162,7 @@ Stores a project entity given entity IDs and a list of attributes.
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import ResolutionAttributes, SaveProjectEntityBody
+from sayari.project_entity import ResolutionAttrSchema, SaveProjectEntityBody
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4163,7 +4172,7 @@ client.project_entity.save_project_entity(
     project_id="YVB88Y",
     request=SaveProjectEntityBody(
         entity_ids=["entity_id_1", "entity_id_2"],
-        attributes=ResolutionAttributes(
+        attributes=ResolutionAttrSchema(
             name=["Example Company"],
             country=["USA"],
         ),
