@@ -44,6 +44,7 @@ from .project_risk_change import ProjectRiskChange
 from .project_risk_changes_response import ProjectRiskChangesResponse
 from .project_risk_changes_response_data import ProjectRiskChangesResponseData
 from .project_risk_factor import ProjectRiskFactor
+from .resolution_attr_schema import ResolutionAttrSchema
 from .resolution_attributes import ResolutionAttributes
 from .resolution_profile import ResolutionProfile
 from .risk_categories_summary import RiskCategoriesSummary
@@ -113,6 +114,7 @@ __all__ = [
     "ProjectRiskChangesResponse",
     "ProjectRiskChangesResponseData",
     "ProjectRiskFactor",
+    "ResolutionAttrSchema",
     "ResolutionAttributes",
     "ResolutionProfile",
     "RiskCategoriesSummary",
