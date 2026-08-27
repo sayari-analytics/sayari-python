@@ -20,6 +20,8 @@ from .project.client import ProjectClient
 from .record.client import RecordClient
 from .resolution.client import ResolutionClient
 from .resource.client import ResourceClient
+from .screen_by_name.client import ScreenByNameClient
+from .screen.client import ScreenClient
 from .search.client import SearchClient
 from .supply_chain.client import SupplyChainClient
 from .trade.client import TradeClient
@@ -40,6 +42,8 @@ from .project.client import AsyncProjectClient
 from .record.client import AsyncRecordClient
 from .resolution.client import AsyncResolutionClient
 from .resource.client import AsyncResourceClient
+from .screen_by_name.client import AsyncScreenByNameClient
+from .screen.client import AsyncScreenClient
 from .search.client import AsyncSearchClient
 from .supply_chain.client import AsyncSupplyChainClient
 from .trade.client import AsyncTradeClient
@@ -137,6 +141,8 @@ class BaseClient:
         self.record = RecordClient(client_wrapper=self._client_wrapper)
         self.resolution = ResolutionClient(client_wrapper=self._client_wrapper)
         self.resource = ResourceClient(client_wrapper=self._client_wrapper)
+        self.screen_by_name = ScreenByNameClient(client_wrapper=self._client_wrapper)
+        self.screen = ScreenClient(client_wrapper=self._client_wrapper)
         self.search = SearchClient(client_wrapper=self._client_wrapper)
         self.supply_chain = SupplyChainClient(client_wrapper=self._client_wrapper)
         self.trade = TradeClient(client_wrapper=self._client_wrapper)
@@ -234,6 +240,8 @@ class AsyncBaseClient:
         self.record = AsyncRecordClient(client_wrapper=self._client_wrapper)
         self.resolution = AsyncResolutionClient(client_wrapper=self._client_wrapper)
         self.resource = AsyncResourceClient(client_wrapper=self._client_wrapper)
+        self.screen_by_name = AsyncScreenByNameClient(client_wrapper=self._client_wrapper)
+        self.screen = AsyncScreenClient(client_wrapper=self._client_wrapper)
         self.search = AsyncSearchClient(client_wrapper=self._client_wrapper)
         self.supply_chain = AsyncSupplyChainClient(client_wrapper=self._client_wrapper)
         self.trade = AsyncTradeClient(client_wrapper=self._client_wrapper)

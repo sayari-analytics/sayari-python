@@ -2,4 +2,19 @@
 
 import typing
 
-Unit = typing.Union[typing.Literal["kilogram", "metre", "metres_squared", "unit"], typing.Any]
+Unit = typing.Union[
+    typing.Literal[
+        "gram",
+        "kilogram",
+        "long_ton",
+        "measurement_ton",
+        "metre",
+        "metres_squared",
+        "metric_ton",
+        "ounce",
+        "pound",
+        "short_ton",
+        "unit",
+    ],
+    typing.Any,
+]
