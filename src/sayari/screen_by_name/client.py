@@ -3,12 +3,20 @@
 from ..core.client_wrapper import SyncClientWrapper
 import typing
 from ..core.request_options import RequestOptions
-from .types.metadata_response import MetadataResponse
+from ..screen.types.screen_response import ScreenResponse
 from ..core.pydantic_utilities import parse_obj_as
 from ..shared_errors.errors.bad_request import BadRequest
 from ..shared_errors.types.bad_request_response import BadRequestResponse
 from ..shared_errors.errors.unauthorized import Unauthorized
 from ..shared_errors.types.unauthorized_response import UnauthorizedResponse
+from ..shared_errors.errors.forbidden import Forbidden
+from ..shared_errors.types.forbidden_response import ForbiddenResponse
+from ..shared_errors.errors.unprocessable_content import UnprocessableContent
+from ..shared_errors.types.unprocessable_content_response import UnprocessableContentResponse
+from ..shared_errors.errors.method_not_allowed import MethodNotAllowed
+from ..shared_errors.types.method_not_allowed_response import MethodNotAllowedResponse
+from ..shared_errors.errors.not_acceptable import NotAcceptable
+from ..shared_errors.types.not_acceptable_response import NotAcceptableResponse
 from ..shared_errors.errors.rate_limit_exceeded import RateLimitExceeded
 from ..shared_errors.types.rate_limit_response import RateLimitResponse
 from ..shared_errors.errors.internal_server_error import InternalServerError
@@ -18,23 +26,38 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper
 
 
-class MetadataClient:
+class ScreenByNameClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
+    def screen_by_name(
+        self,
+        *,
+        name: str,
+        type: typing.Optional[str] = None,
+        release_name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ScreenResponse:
         """
-        Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
+        Screen a name against watchlist records to identify potential matches. Requires the `screened_risk` role.
 
         Parameters
         ----------
+        name : str
+            Name to screen against watchlist records.
+
+        type : typing.Optional[str]
+            Comma-separated list of watchlist record types to filter by.
+
+        release_name : typing.Optional[str]
+            Watchlist release name to filter by.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        MetadataResponse
-            OK
+        ScreenResponse
 
         Examples
         --------
@@ -44,19 +67,27 @@ class MetadataClient:
             client_id="YOUR_CLIENT_ID",
             client_secret="YOUR_CLIENT_SECRET",
         )
-        client.metadata.metadata()
+        client.screen_by_name.screen_by_name(
+            name="AEROCARIBBEAN AIRLINES",
+            type="company",
+        )
         """
         _response = self._client_wrapper.httpx_client.request(
-            "metadata",
+            "v1/screen",
             method="GET",
+            params={
+                "name": name,
+                "type": type,
+                "release_name": release_name,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    MetadataResponse,
+                    ScreenResponse,
                     parse_obj_as(
-                        type_=MetadataResponse,  # type: ignore
+                        type_=ScreenResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -76,6 +107,46 @@ class MetadataClient:
                         UnauthorizedResponse,
                         parse_obj_as(
                             type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 403:
+                raise Forbidden(
+                    typing.cast(
+                        ForbiddenResponse,
+                        parse_obj_as(
+                            type_=ForbiddenResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableContent(
+                    typing.cast(
+                        UnprocessableContentResponse,
+                        parse_obj_as(
+                            type_=UnprocessableContentResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     )
@@ -106,23 +177,38 @@ class MetadataClient:
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
 
-class AsyncMetadataClient:
+class AsyncScreenByNameClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
 
-    async def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
+    async def screen_by_name(
+        self,
+        *,
+        name: str,
+        type: typing.Optional[str] = None,
+        release_name: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ScreenResponse:
         """
-        Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
+        Screen a name against watchlist records to identify potential matches. Requires the `screened_risk` role.
 
         Parameters
         ----------
+        name : str
+            Name to screen against watchlist records.
+
+        type : typing.Optional[str]
+            Comma-separated list of watchlist record types to filter by.
+
+        release_name : typing.Optional[str]
+            Watchlist release name to filter by.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        MetadataResponse
-            OK
+        ScreenResponse
 
         Examples
         --------
@@ -137,22 +223,30 @@ class AsyncMetadataClient:
 
 
         async def main() -> None:
-            await client.metadata.metadata()
+            await client.screen_by_name.screen_by_name(
+                name="AEROCARIBBEAN AIRLINES",
+                type="company",
+            )
 
 
         asyncio.run(main())
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "metadata",
+            "v1/screen",
             method="GET",
+            params={
+                "name": name,
+                "type": type,
+                "release_name": release_name,
+            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
                 return typing.cast(
-                    MetadataResponse,
+                    ScreenResponse,
                     parse_obj_as(
-                        type_=MetadataResponse,  # type: ignore
+                        type_=ScreenResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -172,6 +266,46 @@ class AsyncMetadataClient:
                         UnauthorizedResponse,
                         parse_obj_as(
                             type_=UnauthorizedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 403:
+                raise Forbidden(
+                    typing.cast(
+                        ForbiddenResponse,
+                        parse_obj_as(
+                            type_=ForbiddenResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 422:
+                raise UnprocessableContent(
+                    typing.cast(
+                        UnprocessableContentResponse,
+                        parse_obj_as(
+                            type_=UnprocessableContentResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 405:
+                raise MethodNotAllowed(
+                    typing.cast(
+                        MethodNotAllowedResponse,
+                        parse_obj_as(
+                            type_=MethodNotAllowedResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    )
+                )
+            if _response.status_code == 406:
+                raise NotAcceptable(
+                    typing.cast(
+                        NotAcceptableResponse,
+                        parse_obj_as(
+                            type_=NotAcceptableResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     )

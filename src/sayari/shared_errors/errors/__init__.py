@@ -3,6 +3,7 @@
 from .bad_gateway import BadGateway
 from .bad_request import BadRequest
 from .connection_error import ConnectionError
+from .forbidden import Forbidden
 from .internal_server_error import InternalServerError
 from .method_not_allowed import MethodNotAllowed
 from .not_acceptable import NotAcceptable
@@ -15,6 +16,7 @@ __all__ = [
     "BadGateway",
     "BadRequest",
     "ConnectionError",
+    "Forbidden",
     "InternalServerError",
     "MethodNotAllowed",
     "NotAcceptable",
