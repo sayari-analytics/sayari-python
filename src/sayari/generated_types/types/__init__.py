@@ -33,6 +33,7 @@ from .date_of_birth_data import DateOfBirthData
 from .date_of_birth_info import DateOfBirthInfo
 from .date_of_birth_properties import DateOfBirthProperties
 from .entities import Entities
+from .esg_event_intensity import EsgEventIntensity
 from .finance_type import FinanceType
 from .finances_data import FinancesData
 from .finances_info import FinancesInfo
@@ -75,6 +76,10 @@ from .relationships import Relationships
 from .reporting_period_type import ReportingPeriodType
 from .risk import Risk
 from .risk_category import RiskCategory
+from .risk_event_category import RiskEventCategory
+from .risk_event_data import RiskEventData
+from .risk_event_info import RiskEventInfo
+from .risk_event_properties import RiskEventProperties
 from .risk_intelligence_data import RiskIntelligenceData
 from .risk_intelligence_info import RiskIntelligenceInfo
 from .risk_intelligence_properties import RiskIntelligenceProperties
@@ -130,6 +135,7 @@ __all__ = [
     "DateOfBirthInfo",
     "DateOfBirthProperties",
     "Entities",
+    "EsgEventIntensity",
     "FinanceType",
     "FinancesData",
     "FinancesInfo",
@@ -172,6 +178,10 @@ __all__ = [
     "ReportingPeriodType",
     "Risk",
     "RiskCategory",
+    "RiskEventCategory",
+    "RiskEventData",
+    "RiskEventInfo",
+    "RiskEventProperties",
     "RiskIntelligenceData",
     "RiskIntelligenceInfo",
     "RiskIntelligenceProperties",

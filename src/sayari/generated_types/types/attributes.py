@@ -21,6 +21,7 @@ Attributes = typing.Union[
         "name",
         "person_status",
         "position",
+        "risk_event",
         "risk_intelligence",
         "shares",
         "status",

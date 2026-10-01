@@ -19,6 +19,7 @@ from .monetary_value_info import MonetaryValueInfo
 from .name_info import NameInfo
 from .person_status_info import PersonStatusInfo
 from .position_info import PositionInfo
+from .risk_event_info import RiskEventInfo
 from .risk_intelligence_info import RiskIntelligenceInfo
 from .shares_info import SharesInfo
 from .status_info import StatusInfo
@@ -46,6 +47,7 @@ class AttributeDetails(UniversalBaseModel):
     name: typing.Optional[NameInfo] = None
     person_status: typing.Optional[PersonStatusInfo] = None
     position: typing.Optional[PositionInfo] = None
+    risk_event: typing.Optional[RiskEventInfo] = None
     risk_intelligence: typing.Optional[RiskIntelligenceInfo] = None
     shares: typing.Optional[SharesInfo] = None
     status: typing.Optional[StatusInfo] = None

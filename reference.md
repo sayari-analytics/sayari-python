@@ -1059,7 +1059,7 @@ client.info.get_history()
 <dl>
 <dd>
 
-Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
+Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
 </dd>
 </dl>
 </dd>
@@ -3396,7 +3396,10 @@ The resolution endpoints allow users to search for matching entities against a p
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import CreateResolvedProjectEntityRequest
+from sayari.project_entity import (
+    CreateResolvedProjectEntityRequest,
+    ResolutionAttrSchema,
+)
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -3405,11 +3408,15 @@ client = Sayari(
 client.project_entity.create_project_entity(
     project_id="0n4473",
     request=CreateResolvedProjectEntityRequest(
-        name=["Marvel Garment"],
-        country=["KHM"],
-        address=[
-            "Beung Thom 3 Village, Sangkat Beung Thom, Posenchey, Phnom Penh"
-        ],
+        limit=25,
+        profile="suppliers",
+        attributes=ResolutionAttrSchema(
+            name=["Marvel Garment"],
+            country=["KHM"],
+            address=[
+                "Beung Thom 3 Village, Sangkat Beung Thom, Posenchey, Phnom Penh"
+            ],
+        ),
     ),
 )
 
@@ -4069,7 +4076,7 @@ Checks if a project entity with the given attributes already exists.
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import ResolutionAttributes
+from sayari.project_entity import ResolutionAttributes, ResolutionAttrSchema
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4078,8 +4085,10 @@ client = Sayari(
 client.project_entity.project_entity_exists(
     project_id="YVB88Y",
     request=ResolutionAttributes(
-        name=["Example Company"],
-        country=["USA"],
+        attributes=ResolutionAttrSchema(
+            name=["Example Company"],
+            country=["USA"],
+        ),
     ),
 )
 
@@ -4153,7 +4162,7 @@ Stores a project entity given entity IDs and a list of attributes.
 
 ```python
 from sayari import Sayari
-from sayari.project_entity import ResolutionAttributes, SaveProjectEntityBody
+from sayari.project_entity import ResolutionAttrSchema, SaveProjectEntityBody
 
 client = Sayari(
     client_id="YOUR_CLIENT_ID",
@@ -4163,7 +4172,7 @@ client.project_entity.save_project_entity(
     project_id="YVB88Y",
     request=SaveProjectEntityBody(
         entity_ids=["entity_id_1", "entity_id_2"],
-        attributes=ResolutionAttributes(
+        attributes=ResolutionAttrSchema(
             name=["Example Company"],
             country=["USA"],
         ),
@@ -5711,7 +5720,7 @@ client.resolution.resolution(
 <dl>
 <dd>
 
-**enable_llm_clean:** `typing.Optional[bool]` — Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to true if not supplied. Set to false to disable LLM cleaning.
+**enable_llm_clean:** `typing.Optional[bool]` — Whether to enable LLM-based data cleaning to remove noise and standardize entity attributes. Defaults to false if not supplied. Set to true to enable LLM cleaning.
     
 </dd>
 </dl>
@@ -6171,6 +6180,193 @@ client.resource.delete_resource(
 <dd>
 
 **resource_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ScreenByName
+<details><summary><code>client.screen_by_name.<a href="src/sayari/screen_by_name/client.py">screen_by_name</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Screen a name against watchlist records to identify potential matches. Requires the `screened_risk` role.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.screen_by_name.screen_by_name(
+    name="AEROCARIBBEAN AIRLINES",
+    type="company",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**name:** `str` — Name to screen against watchlist records.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[str]` — Comma-separated list of watchlist record types to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**release_name:** `typing.Optional[str]` — Watchlist release name to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Screen
+<details><summary><code>client.screen.<a href="src/sayari/screen/client.py">screen</a>(...)</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Screen a project entity against watchlist records to identify potential matches. Requires the `screened_risk` role.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from sayari import Sayari
+
+client = Sayari(
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET",
+)
+client.screen.screen(
+    project_id="YVB88Y",
+    project_entity_id="YVodz6",
+    type="company",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**project_id:** `str` — Project identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**project_entity_id:** `str` — Project entity identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**type:** `typing.Optional[str]` — Comma-separated list of watchlist record types to filter by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**release_name:** `typing.Optional[str]` — Watchlist release name to filter by.
     
 </dd>
 </dl>
