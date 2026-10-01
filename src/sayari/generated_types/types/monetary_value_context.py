@@ -18,6 +18,7 @@ MonetaryValueContext = typing.Union[
         "free_alongside_ship",
         "free_carrier",
         "free_on_board",
+        "sale_value",
     ],
     typing.Any,
 ]
