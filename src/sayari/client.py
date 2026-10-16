@@ -2,9 +2,8 @@ import typing
 import httpx
 import urllib.parse
 import csv
+import multiprocessing
 import queue
-import time
-from multiprocessing import Process, Queue, set_start_method
 from .base_client import BaseClient, AsyncBaseClient
 from .environment import SayariEnvironment
 
@@ -81,16 +80,27 @@ class Sayari(BaseClient):
             client_secret=client_secret
         )
 
-    def screen_csv(self, path_to_csv):
+    def screen_csv(self, path_to_csv, ignore_risk_factors=None):
+        """
+        Resolve every row of a CSV and sort the matched entities by whether they have risk.
+
+        Each row is resolved and the highest-scoring match is screened. By default an entity is risky if it has
+        any risk factor at all. Pass ignore_risk_factors (for example ["cpi_score", "basel_aml"]) to leave out
+        risk factors that should not count, such as country-level ones.
+
+        Returns (risky_entities, non_risky_entities, unresolved). Raises RuntimeError if a worker process fails,
+        so an incomplete screening is never returned as if it were complete.
+        """
         # create empty result lists
         risky_entities = []
         non_risky_entities = []
         unresolved = []
+        ignored = frozenset(ignore_risk_factors or [])
 
-        # setup multiprocessing
-        set_start_method('fork')
-        rows_to_process = Queue()
-        results = Queue()
+        # setup multiprocessing (a local context, so calling this more than once in a process works)
+        ctx = multiprocessing.get_context('fork')
+        rows_to_process = ctx.Queue()
+        results = ctx.Queue()
         # this can be scaled up to allow for more concurrent processes
         # it was reduced from 3 -> 1 to cope with rate limiting
         num_processes = 1
@@ -103,31 +113,49 @@ class Sayari(BaseClient):
             for row in csv_reader:
                 # queue up row to process
                 rows_to_process.put(row)
+        # tell each worker there are no more rows
+        for i in range(num_processes):
+            rows_to_process.put(None)
 
         # start processing rows
         for i in range(num_processes):
-            p = Process(target=process_row, args=(self, column_map, rows_to_process, results))
+            p = ctx.Process(target=process_row, args=(self, column_map, rows_to_process, results, ignored))
             processes.append(p)
             p.start()
 
-        # read results
-        while any(p.is_alive() for p in processes):
+        def collect(result):
+            if "risky" in result:
+                risky_entities.append(result["risky"])
+            elif "non_risky" in result:
+                non_risky_entities.append(result["non_risky"])
+            elif "unresolved" in result:
+                unresolved.append(result["unresolved"])
+
+        # read results until every worker has said it is done
+        finished = 0
+        while finished < num_processes:
             try:
-                result = results.get_nowait()
+                result = results.get(timeout=1)
             except queue.Empty:
-                time.sleep(1)
+                if any(p.is_alive() for p in processes):
+                    continue
+                # a worker is gone without saying it was done: keep what it managed to send, then stop waiting
+                while True:
+                    try:
+                        collect(results.get_nowait())
+                    except queue.Empty:
+                        break
+                break
+            if result is None:
+                finished += 1
             else:
-                # check results
-                if "risky" in result:
-                    risky_entities.append(result["risky"])
-                elif "non_risky" in result:
-                    non_risky_entities.append(result["non_risky"])
-                elif "unresolved" in result:
-                    unresolved.append(result["unresolved"])
+                collect(result)
 
         # complete processes
         for p in processes:
             p.join()
+        if any(p.exitcode != 0 for p in processes):
+            raise RuntimeError("A screen_csv worker process failed, so the results are incomplete.")
 
         return risky_entities, non_risky_entities, unresolved
 
@@ -185,30 +213,32 @@ class AsyncSayari(AsyncBaseClient):
         )
 
 
-def process_row(client, column_map, rows_to_process, results):
-    while True:
-        try:
-            row = rows_to_process.get_nowait()
-        except queue.Empty:
-            break
-        else:
+def process_row(client, column_map, rows_to_process, results, ignored_risk_factors=frozenset()):
+    try:
+        while True:
+            row = rows_to_process.get()
+            # None means there are no more rows
+            if row is None:
+                break
+
             # attempt to resolve entity
             entity_id = resolve_entity(client, column_map, row)
 
             # track unresolved rows
             if entity_id is None:
-                # unresolved.append(row)
                 results.put({"unresolved": row})
                 continue
 
             # Get entity summary
             entity_summary = client.entity.entity_summary(entity_id)
-            if len(entity_summary.risk) > 0:
-                # risky_entities.append(entity_summary)
+            risk_factors = [factor for factor in (entity_summary.risk or {}) if factor not in ignored_risk_factors]
+            if len(risk_factors) > 0:
                 results.put({"risky": entity_summary})
             else:
-                # non_risky_entities.append(entity_summary)
                 results.put({"non_risky": entity_summary})
+    finally:
+        # always tell the parent this worker is done, even after an error
+        results.put(None)
     return True
 
 
@@ -281,7 +311,8 @@ def resolve_entity(client, column_map, row):
 
     if len(entity.data) == 0:
         return None
-    return entity.data[0].entity_id
+    # results are not guaranteed to be in score order, so take the highest score
+    return max(entity.data, key=lambda match: match.score).entity_id
 
 
 def encode_record_id(record_id):
