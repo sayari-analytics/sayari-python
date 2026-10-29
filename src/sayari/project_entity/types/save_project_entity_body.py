@@ -2,7 +2,7 @@
 
 from ...core.pydantic_utilities import UniversalBaseModel
 import typing
-from .resolution_attributes import ResolutionAttributes
+from .resolution_attr_schema import ResolutionAttrSchema
 from .resolution_profile import ResolutionProfile
 from ...core.pydantic_utilities import IS_PYDANTIC_V2
 import pydantic
@@ -10,7 +10,7 @@ import pydantic
 
 class SaveProjectEntityBody(UniversalBaseModel):
     entity_ids: typing.List[str]
-    attributes: ResolutionAttributes
+    attributes: ResolutionAttrSchema
     profile: ResolutionProfile
 
     if IS_PYDANTIC_V2:

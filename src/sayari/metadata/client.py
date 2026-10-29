@@ -24,7 +24,7 @@ class MetadataClient:
 
     def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
         """
-        Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
+        Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
 
         Parameters
         ----------
@@ -112,7 +112,7 @@ class AsyncMetadataClient:
 
     async def metadata(self, *, request_options: typing.Optional[RequestOptions] = None) -> MetadataResponse:
         """
-        Get metadta about the api, both its versions, which releases are present, and the identity of the authenticated user.
+        Get metadata about the api, both its versions, which releases are present, and the identity of the authenticated user.
 
         Parameters
         ----------
