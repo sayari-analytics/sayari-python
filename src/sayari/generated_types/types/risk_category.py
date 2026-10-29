@@ -12,6 +12,7 @@ RiskCategory = typing.Union[
         "regulatory_action",
         "sanctions",
         "sanctions_and_export_control_lists",
+        "shell_company_risk",
     ],
     typing.Any,
 ]

@@ -3,6 +3,7 @@
 from .bad_gateway_response import BadGatewayResponse
 from .bad_request_response import BadRequestResponse
 from .connection_error_response import ConnectionErrorResponse
+from .forbidden_response import ForbiddenResponse
 from .internal_server_error_response import InternalServerErrorResponse
 from .method_not_allowed_response import MethodNotAllowedResponse
 from .not_acceptable_response import NotAcceptableResponse
@@ -15,6 +16,7 @@ __all__ = [
     "BadGatewayResponse",
     "BadRequestResponse",
     "ConnectionErrorResponse",
+    "ForbiddenResponse",
     "InternalServerErrorResponse",
     "MethodNotAllowedResponse",
     "NotAcceptableResponse",
