@@ -142,9 +142,11 @@ class Sayari(BaseClient):
                 # a worker is gone without saying it was done: keep what it managed to send, then stop waiting
                 while True:
                     try:
-                        collect(results.get_nowait())
+                        leftover = results.get_nowait()
                     except queue.Empty:
                         break
+                    if leftover is not None:  # a done marker can land here too
+                        collect(leftover)
                 break
             if result is None:
                 finished += 1
